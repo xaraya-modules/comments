@@ -1,0 +1,70 @@
+{# @comments/includes/admint-menu.html.twig #}
+
+{% block admint_menu %}
+{#  Common Administration menu #}
+    {{ xar_style({scope: "module", module: "base", file: "tabs"}) }}
+
+    {% set info = xarController..request.getInfo() %}
+
+    {% set activetab = info[2] %}
+    <div>
+      <ul class="xar-tabs">
+      {% if xar_security_check('AdminComments') %}
+            {% if activetab == 'view' %}
+                {% set tabclass = 'xar-tab-active' %}
+                {% set linkclass = 'xar-accent xar-accent-outline' %}
+            {% else %}
+                {% set tabclass = 'xar-tab' %}
+                {% set linkclass = 'xar-norm xar-norm-outline' %}
+            {% endif %}
+            <li class="{{ tabclass }}">
+              <a href="{{ xar_moduleurl('comments','admin','view') }}" class="{{ linkclass }}">
+                    View Comments
+                  </a>
+            </li>
+        {% endif %}
+        {% if xar_security_check('AdminComments') %}
+            {% if activetab == 'stats' or activetab == 'module_stats' or activetab == 'delete' %}
+                {% set tabclass = 'xar-tab-active' %}
+                {% set linkclass = 'xar-accent xar-accent-outline' %}
+            {% else %}
+                {% set tabclass = 'xar-tab' %}
+                {% set linkclass = 'xar-norm xar-norm-outline' %}
+            {% endif %}
+            <li class="{{ tabclass }}">
+              <a href="{{ xar_moduleurl('comments','admin','stats') }}" class="{{ linkclass }}">
+                    View Statistics
+                  </a>
+            </li>
+        {% endif %}
+           {% if xar_security_check('AdminComments') %}
+            {% if activetab == 'modifyconfig' %}
+                {% set tabclass = 'xar-tab-active' %}
+                {% set linkclass = 'xar-accent xar-accent-outline' %}
+            {% else %}
+                {% set tabclass = 'xar-tab' %}
+                {% set linkclass = 'xar-norm xar-norm-outline' %}
+            {% endif %}
+            <li class="{{ tabclass }}">
+              <a href="{{ xar_moduleurl('comments','admin','modifyconfig') }}" class="{{ linkclass }}">
+                    Modify Configuration
+                  </a>
+            </li>
+        {% endif %}
+        {% if xar_security_check('AdminComments') %}
+            {% if activetab == 'overview' %}
+                {% set tabclass = 'xar-tab-active' %}
+                {% set linkclass = 'xar-accent xar-accent-outline' %}
+            {% else %}
+                {% set tabclass = 'xar-tab' %}
+                {% set linkclass = 'xar-norm xar-norm-outline' %}
+            {% endif %}
+            <li class="{{ tabclass }}">
+              <a href="{{ xar_moduleurl('comments','admin','overview') }}" class="{{ linkclass }}">
+                        Overview
+                    </a>
+            </li>
+        {% endif %}
+      </ul>
+    </div>
+{% endblock %}

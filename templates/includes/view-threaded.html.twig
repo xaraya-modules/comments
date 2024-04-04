@@ -1,0 +1,191 @@
+{# @comments/includes/view-threaded.html.twig #}
+
+{% block view_threaded %}
+<div class="xar-tr-wrapper xar-accent">
+        <label class="xar-tr-title">Title</label>
+        <label class="xar-tr-author">Author</label>
+        <label class="xar-tr-date">Date-Time</label>
+    </div>
+
+    {% set index = 0 %}
+    {% for comment in comments %}
+        {% set index = index+1 %}
+
+        {% set id = comment['id'] %}
+
+        {% if ((index + 1) % 2) %}
+            <div class="xar-tr-wrapper">
+                <span class="xar-tr-title">
+                    {% for map in comment['map'] %}
+                        <img class="xar-tr-image" height="21" src="{{ map }}" width="9" alt=""/>
+                    {% endfor %}
+                    {% if comment['branchout'] == 0 %}
+    {# <!-- CHECKME: no text or buttons in search results --> #}
+                      {% if comment['text'] is not null %}
+                        <a href="{{ " id="collapser" name="collapser" onclick="document.getElementById('comment_ }}$comment['id']{{ ').style.display = (document.getElementById('comment_ }}$comment['id']{{ ').style.display == 'block') ? 'none' : 'block'; return false;" title=" }}{{ xar_translate('Toggle the full view of comment..') }}{{ ">{{ comment['title'] }}</a><a name="comment }}$comment['id']{{ " class="anchor">& }}160;</a>
+                      {% elseif receipt['directurl'] %}
+                          <a href="{{ xar_moduleurl('comments','user','display',{'id': comment['id']}) }}"> {{ comment['title'] }} </a>
+                      {% else %}
+                          <a href=""> {{ comment['title'] }} </a>
+                      {% endif %}
+                    {% else %}
+
+            {% if _GET['header']['id'] is not null %}
+                {% set newurl = str_replace('header[id]='._GET['header']['id'], 'header[id]='.id, xar_currenturl()) %}
+            {% else %}
+                {% if strstr(xar_currenturl(),'?') %}
+                    {% set start = xar_currenturl() ~ '&#38;' %}
+                {% else %}
+                    {% set start = xar_currenturl() ~ '?' %}
+                {% endif %}
+                {% set newurl = start ~ 'header[id]=' ~ id %}
+            {% endif %}
+
+                        <a href="{{ newurl }}">{{ comment['title'] }} {{ comment['thread_text'] }}</a>
+
+                    {% endif %}
+                </span>
+                <span class="xar-tr-author">
+                    {% if comment['postanon'] == 0 and strtolower(comment['author']) != 'anonymous' %}
+                        {{ comment['author'] }}
+                    {% else %}
+                        Anonymous
+                    {% endif %}
+                </span>
+                <span class="xar-tr-date">
+                    {{ xar_coremethod('xarLocale', 'formatDate', ["%B %d, %Y %I.%M %p",comment['date']]) }}
+                </span>
+            </div>
+
+    {# <!-- CHECKME: no text or buttons in search results --> #}
+          {% if comment['text'] is not null %}
+            <div class="xar-tr-collapsed" id="comment_{{ comment['id'] }}">
+                <div class="xar-accent-outline">
+                    {% set item = comment %}
+                    {{ include('@comments/includes/action_buttons.html.twig') }}
+
+    {# <!-- FIXME: $package['transformed-text'] vs. $comment['text'] can't be right here --> #}
+                    {% if package['transformed-text'] is not null %}
+                        {{ package['transformed-text'] }}
+                        <p>
+                            <a href="{{ xar_currenturl() }}#comment{{ comment['id'] }}" title="{{ xar_translate('parent_url') }}" rel="bookmark">
+                            </a>
+                        </p>
+                        {% else %}
+                        {{ comment['text'] }}
+                        <p>
+                            <a href="{{ xar_currenturl() }}#comment{{ comment['id'] }}" title="{{ xar_translate('parent_url') }}" rel="bookmark">
+                            </a>
+                        </p>
+    {# <!-- FIXME: nested if's don't seem right here --> #}
+                        {% if comment['branchout'] is not null and comment['branchout'] == 1 %}
+                            <br />
+                            <a href=""> {{ comment['nested_text'] }} </a>&#160;
+                        {% endif %}
+                    {% endif %}
+                    {# <!-- show changelog --> #}
+                    {% if xar_security_check('ModerateComments') %}
+                    {% if xar_coremethod('xarModHooks', 'isHooked', ['changelog','comments']) %}
+                       <br />
+                        <span class="xar-sub">
+                            <a href="{{ xar_moduleurl('changelog','admin','showlog',{'modid': 14, 'itemid': comment['id']}) }}" title="{{ xar_translate('View Changes') }}">
+                                View changes
+                            </a>
+                        </span>
+                    {% endif %}
+                    {% endif %}
+                    {# <!-- end changelog --> #}
+                </div>
+            </div>
+          {% endif %}
+        {% else %}
+            <div class="xar-tr-wrapper xar-accent">
+                <span class="xar-tr-title">
+                    {% for map in comment['map'] %}
+                        <img class="xar-tr-image" height="21" src="{{ map }}" width="9" alt=""/>
+                    {% endfor %}
+
+                    {% if comment['branchout'] == 0 %}
+    {# <!-- CHECKME: no text or buttons in search results --> #}
+                      {% if comment['text'] is not null %}
+                        <a href="{{ " id="collapser" name="collapser" onclick="document.getElementById('comment_ }}$comment['id']{{ ').style.display = (document.getElementById('comment_ }}$comment['id']{{ ').style.display == 'block') ? 'none' : 'block'; return false;" title=" }}{{ xar_translate('Toggle the full view of comment..') }}{{ ">{{ comment['title'] }}</a><a name="comment }}$comment['id']{{ " class="anchor">& }}160;</a>
+                      {% elseif receipt['directurl'] %}
+                          <a href="{{ xar_moduleurl('comments','user','display',{'id': comment['id']}) }}"> {{ comment['title'] }} </a>
+                      {% else %}
+                          <a href=""> {{ comment['title'] }} </a>
+                      {% endif %}
+                    {% else %}
+
+               {% if _GET['header']['id'] is not null %}
+                {% set newurl = str_replace('header[id]='._GET['header']['id'], 'header[id]='.id, xar_currenturl()) %}
+            {% else %}
+                {% if strstr(xar_currenturl(),'?') %}
+                    {% set start = xar_currenturl() ~ '&#38;' %}
+                {% else %}
+                    {% set start = xar_currenturl() ~ '?' %}
+                {% endif %}
+                {% set newurl = start ~ 'header[id]=' ~ id %}
+            {% endif %}
+
+                        <a href="{{ newurl }}">{{ comment['title'] }} {{ comment['thread_text'] }}</a>
+
+                    {% endif %}
+                </span>
+
+                <span class="xar-tr-author">
+                    {% if comment['postanon'] == 0 and strtolower(comment['author']) != 'anonymous' %}
+                        {{ comment['author'] }}
+                    {% else %}
+                        Anonymous
+                    {% endif %}
+                </span>
+
+                <span class="xar-tr-date">
+                    {{ xar_coremethod('xarLocale', 'formatDate', ["%B %d, %Y %I.%M %p",comment['date']]) }}
+                </span>
+            </div>
+
+    {# <!-- CHECKME: no text or buttons in search results --> #}
+          {% if comment['text'] is not null %}
+            <div class="xar-tr-collapsed" id="comment_{{ comment['id'] }}">
+                <div class="xar-comments-comment xar-accent xar-accent-outline">
+                    {% set item = comment %}
+                    {{ include('@comments/includes/action_buttons.html.twig') }}
+
+                    {# <!-- FIXME: $package['transformed-text'] vs. $comment['xar_text'] can't be right here --> #}
+                    {% if package['transformed-text'] is not null %}
+                        {{ package['transformed-text'] }}
+                        <p>
+                            <a href="{{ xar_currenturl() }}#comment{{ comment['id'] }}" title="{{ xar_translate('parent_url') }}" rel="bookmark">
+                            </a>
+                        </p>
+                    {% else %}
+                        {{ comment['text'] }}
+                        <p>
+                            <a href="{{ xar_currenturl() }}#comment{{ comment['id'] }}" title="{{ xar_translate('parent_url') }}" rel="bookmark">
+                            </a>
+                        </p>
+    {# <!-- FIXME: nested if's don't seem right here --> #}
+                        {% if comment['branchout'] is not null and comment['branchout'] == 1 %}
+                            <br />
+                            <a href=""> {{ comment['nested_text'] }}</a>&#160;
+                        {% endif %}
+                    {% endif %}
+                    {# <!-- show changelog --> #}
+                    {% if xar_security_check('ModerateComments') %}
+                    {% if xar_coremethod('xarModHooks', 'isHooked', ['changelog','comments']) %}
+                    <br />
+                        <span class="xar-sub">
+                            <a href="{{ xar_moduleurl('changelog','admin','showlog',{'modid': 14, 'itemid': comment['id']}) }}" title="{{ xar_translate('View Changes') }}">
+                                 View changes
+                            </a>
+                        </span>
+                    {% endif %}
+                    {% endif %}
+                    {# <!-- end changelog --> #}
+                </div>
+            </div>
+          {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

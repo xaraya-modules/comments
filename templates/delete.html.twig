@@ -1,0 +1,62 @@
+{# @comments/delete.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "comments", file: "comments"}) }}
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">
+            Comments
+        </span>
+    </div>
+    <div class="xar-mod-body">
+        <h2>
+            Delete Comment
+        </h2>
+
+        <form action="{{ package['delete_url'] }}" method="post" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    Confirm Comment Deletion
+                </legend>
+                <div class="xar-row">
+                    <div class="xar-col">
+                   {{ xar_data_display({object: object}) }}
+                    </div>
+                </div>
+                <div class="xar-row">
+                    <div class="xar-col">
+                        <label for="commentdelete" title="{{ xar_translate('Confirm deletion of this comment') }}">
+                           Are you sure you want to delete this comment?
+                       </label>
+                    </div>
+                </div>
+                {% if package['haschildren'] %}
+                    <div id="info_msg">
+                        The comment has one or more replies.
+                    </div>
+                    <input type="radio" name="deletebranch" value="false" checked="checked" id="deletebranch_false" />&#160;<label for="deletebranch_false">Do not delete the replies</label><br />
+                    <input type="radio"  name="deletebranch" value="true" id="deletebranch_true"/>&#160;<label for="deletebranch_true">Delete the comment and all replies</label><br />
+                {% else %}
+                    <input type="hidden" name="deletebranch" value="false" />
+                {% endif %}
+            </fieldset>
+            <div class="xar-row">
+                <div class="xar-col">
+                </div>
+                <div class="xar-col">
+                    <input type="hidden" name="confirm" value="true" />
+                    <input type="hidden" name="id" id="id" value="{{ id }}"/>
+                    <input type="hidden" name="parent_url" value="{{ parent_url }}"/>
+                    {% set label = 'Cancel' %}
+                    {{- xar_button({type: "cancel", value: label}) -}}&#160;
+                    {% set label = 'Delete' %}
+                    {{- xar_button({type: "submit", name: "submit", value: label}) -}}
+                </div>
+            </div>
+        </form>
+        {% if header['objectlink'] and header['objecttitle'] %}
+            <p>Return to <a href="{{ header['objectlink'] }}">{{ header['objecttitle'] }}</a></p>
+        {% endif %}
+    </div>
+{% endblock %}

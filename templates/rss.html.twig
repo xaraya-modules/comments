@@ -1,0 +1,31 @@
+{# @comments/rss.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{% for loop_key1, loop_item1 in items %}{% set loop_index1 = loop.index %}
+        <item>
+            <title>
+                {{ loop_item1['rsstitle'] }}
+            </title>
+            <link>
+                {{ loop_item1['link'] }}
+            </link>
+            <pubDate>
+                {{ xar_coremethod('xarLocale', 'formatUTCDate', ["%a, %d %b %Y %H.%M.%S GMT", loop_item1['datetime']]) }}
+            </pubDate>
+            {# <!--
+            <content:format rdf:resource="http://www.w3.org/1999/xhtml"/>
+            <content:encoded>
+                <![CDATA[ {{ loop_item1['text'] }} ]]>
+            </content:encoded>
+            <description>
+                {{ loop_item1['rsssummary'] }}
+            </description>
+            <guid isobjecturl="true">
+                {{ loop_item1['link'] }}
+            </guid>
+            --> #}
+        </item>
+    {% endfor %}
+{% endblock %}

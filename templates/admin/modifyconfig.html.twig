@@ -1,0 +1,26 @@
+{# @comments/admin/modifyconfig.html.twig #}
+
+{% block modifyconfig %}
+{# <!-- common admin menu for this module - remove link to the current function --> #}
+    {{ xar_style({scope: "module", module: "comments", file: "comments"}) }}
+    {{ include('@comments/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Modify Default Configuration</h2>
+
+        <form method="post" action="{{ xar_currenturl() }}">
+            <fieldset>
+                <legend>Modify content Configuration</legend>
+                <div id="mod_settings">
+                    <h4>General:</h4>
+                    {{ xar_data_form({object: module_settings}) }}
+                </div>
+                {{ xar_data_form({object: object, itemid: "0", template: "module_settings"}) }}
+            </fieldset>
+
+            <input type="hidden" name="objectid" value="{{ object.objectid }}" />
+            <input type="hidden" name="itemid" value="0" />
+            <input type="hidden" name="return_url" value="{{ xar_currenturl() }}" />
+            {{ include('@base/includes/update-button.html.twig') }}
+        </form>
+    </div>
+{% endblock %}

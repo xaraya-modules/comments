@@ -1,0 +1,8 @@
+{# @comments/admin/view.html.twig #}
+
+{% block view %}
+{{ include('@comments/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {{ xar_data_input({type: "listing", objectname: "comments_comments", tplmodule: "comments", conditions: conditions, layout: "admin"}) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{# @comments/modify.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{# <!-- lets link module related stylesheet to theme - have to do it via xar:set atm, cuz it returns 1 [andyv] --> #}
+    {{ xar_style({scope: "module", module: "comments", file: "comments"}) }}
+
+    {{ xar_data_display({object: object}) }}
+    <h3>Modify a comment</h3>
+    <form action="{{ xar_moduleurl('comments', 'user', 'modify') }}" method="post">
+        <div class="xar-ib-leftpanel">
+            {{ xar_data_form({object: object}) }}
+            <div class="xar-row">
+                <div class="xar-col">
+                </div>
+                <div class="xar-col">
+                  <input type="hidden" name="comment_id" id="comment_id" value="{{ comment_id }}"/>
+                  <input type="hidden" name="comment_action" id="comment_action" value="submit"/>
+                  {% if adminreturn is not null %}
+                    <input type="hidden" name="adminreturn" value="yes" />
+                  {% endif %}
+                  {% set label = 'Cancel' %}
+                  {{- xar_button({type: "cancel", name: "cancel", value: label}) -}}
+                  {% set label = 'Preview' %}&#160;
+                  {{- xar_button({type: "submit", name: "comment_action-preview", id: "comment_action-preview", onclick: "document.getElementById('receipt-action').value='preview'", value: label}) -}}
+                  {% set label = 'Submit' %}
+                  {{- xar_button({type: "submit", name: "comment_action-submit", id: "comment_action-submit", onclick: "document.getElementById('receipt-action').value='submit'", value: label}) -}}
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if header['objectlink'] and header['objecttitle'] %}
+        <p>Return to <a href="{{ header['objectlink'] }}">{{ header['objecttitle'] }}</a></p>
+    {% endif %}
+{% endblock %}

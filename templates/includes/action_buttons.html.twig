@@ -1,0 +1,70 @@
+{# @comments/includes/action_buttons.html.twig #}
+
+{% block action_buttons %}
+{% set header = object.getFieldValues() %}
+
+    {% if receipt['action'] is null or (receipt['action'] != 'reply' and receipt['action'] != 'modify') %}
+        <xar:sec catch="false" mask="ReplyComments" instance="$header[moduleid]:$header[itemid]:ALL">
+            <form action="{{ xar_moduleurl('comments', 'user', 'reply') }}" method="post" class="xar-comments-actions">
+                <div>
+                    <input type="hidden" name="parent_url" value="{{ xar_currenturl() }}"/>
+                    <input type="hidden" name="header[moduleid]" value="{{ header['moduleid'] }}"/>
+                    <input type="hidden" name="header[itemtype]" value="{{ header['itemtype'] }}"/>
+                    <input type="hidden" name="header[itemid]" value="{{ header['itemid'] }}"/>
+                    <input type="hidden" name="header[parent_id]" value="{{ item['parent_id'] }}"/>
+                    <input type="hidden" name="comment_id" value="{{ item['id'] }}"/>
+
+                    <input type="hidden" name="comment_action" value="reply"/>
+                    {% set thisid = 'submit-reply' ~ item['id'] %}
+                    {% set label = 'Reply' %}
+                    {{- xar_button({type: "submit", name: "submit", value: label}) -}}&#160;
+                </div>
+            </form>
+        {% endif %}
+        {% if xar_coremethod('xarUser', 'isLoggedIn') %}
+            {% if xar_security_check('EditComments',0,'',header['moduleid'] ~ '.' ~ header['itemid'] ~ '.' ~ item['id']) or item['role_id'] == package['role_id'] %}
+                 {% if not package['settings']['edittimelimit'] or (time() <= (item['xar_date'] + (package['settings']['edittimelimit'] * 60)) or xar_security_check('Comments-Admin')) %}
+                <form action="{{ xar_moduleurl('comments', 'user', 'modify') }}" method="post" class="xar-comments-actions">
+                    <div>
+                        <input type="hidden" name="parent_url" value="{{ xar_currenturl() }}"/>
+                        <input type="hidden" name="header[moduleid]" value="{{ header['moduleid'] }}"/>
+                        <input type="hidden" name="header[itemtype]" value="{{ header['itemtype'] }}"/>
+                        <input type="hidden" name="header[itemid]" value="{{ header['itemid'] }}"/>
+                        <input type="hidden" name="header[parent_id]" value="{{ item['parent_id'] }}"/>
+                        <input type="hidden" name="comment_id" value="{{ item['id'] }}"/>
+
+                        <input type="hidden" name="comment_action" value="modify"/>
+                        {% set thisid = 'submit-modify' ~ item['id'] %}
+                        {% set label = 'Modify' %}
+                        {{- xar_button({type: "submit", name: "submit", value: label}) -}}&#160;
+                    </div>
+                </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <xar:sec catch="false" mask="ManageComments" instance="$header[moduleid]:$header[itemid]:$item[id]">
+            <form action="{{ xar_moduleurl('comments', 'user', 'delete') }}" method="post" class="xar-comments-actions">
+                <div>
+                    <input type="hidden" name="confirm" id="confirm" value="true"/>
+                    <input type="hidden" name="parent_url" value="{{ xar_currenturl() }}"/>
+                    <input type="hidden" name="id" value="{{ item['id'] }}"/>
+                    {% set label = 'Delete' %}
+                    {{- xar_button({type: "submit", name: "submit", value: label}) -}}&#160;
+                </div>
+            </form>
+        {% else %}
+            {% set author = object.properties['author'].value %}
+            {% if author == xar_uservar('id') %}
+                <form action="{{ xar_moduleurl('comments', 'user', 'delete') }}" method="post" class="xar-comments-actions">
+                    <div>
+                        <input type="hidden" name="confirm" id="confirm" value="true"/>
+                        <input type="hidden" name="parent_url" value="{{ xar_currenturl() }}"/>
+                        <input type="hidden" name="id" value="{{ item['id'] }}"/>
+                        {% set label = 'Delete' %}
+                        {{- xar_button({type: "submit", name: "submit", value: label}) -}}
+                    </div>
+                </form>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

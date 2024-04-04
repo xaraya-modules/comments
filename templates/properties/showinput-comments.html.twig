@@ -1,0 +1,75 @@
+{# @comments/properties/showinput-comments.html.twig #}
+
+{% block showinput_comments %}
+{# <!-- lets link module related stylesheet to theme - have to do it via xar:set atm, cuz it returns 1 [andyv] --> #}
+    {{ xar_style({scope: "module", module: "comments", file: "comments"}) }}
+    {# <!--
+        [andyv] i see that we have at least 3 possible situations here,
+        so we should deal with them in a context-sensitive manner as follows:
+
+        1. no real comments posted
+            - display 'No Comments' note
+            - hide sorting options box
+            - display 'Post New Comment' box
+
+        2. at least 1 comment exists and needs to be displayed
+            - display sorting options box (for now.. perhaps needs be simpler for a single comment?)
+            - display 'Post New Comment' box
+
+        3. comments exist - user has selected 'No Comments' in 'Style' options
+            - display 'Comments Disabled' + count of total comments
+            - hide sorting options box
+            - hide 'Post New Comment' box
+            TODO: shouldn't this option be 'sticky' from user POV?
+            If yes, a user needs a way back to display comments again.
+
+    --> #}
+
+    {% if xar_security_check('ReadComments') %}
+        {% set number_of_comments = data['comments']|length %}
+        {% if package['settings']['render'] != 'nocomments' %}
+
+            {% if number_of_comments == 0 %}
+                <p>
+                    There are no comments attached to this item.
+                </p>
+                {% if header['selected_id'] is null %}
+                    {{ include('@comments/includes/input-box.html.twig') }}
+                {% elseif header['objectlink'] and header['objecttitle'] %}
+                    <p>
+                        Return to
+                        <a href="{{ header['objectlink'] }}">{{ header['objecttitle'] }}</a>
+                    </p>
+                {% endif %}
+            {% else %}
+                {# <!--{% if header['selected_id'] is null %}
+                    {{ include('@comments/includes/option_bar.html.twig') }}
+                {% endif %}--> #}
+                {% if package['settings']['render'] == 'nested' %}
+                    {{ include('@comments/includes/view-nested.html.twig') }}
+                {% elseif package['settings']['render'] == 'threaded' %}
+                    {{ include('@comments/includes/view-threaded.html.twig') }}
+                {% elseif package['settings']['render'] == 'flat' %}
+                    {{ include('@comments/includes/view-flat.html.twig') }}
+                {% endif %}
+                {% if header['selected_id'] is null %}
+                    {{ include('@comments/includes/input-box.html.twig') }}
+                {% elseif header['objectlink'] and header['objecttitle'] %}
+                    <p>
+                        Return to
+                        <a href="{{ header['objectlink'] }}">{{ header['objecttitle'] }}</a>
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <p>
+                Comments display and submission are currently disabled.
+                {% if number_of_comments != 0 %}
+                    Total number of attached comments: {{ number_of_comments }}
+                {% else %}
+                    There are no comments attached to this item.
+                {% endif %}
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

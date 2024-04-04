@@ -1,0 +1,58 @@
+{# @comments/admin/main.html.twig #}
+
+{% block main %}
+{{ include('@comments/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {% set label = 'Official Icon' %}
+        <img src="{{ xar_imageurl('module-generic.png', 'base') }}" alt="{{ label }}" width="96" height="96" class="xar-module-icon"/>
+        <h2>
+            Overview
+        </h2>
+        <h3>
+            What is it?
+        </h3>
+            <p><em>Comments is a Xaraya Utility Module.</em>
+                It is currently responsible for accomplishing these tasks:
+                <ul>
+                    <li>Allows the use of consistent comments across any module that calls display hooks.</li>
+                </ul>
+            </p>
+            <h3>
+                How to use it?
+           </h3>
+            <p>Simply enable the comments hook to any content module, and on the display pages, comments will be available to be used.
+            </p>
+             <h3>
+                Included Blocks
+            </h3>
+            <p>
+                The Latest Comment block provides a listing of the most
+                recent comments made on your site. The number of comments, date of
+                comment, comments from which modules, comment author and other configuration
+                variables can be set.
+            </p>
+            <h3>
+                Included Hooks
+        </h3>
+            <p>
+                Comments provide a display hook for modules to use as needed.
+            </p>
+        <h3>
+            Further Information
+        </h3>
+        <p>
+            Further information on the Comments module can be found at
+        </p>
+           <ul>
+                  <li>Comments Module Extension page at <a title="{{ xar_translate('Comments Module - Xaraya Extension 14') }}" href="http://www.xaraya.com/index.php/release/14.html">Xaraya Extension and Releases</a>.
+                   Click on Version History tab at the bottom to get the latest release information.
+                  </li>
+                  <li>Related tutorials and documentation on Comments Module found at <a href="http://www.xaraya.com/index.php/keywords/comments/" title="{{ xar_translate('Related documentation on Comments') }}">Xaraya Documentation.</a>
+                  </li>
+             </ul>
+             <p class="xar-sub">
+                 <strong>&#160;Comments Module Overview</strong><br />&#160;Version 1.0.2&#160; 2006-03-26
+             </p>
+
+    </div>
+{% endblock %}

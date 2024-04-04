@@ -1,0 +1,33 @@
+{# @comments/deleteconf.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+<div class="xar-mod-body">
+        <h2>
+            Delete Comment
+        </h2>
+
+        <form action="">
+             <fieldset>
+                <legend>
+                    Confirm Comment Deletion
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="commentdelete" class="xar-form-label" title="{{ xar_translate('Confirm deletion of this comment') }}">
+                       Are you sure you want to delete this comment?
+                   </label>
+                   <input type="radio" name="delete" id="delete_reparent" value="reparent"/>&#160;<label for="delete_reparent">Attach child comments to parent</label><br />
+                   <input type="radio" name="delete" id="delete_abandon" value="thread"/>&#160;<label for="delete_abandon">Delete this comment and all children</label><br />
+                </div>
+             </fieldset>
+            <div class="xar-form-input-wrapper">
+                <input type="hidden" name="thread" id="thread" value=""/>
+                {% set label = 'Delete' %}
+                {{- xar_button({type: "submit", value: label}) -}}&#160;
+                {% set label = 'Cancel' %}
+                {{- xar_button({type: "submit", value: label}) -}}
+            </div>
+        </form>
+    </div>
+{% endblock %}

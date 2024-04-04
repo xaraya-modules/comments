@@ -1,0 +1,151 @@
+{# @comments/objects/showform-module_settings.html.twig #}
+
+{% block showform_module_settings %}
+<fieldset class="mod_settings">
+        <h4>Rendering:</h4>
+        {% set name = 'depth' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+        {% set name = 'render' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+        {% set name = 'usersetrendering' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+    </fieldset>
+
+    <fieldset class="mod_settings">
+        <h4>Sorting:</h4>
+        {% set name = 'sortby' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+        {% set name = 'order' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+    </fieldset>
+
+    <fieldset class="mod_settings">
+        <h4>Miscellaneous:</h4>
+        {% set name = 'AllowPostAsAnon' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+        {% set name = 'editstamp' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+        {% set name = 'wrap' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+    </fieldset>
+
+    <fieldset class="mod_settings">
+        <h4>Stats:</h4>
+        {% set name = 'numstats' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+        {% set name = 'showtitle' %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties[name], for: "id"}) }}
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties[name]}) }}
+            </div>
+         </div>
+    </fieldset>
+
+
+    {% if xar_coremethod('xarMod', 'isAvailable', 'filters') %}
+        <fieldset class="mod_settings" id="mod_settings_last">
+            <h4>Filters Module:</h4>
+            {% set name = 'enable_filters' %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+             </div>
+            {% set name = 'filters_min_ct_count' %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+             </div>
+            {% set name = 'filters_min_item_count' %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+             </div>
+        </fieldset>
+    {% else %}
+     <div style="display:none">
+        {% set ffid = properties['enable_filters'].id %}
+        <input type="checkbox" name="dd_{{ ffid }}" value="false" />
+        {{ xar_data_input({property: properties['filters_min_ct_count']}) }}
+        {{ xar_data_input({property: properties['filters_min_item_count']}) }}
+     </div>
+    {% endif %}
+
+{% endblock %}

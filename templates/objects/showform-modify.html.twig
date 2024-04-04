@@ -1,0 +1,14 @@
+{# @comments/objects/showform-modify.html.twig #}
+
+{% block showform_modify %}
+{% for name, property in properties %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+            </div>
+        {% endfor %}
+{% endblock %}

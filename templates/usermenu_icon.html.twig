@@ -1,0 +1,21 @@
+{# @comments/usermenu_icon.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{% set compare = xar_currenturl() %}
+    {% set current = xar_moduleurl('roles', 'user', 'account', {'moduleload': 'comments'}) %}
+    {% if compare == current %}
+        <dd class="active">
+            <a href="{{ xar_currenturl() }}">
+                Comments
+            </a>
+        </dd>
+    {% else %}
+        <dd>
+            <a href="{{ xar_moduleurl('roles', 'user', 'account', {'moduleload': 'comments'}) }}">
+                Comments
+            </a>
+        </dd>
+    {% endif %}
+{% endblock %}

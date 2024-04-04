@@ -1,0 +1,32 @@
+{# @comments/objects/showdisplay-comments_comments.html.twig #}
+
+{% block showdisplay_comments_comments %}
+<div class="xar-comments-title">
+        <h4>{{ xar_data_output({property: properties['title']}) }}</h4>
+    </div>
+    <span class="xar-sub">
+        Posted by:
+        {% set anonpost = properties['anonpost'].value %}
+        {% if not anonpost %}
+            {{ xar_data_output({property: properties['author']}) }}
+        {% else %}
+            <xar:sec catch="false" mask="ModerateComments">
+                Anonymous
+                ({{ xar_data_output({property: properties['author']}) }})
+            {% else %}
+                Anonymous
+            {% endif %}
+        {% endif %}
+        {% if xar_security_check('AdminComments') %}
+            [ip: {{ xar_data_output({property: properties['hostname']}) }}]
+        {% endif %}
+            on {{ xar_data_output({property: properties['date']}) }}
+    </span>
+    <div class="xar-comments-comment">
+        {% if transformed_text is not null %}
+            {{ transformed_text }}
+        {% else %}
+            {{ xar_data_output({property: properties['text']}) }}
+        {% endif %}
+    </div>
+{% endblock %}

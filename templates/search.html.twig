@@ -1,0 +1,52 @@
+{# @comments/search.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+<h2>
+        Search in Comments
+    </h2>
+    {% if package['comments'] %}
+        <br />
+        <h3>
+            Comments Found
+            :
+        </h3>
+        {{ include('@comments/includes/view-threaded.html.twig') }}
+    {% endif %}
+    {% if receipt['status'] %}
+        <h3>
+            No comments found matching your criteria.
+        </h3>
+    {% endif %}
+    <br />
+    Search on
+    :
+    <br />
+    {% if header['title'] == '1' %}
+        <input type="checkbox" name="header[title]" value="1" checked="checked"/>
+        {% else %}
+        <input type="checkbox" name="header[title]" value="1"/>
+    {% endif %}
+    <label for="header[title]">
+        Title
+    </label>
+    <br />
+    {% if header['text'] == '1' %}
+        <input type="checkbox" name="header[text]" value="1" checked="checked"/>
+        {% else %}
+        <input type="checkbox" name="header[text]" value="1"/>
+    {% endif %}
+    <label for="header[text]">
+        Text
+    </label>
+    <br />
+    {% if header['author'] == '1' %}
+        <input type="checkbox" name="header[author]" value="1" checked="checked"/>
+        {% else %}
+        <input type="checkbox" name="header[author]" value="1"/>
+    {% endif %}
+        Author
+    <br />
+    <br />
+{% endblock %}

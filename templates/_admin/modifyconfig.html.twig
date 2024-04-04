@@ -1,0 +1,198 @@
+{# @comments/_admin/modifyconfig.html.twig #}
+
+{% block modifyconfig %}
+<style>
+      .xar-form-input-wrapper {
+       margin-bottom: 9px;
+      }
+      hr {
+       margin: 15px 0 15px 0;
+       color: #ddd;
+       background-color: #ddd;
+       height: 1px;
+       border: none;
+     }
+    </style>
+    {{ include('@comments/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>
+            Modify Configuration
+        </h2>
+        {# <!--<div>
+            {{ include('@comments/includes/headerconfig.html.twig') }}
+        </div> --> #}
+        <form method="post" action="{{ xar_moduleurl('comments', 'admin', 'modifyconfig') }}" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    <strong>
+
+                            Comment Settings
+
+                    </strong>
+                </legend>
+
+                <input type="hidden" name="authid" id="authid" value="{{ xar_security_authkey() }}"/>
+                <div class="xar-form-input-wrapper">
+                    <label for="depth" class="xar-form-label" title="{{ xar_translate('The rendering depth to be used as default') }}">
+
+                                Default Rendering Depth
+
+                    </label>
+                    {% set depth = xar_modulevar('comments', 'depth') %}
+                    {% set max_depth = _COM_MAX_DEPTH - 1 %}
+
+                    <select name="depth" id="depth">
+                        <xar.for start="i = 1" test="i le max_depth" iter="i++">
+                            {% if i == depth %}
+                                <option value="{{ i }}" selected="selected">{{ i }}</option>
+                            {% else %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endif %}
+                        </xar.for>
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="render" class="xar-form-label" title="{{ xar_translate('The rendering style to be used as default.') }}">
+                        Default Rendering Style
+                    </label>
+                    {% set options = [
+                            {'id': 'nested', 'name': xar_translate('Nested')},
+                            {'id': 'flat', 'name': xar_translate('Flat')},
+                            {'id': 'threaded', 'name': xar_translate('Threaded')},
+                            {'id': 'nocomments', 'name': xar_translate('No Comments')},
+                        ] %}
+                    {% set value = xar_modulevar('comments', 'render') %}
+                    <xar.data-input type="dropdown" name="render" id="render" options="options" value="value"/>
+                </div>
+        <div class="xar-form-input-wrapper">
+                    {% set checked = xar_modulevar('comments', 'usersetrendering') %}
+                    <label for="usersetrendering" title="{{ xar_translate('Allow users to set their own comment rendering style in their account?') }}">
+                        Allow users to set comment rendering style in their account?
+                    </label>
+            <xar.data-input type="checkbox" name="usersetrendering" id="usersetrendering" checked="checked"/>
+                </div>
+        <hr />
+                <div class="xar-form-input-wrapper">
+                    <label for="sortby" class="xar-form-label" title="{{ xar_translate('The sorting mode to be used as default.') }}">
+                        Default Sorting Mode
+                    </label>
+                    {% set options = [
+                            {'id': 1, 'name': xar_translate('Author')},
+                            {'id': 2, 'name': xar_translate('Date')},
+                            {'id': 3, 'name': xar_translate('Thread')},
+                            {'id': 4, 'name': xar_translate('Title')},
+                        ] %}
+                    {% set value = xar_modulevar('comments', 'sortby') %}
+                    <xar.data-input type="dropdown" name="sortby" id="sortby" options="options" value="value"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="order" class="xar-form-label" title="{{ xar_translate('The sorting order to be used as default.') }}">
+                        Default Sorting Order
+                    </label>
+                    {% set options = [
+                            {'id': 1, 'name': xar_translate('Ascending')},
+                            {'id': 2, 'name': xar_translate('Descending')},
+                        ] %}
+                    {% set value = xar_modulevar('comments', 'order') %}
+                    <xar.data-input type="dropdown" name="order" id="order" options="options" value="value"/>
+                </div>
+        <hr />
+                <div class="xar-form-input-wrapper">
+                    {% set checked = xar_modulevar('comments', 'AllowPostAsAnon') %}
+                    <label for="postanon" class="xar-form-label" title="{{ xar_translate('Admin will see the name of who posted.') }}">
+                        Allow anonymous posting
+                    </label>
+            <xar.data-input type="checkbox" name="postanon" id="postanon" checked="checked"/>
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="editstamp" class="xar-form-label" title="{{ xar_translate('Default value for Comment Edit Stamp use') }}">
+                        Use Comment Edit Stamp
+                    </label>
+                    {% set options = [
+                            {'id': 0, 'name': xar_translate('None')},
+                            {'id': 1, 'name': xar_translate('Yes')},
+                            {'id': 2, 'name': xar_translate('Yes - exclude for Admin')},
+                        ] %}
+                    {% set value = xar_modulevar('comments', 'editstamp') %}
+                    <xar.data-input type="dropdown" name="editstamp" id="editstamp" options="options" value="value"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    {% set checked = xar_modulevar('comments', 'wrap') %}
+                    <label for="wrap" class="xar-form-label" title="{{ xar_translate('Long strings will be wrapped, including URLS when checked') }}">
+                        Wrap Long Entries
+                    </label>
+            <xar.data-input type="checkbox" name="wrap" id="wrap" checked="checked"/>
+                </div>
+        <hr />
+         <div class="xar-form-input-wrapper">
+                    <label for="numstats" class="xar-form-label"  title="{{ xar_translate('Statistics page ordering.') }}">
+                        Number of Items in Statistics
+                    </label>
+                    {% set numstats = xar_modulevar('comments', 'numstats') %}
+                    <input type="text" name="numstats" id="numstats" size="4" maxlength="4" value="{{ numstats }}"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    {% set checked = xar_modulevar('comments', 'showtitle') %}
+                    <label for="showtitle" class="xar-form-label" title="{{ xar_translate('Show the titles of items that the comments are attached to.') }}">
+                        Show Title in Statistics
+                    </label>
+            <xar.data-input type="checkbox" name="showtitle" id="showtitle" checked="checked"/>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="rssnumitems" class="xar-form-label" title="{{ xar_translate('Number of items in RSS Feed') }}">
+                        Number of Items in Statistics
+                    </label>
+                    {% set rssnumitems = xar_modulevar('comments', 'rssnumitems') %}
+                    <input type="text" name="rssnumitems" id="rssnumitems" size="4" maxlength="4" value="{{ rssnumitems }}"/>
+                </div>
+
+                {# <!-- Black list not available
+                <div class="xar-form-input-wrapper">
+                    <label for="useblacklist" class="xar-form-input-wrapper" title="{{ xar_translate('Use comment blacklist for comment spam checking.') }}">
+                        Use Blacklist for Spam Check
+                    </label>
+                    {% set checked = xar_modulevar('comments', 'useblacklist') %}
+                    <xar.data-input type="checkbox" name="useblacklist" id="useblacklist" checked="checked"/>
+                </div>
+                --> #}
+            </fieldset>
+
+            {% if xar_coremethod('xarMod', 'isAvailable', 'filters') %}
+        <fieldset class="mod_settings">
+
+        <h4>Filters Module.</h4>
+
+            {% set name = 'enable_filters' %}
+        <div class="xar-form-input-wrapper">
+            <xar.data-label property="properties[name]" for="id" />
+            <xar.data-input property="properties[name]" />
+         </div>
+
+         {% set name = 'filters_min_item_count' %}
+        <div class="xar-form-input-wrapper">
+            <xar.data-label property="properties[name]" for="id" />
+            <xar.data-input property="properties[name]" />
+         </div>
+
+         </fieldset>
+    {% else %}
+     <div style="display.none">
+        {% set ffid = properties['enable_filters'].id %}
+        <input type="checkbox" name="dd_ }}$ffid#" value="false" />
+        {{ xar_data_input({property: properties['filters_min_ct_count']}) }}
+        {{ xar_data_input({property: properties['filters_min_item_count']}) }}
+     </div>
+    {% endif %}
+
+
+            <fieldset>
+                <div class="xar-form-input-wrapper-after">
+                <input type="text" value="update" name="phase"/>
+                {% set label = 'Submit' %}
+                {{- xar_button({type: "submit", value: label}) -}}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{# @comments/includes/view-nested.html.twig #}
+
+{% block view_nested %}
+{% for comment in comments %}
+        <div class="xar-accent-outline xar-comments-comment" style="border-bottom: 1px solid; margin-left: {{ comment['depth']*20 }}px;">
+            <div>
+                <a name="{{ comment['id'] }}"></a>
+                {% set item = comment %}
+                {{ include('@comments/includes/action_buttons.html.twig') }}
+
+                {# <!-- show changelog --> #}
+                {% if xar_security_check('ModerateComments') %}
+                    {% if xar_coremethod('xarModHooks', 'isHooked', ['changelog','comments']) %}
+                        <span class="xar-sub" style="float:right;">
+                            <a href="{{ xar_moduleurl('changelog','admin','showlog',{'modid': 14, 'itemid': comment['id']}) }}" title="{{ xar_translate('View Changes') }}">
+                                View changes
+                            </a>
+                        </span>
+                    {% endif %}
+                {% endif %}
+                {# <!-- end changelog --> #}
+                {% set dummy = emptyobject.setFieldValues(comment,1) %}
+                {{ xar_data_display({object: emptyobject}) }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

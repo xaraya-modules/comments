@@ -1,0 +1,106 @@
+{# @comments/admin/module_stats.html.twig #}
+
+{% block module_stats %}
+{{ include('@comments/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {{ include('@comments/includes/admin-menu.html.twig') }}
+        <h2>
+            Comments Module Statistics
+        </h2>
+
+        <div>
+        Module: <strong>{{ modname }}</strong>
+        </div>
+    <div>
+    {% if itemtype is not null %}
+        Itemtype: <strong>{{ itemtype }}
+        {% if itemtypelabel is not null %}
+            - {{ itemtypelabel }}
+        {% endif %}</strong>
+    {% endif %}
+        </div>
+
+        <div class="xar-align-center">
+            <table border="0" cellpadding="2" cellspacing="1">
+                <tr>
+                    <th class="xar-align-center xar-halfwidth" valign="middle">
+                        <strong>Item Id</strong>
+                    </th>
+                    <th class="xar-align-center" valign="middle">
+                        <strong>Total Comments</strong>
+                    </th>
+                    <th class="xar-align-center" valign="middle">
+                        <strong>Inactive Comments</strong>
+                    </th>
+                    <th class="xar-align-center" valign="middle">
+                        <strong>Action</strong>
+                    </th>
+                </tr>
+
+                {% if data is null or not data or data|length == '0' %}
+                    <tr>
+                        <td colspan="4" class="xar-align-center">
+                            <br />
+                                There are currently no comments attached to this module...
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                {% else %}
+
+                    {% for loop_key1, loop_item1 in data %}{% set loop_index1 = loop.index %}
+                        <tr>
+                            {% if loop_item1['title'] and loop_item1['link'] %}
+                            <td valign="middle">
+                                {{ loop_item1['pageid'] }} - <a href="{{ loop_item1['link'] }}">{{ loop_item1['title'] }}</a>
+                            </td>
+                            {% else %}
+                            <td class="xar-align-center" valign="middle">
+                                {{ loop_item1['pageid'] }}
+                            </td>
+                            {% endif %}
+                            <td class="xar-align-center" valign="middle">
+                                {{ loop_item1['total'] }}
+                            </td>
+                            <td class="xar-align-center" valign="middle">
+                                {{ loop_item1['inactive'] }}
+                            </td>
+                            <td class="xar-align-center" valign="middle">
+                                <a href="{{ loop_item1['delete_url'] }}"><strong>Delete</strong></a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+                    <tr>
+                        <td align="right" valign="middle">
+                            <strong>Totals</strong>:
+                        </td>
+                        <td class="xar-align-center" valign="middle">
+                            <strong>{{ gt_total }}</strong>
+                        </td>
+                        <td class="xar-align-center" valign="middle">
+                            <strong>{{ gt_inactive }}</strong>
+                        </td>
+                        <td class="xar-align-center" valign="middle">
+                            <a href="{{ delete_all_url }}">Delete All</a>
+                        </td>
+                    </tr>
+                {# <!-- Psspl:Modifided code for resolving error--> #}
+                {% endif %}
+                {% if pager %}
+                <tr>
+                    <td colspan="4" align="center">
+                        {{ pager }}
+                    </td>
+                </tr>
+                {% endif %}
+                </table>
+
+                <div class="xar-accent xar-norm-outline" style="text-align: justify;padding: 0.5em 1em 0.5em 1em; margin-top: 5px;">
+                    By clicking on <strong>Delete</strong> you can delete all comments associated with a particular
+                    module's item.
+                </div>
+
+        </div>
+    </div>
+{% endblock %}

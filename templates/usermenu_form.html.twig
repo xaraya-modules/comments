@@ -1,0 +1,181 @@
+{# @comments/usermenu_form.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+<div class="xar-mod-head">
+        <span class="xar-mod-title">
+            Comments
+        </span>
+    </div>
+    <div class="xar-mod-body">
+        <h2>
+            Comments Module User Configuration
+        </h2>
+        <form action="{{ xar_moduleurl('comments', 'user', 'usermenu') }}" method="post" enctype="application/x-www-form-urlencoded">
+        <fieldset>
+            <legend>
+                Comment Options
+            </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="settings[depth]" class="xar-form-label" title="{{ xar_translate('Default rendering depth') }}">
+                        Default rendering depth
+                    </label>
+                    <select name="settings[depth]" id="settings-depth">
+                        {% for i in range(1, settings['max_depth']) %}
+                            {% if i == settings['depth'] %}
+                                <option value="{{ i }}" selected="selected">
+                                        {{ i }}
+                                </option>
+                            {% else %}
+                                <option value="{{ i }}">
+                                        {{ i }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="settings[render]" class="xar-form-label" title="{{ xar_translate('Default Rendering Style') }}">
+                        Default Rendering Style
+                    </label>
+                        <select name="settings[render]" id="settings-render">
+                            {% if settings['render'] == 'nested' %}
+                                <option value="nested" selected="selected">
+                                    Nested
+                                </option>
+                            {% else %}
+                                <option value="nested">
+                                        Nested
+                                </option>
+                            {% endif %}
+                            {% if settings['render'] == 'flat' %}
+                                <option value="flat" selected="selected">
+                                    Flat
+                                </option>
+                            {% else %}
+                                    <option value="flat">
+                                            Flat
+                                        </option>
+                            {% endif %}
+                            {% if settings['render'] == 'threaded' %}
+                                        <option value="threaded" selected="selected">
+                                            Threaded
+                                        </option>
+                                        {% else %}
+                                        <option value="threaded">
+                                            Threaded
+                                        </option>
+                            {% endif %}
+                            {% if settings['render'] == 'nocomments' %}
+                                        <option value="nocomments" selected="selected">
+                                            No Comments
+                                        </option>
+                                        {% else %}
+                                        <option value="nocomments">
+                                            No Comments
+                                        </option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="settings[sortby]" class="xar-form-label" title="{{ xar_translate('Default Sorting Mode') }}">
+                            Default Sorting Mode
+                        </label>
+                        <select name="settings[sortby]" id="settings-sortby">
+                                {% if settings['sortby'] == 1 %}
+                                    <option value="1" selected="selected">
+                                        Author
+                                    </option>
+                                {% else %}
+                                    <option value="1">
+                                            Author
+                                        
+                                    </option>
+                                {% endif %}
+                                {% if settings['sortby'] == 2 %}
+                                    <option value="2" selected="selected">
+                                        
+                                            Date
+                                        
+                                    </option>
+                                {% else %}
+                                    <option value="2">
+                                        
+                                            Date
+                                        
+                                    </option>
+                                {% endif %}
+                                {% if settings['sortby'] == 3 %}
+                                    <option value="3" selected="selected">
+                                        
+                                            Thread
+                                        
+                                    </option>
+                                    {% else %}
+                                    <option value="3">
+                                        
+                                            Thread
+                                        
+                                    </option>
+                                {% endif %}
+                                {% if settings['sortby'] == 4 %}
+                                    <option value="4" selected="selected">
+                                        
+                                            Title
+                                        
+                                    </option>
+                                    {% else %}
+                                    <option value="4">
+                                        
+                                            Title
+                                        
+                                    </option>
+                                {% endif %}
+                        </select>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="settings[order]" class="xar-form-label" title="{{ xar_translate('Default Sorting Mode') }}">
+                                
+                                    Default Sorting Order
+                                
+                        </label>
+                        <select name="settings[order]" id="settings-order">
+                                {% if settings['order'] == 1 %}
+                                    <option value="1" selected="selected">
+                                        
+                                            Ascending
+                                        
+                                    </option>
+                                    {% else %}
+                                    <option value="1">
+                                        
+                                            Ascending
+                                        
+                                    </option>
+                                {% endif %}
+                                {% if settings['order'] == 2 %}
+                                    <option value="2" selected="selected">
+                                        
+                                            Descending
+                                        
+                                    </option>
+                                    {% else %}
+                                    <option value="2">
+                                        
+                                            Descending
+                                        
+                                    </option>
+                            {% endif %}
+                        </select>
+                    </div>
+            </fieldset>
+            <div class="xar-form-input-wrapper">
+                <input type="hidden" name="authid" id="authid" value="{{ authid }}"/>
+                <input type="hidden" name="phase" id="phase" value="update"/>
+                {% set label = 'Update Configuration' %}
+                {{- xar_button({type: "submit", value: label}) -}}
+            </div>
+        </form>
+    </div>
+{% endblock %}

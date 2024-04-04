@@ -1,0 +1,44 @@
+{# @comments/includes/view-flat.html.twig #}
+
+{% block view_flat %}
+{% for comment in comments %}
+        <div class="xar-accent-outline xar-comments-comment">
+             <a name="{{ comment['id'] }}"></a>
+            {% set item = comment %}
+            {% if comments|length > 1 %}
+                {{ include('@comments/includes/action_buttons.html.twig') }}
+            {% endif %}
+
+            {# <!-- show changelog --> #}
+            {% if xar_security_check('ModerateComments') %}
+                {% if xar_coremethod('xarModHooks', 'isHooked', ['changelog','comments']) %}
+                    <span class="xar-sub" style="float:right;">
+                        <a href="{{ xar_moduleurl('changelog','admin','showlog',{'moduleid': 14, 'itemid': comment['id']}) }}" title="{{ xar_translate('View Changes') }}">
+                            View changes
+                        </a>
+                    </span>
+                {% endif %}
+            {% endif %}
+            {# <!-- end changelog --> #}
+        </div>
+        {% set dummy = emptyobject.setFieldValues(comment,1) %}
+        {{ xar_data_display({object: emptyobject}) }}
+        <div class="xar-accent xar-comments-comment">
+            {% if transformed_text is not null %}
+                <p>
+                    <a href="{{ xar_currenturl() }}#comment{{ comment['id'] }}" title="{{ xar_translate('parent_url') }}" rel="bookmark">
+                    </a>
+                </p>
+            {% else %}
+                <p>
+                    <a href="{{ xar_currenturl() }}#comment{{ comment['id'] }}" title="{{ xar_translate('parent_url') }}" rel="bookmark">
+                    </a>
+                </p>
+                {% if comment['branchout'] is not null and comment['branchout'] == 1 %}
+                    <a href=""> {{ comment['nested_text'] }} </a>
+                    &#160;
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

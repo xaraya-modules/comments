@@ -1,0 +1,66 @@
+{# @comments/objects/showview-admin_items.html.twig #}
+
+{% block showview_admin_items %}
+{% if items %}
+
+    {# <!--if we're already sorting on this column, we want to show the arrow and don't need to make the column head a link--> #}
+    {% set sortfield = sort|split(' ', 2)|first %}
+    {% set ascdesc = sort|split(' ', 2)|last %}
+
+    {# <!--if $_GET['ascdesc'] is set, we want that to take precedence over anything in view.php so the arrow will always point the right way--> #}
+    {# @todo _GET['ascdesc'] #}
+    {% if not ascdesc %}
+        {% set ascdesc = null %}
+    {% endif %}
+    {% if ascdesc == 'DESC' %}
+        {% set arrow = 'asc' %}
+    {% else %}
+        {% set arrow = 'desc' %}
+    {% endif %}
+
+    <table class="xar-norm">
+        <tr>
+            {% for name in properties|keys %}
+                <th>
+                {% if name == sortfield %}
+                    {{ xar_data_label({property: properties[name]}) }}
+                    <a href="{{ xar_moduleurl('comments','admin','view', {'sortfield': name, 'ascdesc': arrow|upper}) }}"><img src="{{ xar_coremethod('sys', 'code') }}modules/base/xarimages/icons/sort-{{ arrow }}.png" width="16" height="16" alt="reverse order" /></a>
+                {% else %}
+                    {# <!--we're not sorting on this column, so we should make the column head a link--> #}
+                    <a href="{{ xar_moduleurl('comments','admin','view', {'sortfield': name}) }}">{{ xar_data_label({property: properties[name]}) }}</a>
+                {% endif %}
+                </th>
+            {% endfor %}
+            {% if not linkfield %}
+                <th>
+                    &#160;
+                </th>
+            {% endif %}
+        </tr>
+        {% for id, fields in items %}
+            <tr>
+                {% for name in properties|keys %}
+                    {% if not fields[name] or fields[name] == '0' %}
+                        <td valign="top">&#160;</td>
+                    {% elseif linkfield and linkfield == name %}
+                        <td valign="top"><a href="{{ links[id]['display']['olink'] }}">{{ xar_data_output({property: properties[name], value: fields[name]}) }}</a></td>
+                    {% else %}
+                        <td valign="top">{{ xar_data_output({property: properties[name], value: fields[name]}) }}</td>
+                    {% endif %}
+                {% endfor %}
+                {% if not linkfield %}
+                    <td valign="top">
+                        {% if xar_security_check('EditComments',0) %}
+                            <a href="{{ xar_moduleurl('comments','admin','modify', {'id': id}) }}"><img src="{{ xar_coremethod('sys', 'code') }}modules/base/xarimages/icons/modify.png" width="16" height="16" alt="Edit" /></a>
+                        {% endif %}
+                        {% if xar_security_check('DeleteComments',0) %}
+                            &nbsp;  <a href="{{ xar_moduleurl('comments','admin','delete', {'id': id, 'dtype': 'object', 'modid': fields['modid'], 'objectid': fields['objectid'], 'itemtype': fields['itemtype']}) }}"><img src="{{ xar_coremethod('sys', 'code') }}modules/base/xarimages/icons/delete.png" width="16" height="16" alt="Delete" /></a>
+                        {% endif %}
+                        &nbsp;  <a href="{{ fields['parent_url'] }}#{{ id }}"><img src="{{ xar_coremethod('sys', 'code') }}modules/base/xarimages/icons/display.png" width="16" height="16" alt="Display" /></a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

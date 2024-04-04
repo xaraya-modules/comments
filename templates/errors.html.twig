@@ -1,0 +1,40 @@
+{# @comments/errors.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{{ include('@comments/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <fieldset>
+            <legend>Comments Problem</legend>
+            {% set label = 'System Message' %}
+            {{- xar_image({scope: "theme", file: "user-error.png", alt: label, width: "96", height: "96", class: "xar-module-icon"}) -}}
+            {% if layout is null %}
+                <div style="margin-top: 20px; margin-left: 20px">
+                    No error message is available.
+                    <br />
+                    Please contact the system administrator.
+                </div>                    
+            {% elseif layout == 'no_direct_access' %}
+                <div style="margin-top: 20px; margin-left: 20px">
+                    Comments can be accessed via other modules
+                </div>
+            {% else %}
+                <div style="margin-top: 20px; margin-left: 20px">
+                    No error message is available.
+                    <br />
+                    Please contact the system administrator.
+                </div>                    
+            {% endif %}                
+        </fieldset>
+        <div class="xar-form-actions">
+            <div class="xar-row">
+                <div class="xar-col"></div>
+                <div class="xar-col">
+                    {% set label = 'Go back' %}
+                    {{- xar_button({type: "cancel", label: label}) -}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

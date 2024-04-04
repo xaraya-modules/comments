@@ -1,0 +1,102 @@
+{# @comments/blocks/latestcommentsblock.html.twig #}
+
+{% block latestcommentsblock %}
+{% if commentlist|length %}
+      {% for daylabel, commentsthisday in commentlist %}
+        {% if adddaysep=='on' %}
+          {% if daylabel %}
+          {# <!-- DAY SEPARATOR --> #}
+          <div class="xar-title">
+            {{ daylabel }}
+          </div>
+          {% endif %}
+        {% endif %}
+        <ul>
+          <xar:foreach in ="$commentsthisday" value="$comment">
+            <li>
+                {% set subject = str_replace('&#60;p&#62;', '', comment['subject']) %}
+                {% set fullsubject = str_replace('&#60;p&#62;', '', subject) %}
+              {% if addcomment == 1 %}
+                {# <!-- COMMENT TITLE --> #}
+                <span class="xar-title">{{ fullsubject }}
+                </span>
+                {% elseif addcomment >= 20 %}
+                <span class="xar-title">
+                  {% if (comment['objurl'] and addcomment >= 21) %}
+                    <a href="{{ comment['objurl'] }}#{{ comment['id'] }}">
+                      {{ fullsubject }}
+                    </a>
+                  {% else %}
+                    <a href="{{ xar_moduleurl('comments','user','display',{'id': comment['id']}) }}">
+                    {{ fullsubject }}</a>
+                  {% endif %}
+                </span>
+              {% endif %}
+              {% if comment['title'] %}
+                {% if addobject >= 20 %}
+                  {# <!-- OBJECT TITLE --> #}
+                  in
+                  <span class="xar-title">
+                    {% if addobject >= 21 %}
+                      <a href="{{ comment['objurl'] }}#{{ comment['id'] }}">
+                        {{ comment['title'] }}
+                      </a>
+                    {% else %}
+                      <a href="{{ comment['objurl'] }}">
+                        {{ comment['title'] }}
+                      </a>
+                    {% endif %}
+                  </span>
+                {% elseif addobject == 1 %}
+                  in
+                  <span class="xar-title">{{ comment['title'] }}</span>
+                {% endif %}
+              {% endif %}
+              {% if addmodule >= 1 %}
+                {# <!-- MODULE NAME--> #}
+                <span class="xar-normal">
+                  <br />in
+                  {% if addmodule >= 2 %}
+                    <a href="{{ comment['modview'] }}">
+                      {{ comment['modname'] }}
+                    </a>
+                  {% else %}
+                    {{ comment['modname'] }}
+                  {% endif %}
+                </span>
+              {% endif %}
+              <span class="xar-normal">
+                {% if addauthor >= 1 %}
+                  {# <!-- AUTHOR NAME--> #}
+                  by
+                  {% if comment['postanon'] == 0 or xar_modulevar('comments', 'AllowPostAsAnon') == 0 %}
+                    {% if addauthor >= 2 %}
+                      <a href="{{ xar_moduleurl('users','user','view') }}">
+                        {{ comment['author'] }}
+                      </a>
+                      {% else %}
+                      {{ comment['author'] }}
+                    {% endif %}
+                  {% else %}
+                    Anonymous
+                  {% endif %}
+                {% endif %}
+                {% if adddate=='on' %}
+                  {# <!-- DATE --> #}
+                  on&#160;{{ xar_coremethod('xarLocale', 'formatDate', ["%B %d, %Y %I.%M %p",comment['date']]) }}
+                {% endif %}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+      {% if addprevious=='on' %}
+          <p><a href="{{ olderurl }}">
+          Older comments
+          </a>
+          </p>
+      {% endif %}
+    {% else %}
+      There are no comments
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,286 @@
+{# @comments/blocks/modify-latestcomments.html.twig #}
+
+{% block modify_latestcomments %}
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 100%; text-align: left;">
+    <b>
+      Special Options
+    </b>
+    <p> {{ xar_translate('(please see the', xar_currenturl()) }} </p>
+  </span>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Number of comments to display
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <input type="text" name="howmany" value="{{ howmany }}" size="3" maxlength="3" tabindex="1"/>
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Truncate long titles to no more than
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <input type="text" name="truncate" value="{{ truncate }}" size="3" maxlength="3" tabindex="2"/>
+    characters
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Include comments from the following modules
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <select name="modid[]" tabindex="3" multiple="multiple" size="3">
+      {% for key, value in modlist %}
+        {% if key in modid %}
+          <option value="{{ key }}" selected="selected">{{ value }}</option>
+        {% else %}
+          <option value="{{ key }}">{{ value }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Comment title
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <select tabindex="5" name="addcomment">
+      {% if addcomment == '0' %}
+        <option value="0" selected="selected">
+          Don't show
+        </option>
+      {% else %}
+        <option value="0">
+          Don't show
+        </option>
+      {% endif %}
+      {% if addcomment == '1' %}
+        <option value="1" selected="selected">
+          Show without link
+        </option>
+        {% else %}
+        <option value="1">
+          Show without link
+        </option>
+      {% endif %}
+      {% if addcomment == '20' %}
+        <option value="20" selected="selected">
+          Show with link to comment alone
+        </option>
+        {% else %}
+        <option value="20">
+          Show with link to comment alone
+        </option>
+      {% endif %}
+      {% if addcomment == '21' %}
+        <option value="21" selected="selected">
+          Show with link to object*
+        </option>
+        {% else %}
+        <option value="21">
+          Show with link to object*
+        </option>
+      {% endif %}
+    </select>
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Author name
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <select name="addauthor" tabindex="6">
+      {% if addauthor == '0' %}
+        <option value="0" selected="selected">
+          Don't show
+        </option>
+        {% else %}
+        <option value="0">
+          Don't show
+        </option>
+      {% endif %}
+      {% if addauthor == '1' %}
+        <option value="1" selected="selected">
+          Show without link
+        </option>
+        {% else %}
+        <option value="1">
+          Show without link
+        </option>
+      {% endif %}
+      {% if addauthor == '21' %}
+        <option value="21" selected="selected" disabled="disabled">
+          Show with link to author info**
+        </option>
+        {% else %}
+        <option value="21" disabled="disabled">
+          Show with link to author info**
+        </option>
+      {% endif %}
+      {% if addauthor == '22' %}
+        <option value="22" selected="selected" disabled="disabled">
+          Show with link to author email**
+        </option>
+        {% else %}
+        <option value="22" disabled="disabled">
+          Show with link to author email**
+        </option>
+      {% endif %}
+    </select>
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Module name
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <select name="addmodule" tabindex="7">
+      {% if addmodule == '0' %}
+        <option value="0" selected="selected">
+          Don't show
+        </option>
+        {% else %}
+        <option value="0">
+          Don't show
+        </option>
+      {% endif %}
+      {% if addmodule == '1' %}
+        <option value="1" selected="selected">
+          Show without link
+        </option>
+        {% else %}
+        <option value="1">
+          Show without link
+        </option>
+      {% endif %}
+      {% if addmodule == '2' %}
+        <option value="2" selected="selected">
+          Show with link to module*
+        </option>
+        {% else %}
+        <option value="2">
+          Show with link to module*
+        </option>
+      {% endif %}
+    </select>
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Object title* (e.g. article title)
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <select name="addobject" tabindex="8">
+      {% if addobject == '0' %}
+        <option value="0" selected="selected">
+          Don't show
+        </option>
+        {% else %}
+        <option value="0">
+          Don't show
+        </option>
+      {% endif %}
+      {% if addobject == '1' %}
+        <option value="1" selected="selected">
+          Show without link*
+        </option>
+        {% else %}
+        <option value="1">
+          Show without link*
+        </option>
+      {% endif %}
+      {% if addobject == '20' %}
+        <option value="20" selected="selected">
+          Show with link to object*
+        </option>
+        {% else %}
+        <option value="20">
+          Show with link to object*
+        </option>
+      {% endif %}
+      {% if addobject == '21' %}
+        <option value="21" selected="selected">
+          Show with link to comment***
+        </option>
+        {% else %}
+        <option value="21">
+          Show with link to comment***
+        </option>
+      {% endif %}
+    </select>
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Add date
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <input type="hidden" name="adddate" value="off"/>
+    {% if adddate == 'on' %}
+      <input type="checkbox" name="adddate" value="on" checked="checked" tabindex="9"/>
+      {% else %}
+      <input type="checkbox" name="adddate" value="on" tabindex="9"/>
+    {% endif %}
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Add separator between comments posted in different days****
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <input type="hidden" name="adddaysep" value="off"/>
+    {% if adddaysep == 'on' %}
+      <input type="checkbox" name="adddaysep" value="on" checked="checked" tabindex="10"/>
+      {% else %}
+      <input type="checkbox" name="adddaysep" value="on" tabindex="10"/>
+    {% endif %}
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 20%; text-align: right;">
+    Add link to older comments
+  </span>
+  <span style="float: right; width: 78%; text-align: left;">
+    <input type="hidden" name="addprevious" value="off"/>
+    {% if addprevious == 'on' %}
+      <input type="checkbox" name="addprevious" value="on" checked="checked" tabindex="11"/>
+      {% else %}
+      <input type="checkbox" name="addprevious" value="on" tabindex="11"/>
+    {% endif %}
+
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 100%; text-align: left;">
+    <a name="notes">
+      <b>Notes</b>
+    </a>
+  </span>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 100%; text-align: left;">
+    *Not all modules may support this
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 100%; text-align: left;">
+    **Option not yet implemented
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 100%; text-align: left;">
+    ***Relevant only when comments are displayed in flat or nested mode
+  </span>
+</div>
+<div style="clear: both; padding-top: 10px;">
+  <span style="float: left; width: 100%; text-align: left;">
+    ****The separator will place "Today", "Yesterday", or the day of the week whenever
+      appropriate
+  </span>
+</div>
+{% endblock %}

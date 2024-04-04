@@ -1,0 +1,93 @@
+{# @comments/display.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "comments", file: "comments"}) }}
+    {# <!--
+        [andyv] i see that we have at least 3 possible situations here,
+        so we should deal with them in a context-sensitive manner as follows:
+
+        1. no real comments posted
+            - display 'No Comments' note
+            - hide sorting options box
+            - display 'Post New Comment' box
+
+        2. at least 1 comment exists and needs to be displayed
+            - display sorting options box (for now.. perhaps needs be simpler for a single comment?)
+            - display 'Post New Comment' box
+
+        3. comments exist - user has selected 'No Comments' in 'Style' options
+            - display 'Comments Disabled' + count of total comments
+            - hide sorting options box
+            - hide 'Post New Comment' box
+            TODO: shouldn't this option be 'sticky' from user POV?
+            If yes, a user needs a way back to display comments again.
+
+    --> #}
+
+    {% if xar_security_check('ReadComments') %}
+        {% if comments is null %}
+            {% set comments = {} %}
+        {% endif %}
+        {% set number_of_comments = comments|length %}
+        {% if package['settings']['render'] != 'nocomments' %}
+            {# <!--
+                If pubsub is hooked to comments, allow subscribing here to be informed of new comments
+            --> #}
+            {# <!--
+                {% if xar_coremethod('xarMod', 'isAvailable', 'pubsub') and xar_coremethod('xarModHooks', 'isHooked', ['pubsub','comments']) %}
+                    {% set extrainfo = {'module': 'comments', 'id': 0, 'extra': header['moduleid'].'-'.header['itemtype'].'-'.header['objectid']} %}
+                    {{ xar_guifunc("pubsub", "user", "displayicon", {main: "false", extrainfo: extrainfo, layout: "text"}) }}
+                {% endif %}
+            --> #}
+            {% if number_of_comments == 0 %}
+                <p>
+                    There are no comments attached to this item yet.
+                </p>
+                {% if header['selected_id'] is null %}
+                    {% if not noposting %}
+                        <h3>Post a comment</h3>
+                        {{ include('@comments/includes/input-box.html.twig') }}
+                    {% endif %}
+                {% elseif header['objectlink'] and header['objecttitle'] %}
+                    <p>
+                        Return to
+                        <a href="{{ header['objectlink'] }}">{{ header['objecttitle'] }}</a>
+                    </p>
+                {% endif %}
+            {% else %}
+                {# <!--{% if header['selected_id'] is null %}
+                    {{ include('@comments/includes/option_bar.html.twig') }}
+                {% endif %}--> #}
+                {% if package['settings']['render'] == 'nested' %}
+                    {{ include('@comments/includes/view-nested.html.twig') }}
+                {% elseif package['settings']['render'] == 'threaded' %}
+                    {{ include('@comments/includes/view-threaded.html.twig') }}
+                {% elseif package['settings']['render'] == 'flat' %}
+                    {{ include('@comments/includes/view-flat.html.twig') }}
+                {% endif %}
+                {% if header['selected_id'] is null %}
+                    {% if not noposting %}
+                        <h3>Post a comment</h3>
+                        {{ include('@comments/includes/input-box.html.twig') }}
+                    {% endif %}
+                {% elseif header['objectlink'] and header['objecttitle'] %}
+                    <p>
+                        Return to
+                        <a href="{{ header['objectlink'] }}">{{ header['objecttitle'] }}</a>
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <p>
+                Comments display and submission are currently disabled.
+                {% if number_of_comments != 0 %}
+                    Total number of attached comments: {{ number_of_comments }}
+                {% else %}
+                    There are no comments attached to this item.
+                {% endif %}
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,141 @@
+{# @comments/displayall.html.twig #}
+
+{% extends '@comments/base.html.twig' %}
+
+{% block modulespace %}
+{# <!-- DISPLAY WHERE THE COMMENTS ARE COMING FROM --> #}
+    {% if commentlist|length %}
+      <span class="xar-title">
+        Showing comments n.
+        {% set last = first+howmany-1 %}
+        &#160;{{ first }} - {{ last }}&#160;
+        {% if modarray[0] != 'all' %}
+          from
+          {% for i in modarray|keys %}
+            {{ modlist[modarray[i]] }}
+            {% if i >= 0 and i < (modarray|length - 1) %}
+              ,
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          from all modules
+        {% endif %}
+        {# <!-- NEXT COMMENTS LINK --> #}
+        (<a href="{{ decoded_nexturl }}">next</a>)
+      </span>
+      <p />
+      <span class="xar-sub">
+          Comments are owned by the poster. We are not responsible for their content.
+        <br />
+      </span>
+      <p />
+  {# <!-- DISPLAY COMMENTS --> #}
+      {% for daylabel, commentsthisday in commentlist %}
+        {% if adddaysep=='on' %}
+          {% if daylabel %}
+            {# <!-- DAY SEPARATOR --> #}
+              <span class="xar-title"><b>{{ daylabel }}</b></span>
+          {% endif %}
+        {% endif %}
+        <ul>
+          {% for comment in commentsthisday %}
+            {# <!-- CHECK PERMISSION --> #}
+            <li>
+              <span class="xar-title">
+                <a href="{{ xar_moduleurl('comments','user','display',{'id': comment['id']}) }}">
+                {{ comment['subject'] }}</a>,
+              </span>
+              {% if comment['title'] %}
+                {% if addobject >= 20 %}
+                  {# <!-- OBJECT TITLE --> #}
+                  in
+                  <span class="xar-title">
+                    {% if addobject >= 21 %}
+                      <a href="{{ comment['objurl'] }}#{{ comment['id'] }}">
+                        {{ comment['title'] }}
+                      </a>
+                    {% else %}
+                      <a href="{{ comment['objurl'] }}">
+                        {{ comment['title'] }}
+                      </a>
+                    {% endif %}
+                  </span>
+                  {% elseif addobject == 1 %}
+                    in
+                    <span class="xar-title">{{ comment['title'] }}</span>
+                  {% endif %}
+                {% endif %}
+                <span class="xar-normal">
+                  {% if addauthor >= 1 %}
+                    {# <!-- AUTHOR NAME --> #}
+                    <br />by
+                    {% if comment['postanon'] == 0 or xar_modulevar('comments', 'AllowPostAsAnon') == 0 %}
+                      {% if addauthor >= 2 %}
+                        <a href="{{ xar_moduleurl('users','user','view') }}">
+                          {{ comment['author'] }}
+                        </a>
+                      {% else %}
+                        {{ comment['author'] }}
+                      {% endif %}
+                    {% else %}
+                      Anonymous
+                    {% endif %}
+                  {% endif %}
+                  {% if adddate=='on' %}
+                    {# <!-- DATE --> #}
+                    on {{ xar_coremethod('xarLocale', 'formatDate', ["%B %d, %Y %I.%M %p",comment['date']]) }}
+                  {% endif %}
+                </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+        <p />
+        {# <!-- FORM SELECTING DISPLAY OPTIONS (should add a module variable here) --> #}
+        <br />
+          <form action="" method="post">
+            {# <!-- CHOOSE HOW MANY TO DISPLAY --> #}
+            <span class="xar-normal">
+              Show
+            </span>
+            <input type="text" size="2" maxlength="3" name="howmany" value="{{ howmany }}"/>
+            comments
+            {# <!-- SELECT FROM WHICH MODULES --> #}
+            {% if modlist|length >= 2 %}
+              from
+              <select name="modid[]" tabindex="3" multiple="multiple" size="3">
+                {% for key, value in modlist %}
+                  {% if key in modarray %}
+                    <option value="{{ key }}" selected="selected">{{ value }}</option>
+                  {% else %}
+                    <option value="{{ key }}">{{ value }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            {% endif %}
+            <p />
+            {# <!-- CHOOSE SORTING ORDER --> #}
+            sorted by
+            <select name="order">
+              {% if order == 'ASC' %}
+                <option value="ASC" selected="selected">Ascending</option>
+              {% else %}
+                <option value="ASC">Ascending</option>
+              {% endif %}
+              {% if order == 'DESC' %}
+                <option value="DESC" selected="selected">Descending</option>
+              {% else %}
+                <option value="DESC">Descending</option>
+              {% endif %}
+            </select> date
+            &#160;&#160;
+            {% set label = 'Refresh' %}
+            {{- xar_button({type: "submit", value: label}) -}}
+            <br />
+          </form>
+      {# <!-- END OF FORM SELECTING DISPLAY OPTIONS --> #}
+    {% else %}
+      <p>There are no comments</p>
+      <p />
+    {% endif %}
+{% endblock %}

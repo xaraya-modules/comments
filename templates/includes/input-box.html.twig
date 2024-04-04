@@ -1,0 +1,123 @@
+{# @comments/includes/input-box.html.twig #}
+
+{% block input_box %}
+{% if xar_security_check('ReplyComments') %}
+      <form action="{{ xar_moduleurl('comments', 'user', 'reply') }}" method="post" name="post" id="post" onSubmit="submitonce(this)">
+        <div class="xar-ib-wrapper xar-accent-outline">
+          {% if hooks['formdisplay'] != '' %}
+          
+{# <!--              Hooks call               --> #}
+
+            <div class="xar-ib-actionpanel xar-accent">
+              <span>
+                  BBCode Actions
+                :
+              </span>
+              <span>
+                {{ hooks['formdisplay'] }}
+              </span>
+            </div>
+            <div class="xar-ib-leftpanelshort">
+              <p>
+                  Name
+                :
+                {% if strtolower(xar_uservar('uname')) != 'anonymous' %}
+                  <a href="{{ xar_moduleurl('roles', 'user', 'display', {'id': package['role_id']}) }}">{{ package['name'] }}</a>
+                  {% if receipt['action'] != 'modify' and xar_coremethod('xarUser', 'isLoggedIn') %}
+                    [ <a class="xar-norm" href="{{ xar_moduleurl('authsystem', 'user', 'logout') }}">
+                        Logout
+                    </a> ]
+                  {% endif %}
+                  {% if xar_modulevar('comments', 'AllowPostAsAnon') == '1' %}
+                    {% if package['postanon'] is not null and package['postanon'] == '1' %}
+                      <input type="checkbox" name="package[postanon]" id="package-postanon" checked="checked"/>
+                    {% else %}
+                      <input type="checkbox" name="package[postanon]" id="package-postanon"/>
+                    {% endif %}
+                      Post anonymously
+                    <br />
+                  {% endif %}
+                {% else %}
+                  {{ package['name'] }}
+                {% endif %}
+              </p>
+              <label for="package-title">
+                  Title:
+              </label>
+              {% if package['new_title'] is not null %}
+                <input class="xar-ib-field" type="text" name="package[title]" id="package-title" value="{{ package['new_title'] }}" tabindex="1"/>
+              {% elseif package['title'] %}
+                <input class="xar-ib-field" type="text" name="package[title]" id="package-title" value="{{ package['title'] }}" tabindex="1"/>
+              {% else %}
+                <input class="xar-ib-field" type="text" name="package[title]" id="package-title" value="" tabindex="1"/>
+              {% endif %}
+              <label for="package-text">
+                  Comment:
+              </label>
+              {% if package['text'] is not null %}
+                <textarea class="xar-ib-fieldtext" name="package[text]" id="package-text" tabindex="2">{{ package['text'] }}</textarea>
+              {% else %}
+                <textarea class="xar-ib-fieldtext" name="package[text]" id="package-text" tabindex="2">&#160;</textarea>
+              {% endif %}
+              {# <!-- TODO: show item new/modify hook here somehow
+                {% if hooks['iteminput'] %}
+                  {% for hookmodule in hooks['iteminput']|keys %}
+                    {{ hooks.iteminput.hookmodule }}
+                  {% endfor %}
+                {% endif %}
+              --> #}
+              <input type="hidden" name="header[moduleid]" id="header-moduleid" value="{{ header['moduleid'] }}"/>
+              <input type="hidden" name="header[itemid]" id="header-itemid" value="{{ header['itemid'] }}"/>
+              <input type="hidden" name="header[itemtype]" id="header-itemtype" value="{{ header['itemtype'] }}"/>
+              {% if header['parent_id'] is null or not header['parent_id'] %}
+                <input type="hidden" name="header[parent_id]" id="header-parent_id" value="0"/>
+              {% else %}
+                <input type="hidden" name="header[parent_id]" id="header-parent_id" value="{{ header['parent_id'] }}"/>
+              {% endif %}
+              {% if comment_action is not null and comment_action == 'modify' %}
+                <input type="hidden" name="header[id]" id="header-id" value="{{ header['id'] }}"/>
+              {% endif %}
+              <input type="hidden" name="comment_action" id="receipt-action" value="{{ comment_action }}"/>
+              {% if parent_url is not null %}
+                <input type="hidden" name="parent_url" value="{{ parent_url }}" />
+              {% else %}
+                <input type="hidden" name="parent_url" value="{{ xar_currenturl() }}" />
+              {% endif %}
+              {% set label = 'Preview' %}
+              {{- xar_button({type: "submit", id: "receipt-action-preview", onclick: "document.getElementById('receipt-action').value='preview'", value: label}) -}}
+              {% set label = 'Submit' %}
+              {{- xar_button({type: "submit", id: "receipt-action-submit", onclick: "document.getElementById('receipt-action').value='submit'", value: label}) -}}
+            </div>
+          {% else %}
+
+{# <!--              Tag or Property call               --> #}
+
+            <div class="xar-ib-leftpanel">
+              <p>
+                {{ xar_data_form({object: object}) }}
+              </p>
+              <div class="xar-row">
+                <div class="xar-col">
+                </div>
+                <div class="xar-col">
+                  <input type="hidden" name="comment_id" id="comment_id" value="{{ comment_id }}"/>
+                  <input type="hidden" name="comment_action" id="receipt-action" value="{{ comment_action }}"/>
+                  {% if adminreturn is not null %}
+                    <input type="hidden" name="adminreturn" value="yes" />
+                  {% endif %}
+                  {% if comment_id %}
+                      {% set label = 'Cancel' %}
+                      {{- xar_button({type: "cancel", name: "cancel", value: label}) -}}
+                  {% endif %}
+                  {% set label = 'Preview' %}
+                  {{- xar_button({type: "submit", name: "receipt-action-preview", id: "receipt-action-preview", onclick: "document.getElementById('receipt-action').value='preview'", value: label}) -}}&#160;
+                  {% set label = 'Submit' %}
+                  {{- xar_button({type: "submit", name: "receipt-action-submit", id: "receipt-action-submit", onclick: "document.getElementById('receipt-action').value='submit'", value: label}) -}}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </form>
+    {% endif %}
+{% endblock %}

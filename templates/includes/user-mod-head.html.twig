@@ -1,0 +1,13 @@
+{# @comments/includes/user-mod-head.html.twig #}
+
+{% block user_mod_head %}
+<div class="xar-mod-head">
+        <span class="xar-mod-title">
+            {% if xar_modulevar('comments', 'use_module_alias') %}
+                {{ xar_var({scope: "module", module: "comments", name: "module_alias_name"}) }}
+            {% else %}
+                Comments Module
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

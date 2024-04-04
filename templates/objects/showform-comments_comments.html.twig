@@ -1,0 +1,64 @@
+{# @comments/objects/showform-comments_comments.html.twig #}
+
+{% block showform_comments_comments %}
+{# <!-- for this module specific css rules look at comments/xarstyles/comments.css file [andyv] --> #}
+    <script type="text/javascript" src="modules/base/xartemplates/includes/submitonce.js"></script>
+
+    <div class="xar-row">
+            {% set label = 'Name:' %}
+            {{ xar_data_label({property: properties['author'], label: label}) }}
+            {% if xar_coremethod('xarUser', 'isLoggedIn') %}
+                <a href="{{ xar_moduleurl('roles', 'user', 'display', {'role_id': xar_uservar('id')}) }}">
+                    {{ xar_data_output({property: properties['author']}) }}
+                </a>
+    {# <!--
+                {% set newpost = !properties['id'].value %}
+                {% if newpost %}
+                    &#160;
+                    [ <a class="xar-norm" href="{{ xar_moduleurl('authsystem', 'user', 'logout') }}">
+                        Logout
+                    </a> ]
+                {% endif %}
+    --> #}
+                {% if xar_modulevar('comments', 'AllowPostAsAnon') == 1 %}
+                    &#160;
+                    {{ xar_data_input({property: properties['anonpost']}) }}
+                    {% set label = 'Post anonymously' %}
+                    {{ xar_data_label({property: properties['anonpost'], label: label}) }}
+                {% else %}
+                    {{ xar_data_input({property: properties['anonpost'], hidden: "hidden"}) }}
+                {% endif %}
+            {% else %}
+                {{ xar_data_output({property: properties['author']}) }}
+            {% endif %}
+    </div>
+    <div class="xar-row">
+        <div class="xar-col-condensed">
+            {% set label = 'Title:' %}
+            {{ xar_data_label({property: properties['title'], label: label}) }}
+        </div>
+        <div class="xar-col-condensed">
+            {{ xar_data_input({property: properties['title']}) }}
+        </div>
+    </div>
+    <div class="xar-row">
+        <div class="xar-col-condensed">
+            {% set label = 'Comment:' %}
+            {{ xar_data_label({property: properties['text'], label: label}) }}
+        </div>
+        <div class="xar-col-condensed">
+            {{ xar_data_input({property: properties['text']}) }}
+        </div>
+    </div>
+    {{ xar_data_input({property: properties['id'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['parent_id'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['moduleid'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['itemtype'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['itemid'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['parent_url'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['date'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['author'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['position'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['hostname'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['status'], hidden: "hidden"}) }}
+{% endblock %}

@@ -1,0 +1,44 @@
+{# @comments/includes/listing_rowsuffix.html.twig #}
+
+{% block listing_rowsuffix %}
+{% if xar_coremethod('xarUser', 'isLoggedIn') and xar_security_check('ManageComments',0) %}
+        <td class="{{ item_class }}" style="text-align: center;" nowrap="nowrap">
+            {% set objectname = object.name %}
+            {% if objectname == 'comments_comments' and layout == 'admin' %}
+                <xar:access level="200">
+                    <a href="{{ xar_moduleurl('comments','admin','display',{'id': loopitem[primaryalias]}) }}"
+                    title="Display this comment">
+                        <xar:if condition = "xarModVars::get('comments','use_module_icons')">
+                            <img src="{{ xar_imageurl('icons/' ~ 'display.png', 'base') }}" style="margin-right: 5px; vertical-align: top;" />
+                        {% else %}
+                            <b style="margin-right: 5px">H</b>
+                        {% endif %}
+                    </a>
+                </xar:access>
+                <xar:access level="500">
+                    <a href="{{ xar_moduleurl('comments','admin','modify',{'itemid': loopitem[primaryalias]}) }}"
+                    title="Modify this comment">
+                        <xar:if condition = "xarModVars::get('comments','use_module_icons')">
+                            <img src="{{ xar_imageurl('icons/' ~ 'modify.png', 'base') }}" style="margin-right: 5px; vertical-align: top;" />
+                        {% else %}
+                            <b style="margin-right: 5px">M</b>
+                        {% endif %}
+                    </a>
+                </xar:access>
+                <xar:access level="700">
+                    <a href="{{ xar_moduleurl('comments','admin','delete',{'itemid': loopitem[primaryalias], 'dtype': 'item'}) }}"
+                    title="Delete this comment">
+                        <xar:if condition = "xarModVars::get('comments','use_module_icons')">
+                            <img src="{{ xar_imageurl('icons/' ~ 'delete.png', 'base') }}" style="margin-right: 5px; vertical-align: top;" />
+                        {% else %}
+                            <b style="margin-right: 5px">D</b>
+                        {% endif %}
+                    </a>
+                </xar:access>
+            {% endif %}
+            <xar:access level="500">
+                <input type="checkbox" name="optionscheckbox" id="{{ loopitem[primaryalias] }}"  />
+            </xar:access>
+        </td>
+    {% endif %}
+{% endblock %}

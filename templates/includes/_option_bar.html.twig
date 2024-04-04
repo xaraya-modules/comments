@@ -1,0 +1,181 @@
+{# @comments/includes/_option_bar.html.twig #}
+
+{% block _option_bar %}
+<div>
+    <p class="xar-comments-note xar-sub">
+        Note: Comments are owned by the poster. We are not responsible for their content.
+    </p>
+    {% set showoptions = xar_modulevar('comments', 'showoptions') %}
+    {% if not showoptions %}
+        {% if xar_coremethod('xarModHooks', 'isHooked', ['comments','roles', 0]) and xar_coremethod('xarUser', 'isLoggedIn') %}
+            <p class="xar-comments-note xar-sub">
+                Change Your Comments Rendering Settings
+                <a href="{{ xar_moduleurl('roles', 'user', 'account') }}">
+                    here
+                </a>.
+            </p>
+        {% endif %}
+    {% else %}
+    <h4>
+        Comments Settings
+    </h4>
+    <div class="xar-comments-wrapper xar-accent xar-norm-outline">
+        <form action="{{ receipt['returnurl']['decoded'] }}" method="post">
+            <div class="xar-comments-settings">
+                <label for="depth">
+                    Depth
+                </label>
+                <br />
+                <select name="depth" id="depth">
+                    {% for i in range(1, (package['settings']['max_depth'] - 1)) %}
+                        {% if i == package['settings']['depth'] %}
+                            <option value="{{ i }}" selected="selected">
+                                {{ i }}
+                            </option>
+                            {% else %}
+                            <option value="{{ i }}">
+                                {{ i }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="xar-comments-settings">
+                <label for="render">
+                    Style
+                </label>
+                <br />
+                <select name="render" id="render">
+                    {% if package['settings']['render'] == 'nested' %}
+                        <option value="nested" selected="selected">
+                            Nested
+                        </option>
+                        {% else %}
+                        <option value="nested">
+                            Nested
+                        </option>
+                    {% endif %}
+                    {% if package['settings']['render'] == 'flat' %}
+                        <option value="flat" selected="selected">
+                            Flat
+                        </option>
+                        {% else %}
+                        <option value="flat">
+                            Flat
+                        </option>
+                    {% endif %}
+                    {% if package['settings']['render'] == 'threaded' %}
+                        <option value="threaded" selected="selected">
+                            Threaded
+                        </option>
+                        {% else %}
+                        <option value="threaded">
+                            Threaded
+                        </option>
+                    {% endif %}
+{# <!-- thinking about omitting this setting from the theme - i caanot believe that anyone would miss this option in RL --> #}
+                    {% if package['settings']['render'] == 'nocomments' %}
+                        <option value="nocomments" selected="selected">
+                            No Comments
+                        </option>
+                        {% else %}
+                        <option value="nocomments">
+                            No Comments
+                        </option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="xar-comments-settings">
+                <label for="sortby">
+                    Sort by
+                </label>
+                <br />
+                <select name="sortby" id="sortby">
+                    {% if package['settings']['sortby'] == 1 %}
+                        <option value="1" selected="selected">
+                            Author
+                        </option>
+                        {% else %}
+                        <option value="1">
+                            Author
+                        </option>
+                    {% endif %}
+                    {% if package['settings']['sortby'] == 2 %}
+                        <option value="2" selected="selected">
+                            Date
+                        </option>
+                        {% else %}
+                        <option value="2">
+                            Date
+                        </option>
+                    {% endif %}
+                    {% if package['settings']['sortby'] == 3 %}
+                        <option value="3" selected="selected">
+                            Thread
+                        </option>
+                        {% else %}
+                        <option value="3">
+                            Thread
+                        </option>
+                    {% endif %}
+                    {% if package['settings']['sortby'] == 4 %}
+                        <option value="4" selected="selected">
+                            Title
+                        </option>
+                        {% else %}
+                        <option value="4">
+                            Title
+                        </option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="xar-comments-settings">
+                <label for="order">
+                    Order
+                </label>
+                <br />
+                <select name="order" id="order">
+                    {% if package['settings']['order'] == 1 %}
+                        <option value="1" selected="selected">
+                            Ascending
+                        </option>
+                        {% else %}
+                        <option value="1">
+                            Ascending
+                        </option>
+                    {% endif %}
+                    {% if package['settings']['order'] == 2 %}
+                        <option value="2" selected="selected">
+                            Descending
+                        </option>
+                        {% else %}
+                        <option value="2">
+                            Descending
+                        </option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="xar-comments-settings">
+                        Action
+                <br />
+                <input type="hidden" id="header-modid" name="header[modid]" value="{{ header['modid'] }}"/>
+                <input type="hidden" id="header-objectid" name="header[objectid]" value="{{ header['objectid'] }}"/>
+                <input type="hidden" id="header-itemtype" name="header[itemtype]" value="{{ header['itemtype'] }}"/>
+                {% if header['selected_id'] is not null %}
+                    <input type="hidden" id="header-selected_id" name="header[selected_id]" value="{{ header['selected_id'] }}"/>
+                {% endif %}
+                {% if header['branchout'] is not null %}
+                    <input type="hidden" id="header-id" name="header[id]" value="{{ header['id'] }}"/>
+                    <input type="hidden" id="header-branchout" name="header[branchout]" value="{{ header['branchout'] }}"/>
+                {% endif %}
+                {# <!--<input type="hidden" id="receipt-returnurl-encoded" name="receipt[returnurl][encoded]" value="{{ receipt['returnurl']['encoded'] }}"/>
+                <input type="hidden" id="receipt-returnurl-decoded" name="receipt[returnurl][decoded]" value="{{ receipt['returnurl']['decoded'] }}"/>
+                --> #}
+                {% set label = 'Refresh' %}
+                {{- xar_button({type: "submit", value: label}) -}}
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
