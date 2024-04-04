@@ -19,7 +19,7 @@
  * @access  private
  * @param   integer     $modid      the id of the module that the objectids are associated with
  * @param   integer     $itemtype   the item type that these nodes belong to
- * @returns array       A list of objectid's
+ * @return array       A list of objectid's
  */
 function comments_userapi_get_object_list($args)
 {

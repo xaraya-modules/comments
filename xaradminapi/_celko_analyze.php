@@ -17,8 +17,8 @@
  *
  *  @author Carl P. Corliss
  *  @access public
- *  @param  array  $data  The data array to check for inconsistencies
- *  @returns array An array of data containing the total records, total root nodes,
+ *  @param  array  $args  The data array to check for inconsistencies
+ *  @return array An array of data containing the total records, total root nodes,
  *                 and, if there are inconsistencies (holes in the celko model),
  *                 it returns a percent amount of the inconsistency.
  */

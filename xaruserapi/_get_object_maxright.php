@@ -19,7 +19,7 @@
  * @param    integer     modid      The module that comment is attached to
  * @param    integer     objectid   The particular object within that module
  * @param    integer     itemtype   The itemtype of that object
- * @returns   integer   the highest 'right' value for the specified modid/objectid pair or zero if it couldn't find one
+ * @return   integer   the highest 'right' value for the specified modid/objectid pair or zero if it couldn't find one
  */
 function comments_userapi_get_object_maxright($args)
 {

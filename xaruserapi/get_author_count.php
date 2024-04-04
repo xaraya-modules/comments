@@ -20,7 +20,7 @@
  * @param integer    $itemtype  the item type that these nodes belong to
  * @param integer    $author      the id of the author you want to count comments for
  * @param integer    $status    (optional) the status of the comments to tally up
- * @returns integer  the number of comments for the particular modid/objectid pair,
+ * @return integer  the number of comments for the particular modid/objectid pair,
  *                   or raise an exception and return false.
  */
 function comments_userapi_get_author_count($args)

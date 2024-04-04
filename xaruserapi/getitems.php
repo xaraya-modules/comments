@@ -22,8 +22,7 @@
  * @param $args['status'] optional status to count: ALL (minus root nodes), ACTIVE, INACTIVE
  * @param $args['numitems'] optional number of items to return
  * @param $args['startnum'] optional start at this number (1-based)
- * @returns array
- * @return $array[$itemid] = $numcomments;
+ * @return array $array[$itemid] = $numcomments;
  */
 function comments_userapi_getitems($args)
 {

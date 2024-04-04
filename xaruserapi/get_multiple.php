@@ -28,7 +28,7 @@
  * @param integer    $status    (optional) only pull comments with this status
  * @param integer    $author    (optional) only pull comments by this author
  * @param boolean    $reverse   (optional) reverse sort order from the database
- * @returns array     an array of comments or an empty array if no comments
+ * @return array     an array of comments or an empty array if no comments
  *                   found for the particular modid/objectid pair, or raise an
  *                   exception and return false.
  */

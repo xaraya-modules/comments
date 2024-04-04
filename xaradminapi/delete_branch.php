@@ -17,7 +17,7 @@
  * @author Carl P. Corliss (aka rabbitt)
  * @access  private
  * @param   integer     $node   the id of the node to delete
- * @returns bool true on success, false otherwise
+ * @return bool true on success, false otherwise
  */
 function comments_adminapi_delete_branch($args)
 {

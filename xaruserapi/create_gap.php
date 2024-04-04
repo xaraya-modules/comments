@@ -22,7 +22,7 @@
  * @param    integer    $modid         the module id
  * @param    integer    $itemtype      the item type
  * @param    string     $objectid      the item id
- * @returns  integer    number of affected rows or false [0] on error
+ * @return  integer    number of affected rows or false [0] on error
  */
 function comments_userapi_create_gap($args)
 {

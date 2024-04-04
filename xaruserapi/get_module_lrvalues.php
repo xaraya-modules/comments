@@ -17,7 +17,7 @@
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   public
  * @param    integer     $modid     id of the module to gather info on
- * @returns  array an array containing the left and right values or an
+ * @return  array an array containing the left and right values or an
  *           empty array if the modid specified doesn't exist
  */
 function comments_userapi_get_module_lrvalues($args)

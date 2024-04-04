@@ -19,7 +19,7 @@
  *
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   private
- * @returns   integer   the highest 'right' value for the table or zero if it couldn't find one
+ * @return   integer   the highest 'right' value for the table or zero if it couldn't find one
  */
 function comments_userapi_get_table_maxright(/* VOID */)
 {

@@ -17,8 +17,7 @@
  *
  *  @author Carl P. Corliss
  *  @access public
- *  @param  void
- *  @returns boolean  FALSE on error, TRUE on success
+ *  @return boolean|null  FALSE on error, TRUE on success
  */
 function comments_adminapi_celko_reconstruct()
 {

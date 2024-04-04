@@ -17,7 +17,7 @@
  *
  *  @author John Cox
  *  @access public
- *  @returns true on success
+ *  @return bool|null true on success
  */
 function comments_adminapi_import_blacklist($args)
 {

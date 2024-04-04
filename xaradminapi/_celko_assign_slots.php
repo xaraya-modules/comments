@@ -18,7 +18,7 @@
  *  @author Carl P. Corliss
  *  @access private
  *  @param  array   $data  The array containing all the data nodes to adjust
- *  @returns array  the modified array is passed back, or zero if it is empty
+ *  @return array  the modified array is passed back, or zero if it is empty
  */
 
 function comments_adminapi_celko_assign_slots($data)

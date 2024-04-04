@@ -18,7 +18,7 @@
  *
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   public
- * @returns  array      returns whatever needs to be parsed by the BlockLayout engine
+ * @return  array|string|null      returns whatever needs to be parsed by the BlockLayout engine
  */
 
 /*

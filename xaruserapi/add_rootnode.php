@@ -19,7 +19,7 @@
  * @param    integer     modid      The module that comment is attached to
  * @param    integer     objectid   The particular object within that module
  * @param    integer     itemtype   The itemtype of that object
- * @returns  integer     the id of the node that was created so it can be used as a parent id
+ * @return  integer     the id of the node that was created so it can be used as a parent id
  * @todo get rid of this notion of root node ?
  */
 function comments_userapi_add_rootnode($args)

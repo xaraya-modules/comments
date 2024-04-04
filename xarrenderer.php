@@ -75,7 +75,7 @@ define('_COM_CUTOFF_CONNECTOR', 8);
  * @author Carl P. Corliss (aka rabbitt)
  * @access public
  * @param array &$comments_list  A reference (pointer) to an array or related items in parent -> child order (see above)
- * @returns bool true on success, false otherwise
+ * @return bool true on success, false otherwise
  *
  */
 
@@ -131,7 +131,7 @@ function comments_renderer_array_markdepths_bychildren(&$comments_list)
  * @author Carl P. Corliss (aka rabbitt)
  * @access public
  * @param array   &$comments_list    an array of related (array) items - each item -must- contain a parent id field
- * @returns bool True on success, False otherwise
+ * @return bool True on success, False otherwise
  */
 function comments_renderer_array_markdepths_bypid(&$comments_list)
 {
@@ -331,7 +331,7 @@ function comments_renderer_array_prune_excessdepth($args)
  * @param string     $action    get or set
  * @param integer    $depth     the depth to set or get
  * @param bool       $value     true if the depth is set or false if unset
- * @returns bool true if the specified depth is set, false otherwise
+ * @return bool true if the specified depth is set, false otherwise
  */
 
 function comments_renderer_array_depthbuoy($action, $depth, $value=true)
@@ -653,7 +653,7 @@ function comments_renderer_array_sortvalue($value=null)
  * @param    string  $args['sortby']         represents the field to sort by
  * @param    string  $args['direction']      represents the direction to sort (ascending / descending )
  * @param    array   $args['comment_list']   List of comments to sort
- * @returns   void    nothing
+ * @return   void    nothing
  */
 
 function comments_renderer_array_sort(&$comment_list, $sortby, $direction)

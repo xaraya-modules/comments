@@ -18,7 +18,7 @@
  * @access  private
  * @param   integer     $modid      the id of the module that the comments are associated with
  * @param   integer     $itemtype   the item type that the comments are associated with
- * @returns bool true on success, false otherwise
+ * @return bool true on success, false otherwise
  */
 function comments_adminapi_delete_module_nodes($args)
 {

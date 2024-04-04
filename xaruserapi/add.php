@@ -27,7 +27,7 @@
  * @param    string      $args['hostname']   hostname (for API access)
  * @param    datetime    $args['date']       date of the comment (for API access)
  * @param    integer     $args['id']        comment id (for API access - import only)
- * @returns  integer     the id of the new comment
+ * @return  integer     the id of the new comment
  */
 function comments_userapi_add($args)
 {

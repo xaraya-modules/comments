@@ -20,7 +20,7 @@
  * @param integer    $itemtype  the item type that these nodes belong to
  * @param integer    $objectid    the id of the item that these nodes belong to
  * @param integer    $status    the status of the comment: 2 - active, 1 - inactive, 3 - root node
- * @returns integer  the number of comments for the particular modid/objectid pair,
+ * @return integer  the number of comments for the particular modid/objectid pair,
  *                   or raise an exception and return false.
  */
 function comments_userapi_get_count($args)

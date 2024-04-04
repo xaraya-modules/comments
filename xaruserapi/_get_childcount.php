@@ -20,7 +20,7 @@ Not used anywhere?
  * @author mikespub
  * @access public
  * @param integer    $id       the comment id that we want to get a count of children for
- * @returns integer  the number of child comments for the particular comment id,
+ * @return integer  the number of child comments for the particular comment id,
  *                   or raise an exception and return false.
  */
 function comments_userapi_get_childcount($id)

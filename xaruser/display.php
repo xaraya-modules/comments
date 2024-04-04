@@ -17,15 +17,17 @@
  *
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   public
- * @param    integer    $args['modid']              the module id
- * @param    integer    $args['itemtype']           the item type
- * @param    string     $args['objectid']           the item id
- * @param    integer    $args['depth']              depth of comment thread to display
- * @param    integer    [$args['selected_id']]      optional: the cid of the comment to view (only for displaying single comments)
- * @param    integer    [$args['thread']]           optional: display the entire thread following cid
- * @param    integer    [$args['preview']]          optional: an array containing a single (preview) comment used with adding/editing comments
- * @param    bool       [$args['noposting']]        optional: a boolean to define whether posting is enabled
- * @return   array      returns whatever needs to be parsed by the BlockLayout engine
+ * @param array $args
+ * with
+ *     integer    $args['modid']              the module id
+ *     integer    $args['itemtype']           the item type
+ *     string     $args['objectid']           the item id
+ *     integer    $args['depth']              depth of comment thread to display
+ *     integer    [$args['selected_id']]      optional: the cid of the comment to view (only for displaying single comments)
+ *     integer    [$args['thread']]           optional: display the entire thread following cid
+ *     integer    [$args['preview']]          optional: an array containing a single (preview) comment used with adding/editing comments
+ *     bool       [$args['noposting']]        optional: a boolean to define whether posting is enabled
+ * @return   array|string|null      returns whatever needs to be parsed by the BlockLayout engine
  */
 
 /*

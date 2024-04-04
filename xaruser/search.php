@@ -16,7 +16,7 @@
  *
  * @author Carl P. Corliss (aka rabbitt)
  * @access private
- * @returns mixed description of return
+ * @return mixed description of return
  */
 function comments_user_search($args)
 {

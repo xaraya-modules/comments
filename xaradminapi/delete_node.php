@@ -18,7 +18,7 @@
  * @access  private
  * @param   integer     $node   the id of the node to delete
  * @param   integer     $parent_id    the deletion node's parent id (used to reassign the children)
- * @returns bool true on success, false otherwise
+ * @return bool|null true on success, false otherwise
  */
 function comments_adminapi_delete_node($args)
 {

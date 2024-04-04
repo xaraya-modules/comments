@@ -20,7 +20,7 @@
  * @param   integer   $itemtype     the item type that these nodes belong to
  * @param   array     $objectids    (optional) the list of ids of the items that these nodes belong to
  * @param   integer   $startdate    (optional) comments posted at startdate or later
- * @returns array     the number of comments for the particular modid/objectids pairs,
+ * @return array     the number of comments for the particular modid/objectids pairs,
  *                    or raise an exception and return false.
  */
 function comments_userapi_get_countlist($args)

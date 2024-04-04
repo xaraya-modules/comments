@@ -17,7 +17,7 @@
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   public
  * @param    integer     $id     id of the comment to lookup
- * @returns  bool      returns true on success, throws an exception and returns false otherwise
+ * @return  bool      returns true on success, throws an exception and returns false otherwise
  */
 function comments_userapi_deactivate($args)
 {

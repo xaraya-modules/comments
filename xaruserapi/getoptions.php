@@ -20,7 +20,7 @@
  *
  * @author Carl P. Corliss (aka rabbitt)
  * @access public
- * @returns array list of viewing options (depth, render style, order, and sortby)
+ * @return array list of viewing options (depth, render style, order, and sortby)
  */
 function comments_userapi_getoptions()
 {

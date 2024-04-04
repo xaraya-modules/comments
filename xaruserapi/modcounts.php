@@ -17,8 +17,7 @@
  * @param   string  status optional status to count: ALL (minus root nodes), ACTIVE, INACTIVE
  * @param integer modid optional module id you want to count for
  * @param integer itemtype optional item type you want to count for
- * @returns array
- * @return $array[$modid][$itemtype] = array('items' => $numitems,'comments' => $numcomments);
+ * @return array $array[$modid][$itemtype] = array('items' => $numitems,'comments' => $numcomments);
  */
 function comments_userapi_modcounts($args)
 {

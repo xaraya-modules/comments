@@ -17,7 +17,7 @@
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   public
  * @param    integer    $args['id']       the id of a comment
- * @returns  array   an array containing the sole comment that was requested
+ * @return  array   an array containing the sole comment that was requested
                      or an empty array if no comment found
  */
 function comments_userapi_get_one($args)

@@ -34,7 +34,7 @@ sys::import('modules.comments.xarincludes.defines');
  *
  * @author Carl P. Corliss (aka rabbitt)
  * @access private
- * @returns mixed description of return
+ * @return mixed description of return
  *
 function comments_userapi_collapse( )
 {
@@ -89,7 +89,7 @@ function comments_userapi_collapse( )
  *
  * @author Carl P. Corliss (aka rabbitt)
  * @access private
- * @returns mixed description of return
+ * @return mixed description of return
  *
 function comments_userapi_expand( )
 {

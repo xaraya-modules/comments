@@ -19,7 +19,7 @@
  * @param   integer     $modid      the id of the module that the comments are associated with
  * @param   integer     $modid      the item type that the comments are associated with
  * @param   integer     $objectid   the id of the object within the specified module that the comments are attached to
- * @returns bool true on success, false otherwise
+ * @return bool|null true on success, false otherwise
  */
 function comments_adminapi_delete_object_nodes($args)
 {

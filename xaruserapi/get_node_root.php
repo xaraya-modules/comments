@@ -20,7 +20,7 @@
  * @param    integer     modid      The module that comment is attached to
  * @param    integer     objectid   The particular object within that module
  * @param    integer     itemtype   The itemtype of that object
- * @returns  array an array containing the left and right values or an
+ * @return  array an array containing the left and right values or an
  *                 empty array if the comment_id specified doesn't exist
  */
 function comments_userapi_get_node_root($args)

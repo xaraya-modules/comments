@@ -23,7 +23,7 @@ sys::import('modules.comments.xarincludes.defines');
  * @param   integer modid    Module to gather info on (only used with type == module|object)
  * @param   integer itemtype Item type in that module to gather info on (only used with type == module|object)
  * @param   integer objectid ObjectId to gather info on (only used with type == object)
- * @returns integer total comments
+ * @return integer|null total comments
  */
 function comments_adminapi_count_comments($args)
 {

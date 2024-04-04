@@ -16,7 +16,7 @@
  *
  * @author John Cox
  * @access public
- * @returns array
+ * @return array
  */
 function comments_user_rss($args)
 {

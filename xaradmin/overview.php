@@ -14,8 +14,7 @@
 /**
  * Overview displays standard Overview page
  *
- * @returns array xarTpl::module with $data containing template data
- * @return array containing the menulinks for the overview item on the main manu
+ * @return string|null containing the menulinks for the overview item on the main manu
  * @since 14 Oct 2005
  */
 function comments_admin_overview()

@@ -18,7 +18,7 @@
  * @param integer  $left the left limit for the list of comment ids
  * @param integer  $right the right limit for the list of comment ids
  * @param integer  $moduleid/$itemtype/$itemid of the module selected
- * @returns array  the number of child comments for each comment id,
+ * @return array  the number of child comments for each comment id,
  *                   or raise an exception and return false.
  */
 function comments_userapi_get_childcountlist($args)

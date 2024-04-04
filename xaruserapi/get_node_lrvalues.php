@@ -18,7 +18,7 @@
  * @author   Carl P. Corliss (aka rabbitt)
  * @access   public
  * @param    integer     $id     id of the comment to lookup
- * @returns  array an array containing the left and right values or an
+ * @return  array an array containing the left and right values or an
  *           empty array if the comment_id specified doesn't exist
  */
 function comments_userapi_get_node_lrvalues($args)

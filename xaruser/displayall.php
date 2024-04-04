@@ -95,8 +95,7 @@ function comments_user_displayall($args)
                 'user',
                 'getitemtypes',
                 // don't throw an exception if this function doesn't exist
-                [],
-                0
+                []
             );
             if (!empty($mytypes) && count($mytypes) > 0) {
                 foreach (array_keys($mytypes) as $itemtype) {

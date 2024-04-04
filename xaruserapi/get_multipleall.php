@@ -20,7 +20,7 @@
  * @param string   $order      sort order (ASC or DESC date)
  * @param integer  $howmany    number of comments to retrieve
  * @param integer  $first      start number
- * @returns array     an array of comments or an empty array if no comments
+ * @return array     an array of comments or an empty array if no comments
  *                   found for the particular modules, or raise an
  *                   exception and return false.
  */
