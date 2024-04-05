@@ -16,7 +16,7 @@
  *
  * @return array containing the menulinks for the main menu items.
  */
-function comments_adminapi_getmenulinks()
+function comments_adminapi_getmenulinks(array $args = [], $context = null)
 {
     $menulinks[] = ['url'   => xarController::URL(
         'comments',

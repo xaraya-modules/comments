@@ -29,7 +29,7 @@
    $parent_url = the url of the parent of these comments
 */
 
-function comments_user_reply()
+function comments_user_reply(array $args = [], $context = null)
 {
     if (!xarSecurity::check('PostComments')) {
         return;
@@ -38,12 +38,12 @@ function comments_user_reply()
 
     # --------------------------------------------------------
     # Get all the relevant info from the submitted comments form
-#
+    #
 
 
     # --------------------------------------------------------
     # Take appropriate action
-#
+    #
     if (!xarVar::fetch('comment_action', 'str', $data['comment_action'], 'reply', xarVar::NOT_REQUIRED)) {
         return;
     }
@@ -51,7 +51,7 @@ function comments_user_reply()
         case 'submit':
             # --------------------------------------------------------
             # Get the values from the form
-#
+            #
             $data['reply'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
             $valid = $data['reply']->checkInput();
 
@@ -76,43 +76,43 @@ function comments_user_reply()
 
             # --------------------------------------------------------
             # If something is wrong, represent the form
-#
+            #
             if (!$valid) {
                 return xarTpl::module('comments', 'user', 'reply', $data);
             }
 
             # --------------------------------------------------------
             # Everything is go: if there is a comment, create and go to the next page
-#
+            #
             if (!empty($data['reply']->properties['text']->value)) {
                 $data['comment_id'] = $data['reply']->createItem();
             } else {
                 $data['comment_id'] = 0;
             }
-            xarController::redirect($data['reply']->properties['parent_url']->value.'#'.$data['comment_id']);
+            xarController::redirect($data['reply']->properties['parent_url']->value . '#' . $data['comment_id'], null, $context);
             return true;
 
         case 'reply':
             # --------------------------------------------------------
             # Bail if the proper args were not passed
-#
+            #
             if (!xarVar::fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED)) {
                 return;
             }
             if (empty($data['comment_id'])) {
-                return xarResponse::NotFound();
+                return xarController::notFound(null, $context);
             }
 
             # --------------------------------------------------------
             # Create the comment object
-#
+            #
             sys::import('modules.dynamicdata.class.objects.factory');
             $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
             $data['object']->getItem(['itemid' => $data['comment_id']]);
 
             // replace the deprecated eregi stuff below
-            $title =& $data['object']->properties['title']->value;
-            $text  =& $data['object']->properties['text']->value;
+            $title = & $data['object']->properties['title']->value;
+            $text  = & $data['object']->properties['text']->value;
             $title = preg_replace('/^re:/i', '', $title);
             $new_title = 'Re: ' . $title;
 
@@ -124,7 +124,7 @@ function comments_user_reply()
                     'user',
                     'getitemlinks',
                     ['itemtype' => $data['object']->properties['itemtype']->value,
-                                                 'itemids' => [$data['object']->properties['itemid']->value], ]
+                    'itemids' => [$data['object']->properties['itemid']->value], ]
                 );
             } catch (Exception $e) {
             }
@@ -135,15 +135,15 @@ function comments_user_reply()
             } else {
                 $url = xarController::URL($modinfo['name'], 'user', 'main');
             }
-/*
-            list($text,
-                 $title) =
-                        xarModHooks::call('item',
-                                        'transform',
-                                         $data['object']->properties['parent_id']->value,
-                                         array($text,
-                                               $title));
-*/
+            /*
+                        list($text,
+                             $title) =
+                                    xarModHooks::call('item',
+                                                    'transform',
+                                                     $data['object']->properties['parent_id']->value,
+                                                     array($text,
+                                                           $title));
+            */
             $text         = xarVar::prepHTMLDisplay($text);
             $title        = xarVar::prepForDisplay($title);
 
@@ -215,7 +215,7 @@ function comments_user_reply()
 
     # --------------------------------------------------------
     # Pass args to the form template
-#
+    #
     $anonuid = xarConfigVars::get(null, 'Site.User.AnonymousUID');
     $data['hooks']              = $hooks;
     $data['package']            = $package;

@@ -18,7 +18,7 @@
  * @access private
  * @return mixed description of return
  */
-function comments_user_search($args)
+function comments_user_search(array $args = [], $context = null)
 {
     if (!xarVar::fetch('startnum', 'isset', $startnum, null, xarVar::DONT_SET)) {
         return;

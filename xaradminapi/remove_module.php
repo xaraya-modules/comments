@@ -16,7 +16,7 @@
  *
  * Delete the appertain comments when the module is hooked.
  */
-function comments_adminapi_remove_module($args)
+function comments_adminapi_remove_module(array $args = [], $context = null)
 {
     extract($args);
 
@@ -40,7 +40,7 @@ function comments_adminapi_remove_module($args)
     // if(!xarSecurity::check('DeleteHitcountItem',1,'Item',"All:All:$objectid")) return;
 
     // FIXME: we need to remove the comments for items of all types here, so a direct DB call
-//        would be better than this "delete recursively" trick
-    xarMod::apiFunc('comments', 'admin', 'delete_module_nodes', ['modid'=>$modid]);
+    //        would be better than this "delete recursively" trick
+    xarMod::apiFunc('comments', 'admin', 'delete_module_nodes', ['modid' => $modid]);
     return $extrainfo;
 }

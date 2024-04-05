@@ -21,7 +21,7 @@
  * @param   integer     $itemtype   the item type that these nodes belong to
  * @return array       A list of objectid's
  */
-function comments_userapi_get_object_list($args)
+function comments_userapi_get_object_list(array $args = [], $context = null)
 {
     extract($args);
 
@@ -37,7 +37,7 @@ function comments_userapi_get_object_list($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $sql     = "SELECT DISTINCT objectid AS pageid
                            FROM $xartable[comments]
                           WHERE modid = $modid";
@@ -46,7 +46,7 @@ function comments_userapi_get_object_list($args)
         $sql .= " AND itemtype=$itemtype";
     }
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
     if (!$result) {
         return;
     }

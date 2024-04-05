@@ -17,7 +17,7 @@
  *
  * This form allows one to delete comments for all hooked modules
  */
-function comments_admin_delete()
+function comments_admin_delete(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminComments')) {
         return;
@@ -100,7 +100,7 @@ function comments_admin_delete()
         // if choice isn't set or it has an incorrect value,
         // redirect back to the choice page
         if (!isset($choice) || !eregi('^(yes|no|true|false)$', $choice)) {
-            xarController::redirect(xarController::URL('comments', 'admin', 'delete', $delete_args));
+            xarController::redirect(xarController::URL('comments', 'admin', 'delete', $delete_args), null, $context);
         }
 
         if ($choice == 'yes' || $choice == 'true') {
@@ -115,7 +115,7 @@ function comments_admin_delete()
                         'comments',
                         'admin',
                         'delete_module_nodes',
-                        ['modid'=>$modid,
+                        ['modid' => $modid,
                                          'itemtype' => $itemtype, ]
                     );
                     break;
@@ -131,12 +131,12 @@ function comments_admin_delete()
                     break;
                 case 'all':
                     $dbconn = xarDB::getConn();
-                    $xartable =& xarDB::getTables();
+                    $xartable = & xarDB::getTables();
 
                     $sql = "DELETE
                               FROM  $xartable[comments]";
 
-                    $result =& $dbconn->Execute($sql);
+                    $result = & $dbconn->Execute($sql);
 
                     break;
                 default:
@@ -154,10 +154,10 @@ function comments_admin_delete()
                     'admin',
                     'module_stats',
                     ['modid' => $modid,
-                                                    'itemtype' => empty($itemtype) ? null : $itemtype, ]
-                ));
+                    'itemtype' => empty($itemtype) ? null : $itemtype, ]
+                ), null, $context);
             } else {
-                xarController::redirect(xarController::URL('comments', 'admin', 'stats'));
+                xarController::redirect(xarController::URL('comments', 'admin', 'stats'), null, $context);
             }
         }
 
@@ -167,10 +167,10 @@ function comments_admin_delete()
                 'admin',
                 'module_stats',
                 ['modid' => $modid,
-                                                'itemtype' => empty($itemtype) ? null : $itemtype, ]
-            ));
+                'itemtype' => empty($itemtype) ? null : $itemtype, ]
+            ), null, $context);
         } else {
-            xarController::redirect(xarController::URL('comments', 'admin', 'stats'));
+            xarController::redirect(xarController::URL('comments', 'admin', 'stats'), null, $context);
         }
     }
     // If we're here, then we haven't received authorization

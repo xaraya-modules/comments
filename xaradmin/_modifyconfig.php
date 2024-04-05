@@ -17,7 +17,7 @@ sys::import('modules.comments.xarincludes.defines');
  * module
  */
 
-function comments_admin_modifyconfig()
+function comments_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('AdminComments')) {
@@ -199,10 +199,14 @@ function comments_admin_modifyconfig()
                 }
             }
 
-            xarController::redirect(xarController::URL('comments', 'admin', 'modifyconfig', ['tabmodule' => $tabmodule, 'tab' => $data['tab']]));
+            xarController::redirect(xarController::URL(
+                'comments',
+                'admin',
+                'modifyconfig',
+                ['tabmodule' => $tabmodule, 'tab' => $data['tab']]
+            ), null, $context);
             // Return
             return true;
-            break;
     }
     $data['hooks'] = $hooks;
     $data['tabmodule'] = $tabmodule;

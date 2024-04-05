@@ -14,7 +14,7 @@ sys::import('modules.base.class.pager');
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
-function comments_admin_module_stats()
+function comments_admin_module_stats(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('AdminComments')) {
@@ -38,17 +38,14 @@ function comments_admin_module_stats()
         $itemtype = 0;
     } else {
         // Get the list of all item types for this module (if any)
-        $mytypes = xarMod::apiFunc(
-            $modinfo['name'],
-            'user',
-            'getitemtypes',
-            // don't throw an exception if this function doesn't exist
-            [],
-            0
-        );
+        try {
+            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+        } catch (Exception $e) {
+            $mytypes = [];
+        }
         if (isset($mytypes) && !empty($mytypes[$itemtype])) {
             $data['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype . ' - ' . $mytypes[$itemtype]['label'];
-        //    $data['modlink'] = $mytypes[$itemtype]['url'];
+            //    $data['modlink'] = $mytypes[$itemtype]['url'];
         } else {
             $data['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype;
             //    $data['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
@@ -99,9 +96,10 @@ function comments_admin_module_stats()
                 'user',
                 'getitemlinks',
                 ['itemtype' => $itemtype,
-                                            'itemids' => $itemids, ]
-            ); // don't throw an exception here
+                'itemids' => $itemids]
+            );
         } catch (Exception $e) {
+            $itemlinks = [];
         }
     } else {
         $itemlinks = [];

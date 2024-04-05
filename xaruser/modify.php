@@ -25,7 +25,7 @@
  * @access private
  * @return mixed description of return
  */
-function comments_user_modify()
+function comments_user_modify(array $args = [], $context = null)
 {
     if (!xarVar::fetch('parent_url', 'str', $parent_url, 0, xarVar::NOT_REQUIRED)) {
         return;
@@ -36,24 +36,24 @@ function comments_user_modify()
 
     # --------------------------------------------------------
     # Bail if the proper args were not passed
-#
+    #
     if (!xarVar::fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED)) {
         return;
     }
     if (empty($data['comment_id'])) {
-        return xarResponse::NotFound();
+        return xarController::notFound(null, $context);
     }
 
     # --------------------------------------------------------
     # Create the comment object and get the item to modify
-#
+    #
     sys::import('modules.dynamicdata.class.objects.factory');
     $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
     $data['object']->getItem(['itemid' => $data['comment_id']]);
 
     # --------------------------------------------------------
     # Check that this user can modify this comment
-#
+    #
     if ($data['object']->properties['author']->value != xarUser::getVar('id')) {
         if (!xarSecurity::check('EditComments')) {
             return;
@@ -72,7 +72,7 @@ function comments_user_modify()
             'user',
             'getitemlinks',
             ['itemtype' => $header['itemtype'],
-                                         'itemids' => [$header['itemid']], ]
+            'itemids' => [$header['itemid']], ]
         );
     } catch (Exception $e) {
     }
@@ -92,7 +92,7 @@ function comments_user_modify()
 
     # --------------------------------------------------------
     # Take appropriate action
-#
+    #
     if (!xarVar::fetch('comment_action', 'str', $data['comment_action'], 'modify', xarVar::NOT_REQUIRED)) {
         return;
     }
@@ -100,7 +100,7 @@ function comments_user_modify()
         case 'submit':
             # --------------------------------------------------------
             # Get the values from the form
-#
+            #
             $valid = $data['object']->checkInput();
 
             // call transform input hooks
@@ -120,26 +120,26 @@ function comments_user_modify()
                 );
                 # --------------------------------------------------------
                 # If something is wrong, redisplay the form
-#
+                #
                 if (!$valid) {
                     return xarTpl::module('comments', 'user', 'modify', $data);
                 }
 
                 # --------------------------------------------------------
                 # Everything is go: update and go to the next page
-#
+                #
                 $data['comment_id'] = $data['object']->updateItem();
             }
 
             if (isset($data['adminreturn']) && $data['adminreturn'] == 'yes') { // if we got here via the admin side
-                xarController::redirect(xarController::URL('comments', 'admin', 'view'));
+                xarController::redirect(xarController::URL('comments', 'admin', 'view'), null, $context);
             } else {
-                xarController::redirect($data['object']->properties['parent_url']->value . '#' . $data['comment_id']);
+                xarController::redirect($data['object']->properties['parent_url']->value . '#' . $data['comment_id'], null, $context);
             }
             return true;
         case 'modify':
-            $title =& $data['object']->properties['title']->value;
-            $text  =& $data['object']->properties['text']->value;
+            $title = & $data['object']->properties['title']->value;
+            $text  = & $data['object']->properties['text']->value;
             [$transformed_text,
                 $transformed_title] =
                        xarModHooks::call(

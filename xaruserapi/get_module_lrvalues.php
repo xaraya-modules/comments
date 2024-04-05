@@ -20,7 +20,7 @@
  * @return  array an array containing the left and right values or an
  *           empty array if the modid specified doesn't exist
  */
-function comments_userapi_get_module_lrvalues($args)
+function comments_userapi_get_module_lrvalues(array $args = [], $context = null)
 {
     extract($args);
 
@@ -34,7 +34,7 @@ function comments_userapi_get_module_lrvalues($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql = "SELECT  objectid AS objectid,
                     MIN(left_id) AS left_id,
@@ -44,7 +44,7 @@ function comments_userapi_get_module_lrvalues($args)
                AND  itemtype=$itemtype
           GROUP BY  objectid";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
 
     if (!$result) {
         return;

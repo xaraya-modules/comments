@@ -20,7 +20,7 @@
  * @return  array   an array containing the sole comment that was requested
                      or an empty array if no comment found
  */
-function comments_userapi_get_one($args)
+function comments_userapi_get_one(array $args = [], $context = null)
 {
     extract($args);
 
@@ -36,7 +36,7 @@ function comments_userapi_get_one($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     // initialize the commentlist array
     $commentlist = [];
@@ -55,7 +55,7 @@ function comments_userapi_get_one($args)
     $values['datetime'] = $values['date'];
     $values['role_id'] = $values['author'];
     //comments_renderer_wrap_words($values['text'],80);
-//    $values['author'] = xarUser::getVar('name',$values['author']);
+    //    $values['author'] = xarUser::getVar('name',$values['author']);
 
     $arr[0] = $values;
     $values = $arr;

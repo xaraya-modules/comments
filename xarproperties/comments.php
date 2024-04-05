@@ -195,9 +195,11 @@ class CommentsProperty extends DataProperty
                 $modinfo['name'],
                 'user',
                 'getitemlinks',
-                ['itemtype' => $header['itemtype'], 'itemids' => [$header['objectid']]]
+                ['itemtype' => $header['itemtype'],
+                'itemids' => [$header['objectid']]]
             );
         } catch (Exception $e) {
+            $itemlinks = [];
         }
 
         if (!empty($itemlinks) && !empty($itemlinks[$header['objectid']])) {

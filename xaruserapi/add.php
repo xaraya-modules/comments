@@ -29,7 +29,7 @@
  * @param    integer     $args['id']        comment id (for API access - import only)
  * @return  integer     the id of the new comment
  */
-function comments_userapi_add($args)
+function comments_userapi_add(array $args = [], $context = null)
 {
     extract($args);
 
@@ -116,7 +116,7 @@ function comments_userapi_add($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     // parentid == zero then we need to find the root nodes
     // left and right values cuz we're adding the new comment
@@ -150,7 +150,7 @@ function comments_userapi_add($args)
     }
 
     // parent_id should now always have a value
-    assert($parent_id!=0 && !empty($parent_id));
+    assert($parent_id != 0 && !empty($parent_id));
 
     // grab the left and right values from the parent
     $parent_lnr = xarMod::apiFunc(
@@ -268,7 +268,7 @@ function comments_userapi_add($args)
         $args['itemtype'] = 0;
         $args['itemid'] = $id;
         // pass along the current module & itemtype for pubsub (urgh)
-// FIXME: handle 2nd-level hook calls in a cleaner way - cfr. categories navigation, comments add etc.
+        // FIXME: handle 2nd-level hook calls in a cleaner way - cfr. categories navigation, comments add etc.
         $args['id'] = 0; // dummy category
         $modinfo = xarMod::getInfo($moduleid);
         $args['current_module'] = $modinfo['name'];

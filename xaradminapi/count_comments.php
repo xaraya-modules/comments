@@ -25,11 +25,11 @@ sys::import('modules.comments.xarincludes.defines');
  * @param   integer objectid ObjectId to gather info on (only used with type == object)
  * @return integer|null total comments
  */
-function comments_adminapi_count_comments($args)
+function comments_adminapi_count_comments(array $args = [], $context = null)
 {
     extract($args);
     $dbconn         = xarDB::getConn();
-    $xartable       =& xarDB::getTables();
+    $xartable       = & xarDB::getTables();
     $total          = 0;
     $status         = strtolower($status);
     $type           = strtolower($type);
@@ -78,21 +78,21 @@ function comments_adminapi_count_comments($args)
     } else {
         switch ($status) {
             case 'active':
-                $where_status = "status = ". _COM_STATUS_ON;
+                $where_status = "status = " . _COM_STATUS_ON;
                 break;
             case 'inactive':
-                $where_status = "status = ". _COM_STATUS_OFF;
+                $where_status = "status = " . _COM_STATUS_OFF;
                 break;
             default:
             case 'active':
-                $where_status = "status != ". _COM_STATUS_ROOT_NODE;
+                $where_status = "status != " . _COM_STATUS_ROOT_NODE;
         }
     }
     $query = "SELECT COUNT(id)
                 FROM $xartable[comments]
                WHERE $where_type
                  AND $where_status";
-    $result =& $dbconn->Execute($query);
+    $result = & $dbconn->Execute($query);
     if (!$result) {
         return;
     }

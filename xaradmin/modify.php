@@ -18,7 +18,7 @@
  *
  * @param id itemid The id of the dynamic data item to modify
  */
-function comments_admin_modify()
+function comments_admin_modify(array $args = [], $context = null)
 {
     if (!xarVar::fetch('id', 'id', $id, null, xarVar::DONT_SET)) {
         return;
@@ -77,7 +77,7 @@ function comments_admin_modify()
     if ($data['confirm']) {
         // Check for a valid confirmation key
         if (!xarSec::confirmAuthKey()) {
-            return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+            return xarController::badRequest('bad_author', $context);
         }
 
         // Get the data from the form
@@ -96,9 +96,9 @@ function comments_admin_modify()
             $values = $data['object']->getFieldValues();
 
             if (!empty($data['view'])) {
-                xarController::redirect($values['parent_url']);
+                xarController::redirect($values['parent_url'], null, $context);
             } else {
-                xarController::redirect(xarController::URL('comments', 'admin', 'modify', ['id'=>$id]));
+                xarController::redirect(xarController::URL('comments', 'admin', 'modify', ['id' => $id]), null, $context);
             }
             return true;
         }

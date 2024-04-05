@@ -22,7 +22,7 @@
  * @return  integer     the id of the node that was created so it can be used as a parent id
  * @todo get rid of this notion of root node ?
  */
-function comments_userapi_add_rootnode($args)
+function comments_userapi_add_rootnode(array $args = [], $context = null)
 {
     extract($args);
 
@@ -49,7 +49,7 @@ function comments_userapi_add_rootnode($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $commenttable = $xartable['comments'];
 
@@ -89,7 +89,7 @@ function comments_userapi_add_rootnode($args)
                        $cdate,
                        ];
 
-    $result =& $dbconn->Execute($sql, $bindvars);
+    $result = & $dbconn->Execute($sql, $bindvars);
 
     if (!$result) {
         return;

@@ -15,7 +15,7 @@
  * This is a standard function to update the configuration parameters of the
  * module given the information passed back by the modification form
  */
-function comments_admin_importblacklist()
+function comments_admin_importblacklist(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminComments')) {
         return;

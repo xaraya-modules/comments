@@ -14,7 +14,7 @@
 /**
  * The user menu that is used in roles/account
  */
-function comments_user_usermenu($args)
+function comments_user_usermenu(array $args = [], $context = null)
 {
     extract($args);
 
@@ -24,9 +24,9 @@ function comments_user_usermenu($args)
             return;
         }
 
-        xarTpl::setPageTitle(xarModVars::get('themes', 'SiteName').' :: '.
+        xarTpl::setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
                            xarVar::prepForDisplay(xarML('Comments'))
-                           .' :: '.xarVar::prepForDisplay(xarML('Your Account Preferences')));
+                           . ' :: ' . xarVar::prepForDisplay(xarML('Your Account Preferences')));
 
         switch (strtolower($phase)) {
             case 'menu':
@@ -70,12 +70,12 @@ function comments_user_usermenu($args)
                 xarMod::apiFunc('comments', 'user', 'setoptions', $settings);
 
                 // Redirect
-                xarController::redirect(xarController::URL('roles', 'user', 'account'));
+                xarController::redirect(xarController::URL('roles', 'user', 'account'), null, $context);
 
                 break;
         }
     } else {
-        $data=''; //make sure hooks in usermenu don't fail because this function returns unset
+        $data = ''; //make sure hooks in usermenu don't fail because this function returns unset
     }
     return $data;
 }

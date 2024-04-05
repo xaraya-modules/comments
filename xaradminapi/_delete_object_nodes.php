@@ -21,7 +21,7 @@
  * @param   integer     $objectid   the id of the object within the specified module that the comments are attached to
  * @return bool|null true on success, false otherwise
  */
-function comments_adminapi_delete_object_nodes($args)
+function comments_adminapi_delete_object_nodes(array $args = [], $context = null)
 {
     extract($args);
 
@@ -40,7 +40,7 @@ function comments_adminapi_delete_object_nodes($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql = "DELETE
               FROM  $xartable[comments]
@@ -48,7 +48,7 @@ function comments_adminapi_delete_object_nodes($args)
                AND  itemtype = $itemtype
                AND  objectid = '$objectid'";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
 
     if (!isset($result)) {
         return;

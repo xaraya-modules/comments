@@ -15,7 +15,7 @@
  * Display comments from one or more modules and item types
  *
  */
-function comments_user_displayall($args)
+function comments_user_displayall(array $args = [], $context = null)
 {
     if (!xarVar::fetch('modid', 'array', $args['modid'], ['all'], xarVar::NOT_REQUIRED)) {
         return;
@@ -90,13 +90,11 @@ function comments_user_displayall($args)
             $modname[$modid][0] = ucwords($module);
             $modview[$modid][0] = xarController::URL($module, 'user', 'view');
             // Get the list of all item types for this module (if any)
-            $mytypes = xarMod::apiFunc(
-                $module,
-                'user',
-                'getitemtypes',
-                // don't throw an exception if this function doesn't exist
-                []
-            );
+            try {
+                $mytypes = xarMod::apiFunc($module, 'user', 'getitemtypes');
+            } catch (Exception $e) {
+                $mytypes = [];
+            }
             if (!empty($mytypes) && count($mytypes) > 0) {
                 foreach (array_keys($mytypes) as $itemtype) {
                     $modname[$modid][$itemtype] = $mytypes[$itemtype]['label'];
@@ -142,7 +140,7 @@ function comments_user_displayall($args)
     //$settings = xarMod::apiFunc('comments','user','getoptions');
 
     if (!empty($args['order'])) {
-        $settings['order']=$args['order'];
+        $settings['order'] = $args['order'];
     }
 
     // get title and link for all module items (where possible)
@@ -165,15 +163,17 @@ function comments_user_displayall($args)
         foreach ($items as $modid => $itemtypes) {
             $modinfo = xarMod::getInfo($modid);
             foreach ($itemtypes as $itemtype => $itemlist) {
+                $itemids = array_keys($itemlist);
                 try {
                     $itemlinks = xarMod::apiFunc(
                         $modinfo['name'],
                         'user',
                         'getitemlinks',
                         ['itemtype' => $itemtype,
-                                                     'itemids' => array_keys($itemlist), ]
+                        'itemids' => $itemids]
                     );
                 } catch (Exception $e) {
+                    $itemlinks = [];
                 }
                 if (!empty($itemlinks) && count($itemlinks) > 0) {
                     foreach ($itemlinks as $itemid => $itemlink) {
@@ -191,26 +191,26 @@ function comments_user_displayall($args)
     $hoursnow = xarLocale::formatDate("%H", $timenow);
     $dateprev = '';
     $numcomments = count($comments);
-    for ($i=0;$i<$numcomments;$i++) {
-        if ($args['adddaysep']=='on') {
+    for ($i = 0;$i < $numcomments;$i++) {
+        if ($args['adddaysep'] == 'on') {
             // find out whether to change day separator
-            $msgunixtime=$comments[$i]['datetime'];
-            $msgdate=xarLocale::formatDate("%b %d, %Y", $msgunixtime);
-            $msgday=xarLocale::formatDate("%A", $msgunixtime);
+            $msgunixtime = $comments[$i]['datetime'];
+            $msgdate = xarLocale::formatDate("%b %d, %Y", $msgunixtime);
+            $msgday = xarLocale::formatDate("%A", $msgunixtime);
 
-            $hoursdiff=($timenow - $msgunixtime)/3600;
-            if ($hoursdiff<$hoursnow && $msgdate!=$dateprev) {
-                $daylabel=xarML('Today');
-            } elseif ($hoursdiff>=$hoursnow && $hoursdiff<$hoursnow+24 && ($msgdate!=$dateprev)) {
-                $daylabel=xarML('Yesterday');
-            } elseif ($hoursdiff>=$hoursnow+24 && $hoursdiff<$hoursnow+48 && $msgdate!=$dateprev) {
-                $daylabel=xarML('Two days ago');
-            } elseif ($hoursdiff>=$hoursnow+48 && $hoursdiff<$hoursnow+144 && $msgdate!=$dateprev) {
-                $daylabel=$msgday;
-            } elseif ($hoursdiff>=$hoursnow+144 && $msgdate!=$dateprev) {
-                $daylabel=$msgdate;
+            $hoursdiff = ($timenow - $msgunixtime) / 3600;
+            if ($hoursdiff < $hoursnow && $msgdate != $dateprev) {
+                $daylabel = xarML('Today');
+            } elseif ($hoursdiff >= $hoursnow && $hoursdiff < $hoursnow + 24 && ($msgdate != $dateprev)) {
+                $daylabel = xarML('Yesterday');
+            } elseif ($hoursdiff >= $hoursnow + 24 && $hoursdiff < $hoursnow + 48 && $msgdate != $dateprev) {
+                $daylabel = xarML('Two days ago');
+            } elseif ($hoursdiff >= $hoursnow + 48 && $hoursdiff < $hoursnow + 144 && $msgdate != $dateprev) {
+                $daylabel = $msgday;
+            } elseif ($hoursdiff >= $hoursnow + 144 && $msgdate != $dateprev) {
+                $daylabel = $msgdate;
             }
-            $dateprev=$msgdate;
+            $dateprev = $msgdate;
         } else {
             // no need to keep track of date
             $daylabel = 'none';
@@ -225,20 +225,20 @@ function comments_user_displayall($args)
             $comments[$i]['objurl'] = $items[$modid][$itemtype][$itemid]['url'];
         }
         if (isset($modname[$modid][$itemtype])) {
-            $comments[$i]['modname']=$modname[$modid][$itemtype];
+            $comments[$i]['modname'] = $modname[$modid][$itemtype];
         }
         if (isset($modview[$modid][$itemtype])) {
-            $comments[$i]['modview']=$modview[$modid][$itemtype];
+            $comments[$i]['modview'] = $modview[$modid][$itemtype];
         }
 
         //$comments[$i]['returnurl'] = urlencode($modview[$modid][$itemtype]);
         //$comments[$i]['returnurl'] = null;
         if ($args['truncate']) {
-            if (strlen($comments[$i]['subject']) >$args['truncate']+3) {
-                $comments[$i]['subject']=substr($comments[$i]['subject'], 0, $args['truncate']).'...';
+            if (strlen($comments[$i]['subject']) > $args['truncate'] + 3) {
+                $comments[$i]['subject'] = substr($comments[$i]['subject'], 0, $args['truncate']) . '...';
             }
-            if (!empty($comments[$i]['title']) && strlen($comments[$i]['title']) >$args['truncate']-3) {
-                $comments[$i]['title']=substr($comments[$i]['title'], 0, $args['truncate']).'...';
+            if (!empty($comments[$i]['title']) && strlen($comments[$i]['title']) > $args['truncate'] - 3) {
+                $comments[$i]['title'] = substr($comments[$i]['title'], 0, $args['truncate']) . '...';
             }
         }
         $comments[$i]['subject'] = xarVar::prepForDisplay($comments[$i]['subject']);
@@ -258,44 +258,44 @@ function comments_user_displayall($args)
     }
 
     // prepare for output
-    $templateargs['order']          =$args['order'];
-    $templateargs['howmany']        =$args['howmany'];
-    $templateargs['first']          =$args['first'];
-    $templateargs['adddate']        =$args['adddate'];
-    $templateargs['adddaysep']      =$args['adddaysep'];
-    $templateargs['addauthor']      =$args['addauthor'];
-    $templateargs['addmodule']      =$args['addmodule'];
-    $templateargs['addcomment']     =$args['addcomment'];
-    $templateargs['addobject']      =$args['addobject'];
-    $templateargs['addprevious']    =$args['addprevious'];
-    $templateargs['modarray']       =$modarray;
-    $templateargs['modid']          =$modarray;
-    $templateargs['itemtype']       =$itemtype ?? 0;
-    $templateargs['modlist']        =$modlist;
+    $templateargs['order']          = $args['order'];
+    $templateargs['howmany']        = $args['howmany'];
+    $templateargs['first']          = $args['first'];
+    $templateargs['adddate']        = $args['adddate'];
+    $templateargs['adddaysep']      = $args['adddaysep'];
+    $templateargs['addauthor']      = $args['addauthor'];
+    $templateargs['addmodule']      = $args['addmodule'];
+    $templateargs['addcomment']     = $args['addcomment'];
+    $templateargs['addobject']      = $args['addobject'];
+    $templateargs['addprevious']    = $args['addprevious'];
+    $templateargs['modarray']       = $modarray;
+    $templateargs['modid']          = $modarray;
+    $templateargs['itemtype']       = $itemtype ?? 0;
+    $templateargs['modlist']        = $modlist;
     /*$templateargs['decoded_returnurl'] = rawurldecode(xarController::URL('comments','user','displayall'));*/
     $templateargs['decoded_nexturl'] = xarController::URL(
         'comments',
         'user',
         'displayall',
         [
-                                                                         'first'=>$args['first']+$args['howmany'],
-                                                                            'howmany'=>$args['howmany'],
-                                                                            'modid'=>$modarray, ]
+                                                                         'first' => $args['first'] + $args['howmany'],
+                                                                            'howmany' => $args['howmany'],
+                                                                            'modid' => $modarray, ]
     );
-    $templateargs['commentlist']    =$commentsarray;
-    $templateargs['order']          =$settings['order'];
+    $templateargs['commentlist']    = $commentsarray;
+    $templateargs['order']          = $settings['order'];
 
-    if ($args['block_is_calling']==0) {
-        $data=xarTpl::module('comments', 'user', 'displayall', $templateargs);
+    if ($args['block_is_calling'] == 0) {
+        $data = xarTpl::module('comments', 'user', 'displayall', $templateargs);
     } else {
-        $templateargs['olderurl']=xarController::URL(
+        $templateargs['olderurl'] = xarController::URL(
             'comments',
             'user',
             'displayall',
             [
-                                                'first'=>   $args['first']+$args['howmany'],
-                                                'howmany'=> $args['howmany'],
-                                                'modid'=>$modarray,
+                                                'first' =>   $args['first'] + $args['howmany'],
+                                                'howmany' => $args['howmany'],
+                                                'modid' => $modarray,
                                                 ]
         );
         $data = xarTpl::block('comments', 'latestcommentsblock', $templateargs);

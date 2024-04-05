@@ -15,7 +15,7 @@
  * Sets up any formaction / formdisplay hooks
  *
  */
-function comments_userapi_formhooks()
+function comments_userapi_formhooks(array $args = [], $context = null)
 {
     $hooks = [];
     $hooks['formaction']              = xarModHooks::call('item', 'formaction', '', [], 'comments');

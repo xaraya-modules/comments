@@ -20,6 +20,4 @@
  *  @return boolean false and exception on error, number of nodes updates otherwise
  */
 
-function comments_adminapi_celko_update($args)
-{
-}
+function comments_adminapi_celko_update(array $args = [], $context = null) {}

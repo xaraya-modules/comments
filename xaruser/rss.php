@@ -18,7 +18,7 @@
  * @access public
  * @return array
  */
-function comments_user_rss($args)
+function comments_user_rss(array $args = [], $context = null)
 {
     extract($args);
     if (!xarSecurity::check('ReadComments', 0)) {
@@ -53,14 +53,11 @@ function comments_user_rss($args)
             $modname[$modid][0] = ucwords($module);
             $modview[$modid][0] = xarController::URL($module, 'user', 'view');
             // Get the list of all item types for this module (if any)
-            $mytypes = xarMod::apiFunc(
-                $module,
-                'user',
-                'getitemtypes',
-                // don't throw an exception if this function doesn't exist
-                [],
-                0
-            );
+            try {
+                $mytypes = xarMod::apiFunc($module, 'user', 'getitemtypes');
+            } catch (Exception $e) {
+                $mytypes = [];
+            }
             if (!empty($mytypes) && count($mytypes) > 0) {
                 foreach (array_keys($mytypes) as $itemtype) {
                     $modname[$modid][$itemtype] = $mytypes[$itemtype]['label'];
@@ -107,7 +104,7 @@ function comments_user_rss($args)
                 'user',
                 'getitemlinks',
                 ['itemtype' => $item['itemtype'],
-                                                              'itemids'  => [$item['objectid']], ]
+                'itemids'  => [$item['objectid']], ]
             );
         } catch (Exception $e) {
         }

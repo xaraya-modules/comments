@@ -18,7 +18,7 @@
  * @access private
  * @return mixed description of return
  */
-function comments_userapi_modify($args)
+function comments_userapi_modify(array $args = [], $context = null)
 {
     extract($args);
 
@@ -80,7 +80,7 @@ function comments_userapi_modify($args)
     } else {
         $hostname = xarServer::getVar('REMOTE_ADDR');
     }
-    $useeditstamp=xarModVars::get('comments', 'editstamp');
+    $useeditstamp = xarModVars::get('comments', 'editstamp');
     $adminid = xarModVars::get('roles', 'admin');
 
     /*$dbconn = xarDB::getConn();
@@ -98,12 +98,12 @@ function comments_userapi_modify($args)
     }
     */
 
-    if (($useeditstamp ==1) ||
-                     (($useeditstamp == 2) && (xarUser::getVar('id')<>$adminid))) {
+    if (($useeditstamp == 1) ||
+                     (($useeditstamp == 2) && (xarUser::getVar('id') <> $adminid))) {
         $text .= "\n";
         $text .= xarTpl::module('comments', 'user', 'modifiedby', [
                               'isauthor' => (xarUser::getVar('id') == $authorid),
-                              'postanon'=>$postanon, ]);
+                              'postanon' => $postanon, ]);
         $text .= "\n"; //let's keep the begin and end tags together around the wrapped content
     }
 

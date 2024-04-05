@@ -24,7 +24,7 @@
 function comments_userapi_get_table_maxright(/* VOID */)
 {
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
 
     // grab the root node's id, left and right values
@@ -32,7 +32,7 @@ function comments_userapi_get_table_maxright(/* VOID */)
     $sql = "SELECT  MAX(right) as max_right
               FROM  $xartable[comments]";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
 
     if (!$result) {
         return;

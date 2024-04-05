@@ -22,7 +22,7 @@
  * @access public
  * @return array list of viewing options (depth, render style, order, and sortby)
  */
-function comments_userapi_getoptions()
+function comments_userapi_getoptions(array $args = [], $context = null)
 {
     if (!xarVar::fetch('depth', 'int', $depth, null, xarVar::NOT_REQUIRED)) {
         return;

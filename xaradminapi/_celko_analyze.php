@@ -23,6 +23,4 @@
  *                 it returns a percent amount of the inconsistency.
  */
 
-function comments_adminapi_celko_analyze($args)
-{
-}
+function comments_adminapi_celko_analyze(array $args = [], $context = null) {}

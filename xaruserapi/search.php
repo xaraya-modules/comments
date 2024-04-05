@@ -18,7 +18,7 @@
  * @access private
  * @return mixed description of return
  */
-function comments_userapi_search($args)
+function comments_userapi_search(array $args = [], $context = null)
 {
     if (empty($args) || count($args) < 1) {
         return;
@@ -27,7 +27,7 @@ function comments_userapi_search($args)
     extract($args);
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $where = '';
 
@@ -81,7 +81,7 @@ function comments_userapi_search($args)
 
     $sql .= ") ORDER BY left_id";
 
-    $result =& $dbconn->Execute($sql, $bindvars);
+    $result = & $dbconn->Execute($sql, $bindvars);
     if (!$result) {
         return;
     }

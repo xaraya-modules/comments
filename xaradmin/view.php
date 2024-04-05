@@ -17,7 +17,7 @@ sys::import('modules.comments.xarincludes.defines');
  * module
  * @return array
  */
-function comments_admin_view()
+function comments_admin_view(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageComments')) {
         return;

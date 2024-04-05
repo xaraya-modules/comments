@@ -21,7 +21,7 @@
  * @return array  the number of child comments for each comment id,
  *                   or raise an exception and return false.
  */
-function comments_userapi_get_childcountlist($args)
+function comments_userapi_get_childcountlist(array $args = [], $context = null)
 {
     extract($args);
 
@@ -31,9 +31,9 @@ function comments_userapi_get_childcountlist($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
-    $bind = [(int)$left, (int)$right, _COM_STATUS_ON, (int)$moduleid, (int)$itemid, (int)$itemtype];
+    $bind = [(int) $left, (int) $right, _COM_STATUS_ON, (int) $moduleid, (int) $itemid, (int) $itemtype];
 
     $sql = "SELECT P1.id, COUNT(P2.id) AS numitems"
         . " FROM $xartable[comments] AS P1, $xartable[comments] AS P2"

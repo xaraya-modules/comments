@@ -80,7 +80,7 @@ function comments_userapi_collapse( )
         $url .= "&#38;$k=$v";
     }
 
-    xarController::redirect($url);
+    xarController::redirect($url, null, $context);
 }
 
 
@@ -134,7 +134,7 @@ r
         $url .= "&#38;$k=$v";
     }
 
-    xarController::redirect($url);
+    xarController::redirect($url, null, $context);
 }
 
 */

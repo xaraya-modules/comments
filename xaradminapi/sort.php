@@ -17,7 +17,7 @@
  * @author potion <ryan@webcommunicate.net>
  * @return a string like 'itemid ASC';
  */
-function comments_adminapi_sort($args)
+function comments_adminapi_sort(array $args = [], $context = null)
 {
     // Default URL strings to look for
     $url_sortfield = 'sortfield';

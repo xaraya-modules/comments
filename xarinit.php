@@ -31,24 +31,24 @@ function comments_init()
     sys::import('xaraya.tableddl');
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     //Psspl:Added the code for anonpost_to field.
     $fields = [
         'id' => ['type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true],
-        'date'      => ['type'=>'integer',  'null'=>false],
-        'author'    => ['type'=>'integer',  'null'=>false,  'size'=>'medium','default'=>1],
-        'title'     => ['type'=>'varchar',  'null'=>false,  'size'=>100],
-        'text'      => ['type'=>'text',     'null'=>true,   'size'=>'medium'],
-        'parent_id' => ['type'=>'integer',  'null'=>false, 'default'=> '0'],
-        'parent_url'=> ['type'=>'text',     'null'=>false,  'size'=>'medium'],
-        'module_id' => ['type'=>'integer',  'null'=>true],
-        'itemtype'  => ['type'=>'integer',  'null'=>false],
-        'itemid'    => ['type'=>'varchar',  'null'=>false,  'size'=>255],
-        'hostname'  => ['type'=>'varchar',  'null'=>false,  'size'=>255],
-        'left_id'   => ['type'=>'integer',  'null'=>false, 'default'=> '0'],
-        'right_id'  => ['type'=>'integer',  'null'=>false, 'default'=> '0'],
-        'anonpost'  => ['type'=>'integer',  'null'=>true,   'size'=>'tiny', 'default'=>0],
-        'status'    => ['type'=>'integer',  'null'=>false,  'size'=>'tiny'],
+        'date'      => ['type' => 'integer',  'null' => false],
+        'author'    => ['type' => 'integer',  'null' => false,  'size' => 'medium','default' => 1],
+        'title'     => ['type' => 'varchar',  'null' => false,  'size' => 100],
+        'text'      => ['type' => 'text',     'null' => true,   'size' => 'medium'],
+        'parent_id' => ['type' => 'integer',  'null' => false, 'default' => '0'],
+        'parent_url' => ['type' => 'text',     'null' => false,  'size' => 'medium'],
+        'module_id' => ['type' => 'integer',  'null' => true],
+        'itemtype'  => ['type' => 'integer',  'null' => false],
+        'itemid'    => ['type' => 'varchar',  'null' => false,  'size' => 255],
+        'hostname'  => ['type' => 'varchar',  'null' => false,  'size' => 255],
+        'left_id'   => ['type' => 'integer',  'null' => false, 'default' => '0'],
+        'right_id'  => ['type' => 'integer',  'null' => false, 'default' => '0'],
+        'anonpost'  => ['type' => 'integer',  'null' => true,   'size' => 'tiny', 'default' => 0],
+        'status'    => ['type' => 'integer',  'null' => false,  'size' => 'tiny'],
     ];
 
     $query = xarTableDDL::createTable($xartable['comments'], $fields);
@@ -152,8 +152,8 @@ function comments_init()
     $bbtable = &$xartable['blacklist_column'];
 
     $fields = [
-        'id'       => ['type'=>'integer',  'null'=>false,  'increment'=> true, 'primary_key'=>true],
-        'domain'   => ['type'=>'varchar',  'null'=>false,  'size'=>255],
+        'id'       => ['type' => 'integer',  'null' => false,  'increment' => true, 'primary_key' => true],
+        'domain'   => ['type' => 'varchar',  'null' => false,  'size' => 255],
     ];
 
     $query = xarTableDDL::createTable($xartable['blacklist'], $fields);
@@ -175,9 +175,9 @@ function comments_init()
     }
 
     # --------------------------------------------------------
-#
+    #
     # Set up modvars
-#
+    #
     xarModVars::set('comments', 'render', _COM_VIEW_THREADED);
     xarModVars::set('comments', 'sortby', _COM_SORTBY_THREAD);
     xarModVars::set('comments', 'order', _COM_SORT_ASC);
@@ -199,16 +199,16 @@ function comments_init()
     xarModVars::set('comments', 'filters_min_item_count', 3);
 
     # --------------------------------------------------------
-#
+    #
     # Set up configuration modvars (general)
-#
+    #
     $module_settings = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'comments']);
     $module_settings->initialize();
 
     # --------------------------------------------------------
-#
+    #
     # Set up hooks
-#
+    #
     // TODO: add delete hook
 
     // display hook
@@ -232,12 +232,12 @@ function comments_init()
     }
 
     # --------------------------------------------------------
-#
+    #
     # Define instances for this module
     # Format is
     #  setInstance(Module, Type, ModuleTable, IDField, NameField,
-#             ApplicationVar, LevelTable, ChildIDField, ParentIDField)
-#
+    #             ApplicationVar, LevelTable, ChildIDField, ParentIDField)
+    #
     $ctable = $xartable['comments'];
     $query1 = "SELECT DISTINCT $xartable[modules].name
                           FROM $ctable
@@ -249,7 +249,7 @@ function comments_init()
 
     $query3 = "SELECT DISTINCT id
                           FROM $ctable
-                         WHERE status != '"._COM_STATUS_ROOT_NODE."'";
+                         WHERE status != '" . _COM_STATUS_ROOT_NODE . "'";
     $instances = [
                         ['header' => 'Module ID:',
                                 'query' => $query1,
@@ -267,9 +267,9 @@ function comments_init()
     xarPrivileges::defineInstance('comments', 'All', $instances);
 
     # --------------------------------------------------------
-#
+    #
     # Set up masks
-#
+    #
     xarMasks::register('ReadComments', 'All', 'comments', 'All', 'All:All:All', 'ACCESS_READ', 'See and Read Comments');
     xarMasks::register('PostComments', 'All', 'comments', 'All', 'All:All:All', 'ACCESS_COMMENT', 'Post a new Comment');
     xarMasks::register('ReplyComments', 'All', 'comments', 'All', 'All:All:All', 'ACCESS_COMMENT', 'Reply to a Comment');

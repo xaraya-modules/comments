@@ -15,7 +15,7 @@
  * View Statistics about comments per module
  *
  */
-function comments_admin_stats()
+function comments_admin_stats(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('AdminComments')) {
@@ -41,10 +41,11 @@ function comments_admin_stats()
     foreach ($modlist as $modid => $itemtypes) {
         $modinfo = xarMod::getInfo($modid);
         // Get the list of all item types for this module (if any)
-        //Psspl:Commneted codew for resolving error.
-        //$mytypes = xarMod::apiFunc($modinfo['name'],'user','getitemtypes',
-        // don't throw an exception if this function doesn't exist
-        //                       array(), 0);
+        try {
+            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+        } catch (Exception $e) {
+            $mytypes = [];
+        }
         foreach ($itemtypes as $itemtype => $stats) {
             $moditem = [];
             $moditem['modid'] = $modid;
@@ -57,11 +58,11 @@ function comments_admin_stats()
             }
             if ($itemtype == 0) {
                 $moditem['modname'] = ucwords($modinfo['displayname']);
-            //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','main');
+                //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','main');
             } else {
                 if (isset($mytypes) && !empty($mytypes[$itemtype])) {
                     $moditem['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype . ' - ' . $mytypes[$itemtype]['label'];
-                //    $moditem['modlink'] = $mytypes[$itemtype]['url'];
+                    //    $moditem['modlink'] = $mytypes[$itemtype]['url'];
                 } else {
                     $moditem['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype;
                     //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));

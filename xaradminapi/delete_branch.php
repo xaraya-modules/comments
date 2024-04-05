@@ -19,7 +19,7 @@
  * @param   integer     $node   the id of the node to delete
  * @return bool true on success, false otherwise
  */
-function comments_adminapi_delete_branch($args)
+function comments_adminapi_delete_branch(array $args = [], $context = null)
 {
     extract($args);
 
@@ -42,7 +42,7 @@ function comments_adminapi_delete_branch($args)
     $objectid = $comments[0]['objectid'];
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql = "DELETE
               FROM  $xartable[comments]
@@ -52,7 +52,7 @@ function comments_adminapi_delete_branch($args)
                AND  itemtype = $itemtype
                AND  objectid = '$objectid'";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
 
     if (!$dbconn->Affected_Rows()) {
         return false;

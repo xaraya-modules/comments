@@ -19,7 +19,7 @@
  * @param integer itemtype optional item type you want to count for
  * @return array $array[$modid][$itemtype] = array('items' => $numitems,'comments' => $numcomments);
  */
-function comments_userapi_modcounts($args)
+function comments_userapi_modcounts(array $args = [], $context = null)
 {
     // Get arguments from argument array
     extract($args);
@@ -36,19 +36,19 @@ function comments_userapi_modcounts($args)
 
     // Database information
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $commentstable = $xartable['comments'];
 
     switch ($status) {
         case 'active':
-            $where_status = "status = ". _COM_STATUS_ON;
+            $where_status = "status = " . _COM_STATUS_ON;
             break;
         case 'inactive':
-            $where_status = "status = ". _COM_STATUS_OFF;
+            $where_status = "status = " . _COM_STATUS_OFF;
             break;
         default:
         case 'all':
-            $where_status = "status != ". _COM_STATUS_ROOT_NODE;
+            $where_status = "status != " . _COM_STATUS_ROOT_NODE;
     }
     if (!empty($modid)) {
         $where_mod = " AND module_id = $moduleid";

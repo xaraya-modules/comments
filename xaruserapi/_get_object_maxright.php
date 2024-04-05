@@ -21,7 +21,7 @@
  * @param    integer     itemtype   The itemtype of that object
  * @return   integer   the highest 'right' value for the specified modid/objectid pair or zero if it couldn't find one
  */
-function comments_userapi_get_object_maxright($args)
+function comments_userapi_get_object_maxright(array $args = [], $context = null)
 {
     extract($args);
 
@@ -48,7 +48,7 @@ function comments_userapi_get_object_maxright($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     // grab the root node's id, left and right values
     // based on the objectid/modid pair
@@ -58,7 +58,7 @@ function comments_userapi_get_object_maxright($args)
                AND  itemtype = $itemtype
                AND  modid = $modid";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
 
     if (!$result) {
         return;

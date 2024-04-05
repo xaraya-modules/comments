@@ -18,7 +18,7 @@
  * @access private
  * @return mixed description of return
  */
-function comments_userapi_setoptions($args)
+function comments_userapi_setoptions(array $args = [], $context = null)
 {
     extract($args);
 

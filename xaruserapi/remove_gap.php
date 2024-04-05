@@ -24,7 +24,7 @@
  * @param    string     $objectid      the item id
  * @return  integer    number of affected rows or false [0] on error
  */
-function comments_userapi_remove_gap($args)
+function comments_userapi_remove_gap(array $args = [], $context = null)
 {
     extract($args);
 
@@ -43,7 +43,7 @@ function comments_userapi_remove_gap($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql_left  = "UPDATE $xartable[comments]
                      SET left_id = (left_id - $gapsize)
@@ -74,8 +74,8 @@ function comments_userapi_remove_gap($args)
         $sql_right  .= " AND objectid = '$objectid'";
     }
 
-    $result1 =& $dbconn->Execute($sql_left);
-    $result2 =& $dbconn->Execute($sql_right);
+    $result1 = & $dbconn->Execute($sql_left);
+    $result2 = & $dbconn->Execute($sql_right);
 
     if (!$result1 || !$result2) {
         return;

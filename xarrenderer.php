@@ -171,31 +171,31 @@ function comments_renderer_array_markdepths_bypid(&$comments_list)
         // if the current node's parent isn't yet
         // defined, then add it to the list of parents
         // and give it a depth equal to it's parent's depth + 1
-        if (!array_key_exists("PID_".$node['parent_id'], $parents)) {
+        if (!array_key_exists("PID_" . $node['parent_id'], $parents)) {
             if (!array_key_exists($node['parent_id'], $comments_list)) {
                 $comments_list[$node['parent_id']]['parent_id'] = 0;
                 $comments_list[$node['parent_id']]['id'] = 0;
                 $comments_list[$node['parent_id']]['remove'] = 'remove';
-                $parents["PID_".$node['parent_id']] = -1;
+                $parents["PID_" . $node['parent_id']] = -1;
             }
-            $ppidkey = "PID_".$comments_list[$node['parent_id']]['parent_id'];
+            $ppidkey = "PID_" . $comments_list[$node['parent_id']]['parent_id'];
 
             // CHECKME: when we start with a category 2+ levels deep, $parents['PID_0'] is undefined here
             if (!isset($parents[$ppidkey])) {
                 $parents[$ppidkey] = -1;
             }
-            $parents["PID_".$node['parent_id']] = $parents[$ppidkey] + 1;
+            $parents["PID_" . $node['parent_id']] = $parents[$ppidkey] + 1;
         }
 
         // if the current nodes parent already has
         // has a defined depth and that depth is
         // zero, then reset the $depth counter to zero
-        if (0 == $parents['PID_'.$node['parent_id']]) {
+        if (0 == $parents['PID_' . $node['parent_id']]) {
             $depth = 0;
         }
 
         $prep_list[$key] = $node;
-        $prep_list[$key]['depth'] = $parents["PID_".$node['parent_id']];
+        $prep_list[$key]['depth'] = $parents["PID_" . $node['parent_id']];
     }
 
     // now we go through and find all the nodes that were marked
@@ -240,7 +240,7 @@ function comments_renderer_array_markdepths_bypid(&$comments_list)
  * @param integer    $args['cutoff']        depth cutoff point
  * @return mixed void if no array is passed or the array has no nodes return void
  */
-function comments_renderer_array_prune_excessdepth($args)
+function comments_renderer_array_prune_excessdepth(array $args = [], $context = null)
 {
     extract($args);
     if (!is_array($array_list) || !count($array_list)) {
@@ -334,12 +334,12 @@ function comments_renderer_array_prune_excessdepth($args)
  * @return bool true if the specified depth is set, false otherwise
  */
 
-function comments_renderer_array_depthbuoy($action, $depth, $value=true)
+function comments_renderer_array_depthbuoy($action, $depth, $value = true)
 {
     static $matrix = [];
 
     if (empty($matrix)) {
-        $matrix = array_pad([0=>0], _COM_MAX_DEPTH, _COM_NO_CONNECTOR);
+        $matrix = array_pad([0 => 0], _COM_MAX_DEPTH, _COM_NO_CONNECTOR);
     }
 
     if (strtolower($action) == 'set') {
@@ -393,13 +393,13 @@ function comments_renderer_array_maptree(&$CommentList, $modName = null)
     // the beginning.
     for ($counter = $listsize; $counter >= 0; $counter = $counter - 1) {
         // unmapped matrix for current comment
-        $matrix = array_pad([0=>0], _COM_MAX_DEPTH, _COM_NO_CONNECTOR);
+        $matrix = array_pad([0 => 0], _COM_MAX_DEPTH, _COM_NO_CONNECTOR);
 
         // make sure to $depth = $depth modulus _COM_MAX_DEPTH  - because we are only ever showing
         // ten levels of depth -- anything more than that and the display doesn't look good
         $current_depth  = @$CommentList[$counter]['depth'] % _COM_MAX_DEPTH;
-        $next_depth     = (($counter -1) < 0 ? -1 : @$CommentList[$counter-1]['depth'] % _COM_MAX_DEPTH);
-        $prev_depth     = (($counter +1) > $listsize ? -1 : @$CommentList[$counter+1]['depth'] % _COM_MAX_DEPTH);
+        $next_depth     = (($counter - 1) < 0 ? -1 : @$CommentList[$counter - 1]['depth'] % _COM_MAX_DEPTH);
+        $prev_depth     = (($counter + 1) > $listsize ? -1 : @$CommentList[$counter + 1]['depth'] % _COM_MAX_DEPTH);
 
         // first start by placing the depth point in the matrix
         // if the current comment has children place a P connetor
@@ -628,7 +628,7 @@ function comments_renderer_array_fieldrelation_compare($a, $b)
  * @return  string  The current sort value
  *
  */
-function comments_renderer_array_sortvalue($value=null)
+function comments_renderer_array_sortvalue($value = null)
 {
     static $sort;
 
@@ -680,7 +680,7 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
                 $key = $node['id'];
                 $index[$node['id']] = $key;
             } else {
-                $key = $index[$node['parent_id']] .":".$node['id'];
+                $key = $index[$node['parent_id']] . ":" . $node['id'];
                 $index[$node['id']] = $key;
             }
             $new_list[$key] = $node;
@@ -706,7 +706,7 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
                     // default to sorting by author
             }
 
-            $new_list[$key .":". $node['id']] = $node;
+            $new_list[$key . ":" . $node['id']] = $node;
         }
         $comment_list = $new_list;
         $new_list = [];
@@ -732,15 +732,15 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
             if (!isset($index[$key])) {
                 $index[$key]['depth'] = 0;
                 $index[$key]['children'] = 0;
-                $new_list[$key.":0"] = $node;
-                $new_list[$key.":0"]['depth'] = $index[$key]['depth'];
-                $new_list[$key.":0"]['children'] = $index[$key]['children'];
+                $new_list[$key . ":0"] = $node;
+                $new_list[$key . ":0"]['depth'] = $index[$key]['depth'];
+                $new_list[$key . ":0"]['children'] = $index[$key]['children'];
             } else {
-                $key2 = $key.":".$node['id'];
+                $key2 = $key . ":" . $node['id'];
                 $new_list[$key2] = $node;
                 $new_list[$key2]['depth'] = 1;
                 $new_list[$key2]['children'] = 0;
-                $new_list[$key.":0"]['children'] += 1;
+                $new_list[$key . ":0"]['children'] += 1;
             }
         }
     }
@@ -776,11 +776,11 @@ function comments_renderer_wrap_words(&$str, $chars)
 {
     if (xarModVars::get('comments', 'wrap')) {
         // Added for bug 4210 wrapping on multibyte words
-        $before_lt="[\\x21-\\x3B]"; //"space" is x20 and "<" is x3C
-        $equal="[\\x3D]";           //"=" is x3D
-        $after_gt="[\\x3F-\\x7F]";  //">" is x3E
-        $single = $before_lt."|".$equal."|".$after_gt;
-        $pattern = "/(".$single."){".$chars.",".$chars."}/";
+        $before_lt = "[\\x21-\\x3B]"; //"space" is x20 and "<" is x3C
+        $equal = "[\\x3D]";           //"=" is x3D
+        $after_gt = "[\\x3F-\\x7F]";  //">" is x3E
+        $single = $before_lt . "|" . $equal . "|" . $after_gt;
+        $pattern = "/(" . $single . "){" . $chars . "," . $chars . "}/";
         $str = preg_replace($pattern, '\0 ', $str);
     }
     //$str = preg_replace('/([^\s\<\>]{'.$chars.','.$chars.'})/', '\1 ', $str);

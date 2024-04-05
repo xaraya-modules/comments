@@ -23,7 +23,7 @@
  * @return  array an array containing the left and right values or an
  *                 empty array if the comment_id specified doesn't exist
  */
-function comments_userapi_get_node_root($args)
+function comments_userapi_get_node_root(array $args = [], $context = null)
 {
     extract($args);
 
@@ -50,7 +50,7 @@ function comments_userapi_get_node_root($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     // grab the root node's id, left and right values
     // based on the objectid/modid pair
@@ -63,15 +63,15 @@ function comments_userapi_get_node_root($args)
     // objectid is still a string for now
     $bindvars = [(int) $modid, (int) $itemtype, (string) $objectid, (int) _COM_STATUS_ROOT_NODE];
 
-    $result =& $dbconn->Execute($sql, $bindvars);
+    $result = & $dbconn->Execute($sql, $bindvars);
 
     if (!$result) {
         return;
     }
 
-    $count=$result->RecordCount();
+    $count = $result->RecordCount();
 
-    assert($count==1 | $count==0);
+    assert($count == 1 | $count == 0);
 
     if (!$result->EOF) {
         $node = $result->GetRowAssoc(false);

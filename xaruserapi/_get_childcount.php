@@ -39,7 +39,7 @@ function comments_userapi_get_childcount($id)
 
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $nodelr = xarMod::apiFunc(
         'comments',
@@ -50,10 +50,10 @@ function comments_userapi_get_childcount($id)
 
     $sql = "SELECT  COUNT(id) as numitems
               FROM  $xartable[comments]
-             WHERE  status="._COM_STATUS_ON."
+             WHERE  status=" . _COM_STATUS_ON . "
                AND  (left_id >= $nodelr[left_id] AND right_id <= $nodelr[right_id]";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
     if (!$result) {
         return;
     }

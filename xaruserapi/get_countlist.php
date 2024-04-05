@@ -23,7 +23,7 @@
  * @return array     the number of comments for the particular modid/objectids pairs,
  *                    or raise an exception and return false.
  */
-function comments_userapi_get_countlist($args)
+function comments_userapi_get_countlist(array $args = [], $context = null)
 {
     extract($args);
     // $modid, $objectids
@@ -60,12 +60,12 @@ function comments_userapi_get_countlist($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql = "SELECT  objectid, COUNT(id) as numitems
               FROM  $xartable[comments]
              WHERE  modid=$modid
-               AND  status="._COM_STATUS_ON;
+               AND  status=" . _COM_STATUS_ON;
 
     if (isset($itemtype) && is_numeric($itemtype)) {
         $sql .= " AND itemtype=$itemtype";
@@ -81,7 +81,7 @@ function comments_userapi_get_countlist($args)
 
     $sql .= " GROUP BY  objectid";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
     if (!$result) {
         return;
     }

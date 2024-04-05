@@ -17,7 +17,7 @@
  *
  * This form allows one to delete comments for all hooked modules
  */
-function comments_admin_delete()
+function comments_admin_delete(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageComments')) {
         return;
@@ -40,7 +40,7 @@ function comments_admin_delete()
     }
 
     if (empty($data['dtype'])) {
-        return xarResponse::NotFound();
+        return xarController::notFound(null, $context);
     }
 
     sys::import('modules.dynamicdata.class.objects.factory');
@@ -153,7 +153,7 @@ function comments_admin_delete()
             if ($deletebranch) {
                 xarMod::apiFunc('comments', 'admin', 'delete_branch', ['node' => $id]);
             } else {
-                xarMod::apiFunc('comments', 'admin', 'delete_node', ['node' => $id, 'parent_id' =>$values['parent_id']]);
+                xarMod::apiFunc('comments', 'admin', 'delete_node', ['node' => $id, 'parent_id' => $values['parent_id']]);
             }
         } else {
             $comments = xarMod::apiFunc('comments', 'user', 'get_one', ['id' => $itemid]);
@@ -172,11 +172,16 @@ function comments_admin_delete()
 
     if ($data['confirm'] && !empty($data['redirect'])) {
         if ($data['redirect'] == 'view') {
-            xarController::redirect(xarController::URL('comments', 'admin', 'view'));
+            xarController::redirect(xarController::URL('comments', 'admin', 'view'), null, $context);
         } elseif ($data['redirect'] == 'stats') {
-            xarController::redirect(xarController::URL('comments', 'admin', 'stats'));
+            xarController::redirect(xarController::URL('comments', 'admin', 'stats'), null, $context);
         } elseif (is_numeric($data['redirect'])) {
-            xarController::redirect(xarController::URL('comments', 'admin', 'module_stats', ['modid' => $data['redirect']]));
+            xarController::redirect(xarController::URL(
+                'comments',
+                'admin',
+                'module_stats',
+                ['modid' => $data['redirect']]
+            ), null, $context);
         }
     }
 

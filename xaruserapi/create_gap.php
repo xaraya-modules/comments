@@ -24,7 +24,7 @@
  * @param    string     $objectid      the item id
  * @return  integer    number of affected rows or false [0] on error
  */
-function comments_userapi_create_gap($args)
+function comments_userapi_create_gap(array $args = [], $context = null)
 {
     extract($args);
 
@@ -42,7 +42,7 @@ function comments_userapi_create_gap($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql_left  = "UPDATE $xartable[comments]
                      SET left_id = (left_id + $gapsize)
@@ -87,12 +87,12 @@ function comments_userapi_create_gap($args)
             // note: we don't do explicit row locking here, because it takes longer
             //       and we end up with more deadlocks (ask the Postgres people why ?)
             // start by increasing the right side
-            $result =& $dbconn->Execute($sql_right);
+            $result = & $dbconn->Execute($sql_right);
             if ($result) {
                 // this should at least affect the parent
                 $affected = $dbconn->Affected_Rows();
                 // then increase the left side if necessary
-                $result =& $dbconn->Execute($sql_left);
+                $result = & $dbconn->Execute($sql_left);
             }
             // if the transaction succeeded
             if ($dbconn->CompleteTrans()) {
@@ -104,12 +104,12 @@ function comments_userapi_create_gap($args)
         return;
     } else {
         // start by increasing the right side
-        $result =& $dbconn->Execute($sql_right);
+        $result = & $dbconn->Execute($sql_right);
         if ($result) {
             // this should at least affect the parent
             $affected = $dbconn->Affected_Rows();
             // then increase the left side if necessary
-            $result =& $dbconn->Execute($sql_left);
+            $result = & $dbconn->Execute($sql_left);
         }
         if (!$result) {
             return;

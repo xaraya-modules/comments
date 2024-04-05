@@ -70,14 +70,11 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
         if (isset($hookedmodules) && is_array($hookedmodules)) {
             foreach ($hookedmodules as $modname => $value) {
                 // Get the list of all item types for this module (if any)
-                $mytypes = xarMod::apiFunc(
-                    $modname,
-                    'user',
-                    'getitemtypes',
-                    // don't throw an exception if this function doesn't exist
-                    [],
-                    0
-                );
+                try {
+                    $mytypes = xarMod::apiFunc($modname, 'user', 'getitemtypes');
+                } catch (Exception $e) {
+                    $mytypes = [];
+                }
                 // we have hooks for individual item types here
                 if (!isset($value[0])) {
                     foreach ($value as $itemtype => $val) {

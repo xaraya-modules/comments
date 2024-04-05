@@ -17,7 +17,7 @@
  * @return string|null containing the menulinks for the overview item on the main manu
  * @since 14 Oct 2005
  */
-function comments_admin_overview()
+function comments_admin_overview(array $args = [], $context = null)
 {
     /* Security Check */
     if (!xarSecurity::check('AdminComments', 0)) {

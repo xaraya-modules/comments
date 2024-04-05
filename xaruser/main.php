@@ -16,7 +16,7 @@
  * Main function for comments module
  *
  */
-function comments_user_main($args)
+function comments_user_main(array $args = [], $context = null)
 {
     return xarTpl::module('comments', 'user', 'errors', ['layout' => 'no_direct_access']);
 }

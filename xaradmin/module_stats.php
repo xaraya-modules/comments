@@ -14,7 +14,7 @@ sys::import('modules.base.class.pager');
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
-function comments_admin_module_stats()
+function comments_admin_module_stats(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('AdminComments')) {
@@ -38,10 +38,15 @@ function comments_admin_module_stats()
         $urlitemtype = -1;
     } else {
         $data['itemtype'] = $urlitemtype;
-        $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes', [], 0);
+        // Get the list of all item types for this module (if any)
+        try {
+            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+        } catch (Exception $e) {
+            $mytypes = [];
+        }
         if (isset($mytypes) && !empty($mytypes[$urlitemtype])) {
             $data['itemtypelabel'] = $mytypes[$urlitemtype]['label'];
-        //$data['modlink'] = $mytypes[$urlitemtype]['url'];
+            //$data['modlink'] = $mytypes[$urlitemtype]['url'];
         } else {
             //$data['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $urlitemtype));
         }
@@ -92,9 +97,10 @@ function comments_admin_module_stats()
                 'user',
                 'getitemlinks',
                 ['itemtype' => $urlitemtype,
-                                            'itemids' => $itemids, ]
-            ); // don't throw an exception here
+                'itemids' => $itemids]
+            );
         } catch (Exception $e) {
+            $itemlinks = [];
         }
     } else {
         $itemlinks = [];
@@ -123,7 +129,7 @@ function comments_admin_module_stats()
         $data['gt_total'] += $info['count'];
         if (isset($inactive[$itemid])) {
             $stats[$itemid]['inactive'] = $inactive[$itemid]['count'];
-            $data['gt_inactive'] += (int)$inactive[$itemid]['count'];
+            $data['gt_inactive'] += (int) $inactive[$itemid]['count'];
         } else {
             $stats[$itemid]['inactive'] = 0;
         }

@@ -24,12 +24,12 @@
  *                   found for the particular modules, or raise an
  *                   exception and return false.
  */
-function comments_userapi_get_multipleall($args)
+function comments_userapi_get_multipleall(array $args = [], $context = null)
 {
     extract($args);
     // $modid
     if (!isset($modarray) || empty($modarray) || !is_array($modarray)) {
-        $modarray=['all'];
+        $modarray = ['all'];
     }
     if (empty($order) || $order != 'ASC') {
         $order = 'DESC';
@@ -38,7 +38,7 @@ function comments_userapi_get_multipleall($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $commentlist = [];
 
@@ -53,7 +53,7 @@ function comments_userapi_get_multipleall($args)
                       itemtype AS itemtype,
                       objectid AS objectid
                 FROM  $xartable[comments]
-               WHERE  status="._COM_STATUS_ON." ";
+               WHERE  status=" . _COM_STATUS_ON . " ";
 
     if (count($modarray) > 0 && $modarray[0] != 'all') {
         $where = [];

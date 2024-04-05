@@ -19,7 +19,7 @@
  * @param    integer     $id     id of the comment to lookup
  * @return  bool        returns true on success, throws an exception and returns false otherwise
  */
-function comments_userapi_activate($args)
+function comments_userapi_activate(array $args = [], $context = null)
 {
     extract($args);
 
@@ -29,16 +29,16 @@ function comments_userapi_activate($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     // First grab the objectid and the modid so we can
     // then find the root node.
     $sql = "UPDATE $xartable[comments]
-            SET status='" . _COM_STATUS_ON."'
+            SET status='" . _COM_STATUS_ON . "'
             WHERE id=?";
     $bindvars = [(int) $id];
 
-    $result =& $dbconn->Execute($sql, $bindvars);
+    $result = & $dbconn->Execute($sql, $bindvars);
 
     if (!$result) {
         return;

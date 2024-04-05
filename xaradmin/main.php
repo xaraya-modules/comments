@@ -15,7 +15,7 @@
 /**
  * Overview Menu
  */
-function comments_admin_main()
+function comments_admin_main(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminComments')) {
         return;
@@ -24,7 +24,7 @@ function comments_admin_main()
     if (xarModVars::get('modules', 'disableoverview') == 0) {
         return [];
     } else {
-        xarController::redirect(xarController::URL('comments', 'admin', 'view'));
+        xarController::redirect(xarController::URL('comments', 'admin', 'view'), null, $context);
     }
     return true;
 }

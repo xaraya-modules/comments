@@ -37,7 +37,7 @@
    $receipt = particulars of the form submission
 */
 
-function comments_user_display($args)
+function comments_user_display(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadComments', 0)) {
         return;
@@ -66,21 +66,21 @@ function comments_user_display($args)
 
     # --------------------------------------------------------
     # Bail if the proper args were not passed
-#
+    #
     if (empty($fields)) {
         return xarTpl::module('comments', 'user', 'errors', ['layout' => 'no_direct_access']);
     }
 
     # --------------------------------------------------------
     # Try and get a selectee ID if we don't have one yet
-#
+    #
     if (empty($data['selected_id'])) {
         xarVar::fetch('selected_id', 'int', $data['selected_id'], 0, xarVar::NOT_REQUIRED);
     }
 
     # --------------------------------------------------------
     # Get the current comment
-#
+    #
     sys::import('modules.dynamicdata.class.objects.factory');
     $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
     if (!empty($data['selected_id'])) {
@@ -90,20 +90,20 @@ function comments_user_display($args)
 
     # --------------------------------------------------------
     # Add any attributes passed
-#
+    #
     if (isset($args['tplmodule'])) {
         $data['object']->tplmodule = $args['tplmodule'];
     }
 
     # --------------------------------------------------------
     # Load the comment object with what we know about the environment
-#
+    #
     $data['object']->setFieldValues($fields, 1);
     $fields = $data['object']->getFieldValues([], 1);
 
     # --------------------------------------------------------
     # Create an empty object for display and add any attributes passed
-#
+    #
     $data['emptyobject'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
     if (isset($args['tplmodule'])) {
         $data['object']->tplmodule = $args['tplmodule'];
@@ -111,7 +111,7 @@ function comments_user_display($args)
 
     # --------------------------------------------------------
     # Get the viewing options: depth, render style, order, and sortby
-#
+    #
     $package['settings'] = xarMod::apiFunc('comments', 'user', 'getoptions');
 
     if (!isset($args['thread'])) {

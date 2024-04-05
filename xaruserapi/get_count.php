@@ -23,7 +23,7 @@
  * @return integer  the number of comments for the particular modid/objectid pair,
  *                   or raise an exception and return false.
  */
-function comments_userapi_get_count($args)
+function comments_userapi_get_count(array $args = [], $context = null)
 {
     extract($args);
 
@@ -56,7 +56,7 @@ function comments_userapi_get_count($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql = "SELECT  COUNT(id) as numitems
               FROM  $xartable[comments]
@@ -70,7 +70,7 @@ function comments_userapi_get_count($args)
         $bindvars[] = (int) $itemtype;
     }
 
-    $result =& $dbconn->Execute($sql, $bindvars);
+    $result = & $dbconn->Execute($sql, $bindvars);
     if (!$result) {
         return;
     }

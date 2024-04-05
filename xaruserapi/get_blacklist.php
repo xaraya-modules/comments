@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
-function comments_userapi_get_blacklist($args)
+function comments_userapi_get_blacklist(array $args = [], $context = null)
 {
     extract($args);
     // Optional arguments.

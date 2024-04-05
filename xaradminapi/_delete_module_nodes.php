@@ -20,7 +20,7 @@
  * @param   integer     $itemtype   the item type that the comments are associated with
  * @return bool true on success, false otherwise
  */
-function comments_adminapi_delete_module_nodes($args)
+function comments_adminapi_delete_module_nodes(array $args = [], $context = null)
 {
     extract($args);
 

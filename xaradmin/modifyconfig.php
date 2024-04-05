@@ -16,7 +16,7 @@ sys::import('modules.comments.xarincludes.defines');
  * This is a standard function to modify and update the configuration parameters of the
  * module
  */
-function comments_admin_modifyconfig()
+function comments_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
@@ -128,7 +128,7 @@ function comments_admin_modifyconfig()
 
             $item = $object->updateItem(['itemid' => 0]);
 
-            xarController::redirect(xarController::URL('comments', 'admin', 'modifyconfig'));
+            xarController::redirect(xarController::URL('comments', 'admin', 'modifyconfig'), null, $context);
 
             # --------------------------------------------------------
             #

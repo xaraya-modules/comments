@@ -20,7 +20,7 @@
  * @param   integer     $parent_id    the deletion node's parent id (used to reassign the children)
  * @return bool|null true on success, false otherwise
  */
-function comments_adminapi_delete_node($args)
+function comments_adminapi_delete_node(array $args = [], $context = null)
 {
     extract($args);
 
@@ -55,7 +55,7 @@ function comments_adminapi_delete_node($args)
 
     //Now delete the item ....
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     // delete the node
     $sql = "DELETE

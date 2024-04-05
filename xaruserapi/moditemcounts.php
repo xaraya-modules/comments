@@ -14,7 +14,7 @@
 /**
 
  */
-function comments_userapi_moditemcounts($args)
+function comments_userapi_moditemcounts(array $args = [], $context = null)
 {
     $moditemcounts = [];
 

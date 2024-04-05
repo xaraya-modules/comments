@@ -18,7 +18,7 @@ class Comments extends xarObject
     public function get(int $id)
     {
         $dbconn = xarDB::getConn();
-        $xartable =& xarDB::getTables();
+        $xartable = & xarDB::getTables();
 
         $SQLquery = "SELECT id,
                                 parent_id,
@@ -72,7 +72,7 @@ class CommentTreeNode extends TreeNode
     public function getChildren()
     {
         $dbconn = xarDB::getConn();
-        $xartable =& xarDB::getTables();
+        $xartable = & xarDB::getTables();
 
         $SQLquery = "SELECT id,
                                 parent_id,
@@ -111,14 +111,12 @@ class CommentTreeNode extends TreeNode
         return Comments::get($this->parent);
     }
 
-    public function getChildAt()
-    {
-    }
+    public function getChildAt() {}
 
     public function getChildCount()
     {
         $dbconn = xarDB::getConn();
-        $xartable =& xarDB::getTables();
+        $xartable = & xarDB::getTables();
 
         $SQLquery = "SELECT COUNT(*) FROM " . $xartable['comments'] . " WHERE parent_id = ? ORDER BY left_id";
         $bindvars = [$this->id];
@@ -135,7 +133,7 @@ class CommentTreeNode extends TreeNode
     public function isDescendant(CommentTreeNode $n)
     {
         $dbconn = xarDB::getConn();
-        $xartable =& xarDB::getTables();
+        $xartable = & xarDB::getTables();
 
         $query = '
                 SELECT  P1.id
@@ -166,7 +164,7 @@ class CommentTreeNode extends TreeNode
         }
     }
 
-    public function setfilter($args=[])
+    public function setfilter($args = [])
     {
         foreach ($args as $key => $value) {
             $this->$key = $value;
@@ -186,9 +184,9 @@ class CommentTree extends Tree
             'categories',
             'user',
             'getcat',
-    //                                array(
-    //                                      'id' => false,
-    //                                      'getchildren' => true));
+            //                                array(
+            //                                      'id' => false,
+            //                                      'getchildren' => true));
             ['eid' => $node->eid,
                   'id' => $node->id,
                   'return_itself' => $node->returnitself,

@@ -18,7 +18,7 @@
  * @access private
  * @return mixed description of return
  */
-function comments_user_delete()
+function comments_user_delete(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageComments')) {
         return;
@@ -38,7 +38,7 @@ function comments_user_delete()
     }
 
     if (empty($data['id'])) {
-        return xarResponse::NotFound();
+        return xarController::notFound(null, $context);
     }
 
     sys::import('modules.dynamicdata.class.objects.factory');
@@ -57,11 +57,11 @@ function comments_user_delete()
                 'delete_branch',
                 ['node' => $header['id']]
             );
-            xarController::redirect($data['parent_url']);
+            xarController::redirect($data['parent_url'], null, $context);
             return true;
         } else {
             $data['object']->deleteItem(['itemid' => $data['id']]);
-            xarController::redirect($data['parent_url']);
+            xarController::redirect($data['parent_url'], null, $context);
             return true;
         }
     }

@@ -24,7 +24,7 @@
  * @param $args['startnum'] optional start at this number (1-based)
  * @return array $array[$itemid] = $numcomments;
  */
-function comments_userapi_getitems($args)
+function comments_userapi_getitems(array $args = [], $context = null)
 {
     // Get arguments from argument array
     extract($args);
@@ -43,16 +43,16 @@ function comments_userapi_getitems($args)
 
     switch ($status) {
         case 'active':
-            $where_status = "status = ". _COM_STATUS_ON;
+            $where_status = "status = " . _COM_STATUS_ON;
             $join = ' AND ';
             break;
         case 'inactive':
-            $where_status = "status = ". _COM_STATUS_OFF;
+            $where_status = "status = " . _COM_STATUS_OFF;
             $join = ' AND ';
             break;
         default:
         case 'all':
-            $where_status = "status != ". _COM_STATUS_ROOT_NODE;
+            $where_status = "status != " . _COM_STATUS_ROOT_NODE;
             $join = ' AND ';
     }
 
@@ -66,7 +66,7 @@ function comments_userapi_getitems($args)
 
     // Database information
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $commentstable = $xartable['comments'];
 
     $where = '';
@@ -107,28 +107,28 @@ function comments_userapi_getitems($args)
     }
 
     sys::import('modules.dynamicdata.class.objects.factory');
-//    $list = DataObjectFactory::getObjectList(array(
-//                            'name' => 'comments_comments'
-//        ));
+    //    $list = DataObjectFactory::getObjectList(array(
+    //                            'name' => 'comments_comments'
+    //        ));
 
-//    if (!is_object($list)) return;
+    //    if (!is_object($list)) return;
 
-//    $items = $list->getItems($filters);
+    //    $items = $list->getItems($filters);
 
-//    return $items;
+    //    return $items;
 
     sys::import('xaraya.structures.query');
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $q = new Query('SELECT', $tables['comments']);
     $q->eq('module_id', $moduleid);
     $q->eq('itemtype', $itemtype);
-    $q->eq('status', (int)$status);
+    $q->eq('status', (int) $status);
     if (isset($itemids) && count($itemids) > 0) {
         $q->in('itemid', $itemids);
     } elseif (isset($itemid)) {
         $q->in('itemid', $itemid);
     }
-//    $q->setgroup('itemid');
+    //    $q->setgroup('itemid');
     $q->setorder('itemid', 'ASC');
     if (!empty($numitems)) {
         if (empty($startnum)) {
@@ -150,14 +150,14 @@ function comments_userapi_getitems($args)
     $bindvars[] = (int) $moduleid;
     $bindvars[] = (int) $itemtype;
     if (isset($itemids) && count($itemids) > 0) {
-        $bindmarkers = '?' . str_repeat(',?', count($itemids)-1);
+        $bindmarkers = '?' . str_repeat(',?', count($itemids) - 1);
         $bindvars = array_merge($bindvars, $itemids);
         $query .= " AND itemid IN ($bindmarkers)";
     }
     $query .= " GROUP BY id, itemid
                 ORDER BY itemid";
-//                ORDER BY (1 + objectid";
-//
+    //                ORDER BY (1 + objectid";
+    //
     // CHECKME: dirty trick to try & force integer ordering (CAST and CONVERT are for MySQL 4.0.2 and higher
     // <rabbitt> commented that line out because it won't work with PostgreSQL - not sure about others.
 

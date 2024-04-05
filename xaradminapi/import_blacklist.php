@@ -19,12 +19,12 @@
  *  @access public
  *  @return bool|null true on success
  */
-function comments_adminapi_import_blacklist($args)
+function comments_adminapi_import_blacklist(array $args = [], $context = null)
 {
     extract($args);
     sys::import('xaraya.tableddl');
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $btable = $xartable['blacklist'];
     $bbtable = &$xartable['blacklist_column'];
     $feedfile = 'http://www.jayallen.org/comment_spam/blacklist.txt';
@@ -48,7 +48,7 @@ function comments_adminapi_import_blacklist($args)
     // Kinda hackish here.  No empty table command that I can find.
 
     $query = xarTableDDL::dropTable($xartable['blacklist']);
-    $result =& $dbconn->Execute($query);
+    $result = & $dbconn->Execute($query);
 
     if (!$result) {
         return;
@@ -59,20 +59,20 @@ function comments_adminapi_import_blacklist($args)
     $fields = [
         'id' => ['type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true],
 //        'id'       => array('type'=>'integer',  'null'=>FALSE,  'increment'=> TRUE, 'primary_key'=>TRUE),
-        'domain'   => ['type'=>'varchar',  'null'=>false,  'size'=>255],
+        'domain'   => ['type' => 'varchar',  'null' => false,  'size' => 255],
     ];
 
     $query = xarTableDDL::createTable($xartable['blacklist'], $fields);
-    $file = file('var/cache/rss/'.md5($feedfile).'.txt');
-    $result =& $dbconn->Execute($query);
+    $file = file('var/cache/rss/' . md5($feedfile) . '.txt');
+    $result = & $dbconn->Execute($query);
     if (!$result) {
         return;
     }
-    for ($i=0; $i<count($file); $i++) {
+    for ($i = 0; $i < count($file); $i++) {
         $data = $file[$i];
         $domain = "";
-        for ($j=0; $j<strlen($data); $j++) {
-            if ($data[$j]==" " || $data[$j] == "#") {
+        for ($j = 0; $j < strlen($data); $j++) {
+            if ($data[$j] == " " || $data[$j] == "#") {
                 break;
             } else {
                 $domain .= $data[$j];
@@ -86,10 +86,10 @@ function comments_adminapi_import_blacklist($args)
         while ($ps !== false) {
             if ($ps == 0) {
                 $domain = '\\' + $domain;
-            } elseif (substr($domain, $ps-1, 1) != '\\') {
+            } elseif (substr($domain, $ps - 1, 1) != '\\') {
                 $domain = substr_replace($domain, '\/', $ps, 1);
             }
-            $ps = strpos($domain, '/', $ps+2);
+            $ps = strpos($domain, '/', $ps + 2);
         }
         $domain = trim($domain);
         if ($domain != "") {
@@ -98,7 +98,7 @@ function comments_adminapi_import_blacklist($args)
                                           domain)
                       VALUES (?,?)";
             $bindvars = [$nextId, $domain];
-            $result =& $dbconn->Execute($query, $bindvars);
+            $result = & $dbconn->Execute($query, $bindvars);
             if (!$result) {
                 return;
             }

@@ -15,7 +15,7 @@
  * Retrieves the host name of the commentor
  *
  */
-function comments_userapi_get_hostname()
+function comments_userapi_get_hostname(array $args = [], $context = null)
 {
     $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
     if (!empty($forwarded)) {

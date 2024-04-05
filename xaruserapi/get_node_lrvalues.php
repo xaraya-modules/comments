@@ -21,7 +21,7 @@
  * @return  array an array containing the left and right values or an
  *           empty array if the comment_id specified doesn't exist
  */
-function comments_userapi_get_node_lrvalues($args)
+function comments_userapi_get_node_lrvalues(array $args = [], $context = null)
 {
     extract($args);
 
@@ -31,13 +31,13 @@ function comments_userapi_get_node_lrvalues($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $sql = "SELECT  left_id, right_id
               FROM  $xartable[comments]
              WHERE  id=$id";
 
-    $result =& $dbconn->Execute($sql);
+    $result = & $dbconn->Execute($sql);
 
     if (!$result) {
         return;

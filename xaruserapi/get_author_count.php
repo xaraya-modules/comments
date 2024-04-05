@@ -23,7 +23,7 @@
  * @return integer  the number of comments for the particular modid/objectid pair,
  *                   or raise an exception and return false.
  */
-function comments_userapi_get_author_count($args)
+function comments_userapi_get_author_count(array $args = [], $context = null)
 {
     extract($args);
 
@@ -56,7 +56,7 @@ function comments_userapi_get_author_count($args)
         $status = _COM_STATUS_ON;
     }
 
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $q = new Query('SELECT', $tables['comments']);
     $q->addfield('COUNT(id) AS numitems');
     $q->eq('module_id', $moduleid);

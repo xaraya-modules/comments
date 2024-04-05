@@ -18,7 +18,7 @@
  * @param $args['itemids'] array of item ids to get
  * @return array containing the itemlink(s) for the item(s).
  */
-function comments_userapi_getitemlinks($args)
+function comments_userapi_getitemlinks(array $args = [], $context = null)
 {
     extract($args);
     $itemlinks = [];
