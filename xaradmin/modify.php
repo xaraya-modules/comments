@@ -16,7 +16,9 @@
  *
  * This function shows a form in which the user can modify the item
  *
- * @param id itemid The id of the dynamic data item to modify
+ * @param array $args
+ * with
+ *     id itemid The id of the dynamic data item to modify
  */
 function comments_admin_modify(array $args = [], $context = null)
 {
