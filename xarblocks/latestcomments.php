@@ -104,7 +104,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
         return $vars;
     }
 
-    public function update()
+    public function update($data = [])
     {
         $vars = [];
         if (!xarVar::fetch('howmany', 'int:1:', $vars['howmany'], 0, xarVar::NOT_REQUIRED)) {
