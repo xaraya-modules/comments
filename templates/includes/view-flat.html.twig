@@ -11,7 +11,7 @@
 
             {# <!-- show changelog --> #}
             {% if xar_security_check('ModerateComments') %}
-                {% if xar_coremethod('xarModHooks', 'isHooked', ['changelog','comments']) %}
+                {% if xar_coremethod('xarModHooks', 'isHooked',  'changelog', 'comments') %}
                     <span class="xar-sub" style="float:right;">
                         <a href="{{ xar_moduleurl('changelog','admin','showlog',{'moduleid': 14, 'itemid': comment['id']}) }}" title="{{ xar_translate('View Changes') }}">
                             View changes

@@ -7,7 +7,7 @@
     </p>
     {% set showoptions = xar_modulevar('comments', 'showoptions') %}
     {% if not showoptions %}
-        {% if xar_coremethod('xarModHooks', 'isHooked', ['comments','roles', 0]) and xar_coremethod('xarUser', 'isLoggedIn') %}
+        {% if xar_coremethod('xarModHooks', 'isHooked', 'comments', 'roles', 0) and xar_coremethod('xarUser', 'isLoggedIn') %}
             <p class="xar-comments-note xar-sub">
                 Change Your Comments Rendering Settings
                 <a href="{{ xar_moduleurl('roles', 'user', 'account') }}">
