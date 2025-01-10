@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comments Module
  *
@@ -188,12 +189,12 @@ class CommentTree extends Tree
             //                                      'id' => false,
             //                                      'getchildren' => true));
             ['eid' => $node->eid,
-                  'id' => $node->id,
-                  'return_itself' => $node->returnitself,
-                  'getchildren' => $node->getchildren,
-                  'maximum_depth' => $node->maxdepth,
-                  'minimum_depth' => $node->mindepth,
-                  ]
+                'id' => $node->id,
+                'return_itself' => $node->returnitself,
+                'getchildren' => $node->getchildren,
+                'maximum_depth' => $node->maxdepth,
+                'minimum_depth' => $node->mindepth,
+            ]
         );
         foreach ($data as $row) {
             $nodedata = [
