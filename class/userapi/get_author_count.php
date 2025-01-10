@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserApi;
 
 use Xaraya\Modules\MethodClass;
 use xarDB;
+use Query;
 use sys;
 use BadParameterException;
 

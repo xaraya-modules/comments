@@ -15,6 +15,7 @@ use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarSecurity;
 use xarDB;
+use Query;
 use sys;
 use BadParameterException;
 
@@ -36,7 +37,7 @@ class GetitemsMethod extends MethodClass
      * @param mixed $args ['status'] optional status to count: ALL (minus root nodes), ACTIVE, INACTIVE
      * @param mixed $args ['numitems'] optional number of items to return
      * @param mixed $args ['startnum'] optional start at this number (1-based)
-     * @return array $array[$itemid] = $numcomments;
+     * @return array|void $array[$itemid] = $numcomments;
      */
     public function __invoke(array $args = [])
     {

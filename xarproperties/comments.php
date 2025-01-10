@@ -70,7 +70,7 @@ class CommentsProperty extends DataProperty
             $data['modid'] = $modid;
             $header['modid'] = $modid;
         }
-        $header['modname'] = xarMod::getNameFromID($header['modid']);
+        $header['modname'] = xarMod::getName($header['modid']);
 
         // Fetch the itemtype
         if (isset($data['itemtype'])) {

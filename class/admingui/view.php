@@ -18,6 +18,7 @@ use xarUser;
 use xarVar;
 use xarMod;
 use xarModVars;
+use Query;
 use sys;
 use BadParameterException;
 
@@ -33,7 +34,7 @@ class ViewMethod extends MethodClass
     /**
      * This is a standard function to modify the configuration parameters of the
      * module
-     * @return array
+     * @return array|void
      */
     public function __invoke(array $args = [])
     {

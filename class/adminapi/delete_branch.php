@@ -31,7 +31,7 @@ class DeleteBranchMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @param int $node the id of the node to delete
-     * @return bool true on success, false otherwise
+     * @return bool|void true on success, false otherwise
      */
     public function __invoke(array $args = [])
     {

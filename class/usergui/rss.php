@@ -18,7 +18,7 @@ use xarController;
 use xarModVars;
 use xarVar;
 use sys;
-use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 
@@ -33,7 +33,7 @@ class RssMethod extends MethodClass
      * Configures a comments RSS output
      * @author John Cox
      * @access public
-     * @return array
+     * @return array|void
      */
     public function __invoke(array $args = [])
     {

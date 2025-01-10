@@ -18,8 +18,10 @@ use xarModVars;
 use xarMod;
 use xarDB;
 use xarModHooks;
+use DataObjectFactory;
 use sys;
 use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 
@@ -45,7 +47,7 @@ class AddMethod extends MethodClass
      * @param string $args ['hostname']   hostname (for API access)
      * @param \datetime $args ['date']       date of the comment (for API access)
      * @param int $args ['id']        comment id (for API access - import only)
-     * @return int the id of the new comment
+     * @return int|void the id of the new comment
      */
     public function __invoke(array $args = [])
     {

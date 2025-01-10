@@ -20,6 +20,7 @@ use xarModVars;
 use xarTplPager;
 use sys;
 use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 

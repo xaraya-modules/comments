@@ -16,7 +16,7 @@ sys::import('xaraya.structures.tree');
 
 class Comments extends xarObject
 {
-    public function get(int $id)
+    public static function get(int $id)
     {
         $dbconn = xarDB::getConn();
         $xartable = & xarDB::getTables();
@@ -97,14 +97,14 @@ class CommentTreeNode extends TreeNode
         }
 
         sys::import('xaraya.structures.sets.collection');
-        $set = new BasecSet();
+        $set = new BasicSet();
         while (!$result->EOF) {
             $c = new CommentTreeNode();
             [$c->id, $c->parent_id, $c->modid, $c->itemtype, $c->objectid, $c->date, $c->author,  $c->title,
                 $c->hostname, $c->text, $c->left, $c->right, $c->status, $c->anonpost] = $result->fields;
-            $collection->add($c);
+            $set->add($c);
         }
-        return $collection;
+        return $set;
     }
 
     public function getParent()

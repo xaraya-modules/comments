@@ -19,7 +19,7 @@ use xarLocale;
 use xarModHooks;
 use xarTpl;
 use sys;
-use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 

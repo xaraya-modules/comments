@@ -652,8 +652,8 @@ function comments_renderer_array_sortvalue($value = null)
  * @access public
  * @param    string  $args['sortby']         represents the field to sort by
  * @param    string  $args['direction']      represents the direction to sort (ascending / descending )
- * @param    array   $args['comment_list']   List of comments to sort
- * @return   void    nothing
+ * @param    array<mixed>   $args['comment_list']   List of comments to sort
+ * @return   array<mixed>   nothing
  */
 
 function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
@@ -664,7 +664,7 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
             'comment_list',
             'renderer',
             'array_sort',
-            $modName
+            $modName ?? ''
         );
         throw new Exception($msg);
     }
@@ -694,7 +694,7 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
         foreach ($comment_list as $node) {
             switch ($sortby) {
                 case _COM_SORTBY_TOPIC:
-                    $key = eregi_replace("\:", " ", $node['title']);
+                    $key = str_replace("\:", " ", $node['title']);
                     break;
                 case _COM_SORTBY_DATE:
                     $key = 'a' . $node['datetime'];
@@ -717,7 +717,7 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
         foreach ($comment_list as $node) {
             switch ($sortby) {
                 case _COM_SORTBY_TOPIC:
-                    $key = eregi_replace("\:", " ", $node['title']);
+                    $key = str_replace("\:", " ", $node['title']);
                     break;
                 case _COM_SORTBY_DATE:
                     $key = 'a' . $node['datetime'];
@@ -767,7 +767,7 @@ function comments_renderer_array_sort(&$comment_list, $sortby, $direction)
  * @access public
  * @param    string  &$str  the string to perform word wrapping on
  * @param    integer $chars the amount of characters to word wrap at
- * @return   string the word-wrapped string
+ * @return   void the word-wrapped string
  * @todo do we need this function? \
  * @todo is this the correct place for wrap modvar checking?
  */

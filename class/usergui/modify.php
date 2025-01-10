@@ -21,8 +21,9 @@ use xarModHooks;
 use xarTpl;
 use xarLocale;
 use xarServer;
+use DataObjectFactory;
 use sys;
-use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 

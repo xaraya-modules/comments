@@ -30,7 +30,7 @@ class DeactivateMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
      * @param int $id id of the comment to lookup
-     * @return bool returns true on success, throws an exception and returns false otherwise
+     * @return bool|void returns true on success, throws an exception and returns false otherwise
      */
     public function __invoke(array $args = [])
     {
