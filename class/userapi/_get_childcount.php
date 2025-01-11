@@ -12,6 +12,7 @@
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
+use Xaraya\Modules\Comments\Defines;
 /**
 
 Not used anywhere?
@@ -51,7 +52,7 @@ function comments_userapi_get_childcount($id)
 
     $sql = "SELECT  COUNT(id) as numitems
               FROM  $xartable[comments]
-             WHERE  status=" . _COM_STATUS_ON . "
+             WHERE  status=" . Defines::STATUS_ON . "
                AND  (left_id >= $nodelr[left_id] AND right_id <= $nodelr[right_id]";
 
     $result = & $dbconn->Execute($sql);

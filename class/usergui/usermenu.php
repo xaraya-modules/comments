@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -65,7 +66,7 @@ class UsermenuMethod extends MethodClass
                 case 'form':
 
                     $settings = xarMod::apiFunc('comments', 'user', 'getoptions');
-                    $settings['max_depth'] = _COM_MAX_DEPTH - 1;
+                    $settings['max_depth'] = Defines::MAX_DEPTH - 1;
                     $authid = xarSec::genAuthKey('comments');
                     $data = xarTpl::module('comments', 'user', 'usermenu_form', ['authid'   => $authid,
                         'settings' => $settings, ]);

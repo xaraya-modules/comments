@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -78,7 +79,7 @@ class GetCountlistMethod extends MethodClass
         $sql = "SELECT  objectid, COUNT(id) as numitems
                   FROM  $xartable[comments]
                  WHERE  modid=$modid
-                   AND  status=" . _COM_STATUS_ON;
+                   AND  status=" . Defines::STATUS_ON;
 
         if (isset($itemtype) && is_numeric($itemtype)) {
             $sql .= " AND itemtype=$itemtype";

@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -74,7 +75,7 @@ class GetNodeRootMethod extends MethodClass
                    AND  objectid=?
                    AND  status=?";
         // objectid is still a string for now
-        $bindvars = [(int) $modid, (int) $itemtype, (string) $objectid, (int) _COM_STATUS_ROOT_NODE];
+        $bindvars = [(int) $modid, (int) $itemtype, (string) $objectid, (int) Defines::STATUS_ROOT_NODE];
 
         $result = & $dbconn->Execute($sql, $bindvars);
 

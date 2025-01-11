@@ -12,6 +12,7 @@
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
 sys::import('modules.comments.xarincludes.defines');
+use Xaraya\Modules\Comments\Defines;
 /**
  * This is a standard function to modify the configuration parameters of the
  * module
@@ -114,16 +115,16 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             if (!xarVar::fetch('useblacklist', 'checkbox', $useblacklist, 1, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('depth', 'str:1:', $depth, _COM_MAX_DEPTH, xarVar::NOT_REQUIRED)) {
+            if (!xarVar::fetch('depth', 'str:1:', $depth, Defines::MAX_DEPTH, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('render', 'str:1:', $render, _COM_VIEW_THREADED, xarVar::NOT_REQUIRED)) {
+            if (!xarVar::fetch('render', 'str:1:', $render, Defines::VIEW_THREADED, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('sortby', 'str:1:', $sortby, _COM_SORTBY_THREAD, xarVar::NOT_REQUIRED)) {
+            if (!xarVar::fetch('sortby', 'str:1:', $sortby, Defines::SORTBY_THREAD, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('order', 'str:1:', $order, _COM_SORT_ASC, xarVar::NOT_REQUIRED)) {
+            if (!xarVar::fetch('order', 'str:1:', $order, Defines::SORT_ASC, xarVar::NOT_REQUIRED)) {
                 return;
             }
             // if (!xarVar::fetch('authorize', 'checkbox', $authorize, xarModVars::get('comments', 'authorize'), xarVar::NOT_REQUIRED)) return;

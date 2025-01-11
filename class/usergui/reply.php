@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -82,9 +83,9 @@ class ReplyMethod extends MethodClass
                 );
 
                 if (xarModVars::get('comments', 'AuthorizeComments') || xarSecurity::check('AddComments')) {
-                    $status = _COM_STATUS_ON;
+                    $status = Defines::STATUS_ON;
                 } else {
-                    $status = _COM_STATUS_OFF;
+                    $status = Defines::STATUS_OFF;
                 }
 
                 # --------------------------------------------------------

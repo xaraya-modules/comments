@@ -17,6 +17,8 @@
  *
  */
 sys::import('modules.dynamicdata.class.properties.base');
+use Xaraya\Modules\Comments\Defines;
+use Xaraya\Modules\Comments\Renderer;
 
 class CommentsProperty extends DataProperty
 {
@@ -129,7 +131,7 @@ class CommentsProperty extends DataProperty
         if (!isset($header['selected_id']) || isset($thread)) {
             $package['comments'] = xarMod::apiFunc('comments', 'user', 'get_multiple', $header);
             if (count($package['comments']) > 1) {
-                $package['comments'] = comments_renderer_array_sort(
+                $package['comments'] = Renderer::array_sort(
                     $package['comments'],
                     $package['settings']['sortby'],
                     $package['settings']['order']
@@ -137,7 +139,7 @@ class CommentsProperty extends DataProperty
             }
         } else {
             $header['id'] = $header['selected_id'];
-            $package['settings']['render'] = _COM_VIEW_FLAT;
+            $package['settings']['render'] = Defines::VIEW_FLAT;
             $package['comments'] = xarMod::apiFunc('comments', 'user', 'get_one', $header);
             if (!empty($package['comments'][0])) {
                 $header['modid'] = $package['comments'][0]['modid'];
@@ -146,7 +148,7 @@ class CommentsProperty extends DataProperty
             }
         }
 
-        $package['comments'] = comments_renderer_array_prune_excessdepth(
+        $package['comments'] = Renderer::array_prune_excessdepth(
             [
                 'array_list'    => $package['comments'],
                 'cutoff'        => $package['settings']['depth'],
@@ -156,8 +158,8 @@ class CommentsProperty extends DataProperty
             ]
         );
 
-        if ($package['settings']['render'] == _COM_VIEW_THREADED) {
-            $package['comments'] = comments_renderer_array_maptree($package['comments']);
+        if ($package['settings']['render'] == Defines::VIEW_THREADED) {
+            $package['comments'] = Renderer::array_maptree($package['comments']);
         }
 
         // run text and title through transform hooks
@@ -175,7 +177,7 @@ class CommentsProperty extends DataProperty
 
         $header['input-title']            = xarML('Post a new comment');
 
-        $package['settings']['max_depth'] = _COM_MAX_DEPTH;
+        $package['settings']['max_depth'] = Defines::MAX_DEPTH;
         $package['role_id']               = xarUser::getVar('id');
         $package['uname']                 = xarUser::getVar('uname');
         $package['name']                  = xarUser::getVar('name');

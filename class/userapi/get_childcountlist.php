@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -47,7 +48,7 @@ class GetChildcountlistMethod extends MethodClass
         $dbconn = xarDB::getConn();
         $xartable = & xarDB::getTables();
 
-        $bind = [(int) $left, (int) $right, _COM_STATUS_ON, (int) $moduleid, (int) $itemid, (int) $itemtype];
+        $bind = [(int) $left, (int) $right, Defines::STATUS_ON, (int) $moduleid, (int) $itemid, (int) $itemtype];
 
         $sql = "SELECT P1.id, COUNT(P2.id) AS numitems"
             . " FROM $xartable[comments] AS P1, $xartable[comments] AS P2"

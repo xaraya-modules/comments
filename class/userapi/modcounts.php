@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarDB;
@@ -55,14 +56,14 @@ class ModcountsMethod extends MethodClass
 
         switch ($status) {
             case 'active':
-                $where_status = "status = " . _COM_STATUS_ON;
+                $where_status = "status = " . Defines::STATUS_ON;
                 break;
             case 'inactive':
-                $where_status = "status = " . _COM_STATUS_OFF;
+                $where_status = "status = " . Defines::STATUS_OFF;
                 break;
             default:
             case 'all':
-                $where_status = "status != " . _COM_STATUS_ROOT_NODE;
+                $where_status = "status != " . Defines::STATUS_ROOT_NODE;
         }
         if (!empty($modid)) {
             $where_mod = " AND module_id = $moduleid";

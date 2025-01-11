@@ -18,6 +18,7 @@
  */
 
 sys::import('modules.comments.xarincludes.defines');
+use Xaraya\Modules\Comments\Defines;
 
 /**
  * Comments Initialization Function
@@ -178,10 +179,10 @@ function comments_init()
     #
     # Set up modvars
     #
-    xarModVars::set('comments', 'render', _COM_VIEW_THREADED);
-    xarModVars::set('comments', 'sortby', _COM_SORTBY_THREAD);
-    xarModVars::set('comments', 'order', _COM_SORT_ASC);
-    xarModVars::set('comments', 'depth', _COM_MAX_DEPTH);
+    xarModVars::set('comments', 'render', Defines::VIEW_THREADED);
+    xarModVars::set('comments', 'sortby', Defines::SORTBY_THREAD);
+    xarModVars::set('comments', 'order', Defines::SORT_ASC);
+    xarModVars::set('comments', 'depth', Defines::MAX_DEPTH);
     xarModVars::set('comments', 'AllowPostAsAnon', 1);
     xarModVars::set('comments', 'AuthorizeComments', 0);
     xarModVars::set('comments', 'AllowCollapsableThreads', 1);
@@ -249,7 +250,7 @@ function comments_init()
 
     $query3 = "SELECT DISTINCT id
                           FROM $ctable
-                         WHERE status != '" . _COM_STATUS_ROOT_NODE . "'";
+                         WHERE status != '" . Defines::STATUS_ROOT_NODE . "'";
     $instances = [
                         ['header' => 'Module ID:',
                                 'query' => $query1,

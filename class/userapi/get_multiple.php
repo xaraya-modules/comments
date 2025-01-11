@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
+use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarDB;
@@ -100,7 +102,7 @@ class GetMultipleMethod extends MethodClass
         }
 
         if (!isset($status) || !is_numeric($status)) {
-            $status = _COM_STATUS_ON;
+            $status = Defines::STATUS_ON;
         }
 
         //$dbconn = xarDB::getConn();
@@ -221,14 +223,14 @@ class GetMultipleMethod extends MethodClass
             // $row['date'] = xarLocale::formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
             $row['date'] = $row['datetime'];
             $row['author'] = xarUser::getVar('name',$row['author']);
-            comments_renderer_wrap_words($row['text'],80);
+            Renderer::wrap_words($row['text'],80);
             $commentlist[] = $row;
             $result->MoveNext();
         }
         $result->Close();
     */
 
-        if (!empty($commentlist) && !comments_renderer_array_markdepths_bypid($commentlist)) {
+        if (!empty($commentlist) && !Renderer::array_markdepths_bypid($commentlist)) {
             $msg = xarML('#(1) Unable to create depth by pid', __FILE__ . '(' . __LINE__ . '):  ');
             throw new Exception($msg);
         }

@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -47,7 +48,7 @@ class DeactivateMethod extends MethodClass
         // First grab the objectid and the modid so we can
         // then find the root node.
         $sql = "UPDATE $xartable[comments]
-                SET status='" . _COM_STATUS_OFF . "'
+                SET status='" . Defines::STATUS_OFF . "'
                 WHERE id=?";
         $bindvars = [(int) $id];
 

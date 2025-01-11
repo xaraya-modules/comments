@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -54,7 +55,7 @@ class GetCountMethod extends MethodClass
         }
 
         if (!isset($status) || !is_numeric($status)) {
-            $status = _COM_STATUS_ON;
+            $status = Defines::STATUS_ON;
         }
 
         if (!isset($objectid) || empty($objectid)) {

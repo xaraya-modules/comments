@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarUser;
@@ -108,18 +109,18 @@ class GetoptionsMethod extends MethodClass
             /*}*/
         }
 
-        if (!isset($settings['depth']) || $settings['depth'] > (_COM_MAX_DEPTH - 1)) {
-            $settings['depth'] = (_COM_MAX_DEPTH - 1);
+        if (!isset($settings['depth']) || $settings['depth'] > (Defines::MAX_DEPTH - 1)) {
+            $settings['depth'] = (Defines::MAX_DEPTH - 1);
         }
 
         if (empty($settings['render'])) {
-            $settings['render'] = _COM_VIEW_THREADED;
+            $settings['render'] = Defines::VIEW_THREADED;
         }
         if (empty($settings['order'])) {
-            $settings['order'] = _COM_SORT_ASC;
+            $settings['order'] = Defines::SORT_ASC;
         }
         if (empty($settings['sortby'])) {
-            $settings['sortby'] = _COM_SORTBY_THREAD;
+            $settings['sortby'] = Defines::SORTBY_THREAD;
         }
 
         return $settings;

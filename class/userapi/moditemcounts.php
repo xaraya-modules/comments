@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use DataObjectFactory;
@@ -47,9 +48,9 @@ class ModitemcountsMethod extends MethodClass
                 }
 
                 if (isset($status) && $status == 'inactive') {
-                    $filters['where'] .= ' and status eq ' . _COM_STATUS_OFF;
+                    $filters['where'] .= ' and status eq ' . Defines::STATUS_OFF;
                 } else {
-                    $filters['where'] .= ' and status ne ' . _COM_STATUS_ROOT_NODE;
+                    $filters['where'] .= ' and status ne ' . Defines::STATUS_ROOT_NODE;
                 }
                 $list = DataObjectFactory::getObjectList([
                     'name' => 'comments_comments',

@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
+use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use xarUser;
@@ -64,14 +66,14 @@ class GetOneMethod extends MethodClass
         $values = $object->getFieldValues();
         $values['position_atomic'] = $object->properties['position']->atomic_value;
 
-        if ($values['status'] != _COM_STATUS_ON) {
+        if ($values['status'] != Defines::STATUS_ON) {
             return [];
         }
 
         $values['postanon'] = $values['anonpost'];
         $values['datetime'] = $values['date'];
         $values['role_id'] = $values['author'];
-        //comments_renderer_wrap_words($values['text'],80);
+        //Renderer::wrap_words($values['text'],80);
         //    $values['author'] = xarUser::getVar('name',$values['author']);
 
         $arr[0] = $values;
@@ -96,7 +98,7 @@ class GetOneMethod extends MethodClass
                          objectid AS objectid
                    FROM  $xartable[comments]
                   WHERE  id=$id
-                    AND  status="._COM_STATUS_ON;
+                    AND  status=".Defines::STATUS_ON;
 
          $result =& $dbconn->Execute($sql);
          if(!$result) return;
@@ -120,7 +122,7 @@ class GetOneMethod extends MethodClass
             // $row['date'] = xarLocale::formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
             $row['date'] = $row['datetime'];
             $row['author'] = xarUser::getVar('name',$row['author']);
-            comments_renderer_wrap_words($row['text'],80);
+            Renderer::wrap_words($row['text'],80);
             $commentlist[] = $row;
             $result->MoveNext();
         }
@@ -128,7 +130,7 @@ class GetOneMethod extends MethodClass
         $result->Close();
         */
 
-        if (!comments_renderer_array_markdepths_bypid($values)) {
+        if (!Renderer::array_markdepths_bypid($values)) {
             $msg = xarML('Unable to add depth field to comments!');
             throw new Exception($msg);
             // FIXME: <rabbitt> this stuff should really be moved out of the comments

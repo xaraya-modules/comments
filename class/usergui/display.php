@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+use Xaraya\Modules\Comments\Defines;
+use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarServer;
@@ -136,18 +138,18 @@ class DisplayMethod extends MethodClass
         if (empty($data['selected_id']) || isset($thread)) {
             $data['comments'] = xarMod::apiFunc('comments', 'user', 'get_multiple', $fields);
             if (count($data['comments']) > 1) {
-                $data['comments'] = comments_renderer_array_sort(
+                $data['comments'] = Renderer::array_sort(
                     $data['comments'],
                     $package['settings']['sortby'],
                     $package['settings']['order']
                 );
             }
         } else {
-            $package['settings']['render'] = _COM_VIEW_FLAT;
+            $package['settings']['render'] = Defines::VIEW_FLAT;
             $data['comments'] = xarMod::apiFunc('comments', 'user', 'get_one', $fields);
         }
 
-        $data['comments'] = comments_renderer_array_prune_excessdepth(
+        $data['comments'] = Renderer::array_prune_excessdepth(
             [
                 'array_list'    => $data['comments'],
                 'cutoff'        => $package['settings']['depth'],
@@ -157,8 +159,8 @@ class DisplayMethod extends MethodClass
             ]
         );
 
-        if ($package['settings']['render'] == _COM_VIEW_THREADED) {
-            $data['comments'] = comments_renderer_array_maptree($data['comments']);
+        if ($package['settings']['render'] == Defines::VIEW_THREADED) {
+            $data['comments'] = Renderer::array_maptree($data['comments']);
         }
 
         // run text and title through transform hooks
@@ -174,7 +176,7 @@ class DisplayMethod extends MethodClass
             }
         }
 
-        $package['settings']['max_depth'] = _COM_MAX_DEPTH;
+        $package['settings']['max_depth'] = Defines::MAX_DEPTH;
         // Bug 6175: removed xarVar::prepForDisplay() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
         $package['new_title']             = xarVar::getCached('Comments.title', 'title');

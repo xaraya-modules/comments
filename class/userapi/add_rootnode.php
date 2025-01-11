@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -94,7 +95,7 @@ class AddRootnodeMethod extends MethodClass
             1,
             $left,
             $right,
-            _COM_STATUS_ROOT_NODE,
+            Defines::STATUS_ROOT_NODE,
             $objectid,
             $modid,
             $itemtype,

@@ -28,7 +28,7 @@ function comments_admin_delete(array $args = [], $context = null)
     }
     $delete_args = [];
 
-    if (!isset($dtype) || !eregi('^(all|module|object)$', $dtype)) {
+    if (!isset($dtype) || !preg_match('/^(all|module|object)$/', $dtype)) {
         $msg = xarML('Invalid or Missing Parameter \'dtype\'');
         throw new BadParameterException($msg);
     } else {
@@ -100,7 +100,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
         // if choice isn't set or it has an incorrect value,
         // redirect back to the choice page
-        if (!isset($choice) || !eregi('^(yes|no|true|false)$', $choice)) {
+        if (!isset($choice) || !preg_match('/^(yes|no|true|false)$/', $choice)) {
             xarController::redirect(xarController::URL('comments', 'admin', 'delete', $delete_args), null, $context);
         }
 

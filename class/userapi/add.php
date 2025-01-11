@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarUser;
 use xarServer;
@@ -201,7 +202,7 @@ class AddMethod extends MethodClass
         $left     = $parent_lnr['right_id'];
         $right    = $left + 1;
         if ($moduleid == xarMod::getID('comments')) {
-            $status   = xarModVars::get('comments', 'AuthorizeComments') ? _COM_STATUS_OFF : _COM_STATUS_ON;
+            $status   = xarModVars::get('comments', 'AuthorizeComments') ? Defines::STATUS_OFF : Defines::STATUS_ON;
         } elseif (!isset($status) || !is_numeric($status)) {
             // no reasonable default for this, so we'll throw an error
             $msg = xarML('Missing or invalid status parameter');

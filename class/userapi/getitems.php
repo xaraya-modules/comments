@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarSecurity;
@@ -53,21 +54,21 @@ class GetitemsMethod extends MethodClass
         }*/
 
         if (empty($status)) {
-            $status = _COM_STATUS_ROOT_NODE;
+            $status = Defines::STATUS_ROOT_NODE;
         }
 
         switch ($status) {
             case 'active':
-                $where_status = "status = " . _COM_STATUS_ON;
+                $where_status = "status = " . Defines::STATUS_ON;
                 $join = ' AND ';
                 break;
             case 'inactive':
-                $where_status = "status = " . _COM_STATUS_OFF;
+                $where_status = "status = " . Defines::STATUS_OFF;
                 $join = ' AND ';
                 break;
             default:
             case 'all':
-                $where_status = "status != " . _COM_STATUS_ROOT_NODE;
+                $where_status = "status != " . Defines::STATUS_ROOT_NODE;
                 $join = ' AND ';
         }
 

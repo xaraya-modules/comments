@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
+use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use xarUser;
@@ -49,7 +51,7 @@ class SearchMethod extends MethodClass
         // initialize the commentlist array
         $commentlist = [];
 
-        $bindvars = [_COM_STATUS_ON];
+        $bindvars = [Defines::STATUS_ON];
 
         $sql = "SELECT  title AS title,
                         date AS date,
@@ -122,22 +124,22 @@ class SearchMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        if (!comments_renderer_array_markdepths_bypid($commentlist)) {
+        if (!Renderer::array_markdepths_bypid($commentlist)) {
             $msg = xarML('Unable to create depth by parent_id');
             throw new BadParameterException($msg);
         }
 
-        comments_renderer_array_sort($commentlist, _COM_SORTBY_TOPIC, _COM_SORT_ASC);
+        Renderer::array_sort($commentlist, Defines::SORTBY_TOPIC, Defines::SORT_ASC);
         // FIXME: excess depth cannot be pruned using this function without knowing
         // the module/itemtype/objectid, which we don't know at this point.
-        /*$commentlist = comments_renderer_array_prune_excessdepth(
+        /*$commentlist = Renderer::array_prune_excessdepth(
             array(
                 'array_list' => $commentlist,
-                'cutoff' => _COM_MAX_DEPTH,
+                'cutoff' => Defines::MAX_DEPTH,
             )
         );*/
 
-        comments_renderer_array_maptree($commentlist);
+        Renderer::array_maptree($commentlist);
 
         return $commentlist;
     }

@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarModVars;
 use xarUser;
@@ -41,8 +42,8 @@ class SetoptionsMethod extends MethodClass
             if ($depth == 0) {
                 $depth = 1;
             }
-            if ($depth > (_COM_MAX_DEPTH - 1)) {
-                $depth = (_COM_MAX_DEPTH - 1);
+            if ($depth > (Defines::MAX_DEPTH - 1)) {
+                $depth = (Defines::MAX_DEPTH - 1);
             }
         } else {
             $depth = xarModVars::get('comments', 'depth');

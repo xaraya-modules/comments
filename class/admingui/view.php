@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarRoles;
@@ -45,7 +46,7 @@ class ViewMethod extends MethodClass
         // Only show top level documents, not translations
         sys::import('xaraya.structures.query');
         $q = new Query();
-        $q->ne('status', _COM_STATUS_ROOT_NODE);
+        $q->ne('status', Defines::STATUS_ROOT_NODE);
 
         // Suppress deleted items if not an admin
         // Remove this once listing property works with dataobject access
@@ -77,7 +78,7 @@ class ViewMethod extends MethodClass
         $total = DataObjectFactory::getObjectList([
             'name' => 'comments_comments',
             'numitems' => null,
-            'where' => 'status ne ' . _COM_STATUS_ROOT_NODE,
+            'where' => 'status ne ' . Defines::STATUS_ROOT_NODE,
         ]);
         $data['total'] = $total->countItems();
 
@@ -105,7 +106,7 @@ class ViewMethod extends MethodClass
             $filters['where'] = '';
         }
 
-        $filters['where'] .= 'status ne ' . _COM_STATUS_ROOT_NODE;
+        $filters['where'] .= 'status ne ' . Defines::STATUS_ROOT_NODE;
 
         $list = DataObjectFactory::getObjectList([
             'name' => 'comments_comments',

@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use xarMod;
@@ -69,7 +70,7 @@ class GetMultipleallMethod extends MethodClass
                           itemtype AS itemtype,
                           objectid AS objectid
                     FROM  $xartable[comments]
-                   WHERE  status=" . _COM_STATUS_ON . " ";
+                   WHERE  status=" . Defines::STATUS_ON . " ";
 
         if (count($modarray) > 0 && $modarray[0] != 'all') {
             $where = [];

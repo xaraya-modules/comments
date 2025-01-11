@@ -39,7 +39,7 @@
 
                     </label>
                     {% set depth = xar_modulevar('comments', 'depth') %}
-                    {% set max_depth = _COM_MAX_DEPTH - 1 %}
+                    {% set max_depth = \Xaraya\Modules\Comments\Defines::MAX_DEPTH - 1 %}
 
                     <select name="depth" id="depth">
                         <xar.for start="i = 1" test="i le max_depth" iter="i++">

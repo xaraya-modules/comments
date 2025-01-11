@@ -11,6 +11,7 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -89,14 +90,14 @@ class CountCommentsMethod extends MethodClass
         } else {
             switch ($status) {
                 case 'active':
-                    $where_status = "status = " . _COM_STATUS_ON;
+                    $where_status = "status = " . Defines::STATUS_ON;
                     break;
                 case 'inactive':
-                    $where_status = "status = " . _COM_STATUS_OFF;
+                    $where_status = "status = " . Defines::STATUS_OFF;
                     break;
                 default:
                 //case 'active':
-                    $where_status = "status != " . _COM_STATUS_ROOT_NODE;
+                    $where_status = "status != " . Defines::STATUS_ROOT_NODE;
             }
         }
         $query = "SELECT COUNT(id)
