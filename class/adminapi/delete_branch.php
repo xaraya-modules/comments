@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarDB;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi delete_branch function
+ * @extends MethodClass<AdminApi>
  */
 class DeleteBranchMethod extends MethodClass
 {

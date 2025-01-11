@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use DataObjectFactory;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_blacklist function
+ * @extends MethodClass<UserApi>
  */
 class GetBlacklistMethod extends MethodClass
 {

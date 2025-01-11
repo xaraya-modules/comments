@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+
+use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
@@ -28,6 +30,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments user display function
+ * @extends MethodClass<UserGui>
  */
 class DisplayMethod extends MethodClass
 {

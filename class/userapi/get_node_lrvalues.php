@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_node_lrvalues function
+ * @extends MethodClass<UserApi>
  */
 class GetNodeLrvaluesMethod extends MethodClass
 {

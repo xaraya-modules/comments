@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarModAlias;
 use xarMod;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi decode_shorturl function
+ * @extends MethodClass<UserApi>
  */
 class DecodeShorturlMethod extends MethodClass
 {

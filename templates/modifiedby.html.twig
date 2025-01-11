@@ -8,5 +8,5 @@
     {% else %}
         {% set modifiedbyname = xar_uservar('name') %}
     {% endif %}
-    {{ xar_translate('[Modified by: #(1) on #(2)]', modifiedbyname, xar_coremethod('xarLocale', 'formatDate', ["%B %d, %Y %I.%M %p", date().getTimestamp()])) }}
+    {{ xar_translate('[Modified by: #(1) on #(2)]', modifiedbyname, xar_coremethod('xarLocale', 'formatDate', "%B %d, %Y %I.%M %p", date().getTimestamp())) }}
 {% endblock %}

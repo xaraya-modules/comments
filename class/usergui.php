@@ -19,6 +19,16 @@ sys::import('modules.comments.class.userapi');
 
 /**
  * Handle the comments user GUI
+ *
+ * @method mixed delete(array $args)
+ * @method mixed display(array $args)
+ * @method mixed displayall(array $args)
+ * @method mixed main(array $args)
+ * @method mixed modify(array $args)
+ * @method mixed reply(array $args)
+ * @method mixed rss(array $args)
+ * @method mixed search(array $args)
+ * @method mixed usermenu(array $args)
  * @extends UserGuiClass<Module>
  */
 class UserGui extends UserGuiClass

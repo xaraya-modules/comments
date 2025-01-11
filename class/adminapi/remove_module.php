@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarSecurity;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi remove_module function
+ * @extends MethodClass<AdminApi>
  */
 class RemoveModuleMethod extends MethodClass
 {

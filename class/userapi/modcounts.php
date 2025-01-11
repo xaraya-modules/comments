@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi modcounts function
+ * @extends MethodClass<UserApi>
  */
 class ModcountsMethod extends MethodClass
 {

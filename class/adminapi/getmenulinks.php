@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarController;
 use xarModVars;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi getmenulinks function
+ * @extends MethodClass<AdminApi>
  */
 class GetmenulinksMethod extends MethodClass
 {

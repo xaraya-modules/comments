@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMLS;
 use xarVar;
@@ -29,6 +31,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi modify function
+ * @extends MethodClass<UserApi>
  */
 class ModifyMethod extends MethodClass
 {

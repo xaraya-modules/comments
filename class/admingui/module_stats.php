@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
+
+use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -26,6 +28,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments admin module_stats function
+ * @extends MethodClass<AdminGui>
  */
 class ModuleStatsMethod extends MethodClass
 {

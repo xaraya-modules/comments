@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -23,6 +25,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi getitemlinks function
+ * @extends MethodClass<UserApi>
  */
 class GetitemlinksMethod extends MethodClass
 {

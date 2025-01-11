@@ -83,7 +83,7 @@
                   {% endif %}
                   {% if adddate=='on' %}
                     {# <!-- DATE --> #}
-                    on {{ xar_coremethod('xarLocale', 'formatDate', ["%B %d, %Y %I.%M %p",comment['date']]) }}
+                    on {{ xar_coremethod('xarLocale', 'formatDate', "%B %d, %Y %I.%M %p",comment['date']) }}
                   {% endif %}
                 </span>
             </li>

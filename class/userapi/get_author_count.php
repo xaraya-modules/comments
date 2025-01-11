@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_author_count function
+ * @extends MethodClass<UserApi>
  */
 class GetAuthorCountMethod extends MethodClass
 {

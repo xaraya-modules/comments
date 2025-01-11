@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+
+use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -24,6 +26,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments user delete function
+ * @extends MethodClass<UserGui>
  */
 class DeleteMethod extends MethodClass
 {

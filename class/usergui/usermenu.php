@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+
+use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
@@ -27,6 +29,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments user usermenu function
+ * @extends MethodClass<UserGui>
  */
 class UsermenuMethod extends MethodClass
 {

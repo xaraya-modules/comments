@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+
+use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarRoles;
@@ -23,6 +25,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments user search function
+ * @extends MethodClass<UserGui>
  */
 class SearchMethod extends MethodClass
 {

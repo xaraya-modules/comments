@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarModHooks;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi delete_node function
+ * @extends MethodClass<AdminApi>
  */
 class DeleteNodeMethod extends MethodClass
 {

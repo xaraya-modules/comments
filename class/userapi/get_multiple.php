@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
@@ -26,6 +28,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_multiple function
+ * @extends MethodClass<UserApi>
  */
 class GetMultipleMethod extends MethodClass
 {

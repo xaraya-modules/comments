@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarDB;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi count_comments function
+ * @extends MethodClass<AdminApi>
  */
 class CountCommentsMethod extends MethodClass
 {

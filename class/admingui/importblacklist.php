@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
+
+use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments admin importblacklist function
+ * @extends MethodClass<AdminGui>
  */
 class ImportblacklistMethod extends MethodClass
 {

@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
+
+use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarTpl;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments user main function
+ * @extends MethodClass<UserGui>
  */
 class MainMethod extends MethodClass
 {

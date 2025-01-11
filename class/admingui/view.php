@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
+
+use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
@@ -27,6 +29,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments admin view function
+ * @extends MethodClass<AdminGui>
  */
 class ViewMethod extends MethodClass
 {

@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
+
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarModVars;
@@ -23,6 +25,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments userapi setoptions function
+ * @extends MethodClass<UserApi>
  */
 class SetoptionsMethod extends MethodClass
 {

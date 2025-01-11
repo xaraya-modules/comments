@@ -18,6 +18,14 @@ sys::import('xaraya.modules.adminapi');
 
 /**
  * Handle the comments admin API
+ *
+ * @method mixed countComments(array $args)
+ * @method mixed deleteBranch(array $args)
+ * @method mixed deleteNode(array $args)
+ * @method mixed getmenulinks(array $args)
+ * @method mixed importBlacklist(array $args)
+ * @method mixed removeModule(array $args)
+ * @method mixed sort(array $args)
  * @extends AdminApiClass<Module>
  */
 class AdminApi extends AdminApiClass

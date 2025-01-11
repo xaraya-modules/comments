@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
+
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use xarMod;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi import_blacklist function
+ * @extends MethodClass<AdminApi>
  */
 class ImportBlacklistMethod extends MethodClass
 {
