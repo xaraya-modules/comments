@@ -22,11 +22,11 @@ use Xaraya\Modules\Comments\Defines;
 function comments_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security Check
-    if (!xarSecurity::check('AdminComments')) {
+    if (!$this->checkAccess('AdminComments')) {
         return;
     }
-    //$numstats       = xarModVars::get('comments','numstats');
-    //  $rssnumitems    = xarModVars::get('comments','rssnumitems');
+    //$numstats       = $this->getModVar('numstats');
+    //  $rssnumitems    = $this->getModVar('rssnumitems');
 
     if (empty($rssnumitems)) {
         //xarModVars::set('comments', 'rssnumitems', 25);
@@ -35,13 +35,13 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         //xarModVars::set('comments', 'numstats', 100);
     }
 
-    if (!xarVar::fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+    if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
         return;
     }
-    if (!xarVar::fetch('tab', 'str:1:100', $data['tab'], 'comments_general', xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('tab', 'str:1:100', $data['tab'], 'comments_general', xarVar::NOT_REQUIRED)) {
         return;
     }
-    if (!xarVar::fetch('tabmodule', 'str:1:100', $tabmodule, 'comments', xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('tabmodule', 'str:1:100', $tabmodule, 'comments', xarVar::NOT_REQUIRED)) {
         return;
     }
     $hooks = xarModHooks::call('module', 'getconfig', 'comments');
@@ -75,64 +75,64 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         case 'update':
             // Confirm authorisation code
             // if (!xarSec::confirmAuthKey()) return;
-            //if (!xarVar::fetch('itemsperpage', 'int', $itemsperpage, xarModVars::get('comments', 'itemsperpage'), xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) return;
-            //if (!xarVar::fetch('shorturls', 'checkbox', $shorturls, false, xarVar::NOT_REQUIRED)) return;
-            //if (!xarVar::fetch('modulealias', 'checkbox', $useModuleAlias,  xarModVars::get('comments', 'useModuleAlias'), xarVar::NOT_REQUIRED)) return;
-            //if (!xarVar::fetch('aliasname', 'str', $aliasname,  xarModVars::get('comments', 'aliasname'), xarVar::NOT_REQUIRED)) return;
-            if (!xarVar::fetch('editstamp', 'int', $editstamp, xarModVars::get('comments', 'editstamp'), xarVar::NOT_REQUIRED)) {
+            //if (!$this->fetch('itemsperpage', 'int', $itemsperpage, $this->getModVar('itemsperpage'), xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) return;
+            //if (!$this->fetch('shorturls', 'checkbox', $shorturls, false, xarVar::NOT_REQUIRED)) return;
+            //if (!$this->fetch('modulealias', 'checkbox', $useModuleAlias,  $this->getModVar('useModuleAlias'), xarVar::NOT_REQUIRED)) return;
+            //if (!$this->fetch('aliasname', 'str', $aliasname,  $this->getModVar('aliasname'), xarVar::NOT_REQUIRED)) return;
+            if (!$this->fetch('editstamp', 'int', $editstamp, $this->getModVar('editstamp'), xarVar::NOT_REQUIRED)) {
                 return;
             }
 
-            if (!xarVar::fetch('wrap', 'checkbox', $wrap, xarModVars::get('comments', 'wrap'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('wrap', 'checkbox', $wrap, $this->getModVar('wrap'), xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('numstats', 'str', $numstats, 20, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-
-            if (!xarVar::fetch('rssnumitems', 'int', $rssnumitems, xarModVars::get('comments', 'rssnumitems'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('showtitle', 'checkbox', $showtitle, xarModVars::get('comments', 'showtitle'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('enable_comments', 'checkbox', $showtitle, xarModVars::get('comments', 'enable_comments'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('numstats', 'str', $numstats, 20, xarVar::NOT_REQUIRED)) {
                 return;
             }
 
-            if (!xarVar::fetch('filters_min_item_count', 'int', $filters_min_item_count, xarModVars::get('comments', 'filters_min_item_count'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('rssnumitems', 'int', $rssnumitems, $this->getModVar('rssnumitems'), xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('filters_min_item_count', 'int', $filters_min_item_count, xarModVars::get('comments', 'filters_min_item_count'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('showtitle', 'checkbox', $showtitle, $this->getModVar('showtitle'), xarVar::NOT_REQUIRED)) {
+                return;
+            }
+            if (!$this->fetch('enable_comments', 'checkbox', $showtitle, $this->getModVar('enable_comments'), xarVar::NOT_REQUIRED)) {
                 return;
             }
 
-            if (!xarVar::fetch('postanon', 'checkbox', $postanon, xarModVars::get('comments', 'postanon'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('filters_min_item_count', 'int', $filters_min_item_count, $this->getModVar('filters_min_item_count'), xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('useblacklist', 'checkbox', $useblacklist, xarModVars::get('comments', 'useblacklist'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('filters_min_item_count', 'int', $filters_min_item_count, $this->getModVar('filters_min_item_count'), xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('useblacklist', 'checkbox', $useblacklist, 1, xarVar::NOT_REQUIRED)) {
+
+            if (!$this->fetch('postanon', 'checkbox', $postanon, $this->getModVar('postanon'), xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('depth', 'str:1:', $depth, Defines::MAX_DEPTH, xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('useblacklist', 'checkbox', $useblacklist, $this->getModVar('useblacklist'), xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('render', 'str:1:', $render, Defines::VIEW_THREADED, xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('useblacklist', 'checkbox', $useblacklist, 1, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('sortby', 'str:1:', $sortby, Defines::SORTBY_THREAD, xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('depth', 'str:1:', $depth, Defines::MAX_DEPTH, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('order', 'str:1:', $order, Defines::SORT_ASC, xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('render', 'str:1:', $render, Defines::VIEW_THREADED, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            // if (!xarVar::fetch('authorize', 'checkbox', $authorize, xarModVars::get('comments', 'authorize'), xarVar::NOT_REQUIRED)) return;
-            if (!xarVar::fetch('authorize', 'checkbox', $authorize, 1, xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('sortby', 'str:1:', $sortby, Defines::SORTBY_THREAD, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('usersetrendering', 'checkbox', $usersetrendering, xarModVars::get('comments', 'usersetrendering'), xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('order', 'str:1:', $order, Defines::SORT_ASC, xarVar::NOT_REQUIRED)) {
+                return;
+            }
+            // if (!$this->fetch('authorize', 'checkbox', $authorize, $this->getModVar('authorize'), xarVar::NOT_REQUIRED)) return;
+            if (!$this->fetch('authorize', 'checkbox', $authorize, 1, xarVar::NOT_REQUIRED)) {
+                return;
+            }
+            if (!$this->fetch('usersetrendering', 'checkbox', $usersetrendering, $this->getModVar('usersetrendering'), xarVar::NOT_REQUIRED)) {
                 return;
             }
 
@@ -201,12 +201,11 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                 }
             }
 
-            xarController::redirect(xarController::URL(
-                'comments',
+            $this->redirect($this->getUrl(
                 'admin',
                 'modifyconfig',
                 ['tabmodule' => $tabmodule, 'tab' => $data['tab']]
-            ), null, $context);
+            ));
             // Return
             return true;
     }

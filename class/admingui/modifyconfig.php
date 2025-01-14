@@ -21,12 +21,12 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
-    if (!xarSecurity::check('Admincomments')) {
+    if (!$this->checkAccess('Admincomments')) {
         return;
     }
 
     // Check if this template has been submitted, or if we just got here
-    if (!xarVar::fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+    if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
         return;
     }
 
@@ -62,7 +62,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             # the dynamicdata module, where the same check is done. Since both checks cannot simultaneously
             # be passed, (the act of checking resets the check) the one below is disabled in this example.
             #
-            //if (!xarSec::confirmAuthKey()) return;
+            //if (!$this->confirmAuthKey()) return;
 
             # --------------------------------------------------------
             #
@@ -95,16 +95,16 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             #
             /*
                 // Get parameters from whatever input we need.  All arguments to this
-                // function should be obtained from xarVar::fetch(), getting them
+                // function should be obtained from $this->fetch(), getting them
                 // from other places such as the environment is not allowed, as that makes
                 // assumptions that will not hold in future versions of Xaraya
-                if (!xarVar::fetch('bold', 'checkbox', $bold, false, xarVar::NOT_REQUIRED)) return;
+                if (!$this->fetch('bold', 'checkbox', $bold, false, xarVar::NOT_REQUIRED)) return;
 
                 // Confirm authorisation code.  This checks that the form had a valid
                 // authorisation code attached to it.  If it did not then the function will
                 // proceed no further as it is possible that this is an attempt at sending
                 // in false data to the system
-                if (!xarSec::confirmAuthKey()) return;
+                if (!$this->confirmAuthKey()) return;
 
                 xarModVars::set('comments', 'bold', $bold);
             */
@@ -129,7 +129,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
 
             $item = $object->updateItem(['itemid' => 0]);
 
-            xarController::redirect(xarController::URL('comments', 'admin', 'modifyconfig'), null, $context);
+            $this->redirect($this->getUrl('admin', 'modifyconfig'));
 
             # --------------------------------------------------------
             #
@@ -144,9 +144,9 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             # This needs to be the last thing happening on this page because it redirects. Code below
             # this point will not execute
 
-            if (!xarMod::guiFunc('comments', 'admin', 'update')) {
-                return;
-            }
+            //if (!$admingui->update()) {
+            //    return;
+            //}
 
             break;
     }

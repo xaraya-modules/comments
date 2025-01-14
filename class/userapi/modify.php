@@ -47,7 +47,7 @@ class ModifyMethod extends MethodClass
     {
         extract($args);
 
-        $msg = xarML('Missing or Invalid Parameters: ');
+        $msg = $this->translate('Missing or Invalid Parameters: ');
         $error = false;
 
         if (!isset($title)) {
@@ -105,7 +105,7 @@ class ModifyMethod extends MethodClass
         } else {
             $hostname = xarServer::getVar('REMOTE_ADDR');
         }
-        $useeditstamp = xarModVars::get('comments', 'editstamp');
+        $useeditstamp = $this->getModVar('editstamp');
         $adminid = xarModVars::get('roles', 'admin');
 
         /*$dbconn = xarDB::getConn();
@@ -117,7 +117,7 @@ class ModifyMethod extends MethodClass
         if (xarModHooks::isHooked('changelog', 'comments', 0)){
             $url = xarController::URL('changelog', 'admin', 'showlog', array('modid' => '14', 'itemid' => $id));
             $text .= "\n<p>\n";
-            $text .= '<a href="' . $url . '" title="' . xarML('See Changes') .'">';
+            $text .= '<a href="' . $url . '" title="' . $this->translate('See Changes') .'">';
             $text .= '</a>';
             $text .= "\n</p>\n"; //let's keep the begin and end tags together around the wrapped content
         }

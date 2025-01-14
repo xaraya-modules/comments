@@ -33,6 +33,7 @@ class GetCountlistMethod extends MethodClass
      * Get the number of comments for a list of module items
      * @author mikespub
      * @access public
+     * @param array<mixed> $args
      * @param int $modid the id of the module that these nodes belong to
      * @param int $itemtype the item type that these nodes belong to
      * @param array $objectids (optional) the list of ids of the items that these nodes belong to
@@ -48,7 +49,7 @@ class GetCountlistMethod extends MethodClass
         $exception = false;
 
         if (!isset($modid) || empty($modid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'modid',
                 'userapi',
@@ -61,7 +62,7 @@ class GetCountlistMethod extends MethodClass
 
 
         if (!isset($objectids) || !is_array($objectids)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'objectids',
                 'userapi',

@@ -42,7 +42,7 @@ class GetObjectListMethod extends MethodClass
         extract($args);
 
         if (!isset($modid) || empty($modid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Missing #(1) for #(2) function #(3)() in module #(4)',
                 'modid',
                 'userapi',

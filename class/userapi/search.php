@@ -123,12 +123,12 @@ class SearchMethod extends MethodClass
         $result->Close();
 
         if (!xarMod::load('comments', 'renderer')) {
-            $msg = xarML('Unable to load #(1) #(2)', 'comments', 'renderer');
+            $msg = $this->translate('Unable to load #(1) #(2)', 'comments', 'renderer');
             throw new BadParameterException($msg);
         }
 
         if (!Renderer::array_markdepths_bypid($commentlist)) {
-            $msg = xarML('Unable to create depth by parent_id');
+            $msg = $this->translate('Unable to create depth by parent_id');
             throw new BadParameterException($msg);
         }
 

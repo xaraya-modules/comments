@@ -36,6 +36,7 @@ class GetMultipleallMethod extends MethodClass
      * Get a list of comments from one or several modules + item types
      * @author Andrea Moro modified from Carl P. Corliss (aka rabbitt) userapi
      * @access public
+     * @param array<mixed> $args
      * @param array $modarray array of module names + itemtypes to look for
      * @param string $order sort order (ASC or DESC date)
      * @param int $howmany number of comments to retrieve

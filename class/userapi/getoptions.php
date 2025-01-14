@@ -44,16 +44,16 @@ class GetoptionsMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarVar::fetch('depth', 'int', $depth, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('depth', 'int', $depth, null, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('render', 'str', $render, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('render', 'str', $render, null, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('order', 'int', $order, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('order', 'int', $order, null, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('sortby', 'int', $sortby, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('sortby', 'int', $sortby, null, xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -75,7 +75,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['depth'] = xarModUserVars::get('comments','depth');
             } else {*/
-            $settings['depth'] = xarModVars::get('comments', 'depth');
+            $settings['depth'] = $this->getModVar('depth');
             /*}*/
         }
 
@@ -86,7 +86,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['render'] = xarModUserVars::get('comments','render');
             } else {*/
-            $settings['render'] = xarModVars::get('comments', 'render');
+            $settings['render'] = $this->getModVar('render');
             /*}*/
         }
 
@@ -97,7 +97,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['order'] = xarModUserVars::get('comments','order');
             } else {*/
-            $settings['order'] = xarModVars::get('comments', 'order');
+            $settings['order'] = $this->getModVar('order');
             /*}*/
         }
 
@@ -108,7 +108,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['sortby'] = xarModUserVars::get('comments','sortby');
             } else {*/
-            $settings['sortby'] = xarModVars::get('comments', 'sortby');
+            $settings['sortby'] = $this->getModVar('sortby');
             /*}*/
         }
 

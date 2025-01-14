@@ -36,28 +36,27 @@ class ModifyMethod extends MethodClass
     /**
      * modify an item
      * This function shows a form in which the user can modify the item
-     * @param array $args
-     * with
+     * @param array<mixed> $args
      *     id itemid The id of the dynamic data item to modify
      */
     public function __invoke(array $args = [])
     {
-        if (!xarVar::fetch('id', 'id', $id, null, xarVar::DONT_SET)) {
+        if (!$this->fetch('id', 'id', $id, null, xarVar::DONT_SET)) {
             return;
         }
-        if (!xarVar::fetch('parent_url', 'str', $parent_url, null, xarVar::DONT_SET)) {
+        if (!$this->fetch('parent_url', 'str', $parent_url, null, xarVar::DONT_SET)) {
             return;
         }
-        if (!xarVar::fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('view', 'str', $data['view'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('view', 'str', $data['view'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
 
         // Check if we still have no id of the item to modify.
         if (empty($id)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'item id',
                 'admin',
@@ -80,7 +79,7 @@ class ModifyMethod extends MethodClass
             return xarTpl::module('base', 'message', 'notfound', ['msg' => $msg]);
         }
 
-        if (!xarSecurity::check('EditComments', 0)) {
+        if (!$this->checkAccess('EditComments', 0)) {
             return;
         }
 
@@ -92,13 +91,13 @@ class ModifyMethod extends MethodClass
 
         $data['label'] = $object->label;
 
-        if (!xarVar::fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
             return;
         }
 
         if ($data['confirm']) {
             // Check for a valid confirmation key
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
 
@@ -118,9 +117,9 @@ class ModifyMethod extends MethodClass
                 $values = $data['object']->getFieldValues();
 
                 if (!empty($data['view'])) {
-                    xarController::redirect($values['parent_url'], null, $this->getContext());
+                    $this->redirect($values['parent_url']);
                 } else {
-                    xarController::redirect(xarController::URL('comments', 'admin', 'modify', ['id' => $id]), null, $this->getContext());
+                    $this->redirect($this->getUrl( 'admin', 'modify', ['id' => $id]));
                 }
                 return true;
             }

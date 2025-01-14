@@ -59,7 +59,7 @@ class ImportBlacklistMethod extends MethodClass
                 'extension' => '.txt', ]
         );
         if (!$filegrab) {
-            $msg = xarML('Could not get new blacklist file.');
+            $msg = $this->translate('Could not get new blacklist file.');
             throw new BadParameterException($msg);
         }
 

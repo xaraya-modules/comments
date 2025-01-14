@@ -48,7 +48,7 @@ class GetAuthorCountMethod extends MethodClass
         $exception = false;
 
         if (!isset($moduleid) || empty($moduleid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'moduleid',
                 'userapi',
@@ -60,7 +60,7 @@ class GetAuthorCountMethod extends MethodClass
 
 
         if (!isset($author) || empty($author)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'author',
                 'userapi',

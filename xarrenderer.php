@@ -236,8 +236,9 @@ function comments_renderer_array_markdepths_bypid(&$comments_list)
  *
  * @access private
  * @author Carl P. Corliss (aka rabbitt)
- * @param array      $args['array_list']    list of comments to check
- * @param integer    $args['cutoff']        depth cutoff point
+ * @param array<mixed> $args
+ * @var array $array_list    list of comments to check
+ * @var integer $cutoff        depth cutoff point
  * @return mixed void if no array is passed or the array has no nodes return void
  */
 function comments_renderer_array_prune_excessdepth(array $args = [], $context = null)
@@ -650,9 +651,9 @@ function comments_renderer_array_sortvalue($value = null)
  *
  * @author Carl P. Corliss (aka rabbitt)
  * @access public
- * @param    string  $args['sortby']         represents the field to sort by
- * @param    string  $args['direction']      represents the direction to sort (ascending / descending )
- * @param    array<mixed>   $args['comment_list']   List of comments to sort
+ * @param    string  $sortby         represents the field to sort by
+ * @param    string  $direction      represents the direction to sort (ascending / descending )
+ * @param    array<mixed>   $comment_list   List of comments to sort
  * @return   array<mixed>   nothing
  */
 

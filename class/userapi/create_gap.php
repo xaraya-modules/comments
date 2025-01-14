@@ -45,7 +45,7 @@ class CreateGapMethod extends MethodClass
         extract($args);
 
         if (!isset($startpoint)) {
-            $msg = xarML('Missing or Invalid parameter \'startpoint\'!!');
+            $msg = $this->translate('Missing or Invalid parameter \'startpoint\'!!');
             throw new BadParameterException($msg);
         }
 

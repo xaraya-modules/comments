@@ -43,7 +43,7 @@ class ModcountsMethod extends MethodClass
         extract($args);
 
         // Security check
-        if (!xarSecurity::check('ReadComments')) {
+        if (!$this->checkAccess('ReadComments')) {
             return;
         }
 

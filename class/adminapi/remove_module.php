@@ -40,13 +40,13 @@ class RemoveModuleMethod extends MethodClass
         // When called via hooks, we should get the real module name from objectid
         // here, because the current module is probably going to be 'modules' !!!
         if (!isset($objectid) || !is_string($objectid)) {
-            $msg = xarML('Invalid Parameter');
+            $msg = $this->translate('Invalid Parameter');
             throw new BadParameterException($msg);
         }
 
         $modid = xarMod::getRegID($objectid);
         if (empty($modid)) {
-            $msg = xarML('Invalid Parameter');
+            $msg = $this->translate('Invalid Parameter');
             throw new BadParameterException($msg);
             return false;
         }

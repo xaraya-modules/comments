@@ -1,7 +1,5 @@
 <?php
 
-sys::import('modules.base.class.pager');
-
 /**
  * Comments Module
  *
@@ -17,13 +15,13 @@ sys::import('modules.base.class.pager');
 function comments_admin_module_stats(array $args = [], $context = null)
 {
     // Security Check
-    if (!xarSecurity::check('AdminComments')) {
+    if (!$this->checkAccess('AdminComments')) {
         return;
     }
-    if (!xarVar::fetch('modid', 'int:1', $modid)) {
+    if (!$this->fetch('modid', 'int:1', $modid)) {
         return;
     }
-    if (!xarVar::fetch('itemtype', 'int:0', $itemtype, 0, xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('itemtype', 'int:0', $itemtype, 0, xarVar::NOT_REQUIRED)) {
         return;
     }
 
@@ -56,7 +54,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (empty($numstats)) {
         $numstats = 100;
     }
-    if (!xarVar::fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
+    if (!$this->fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
         return;
     }
     if (empty($startnum)) {
@@ -114,8 +112,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
         $pages[$itemid] = [];
         $pages[$itemid]['pageid'] = $itemid;
         $pages[$itemid]['total'] = $numcomments;
-        $pages[$itemid]['delete_url'] = xarController::URL(
-            'comments',
+        $pages[$itemid]['delete_url'] = $this->getUrl(
             'admin',
             'delete',
             ['dtype' => 'object',
@@ -137,8 +134,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     }
 
     $data['data']             = $pages;
-    $data['delete_all_url']   = xarController::URL(
-        'comments',
+    $data['delete_all_url']   = $this->getUrl(
         'admin',
         'delete',
         ['dtype' => 'module',
@@ -160,11 +156,11 @@ function comments_admin_module_stats(array $args = [], $context = null)
         $numitems = 0;
     }
     if ($numstats < $numitems) {
+        sys::import('modules.base.class.pager');
         $data['pager'] = xarTplPager::getPager(
             $startnum,
             $numitems,
-            xarController::URL(
-                'comments',
+            $this->getUrl(
                 'admin',
                 'module_stats',
                 ['modid' => $modid,

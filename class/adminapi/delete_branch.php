@@ -41,7 +41,7 @@ class DeleteBranchMethod extends MethodClass
         extract($args);
 
         if (empty($node)) {
-            $msg = xarML('Invalid or Missing Parameter \'node\'!!');
+            $msg = $this->translate('Invalid or Missing Parameter \'node\'!!');
             throw new BadParameterException($msg);
         }
 

@@ -33,15 +33,16 @@ class GetitemlinksMethod extends MethodClass
 
     /**
      * utility function to pass individual item links to whoever
-     * @param mixed $args ['itemtype'] item type (optional)
-     * @param mixed $args ['itemids'] array of item ids to get
+     * @param array<mixed> $args
+     * @var mixed $itemtype item type (optional)
+     * @var mixed $itemids array of item ids to get
      * @return array containing the itemlink(s) for the item(s).
      */
     public function __invoke(array $args = [])
     {
         extract($args);
         $itemlinks = [];
-        if (!xarSecurity::check('ReadComments', 0)) {
+        if (!$this->checkAccess('ReadComments', 0)) {
             return $itemlinks;
         }
 
@@ -58,15 +59,14 @@ class GetitemlinksMethod extends MethodClass
             if (!empty($item) && !empty($item[0]['title'])) {
                 $title = $item[0]['title'];
             } else {
-                $title = xarML('Comment #(1)', $itemid);
+                $title = $this->translate('Comment #(1)', $itemid);
             }
-            $itemlinks[$itemid] = ['url'   => xarController::URL(
-                'comments',
+            $itemlinks[$itemid] = ['url'   => $this->getUrl(
                 'user',
                 'display',
                 ['id' => $itemid]
             ),
-                'title' => xarML('Display Comment'),
+                'title' => $this->translate('Display Comment'),
                 'label' => xarVar::prepForDisplay($title), ];
         }
         return $itemlinks;

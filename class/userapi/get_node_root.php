@@ -34,8 +34,7 @@ class GetNodeRootMethod extends MethodClass
      * root node of a particular comment.
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
-     * @param array $args
-     * with
+     * @param array<mixed> $args
      *     int modid      The module that comment is attached to
      *     int objectid   The particular object within that module
      *     int itemtype   The itemtype of that object
@@ -49,12 +48,12 @@ class GetNodeRootMethod extends MethodClass
         $exception = false;
 
         if (!isset($modid) || empty($modid)) {
-            $msg = xarML('Missing or Invalid parameter \'modid\'!!');
+            $msg = $this->translate('Missing or Invalid parameter \'modid\'!!');
             throw new BadParameterException($msg);
         }
 
         if (!isset($objectid) || empty($objectid)) {
-            $msg = xarML('Missing or Invalid parameter \'objectid\'!!');
+            $msg = $this->translate('Missing or Invalid parameter \'objectid\'!!');
             throw new BadParameterException($msg);
         }
 

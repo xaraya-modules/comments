@@ -43,14 +43,14 @@ class UsermenuMethod extends MethodClass
         extract($args);
 
         // Security Check
-        if (xarSecurity::check('ReadComments', 0)) {
-            if (!xarVar::fetch('phase', 'str', $phase, 'menu', xarVar::NOT_REQUIRED)) {
+        if ($this->checkAccess('ReadComments', 0)) {
+            if (!$this->fetch('phase', 'str', $phase, 'menu', xarVar::NOT_REQUIRED)) {
                 return;
             }
 
             xarTpl::setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
-                               xarVar::prepForDisplay(xarML('Comments'))
-                               . ' :: ' . xarVar::prepForDisplay(xarML('Your Account Preferences')));
+                               xarVar::prepForDisplay($this->translate('Comments'))
+                               . ' :: ' . xarVar::prepForDisplay($this->translate('Your Account Preferences')));
 
             switch (strtolower($phase)) {
                 case 'menu':
@@ -61,7 +61,7 @@ class UsermenuMethod extends MethodClass
                         'user',
                         'usermenu_icon',
                         ['icon' => $icon,
-                            'usermenu_form_url' => xarController::URL('comments', 'user', 'usermenu', ['phase' => 'form']),
+                            'usermenu_form_url' => $this->getUrl( 'user', 'usermenu', ['phase' => 'form']),
                         ]
                     );
                     break;
@@ -77,24 +77,24 @@ class UsermenuMethod extends MethodClass
 
                 case 'update':
 
-                    if (!xarVar::fetch('settings', 'array', $settings, [], xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('settings', 'array', $settings, [], xarVar::NOT_REQUIRED)) {
                         return;
                     }
 
                     if (count($settings) <= 0) {
-                        $msg = xarML('Settings passed from form are empty!');
+                        $msg = $this->translate('Settings passed from form are empty!');
                         throw new BadParameterException($msg);
                     }
 
                     // Confirm authorisation code.
-                    if (!xarSec::confirmAuthKey()) {
+                    if (!$this->confirmAuthKey()) {
                         return;
                     }
 
                     xarMod::apiFunc('comments', 'user', 'setoptions', $settings);
 
                     // Redirect
-                    xarController::redirect(xarController::URL('roles', 'user', 'account'), null, $this->getContext());
+                    $this->redirect(xarController::URL('roles', 'user', 'account'));
 
                     break;
             }

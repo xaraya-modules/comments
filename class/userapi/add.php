@@ -40,17 +40,18 @@ class AddMethod extends MethodClass
      * Adds a comment to the database based on the itemid/moduleid pair
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
-     * @param int $args ['moduleid']   the module id
-     * @param int $args ['itemtype']   the item type
-     * @param string $args ['itemid']     the item id
-     * @param int $args ['parent_id']        the parent id
-     * @param string $args ['title']    the title (title) of the comment
-     * @param string $args ['comment']    the text (body) of the comment
-     * @param int $args ['postanon']   whether or not this post is gonna be anonymous
-     * @param int $args ['author']     user id of the author (for API access)
-     * @param string $args ['hostname']   hostname (for API access)
-     * @param \datetime $args ['date']       date of the comment (for API access)
-     * @param int $args ['id']        comment id (for API access - import only)
+     * @param array<mixed> $args
+     * @var int $moduleid   the module id
+     * @var int $itemtype   the item type
+     * @var string $itemid     the item id
+     * @var int $parent_id        the parent id
+     * @var string $title    the title (title) of the comment
+     * @var string $comment    the text (body) of the comment
+     * @var int $postanon   whether or not this post is gonna be anonymous
+     * @var int $author     user id of the author (for API access)
+     * @var string $hostname   hostname (for API access)
+     * @var \datetime $date       date of the comment (for API access)
+     * @var int $id        comment id (for API access - import only)
      * @return int|void the id of the new comment
      */
     public function __invoke(array $args = [])
@@ -58,7 +59,7 @@ class AddMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) || empty($moduleid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Missing #(1) for #(2) function #(3)() in module #(4)',
                 'moduleid',
                 'userapi',
@@ -73,7 +74,7 @@ class AddMethod extends MethodClass
         }
 
         if (!isset($itemid) || empty($itemid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Missing #(1) for #(2) function #(3)() in module #(4)',
                 'itemid',
                 'userapi',
@@ -88,7 +89,7 @@ class AddMethod extends MethodClass
         }
 
         if (!isset($title) || empty($title)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Missing #(1) for #(2) function #(3)() in module #(4)',
                 'title',
                 'userapi',
@@ -99,7 +100,7 @@ class AddMethod extends MethodClass
         }
 
         if (!isset($comment) || empty($comment)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Missing #(1) for #(2) function #(3)() in module #(4)',
                 'comment text',
                 'userapi',
@@ -129,11 +130,11 @@ class AddMethod extends MethodClass
         // If the comment does not pass, we will return an exception
         // Perhaps in the future we can store the comment for later
         // review, but screw it for now...
-        if (xarModVars::get('comments', 'useblacklist') == true) {
+        if ($this->getModVar('useblacklist') == true) {
             $items = xarMod::apiFunc('comments', 'user', 'get_blacklist');
             foreach ($items as $item) {
                 if (preg_match("/$item[domain]/i", $comment)) {
-                    $msg = xarML('Your entry has triggered comments moderation due to suspicious URL entry');
+                    $msg = $this->translate('Your entry has triggered comments moderation due to suspicious URL entry');
                     throw new BadParameterException($msg);
                 }
             }
@@ -196,8 +197,8 @@ class AddMethod extends MethodClass
                 'itemid'     => $itemid,
                 'itemtype'   => $itemtype, ]
         )) {
-            $msg  = xarML('Unable to create gap in tree for comment insertion! Comments table has possibly been corrupted.');
-            $msg .= xarML('Please seek help on the public-developer list xaraya_public-dev@xaraya.com, or in the #support channel on Xaraya\'s IRC network.');
+            $msg  = $this->translate('Unable to create gap in tree for comment insertion! Comments table has possibly been corrupted.');
+            $msg .= $this->translate('Please seek help on the public-developer list xaraya_public-dev@xaraya.com, or in the #support channel on Xaraya\'s IRC network.');
             throw new Exception($msg);
         }
 
@@ -205,10 +206,10 @@ class AddMethod extends MethodClass
         $left     = $parent_lnr['right_id'];
         $right    = $left + 1;
         if ($moduleid == xarMod::getID('comments')) {
-            $status   = xarModVars::get('comments', 'AuthorizeComments') ? Defines::STATUS_OFF : Defines::STATUS_ON;
+            $status   = $this->getModVar('AuthorizeComments') ? Defines::STATUS_OFF : Defines::STATUS_ON;
         } elseif (!isset($status) || !is_numeric($status)) {
             // no reasonable default for this, so we'll throw an error
-            $msg = xarML('Missing or invalid status parameter');
+            $msg = $this->translate('Missing or invalid status parameter');
             throw new BadParameterException($msg);
         }
 
@@ -282,7 +283,7 @@ class AddMethod extends MethodClass
             //$id = $dbconn->PO_Insert_ID($xartable['comments'], 'id');
             // CHECKME: find some cleaner way to update the page cache if necessary
             if (function_exists('xarOutputFlushCached') &&
-                xarModVars::get('xarcachemanager', 'FlushOnNewComment')) {
+                xarModVars::get('cachemanager', 'FlushOnNewComment')) {
                 $modinfo = xarMod::getInfo($moduleid);
                 xarOutputFlushCached("$modinfo[name]-");
                 xarOutputFlushCached("comments-block");

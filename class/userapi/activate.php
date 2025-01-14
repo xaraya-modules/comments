@@ -41,7 +41,7 @@ class ActivateMethod extends MethodClass
         extract($args);
 
         if (empty($id)) {
-            $msg = xarML('Missing or Invalid parameter \'id\'!!');
+            $msg = $this->translate('Missing or Invalid parameter \'id\'!!');
             throw new BadParameterException($msg);
         }
 

@@ -35,7 +35,7 @@ class ImportblacklistMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminComments')) {
+        if (!$this->checkAccess('AdminComments')) {
             return;
         }
         if (!xarMod::apiFunc('comments', 'admin', 'import_blacklist')) {

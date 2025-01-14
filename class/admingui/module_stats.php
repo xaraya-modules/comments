@@ -48,18 +48,18 @@ class ModuleStatsMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security Check
-        if (!xarSecurity::check('AdminComments')) {
+        if (!$this->checkAccess('AdminComments')) {
             return;
         }
-        if (!xarVar::fetch('modid', 'int:1', $modid)) {
+        if (!$this->fetch('modid', 'int:1', $modid)) {
             return;
         }
-        if (!xarVar::fetch('itemtype', 'int:0', $urlitemtype, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('itemtype', 'int:0', $urlitemtype, 0, xarVar::NOT_REQUIRED)) {
             return;
         }
 
         if (!isset($modid) || empty($modid)) {
-            $msg = xarML('Invalid or Missing Parameter \'modid\'');
+            $msg = $this->translate('Invalid or Missing Parameter \'modid\'');
             throw new BadParameterException($msg);
         }
 
@@ -83,11 +83,11 @@ class ModuleStatsMethod extends MethodClass
             }
         }
 
-        $numstats = xarModVars::get('comments', 'numstats');
+        $numstats = $this->getModVar('numstats');
         if (empty($numstats)) {
             $numstats = 100;
         }
-        if (!xarVar::fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
+        if (!$this->fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
             return;
         }
         if (empty($startnum)) {
@@ -95,7 +95,7 @@ class ModuleStatsMethod extends MethodClass
         }
 
         $args = ['modid' => $modid, 'numitems' => $numstats, 'startnum' => $startnum];
-        if (!xarVar::fetch('itemtype', 'int', $itemtypearg, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('itemtype', 'int', $itemtypearg, null, xarVar::NOT_REQUIRED)) {
             return;
         }
         if (isset($itemtypearg)) {
@@ -119,7 +119,7 @@ class ModuleStatsMethod extends MethodClass
         );
 
         // get the title and url for the items
-        $showtitle = xarModVars::get('comments', 'showtitle');
+        $showtitle = $this->getModVar('showtitle');
         if (!empty($showtitle)) {
             $itemids = array_keys($moditems);
             try {
@@ -146,8 +146,7 @@ class ModuleStatsMethod extends MethodClass
             $stats[$itemid] = [];
             $stats[$itemid]['pageid'] = $itemid;
             $stats[$itemid]['total'] = $info['count'];
-            $stats[$itemid]['delete_url'] = xarController::URL(
-                'comments',
+            $stats[$itemid]['delete_url'] = $this->getUrl(
                 'admin',
                 'delete',
                 ['dtype' => 'object',
@@ -176,8 +175,7 @@ class ModuleStatsMethod extends MethodClass
         } else {
             $dalltype = 'module';
         }
-        $data['delete_all_url']   = xarController::URL(
-            'comments',
+        $data['delete_all_url']   = $this->getUrl(
             'admin',
             'delete',
             ['dtype' => $dalltype,
@@ -204,8 +202,7 @@ class ModuleStatsMethod extends MethodClass
             $data['pager'] = xarTplPager::getPager(
                 $startnum,
                 $numitems,
-                xarController::URL(
-                    'comments',
+                $this->getUrl(
                     'admin',
                     'module_stats',
                     ['modid' => $modid,

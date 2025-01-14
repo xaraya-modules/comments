@@ -58,7 +58,7 @@ class GetMultipleMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) || empty($moduleid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) [#(2)] for #(3) function #(4)() in module #(5)',
                 'moduleid',
                 $moduleid,
@@ -70,7 +70,7 @@ class GetMultipleMethod extends MethodClass
         }
 
         if ((!isset($itemid) || empty($itemid)) && !isset($author)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) [#(2)] for #(3) function #(4)() in module #(5)',
                 'itemid',
                 $itemid,
@@ -192,7 +192,7 @@ class GetMultipleMethod extends MethodClass
             }
         }*/
         // cfr. xarcachemanager - this approach might change later
-        //$expire = xarModVars::get('comments','cache.userapi.get_multiple');
+        //$expire = $this->getModVar('cache.userapi.get_multiple');
 
         //Add select limit for modules that call this function and need Pager
         /*if (isset($numitems) && is_numeric($numitems)) {
@@ -214,7 +214,7 @@ class GetMultipleMethod extends MethodClass
          if ($result->EOF) return array();
 
          if (!xarMod::load('comments','renderer')) {
-             $msg = xarML('Unable to load #(1) #(2)','comments','renderer');
+             $msg = $this->translate('Unable to load #(1) #(2)','comments','renderer');
              throw new Exception($msg);
          }*/
 
@@ -234,7 +234,7 @@ class GetMultipleMethod extends MethodClass
     */
 
         if (!empty($commentlist) && !Renderer::array_markdepths_bypid($commentlist)) {
-            $msg = xarML('#(1) Unable to create depth by pid', __FILE__ . '(' . __LINE__ . '):  ');
+            $msg = $this->translate('#(1) Unable to create depth by pid', __FILE__ . '(' . __LINE__ . '):  ');
             throw new Exception($msg);
         }
 

@@ -20,10 +20,10 @@
  */
 function comments_admin_delete(array $args = [], $context = null)
 {
-    if (!xarSecurity::check('AdminComments')) {
+    if (!$this->checkAccess('AdminComments')) {
         return;
     }
-    if (!xarVar::fetch('dtype', 'str:1:', $dtype)) {
+    if (!$this->fetch('dtype', 'str:1:', $dtype)) {
         return;
     }
     $delete_args = [];
@@ -37,7 +37,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
         switch (strtolower($dtype)) {
             case 'object':
-                if (!xarVar::fetch('objectid', 'int:1', $objectid)) {
+                if (!$this->fetch('objectid', 'int:1', $objectid)) {
                     return;
                 }
 
@@ -53,7 +53,7 @@ function comments_admin_delete(array $args = [], $context = null)
                 // the module id and the object id
                 // no break
             case 'module':
-                if (!xarVar::fetch('modid', 'int:1', $modid)) {
+                if (!$this->fetch('modid', 'int:1', $modid)) {
                     return;
                 }
 
@@ -61,7 +61,7 @@ function comments_admin_delete(array $args = [], $context = null)
                     $msg = xarML('Invalid or Missing Parameter \'modid\'');
                     throw new BadParameterException($msg);
                 }
-                if (!xarVar::fetch('itemtype', 'int:1', $itemtype)) {
+                if (!$this->fetch('itemtype', 'int:1', $itemtype)) {
                     return;
                 }
                 if (empty($itemtype)) {
@@ -81,7 +81,7 @@ function comments_admin_delete(array $args = [], $context = null)
         }
     }
 
-    if (!xarVar::fetch('submitted', 'str:1:', $submitted, '', xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('submitted', 'str:1:', $submitted, '', xarVar::NOT_REQUIRED)) {
         return;
     }
     // if we're gathering submitted info form the delete
@@ -94,14 +94,14 @@ function comments_admin_delete(array $args = [], $context = null)
             return;
         }
 
-        if (!xarVar::fetch('choice', 'str:1:', $choice)) {
+        if (!$this->fetch('choice', 'str:1:', $choice)) {
             return;
         }
 
         // if choice isn't set or it has an incorrect value,
         // redirect back to the choice page
         if (!isset($choice) || !preg_match('/^(yes|no|true|false)$/', $choice)) {
-            xarController::redirect(xarController::URL('comments', 'admin', 'delete', $delete_args), null, $context);
+            $this->redirect($this->getUrl( 'admin', 'delete', $delete_args));
         }
 
         if ($choice == 'yes' || $choice == 'true') {
@@ -150,34 +150,32 @@ function comments_admin_delete(array $args = [], $context = null)
             }
         } else {
             if (isset($modid)) {
-                xarController::redirect(xarController::URL(
-                    'comments',
+                $this->redirect($this->getUrl(
                     'admin',
                     'module_stats',
                     ['modid' => $modid,
                         'itemtype' => empty($itemtype) ? null : $itemtype, ]
-                ), null, $context);
+                ));
             } else {
-                xarController::redirect(xarController::URL('comments', 'admin', 'stats'), null, $context);
+                $this->redirect($this->getUrl('admin', 'stats'));
             }
         }
 
         if (isset($modid) && strtolower($dtype) == 'object') {
-            xarController::redirect(xarController::URL(
-                'comments',
+            $this->redirect($this->getUrl(
                 'admin',
                 'module_stats',
                 ['modid' => $modid,
                     'itemtype' => empty($itemtype) ? null : $itemtype, ]
-            ), null, $context);
+            ));
         } else {
-            xarController::redirect(xarController::URL('comments', 'admin', 'stats'), null, $context);
+            $this->redirect($this->getUrl('admin', 'stats'));
         }
     }
     // If we're here, then we haven't received authorization
     // to delete any comments yet - so here we ask for confirmation.
     $output['authid'] = xarSec::genAuthKey();
-    $output['delete_url'] = xarController::URL('comments', 'admin', 'delete', $delete_args);
+    $output['delete_url'] = $this->getUrl( 'admin', 'delete', $delete_args);
 
     return $output;
 }

@@ -214,25 +214,25 @@ class Installer extends InstallerClass
         #
         # Set up modvars
         #
-        xarModVars::set('comments', 'render', Defines::VIEW_THREADED);
-        xarModVars::set('comments', 'sortby', Defines::SORTBY_THREAD);
-        xarModVars::set('comments', 'order', Defines::SORT_ASC);
-        xarModVars::set('comments', 'depth', Defines::MAX_DEPTH);
-        xarModVars::set('comments', 'AllowPostAsAnon', 1);
-        xarModVars::set('comments', 'AuthorizeComments', 0);
-        xarModVars::set('comments', 'AllowCollapsableThreads', 1);
-        xarModVars::set('comments', 'CollapsedBranches', serialize([]));
-        xarModVars::set('comments', 'editstamp', 1);
-        xarModVars::set('comments', 'usersetrendering', false);
-        xarModVars::set('comments', 'allowhookoverride', false);
-        xarModVars::set('comments', 'edittimelimit', 0);
-        xarModVars::set('comments', 'numstats', 100);
-        xarModVars::set('comments', 'rssnumitems', 25);
-        xarModVars::set('comments', 'wrap', false);
-        xarModVars::set('comments', 'showtitle', false);
-        xarModVars::set('comments', 'useblacklist', false);
-        xarModVars::set('comments', 'enable_filters', 1);
-        xarModVars::set('comments', 'filters_min_item_count', 3);
+        $this->setModVar('render', Defines::VIEW_THREADED);
+        $this->setModVar('sortby', Defines::SORTBY_THREAD);
+        $this->setModVar('order', Defines::SORT_ASC);
+        $this->setModVar('depth', Defines::MAX_DEPTH);
+        $this->setModVar('AllowPostAsAnon', 1);
+        $this->setModVar('AuthorizeComments', 0);
+        $this->setModVar('AllowCollapsableThreads', 1);
+        $this->setModVar('CollapsedBranches', serialize([]));
+        $this->setModVar('editstamp', 1);
+        $this->setModVar('usersetrendering', false);
+        $this->setModVar('allowhookoverride', false);
+        $this->setModVar('edittimelimit', 0);
+        $this->setModVar('numstats', 100);
+        $this->setModVar('rssnumitems', 25);
+        $this->setModVar('wrap', false);
+        $this->setModVar('showtitle', false);
+        $this->setModVar('useblacklist', false);
+        $this->setModVar('enable_filters', 1);
+        $this->setModVar('filters_min_item_count', 3);
 
         # --------------------------------------------------------
         #

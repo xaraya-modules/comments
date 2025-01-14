@@ -40,21 +40,20 @@ class DisplayMethod extends MethodClass
      * Displays a comment or set of comments
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
-     * @param array $args
-     * with
-     *     integer    $args['modid']              the module id
-     *     integer    $args['itemtype']           the item type
-     *     string     $args['objectid']           the item id
-     *     integer    $args['depth']              depth of comment thread to display
-     *     integer    [$args['selected_id']]      optional: the cid of the comment to view (only for displaying single comments)
-     *     integer    [$args['thread']]           optional: display the entire thread following cid
-     *     integer    [$args['preview']]          optional: an array containing a single (preview) comment used with adding/editing comments
-     *     bool       [$args['noposting']]        optional: a boolean to define whether posting is enabled
+     * @param array<mixed> $args
+     * @var integer $args['modid']              the module id
+     * @var integer $args['itemtype']           the item type
+     * @var string $args['objectid']           the item id
+     * @var integer $args['depth']              depth of comment thread to display
+     * @var integer $args['selected_id']      optional: the cid of the comment to view (only for displaying single comments)
+     * @var integer $args['thread']           optional: display the entire thread following cid
+     * @var integer $args['preview']          optional: an array containing a single (preview) comment used with adding/editing comments
+     * @var bool $args['noposting']        optional: a boolean to define whether posting is enabled
      * @return array|string|null returns whatever needs to be parsed by the BlockLayout engine
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadComments', 0)) {
+        if (!$this->checkAccess('ReadComments', 0)) {
             return;
         }
 
@@ -71,7 +70,7 @@ class DisplayMethod extends MethodClass
             if (!empty($args['id'])) {
                 $comment_id = $args['id'];
             } else {
-                xarVar::fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED);
+                $this->fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED);
             }
             // and set the selected id to this one
             if (!empty($data['comment_id']) && !isset($data['selected_id'])) {
@@ -90,7 +89,7 @@ class DisplayMethod extends MethodClass
         # Try and get a selectee ID if we don't have one yet
         #
         if (empty($data['selected_id'])) {
-            xarVar::fetch('selected_id', 'int', $data['selected_id'], 0, xarVar::NOT_REQUIRED);
+            $this->fetch('selected_id', 'int', $data['selected_id'], 0, xarVar::NOT_REQUIRED);
         }
 
         # --------------------------------------------------------
@@ -130,11 +129,11 @@ class DisplayMethod extends MethodClass
         $package['settings'] = xarMod::apiFunc('comments', 'user', 'getoptions');
 
         if (!isset($args['thread'])) {
-            xarVar::fetch('thread', 'isset', $thread, null, xarVar::NOT_REQUIRED);
+            $this->fetch('thread', 'isset', $thread, null, xarVar::NOT_REQUIRED);
         }
 
         if (!xarMod::load('comments', 'renderer')) {
-            $msg = xarML('Unable to load #(1) #(2)', 'comments', 'renderer');
+            $msg = $this->translate('Unable to load #(1) #(2)', 'comments', 'renderer');
             throw new BadParameterException($msg);
         }
 
@@ -184,7 +183,7 @@ class DisplayMethod extends MethodClass
         // does this *but* maybe needs fixing in articles instead?
         $package['new_title']             = xarVar::getCached('Comments.title', 'title');
 
-        if (!xarVar::fetch('comment_action', 'str', $data['comment_action'], 'submit', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('comment_action', 'str', $data['comment_action'], 'submit', xarVar::NOT_REQUIRED)) {
             return;
         }
 

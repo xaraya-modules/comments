@@ -41,7 +41,7 @@ class GetModuleLrvaluesMethod extends MethodClass
         extract($args);
 
         if (!isset($modid) || empty($modid)) {
-            $msg = xarML('Missing or Invalid parameter \'modid\'!!');
+            $msg = $this->translate('Missing or Invalid parameter \'modid\'!!');
             throw new BadParameterException($msg);
         }
 

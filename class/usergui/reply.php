@@ -48,7 +48,7 @@ class ReplyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('PostComments')) {
+        if (!$this->checkAccess('PostComments')) {
             return;
         }
 
@@ -61,7 +61,7 @@ class ReplyMethod extends MethodClass
         # --------------------------------------------------------
         # Take appropriate action
         #
-        if (!xarVar::fetch('comment_action', 'str', $data['comment_action'], 'reply', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('comment_action', 'str', $data['comment_action'], 'reply', xarVar::NOT_REQUIRED)) {
             return;
         }
         switch (strtolower($data['comment_action'])) {
@@ -85,7 +85,7 @@ class ReplyMethod extends MethodClass
                     0
                 );
 
-                if (xarModVars::get('comments', 'AuthorizeComments') || xarSecurity::check('AddComments')) {
+                if ($this->getModVar('AuthorizeComments') || $this->checkAccess('AddComments')) {
                     $status = Defines::STATUS_ON;
                 } else {
                     $status = Defines::STATUS_OFF;
@@ -106,14 +106,14 @@ class ReplyMethod extends MethodClass
                 } else {
                     $data['comment_id'] = 0;
                 }
-                xarController::redirect($data['reply']->properties['parent_url']->value . '#' . $data['comment_id'], null, $this->getContext());
+                $this->redirect($data['reply']->properties['parent_url']->value . '#' . $data['comment_id']);
                 return true;
 
             case 'reply':
                 # --------------------------------------------------------
                 # Bail if the proper args were not passed
                 #
-                if (!xarVar::fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED)) {
+                if (!$this->fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED)) {
                     return;
                 }
                 if (empty($data['comment_id'])) {

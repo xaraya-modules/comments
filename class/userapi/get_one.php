@@ -38,7 +38,8 @@ class GetOneMethod extends MethodClass
      * Get a single comment.
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
-     * @param int $args ['id']       the id of a comment
+     * @param array<mixed> $args
+     * @var int $id       the id of a comment
      * @return array an array containing the sole comment that was requested
      * or an empty array if no comment found
      */
@@ -47,7 +48,7 @@ class GetOneMethod extends MethodClass
         extract($args);
 
         if (!isset($id) || empty($id)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Missing or Invalid argument [#(1)] for #(2) function #(3) in module #(4)',
                 'id',
                 'userapi',
@@ -113,7 +114,7 @@ class GetOneMethod extends MethodClass
          }*/
 
         if (!xarMod::load('comments', 'renderer')) {
-            $msg = xarML('Unable to load #(1) #(2) - unable to trim excess depth', 'comments', 'renderer');
+            $msg = $this->translate('Unable to load #(1) #(2) - unable to trim excess depth', 'comments', 'renderer');
             throw new Exception($msg);
         }
 
@@ -134,7 +135,7 @@ class GetOneMethod extends MethodClass
         */
 
         if (!Renderer::array_markdepths_bypid($values)) {
-            $msg = xarML('Unable to add depth field to comments!');
+            $msg = $this->translate('Unable to add depth field to comments!');
             throw new Exception($msg);
             // FIXME: <rabbitt> this stuff should really be moved out of the comments
             //        module into a "rendering" module of some sort anyway -- or (god forbid) a widget.

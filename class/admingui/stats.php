@@ -19,7 +19,7 @@
 function comments_admin_stats(array $args = [], $context = null)
 {
     // Security Check
-    if (!xarSecurity::check('AdminComments')) {
+    if (!$this->checkAccess('AdminComments')) {
         return;
     }
 
@@ -67,16 +67,14 @@ function comments_admin_stats(array $args = [], $context = null)
                     //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
                 }
             }
-            $moditem['module_url'] = xarController::URL(
-                'comments',
+            $moditem['module_url'] = $this->getUrl(
                 'admin',
                 'module_stats',
                 ['modid' => $modid,
                     'itemtype' => $itemtype, ]
             );
 
-            $moditem['delete_url'] = xarController::URL(
-                'comments',
+            $moditem['delete_url'] = $this->getUrl(
                 'admin',
                 'delete',
                 ['dtype' => 'itemtype',
@@ -91,8 +89,7 @@ function comments_admin_stats(array $args = [], $context = null)
         }
     }
     $data['moditems']             = $moditems;
-    $data['delete_all_url']   = xarController::URL(
-        'comments',
+    $data['delete_all_url']   = $this->getUrl(
         'admin',
         'delete',
         ['dtype' => 'all', 'redirect' => 'stats']

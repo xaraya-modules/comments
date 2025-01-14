@@ -34,13 +34,14 @@ class GetitemsMethod extends MethodClass
 
     /**
      * get number of comments for all items or a list of items
-     * @param mixed $args ['modname'] name of the module you want items from, or
-     * @param mixed $args ['modid'] module id you want items from
-     * @param mixed $args ['itemtype'] item type (optional)
-     * @param mixed $args ['itemids'] array of item IDs
-     * @param mixed $args ['status'] optional status to count: ALL (minus root nodes), ACTIVE, INACTIVE
-     * @param mixed $args ['numitems'] optional number of items to return
-     * @param mixed $args ['startnum'] optional start at this number (1-based)
+     * @param array<mixed> $args
+     * @var mixed $modname name of the module you want items from, or
+     * @var mixed $modid module id you want items from
+     * @var mixed $itemtype item type (optional)
+     * @var mixed $itemids array of item IDs
+     * @var mixed $status optional status to count: ALL (minus root nodes), ACTIVE, INACTIVE
+     * @var mixed $numitems optional number of items to return
+     * @var mixed $startnum optional start at this number (1-based)
      * @return array|void $array[$itemid] = $numcomments;
      */
     public function __invoke(array $args = [])
@@ -79,7 +80,7 @@ class GetitemsMethod extends MethodClass
         if (!isset($mask)) {
             $mask = 'ReadComments';
         }
-        if (!xarSecurity::check($mask)) {
+        if (!$this->checkAccess($mask)) {
             return;
         }
 

@@ -35,30 +35,20 @@ class GetmenulinksMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        $menulinks[] = ['url'   => xarController::URL(
-            'comments',
-            'admin',
-            'stats'
-        ),
-            'title' => xarML('View comments per module statistics'),
-            'label' => xarML('View Statistics'), ];
+        $menulinks[] = ['url'   => $this->getUrl('admin', 'stats'),
+            'title' => $this->translate('View comments per module statistics'),
+            'label' => $this->translate('View Statistics'), ];
         /* Comment blacklist unavailable at 2005-10-12
-        if (xarModVars::get('comments', 'useblacklist') == true){
-            $menulinks[] = Array('url'   => xarController::URL('comments',
-                                                      'admin',
-                                                      'importblacklist'),
-                                 'title' => xarML('Import the latest blacklist'),
-                                 'label' => xarML('Import Blacklist'));
+        if ($this->getModVar('useblacklist') == true){
+            $menulinks[] = Array('url'   => $this->getUrl('admin', 'importblacklist'),
+                                 'title' => $this->translate('Import the latest blacklist'),
+                                 'label' => $this->translate('Import Blacklist'));
         }
         */
 
-        $menulinks[] = ['url'   => xarController::URL(
-            'comments',
-            'admin',
-            'modifyconfig'
-        ),
-            'title' => xarML('Modify the comments module configuration'),
-            'label' => xarML('Modify Config'), ];
+        $menulinks[] = ['url'   => $this->getUrl('admin', 'modifyconfig'),
+            'title' => $this->translate('Modify the comments module configuration'),
+            'label' => $this->translate('Modify Config'), ];
 
         if (empty($menulinks)) {
             $menulinks = '';

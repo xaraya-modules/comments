@@ -20,23 +20,23 @@
  */
 function comments_admin_delete(array $args = [], $context = null)
 {
-    if (!xarSecurity::check('ManageComments')) {
+    if (!$this->checkAccess('ManageComments')) {
         return;
     }
 
-    if (!xarVar::fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
         return;
     }
-    if (!xarVar::fetch('deletebranch', 'bool', $deletebranch, false, xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('deletebranch', 'bool', $deletebranch, false, xarVar::NOT_REQUIRED)) {
         return;
     }
-    if (!xarVar::fetch('redirect', 'str', $data['redirect'], '', xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('redirect', 'str', $data['redirect'], '', xarVar::NOT_REQUIRED)) {
         return;
     }
-    if (!xarVar::fetch('itemtype', 'str', $data['itemtype'], null, xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('itemtype', 'str', $data['itemtype'], null, xarVar::NOT_REQUIRED)) {
         return;
     }
-    if (!xarVar::fetch('dtype', 'str', $data['dtype'], "", xarVar::NOT_REQUIRED)) {
+    if (!$this->fetch('dtype', 'str', $data['dtype'], "", xarVar::NOT_REQUIRED)) {
         return;
     }
 
@@ -48,7 +48,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
     switch (strtolower($data['dtype'])) {
         case 'item': // delete just one comment
-            if (!xarVar::fetch('itemid', 'int', $itemid)) {
+            if (!$this->fetch('itemid', 'int', $itemid)) {
                 return;
             }
 
@@ -63,13 +63,13 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'object': // delete all comments for a content item
-            if (!xarVar::fetch('itemtype', 'int', $itemtype, 0, xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('itemtype', 'int', $itemtype, 0, xarVar::NOT_REQUIRED)) {
                 return;
             }
-            if (!xarVar::fetch('modid', 'int:1', $modid)) {
+            if (!$this->fetch('modid', 'int:1', $modid)) {
                 return;
             }
-            if (!xarVar::fetch('objectid', 'int:1', $objectid)) {
+            if (!$this->fetch('objectid', 'int:1', $objectid)) {
                 return;
             }
 
@@ -81,10 +81,10 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'itemtype': // delete all comments for an itemtype
-            if (!xarVar::fetch('itemtype', 'int', $itemtype)) {
+            if (!$this->fetch('itemtype', 'int', $itemtype)) {
                 return;
             }
-            if (!xarVar::fetch('modid', 'int:1', $modid)) {
+            if (!$this->fetch('modid', 'int:1', $modid)) {
                 return;
             }
 
@@ -95,7 +95,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'module':  // delete all comments for a module
-            if (!xarVar::fetch('modid', 'int:1', $modid)) {
+            if (!$this->fetch('modid', 'int:1', $modid)) {
                 return;
             }
 
@@ -130,7 +130,7 @@ function comments_admin_delete(array $args = [], $context = null)
         $data['count'] = count($countitems);
 
         if ($data['confirm'] && is_array($data['items'])) {
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return;
             }
 
@@ -148,7 +148,7 @@ function comments_admin_delete(array $args = [], $context = null)
         }
     } else { // $data['dtype'] == 'item'
         if ($data['confirm']) {
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return;
             }
             if ($deletebranch) {
@@ -173,16 +173,15 @@ function comments_admin_delete(array $args = [], $context = null)
 
     if ($data['confirm'] && !empty($data['redirect'])) {
         if ($data['redirect'] == 'view') {
-            xarController::redirect(xarController::URL('comments', 'admin', 'view'), null, $context);
+            $this->redirect($this->getUrl('admin', 'view'));
         } elseif ($data['redirect'] == 'stats') {
-            xarController::redirect(xarController::URL('comments', 'admin', 'stats'), null, $context);
+            $this->redirect($this->getUrl('admin', 'stats'));
         } elseif (is_numeric($data['redirect'])) {
-            xarController::redirect(xarController::URL(
-                'comments',
+            $this->redirect($this->getUrl(
                 'admin',
                 'module_stats',
                 ['modid' => $data['redirect']]
-            ), null, $context);
+            ));
         }
     }
 
