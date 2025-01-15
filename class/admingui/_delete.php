@@ -101,7 +101,7 @@ function comments_admin_delete(array $args = [], $context = null)
         // if choice isn't set or it has an incorrect value,
         // redirect back to the choice page
         if (!isset($choice) || !preg_match('/^(yes|no|true|false)$/', $choice)) {
-            $this->redirect($this->getUrl( 'admin', 'delete', $delete_args));
+            $this->redirect($this->getUrl('admin', 'delete', $delete_args));
         }
 
         if ($choice == 'yes' || $choice == 'true') {
@@ -175,7 +175,7 @@ function comments_admin_delete(array $args = [], $context = null)
     // If we're here, then we haven't received authorization
     // to delete any comments yet - so here we ask for confirmation.
     $output['authid'] = xarSec::genAuthKey();
-    $output['delete_url'] = $this->getUrl( 'admin', 'delete', $delete_args);
+    $output['delete_url'] = $this->getUrl('admin', 'delete', $delete_args);
 
     return $output;
 }

@@ -11,7 +11,6 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
-
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarVar;
@@ -119,7 +118,7 @@ class ModifyMethod extends MethodClass
                 if (!empty($data['view'])) {
                     $this->redirect($values['parent_url']);
                 } else {
-                    $this->redirect($this->getUrl( 'admin', 'modify', ['id' => $id]));
+                    $this->redirect($this->getUrl('admin', 'modify', ['id' => $id]));
                 }
                 return true;
             }

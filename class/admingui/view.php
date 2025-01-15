@@ -11,7 +11,6 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
-
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
@@ -63,8 +62,8 @@ class ViewMethod extends MethodClass
             return;
         }
 
+        //how to sort if the URL or config say otherwise...
         $sort = xarMod::apiFunc('comments', 'admin', 'sort', [
-            //how to sort if the URL or config say otherwise...
             'sortfield_fallback' => 'date',
             'ascdesc_fallback' => 'DESC',
         ]);

@@ -12,88 +12,109 @@
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
+
+namespace Xaraya\Modules\Comments\AdminGui;
+
+use Xaraya\Modules\Comments\AdminGui;
+use Xaraya\Modules\MethodClass;
+use xarMod;
+use sys;
+use Exception;
+
+sys::import('xaraya.modules.method');
+sys::import('modules.comments.class.defines');
+
 /**
- * View Statistics about comments per module
- *
+ * comments admin stats function
+ * @extends MethodClass<AdminGui>
  */
-function comments_admin_stats(array $args = [], $context = null)
+class StatsMethod extends MethodClass
 {
-    // Security Check
-    if (!$this->checkAccess('AdminComments')) {
-        return;
-    }
+    /** functions imported by bermuda_cleanup */
 
-    $data['gt_items']     = 0;
-    $data['gt_total']     = 0;
-    $data['gt_inactive']  = 0;
-
-    $modlist = xarMod::apiFunc('comments', 'user', 'modcounts');
-
-    $inactive = xarMod::apiFunc(
-        'comments',
-        'user',
-        'modcounts',
-        ['status' => 'inactive']
-    );
-
-    $moditems = [];
-    foreach ($modlist as $modid => $itemtypes) {
-        $modinfo = xarMod::getInfo($modid);
-        // Get the list of all item types for this module (if any)
-        try {
-            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
-        } catch (Exception $e) {
-            $mytypes = [];
+    /**
+     * View Statistics about comments per module
+     *
+     */
+    public function __invoke(array $args = [])
+    {
+        // Security Check
+        if (!$this->checkAccess('AdminComments')) {
+            return;
         }
-        foreach ($itemtypes as $itemtype => $stats) {
-            $moditem = [];
-            $moditem['modid'] = $modid;
-            $moditem['items'] = $stats['items'];
-            $moditem['total'] = $stats['comments'];
-            if (isset($inactive[$modid]) && isset($inactive[$modid][$itemtype])) {
-                $moditem['inactive'] = $inactive[$modid][$itemtype]['comments'];
-            } else {
-                $moditem['inactive'] = 0;
+
+        $data['gt_items']     = 0;
+        $data['gt_total']     = 0;
+        $data['gt_inactive']  = 0;
+
+        $modlist = xarMod::apiFunc('comments', 'user', 'modcounts');
+
+        $inactive = xarMod::apiFunc(
+            'comments',
+            'user',
+            'modcounts',
+            ['status' => 'inactive']
+        );
+
+        $moditems = [];
+        foreach ($modlist as $modid => $itemtypes) {
+            $modinfo = xarMod::getInfo($modid);
+            // Get the list of all item types for this module (if any)
+            try {
+                $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+            } catch (Exception $e) {
+                $mytypes = [];
             }
-            if ($itemtype == 0) {
-                $moditem['modname'] = ucwords($modinfo['displayname']) . ': itemtype ' . $itemtype;
-                //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','main');
-            } else {
-                if (isset($mytypes) && !empty($mytypes[$itemtype])) {
-                    $moditem['modname'] = ucwords($modinfo['displayname']) . ': itemtype: ' . $itemtype . ' - ' . $mytypes[$itemtype]['label'];
-                    //    $moditem['modlink'] = $mytypes[$itemtype]['url'];
+            foreach ($itemtypes as $itemtype => $stats) {
+                $moditem = [];
+                $moditem['modid'] = $modid;
+                $moditem['items'] = $stats['items'];
+                $moditem['total'] = $stats['comments'];
+                if (isset($inactive[$modid]) && isset($inactive[$modid][$itemtype])) {
+                    $moditem['inactive'] = $inactive[$modid][$itemtype]['comments'];
                 } else {
-                    $moditem['modname'] = ucwords($modinfo['displayname']) . ': itemtype ' . $itemtype;
-                    //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
+                    $moditem['inactive'] = 0;
                 }
+                if ($itemtype == 0) {
+                    $moditem['modname'] = ucwords($modinfo['displayname']) . ': itemtype ' . $itemtype;
+                    //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','main');
+                } else {
+                    if (isset($mytypes) && !empty($mytypes[$itemtype])) {
+                        $moditem['modname'] = ucwords($modinfo['displayname']) . ': itemtype: ' . $itemtype . ' - ' . $mytypes[$itemtype]['label'];
+                        //    $moditem['modlink'] = $mytypes[$itemtype]['url'];
+                    } else {
+                        $moditem['modname'] = ucwords($modinfo['displayname']) . ': itemtype ' . $itemtype;
+                        //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
+                    }
+                }
+                $moditem['module_url'] = $this->getUrl(
+                    'admin',
+                    'module_stats',
+                    ['modid' => $modid,
+                        'itemtype' => $itemtype, ]
+                );
+
+                $moditem['delete_url'] = $this->getUrl(
+                    'admin',
+                    'delete',
+                    ['dtype' => 'itemtype',
+                        'modid' => $modid,
+                        'redirect' => 'stats',
+                        'itemtype' => $itemtype, ]
+                );
+                $moditems[] = $moditem;
+                $data['gt_items'] += $moditem['items'];
+                $data['gt_total'] += $moditem['total'];
+                $data['gt_inactive'] += $moditem['inactive'];
             }
-            $moditem['module_url'] = $this->getUrl(
-                'admin',
-                'module_stats',
-                ['modid' => $modid,
-                    'itemtype' => $itemtype, ]
-            );
-
-            $moditem['delete_url'] = $this->getUrl(
-                'admin',
-                'delete',
-                ['dtype' => 'itemtype',
-                    'modid' => $modid,
-                    'redirect' => 'stats',
-                    'itemtype' => $itemtype, ]
-            );
-            $moditems[] = $moditem;
-            $data['gt_items'] += $moditem['items'];
-            $data['gt_total'] += $moditem['total'];
-            $data['gt_inactive'] += $moditem['inactive'];
         }
-    }
-    $data['moditems']             = $moditems;
-    $data['delete_all_url']   = $this->getUrl(
-        'admin',
-        'delete',
-        ['dtype' => 'all', 'redirect' => 'stats']
-    );
+        $data['moditems']             = $moditems;
+        $data['delete_all_url']   = $this->getUrl(
+            'admin',
+            'delete',
+            ['dtype' => 'all', 'redirect' => 'stats']
+        );
 
-    return $data;
+        return $data;
+    }
 }

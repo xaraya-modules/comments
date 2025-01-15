@@ -14,6 +14,7 @@
  */
 sys::import('modules.comments.xarincludes.defines');
 use Xaraya\Modules\Comments\Defines;
+
 /**
  * This is a standard function to modify the configuration parameters of the
  * module

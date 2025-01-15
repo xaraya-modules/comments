@@ -11,7 +11,6 @@
 
 namespace Xaraya\Modules\Comments\AdminGui;
 
-
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
