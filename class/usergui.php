@@ -33,17 +33,5 @@ sys::import('modules.comments.class.userapi');
  */
 class UserGui extends UserGuiClass
 {
-    /**
-     * User main GUI function
-     * @param array<string, mixed> $args
-     * @return array<mixed>
-     */
-    public function main(array $args = [])
-    {
-        $args['description'] ??= 'Description of comments';
-
-        // Pass along the context for xarTpl::module() if needed
-        $args['context'] ??= $this->getContext();
-        return $args;
-    }
+    // ...
 }
