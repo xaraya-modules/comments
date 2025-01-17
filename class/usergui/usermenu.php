@@ -41,6 +41,7 @@ class UsermenuMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         extract($args);
+        $usergui = $this->getParent();
 
         // Security Check
         if ($this->checkAccess('ReadComments', 0)) {
@@ -48,7 +49,7 @@ class UsermenuMethod extends MethodClass
                 return;
             }
 
-            xarTpl::setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
+            $usergui->setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
                                xarVar::prepForDisplay($this->translate('Comments'))
                                . ' :: ' . xarVar::prepForDisplay($this->translate('Your Account Preferences')));
 
