@@ -44,16 +44,16 @@ class GetoptionsMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->fetch('depth', 'int', $depth, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('depth', $depth, 'int')) {
             return;
         }
-        if (!$this->fetch('render', 'str', $render, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('render', $render, 'str')) {
             return;
         }
-        if (!$this->fetch('order', 'int', $order, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('order', $order, 'int')) {
             return;
         }
-        if (!$this->fetch('sortby', 'int', $sortby, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('sortby', $sortby, 'int')) {
             return;
         }
 
@@ -75,7 +75,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['depth'] = xarModUserVars::get('comments','depth');
             } else {*/
-            $settings['depth'] = $this->getModVar('depth');
+            $settings['depth'] = $this->mod()->getVar('depth');
             /*}*/
         }
 
@@ -86,7 +86,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['render'] = xarModUserVars::get('comments','render');
             } else {*/
-            $settings['render'] = $this->getModVar('render');
+            $settings['render'] = $this->mod()->getVar('render');
             /*}*/
         }
 
@@ -97,7 +97,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['order'] = xarModUserVars::get('comments','order');
             } else {*/
-            $settings['order'] = $this->getModVar('order');
+            $settings['order'] = $this->mod()->getVar('order');
             /*}*/
         }
 
@@ -108,7 +108,7 @@ class GetoptionsMethod extends MethodClass
                 // Grab user's depth setting.
                 $settings['sortby'] = xarModUserVars::get('comments','sortby');
             } else {*/
-            $settings['sortby'] = $this->getModVar('sortby');
+            $settings['sortby'] = $this->mod()->getVar('sortby');
             /*}*/
         }
 

@@ -15,13 +15,13 @@
 function comments_admin_module_stats(array $args = [], $context = null)
 {
     // Security Check
-    if (!$this->checkAccess('AdminComments')) {
+    if (!$this->sec()->checkAccess('AdminComments')) {
         return;
     }
-    if (!$this->fetch('modid', 'int:1', $modid)) {
+    if (!$this->var()->get('modid', $modid), 'int:1') {
         return;
     }
-    if (!$this->fetch('itemtype', 'int:0', $itemtype, 0, xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('itemtype', $itemtype, 'int:0', 0)) {
         return;
     }
 
@@ -54,7 +54,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (empty($numstats)) {
         $numstats = 100;
     }
-    if (!$this->fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
+    if (!$this->var()->check('startnum', $startnum, 'id')) {
         return;
     }
     if (empty($startnum)) {
@@ -112,7 +112,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
         $pages[$itemid] = [];
         $pages[$itemid]['pageid'] = $itemid;
         $pages[$itemid]['total'] = $numcomments;
-        $pages[$itemid]['delete_url'] = $this->getUrl(
+        $pages[$itemid]['delete_url'] = $this->mod()->getURL(
             'admin',
             'delete',
             ['dtype' => 'object',
@@ -134,7 +134,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     }
 
     $data['data']             = $pages;
-    $data['delete_all_url']   = $this->getUrl(
+    $data['delete_all_url']   = $this->mod()->getURL(
         'admin',
         'delete',
         ['dtype' => 'module',
@@ -160,7 +160,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
         $data['pager'] = xarTplPager::getPager(
             $startnum,
             $numitems,
-            $this->getUrl(
+            $this->mod()->getURL(
                 'admin',
                 'module_stats',
                 ['modid' => $modid,

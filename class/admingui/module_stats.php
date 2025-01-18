@@ -47,18 +47,18 @@ class ModuleStatsMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security Check
-        if (!$this->checkAccess('AdminComments')) {
+        if (!$this->sec()->checkAccess('AdminComments')) {
             return;
         }
-        if (!$this->fetch('modid', 'int:1', $modid)) {
+        if (!$this->var()->get('modid', $modid), 'int:1') {
             return;
         }
-        if (!$this->fetch('itemtype', 'int:0', $urlitemtype, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('itemtype', $urlitemtype, 'int:0', 0)) {
             return;
         }
 
         if (!isset($modid) || empty($modid)) {
-            $msg = $this->translate('Invalid or Missing Parameter \'modid\'');
+            $msg = $this->ml('Invalid or Missing Parameter \'modid\'');
             throw new BadParameterException($msg);
         }
 
@@ -82,11 +82,11 @@ class ModuleStatsMethod extends MethodClass
             }
         }
 
-        $numstats = $this->getModVar('numstats');
+        $numstats = $this->mod()->getVar('numstats');
         if (empty($numstats)) {
             $numstats = 100;
         }
-        if (!$this->fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('startnum', $startnum, 'id')) {
             return;
         }
         if (empty($startnum)) {
@@ -94,7 +94,7 @@ class ModuleStatsMethod extends MethodClass
         }
 
         $args = ['modid' => $modid, 'numitems' => $numstats, 'startnum' => $startnum];
-        if (!$this->fetch('itemtype', 'int', $itemtypearg, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('itemtype', $itemtypearg, 'int')) {
             return;
         }
         if (isset($itemtypearg)) {
@@ -118,7 +118,7 @@ class ModuleStatsMethod extends MethodClass
         );
 
         // get the title and url for the items
-        $showtitle = $this->getModVar('showtitle');
+        $showtitle = $this->mod()->getVar('showtitle');
         if (!empty($showtitle)) {
             $itemids = array_keys($moditems);
             try {
@@ -145,7 +145,7 @@ class ModuleStatsMethod extends MethodClass
             $stats[$itemid] = [];
             $stats[$itemid]['pageid'] = $itemid;
             $stats[$itemid]['total'] = $info['count'];
-            $stats[$itemid]['delete_url'] = $this->getUrl(
+            $stats[$itemid]['delete_url'] = $this->mod()->getURL(
                 'admin',
                 'delete',
                 ['dtype' => 'object',
@@ -174,7 +174,7 @@ class ModuleStatsMethod extends MethodClass
         } else {
             $dalltype = 'module';
         }
-        $data['delete_all_url']   = $this->getUrl(
+        $data['delete_all_url']   = $this->mod()->getURL(
             'admin',
             'delete',
             ['dtype' => $dalltype,
@@ -201,7 +201,7 @@ class ModuleStatsMethod extends MethodClass
             $data['pager'] = xarTplPager::getPager(
                 $startnum,
                 $numitems,
-                $this->getUrl(
+                $this->mod()->getURL(
                     'admin',
                     'module_stats',
                     ['modid' => $modid,

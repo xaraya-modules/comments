@@ -38,19 +38,19 @@ class DisplayallMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->fetch('modid', 'array', $args['modid'], ['all'], xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('modid', $args['modid'], 'array', ['all'])) {
             return;
         };
-        if (!$this->fetch('itemtype', 'int', $args['itemtype'], null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('itemtype', $args['itemtype'], 'int')) {
             return;
         };
-        if (!$this->fetch('order', 'str', $args['order'], 'DESC', xarVar::GET_OR_POST)) {
+        if (!$this->var()->get('order', $args['order'], 'str', 'DESC')) {
             return;
         };
-        if (!$this->fetch('howmany', 'id', $args['howmany'], 20, xarVar::GET_OR_POST)) {
+        if (!$this->var()->get('howmany', $args['howmany'], 'id', 20)) {
             return;
         };
-        if (!$this->fetch('first', 'id', $args['first'], 1, xarVar::GET_OR_POST)) {
+        if (!$this->var()->get('first', $args['first'], 'id', 1)) {
             return;
         };
 
@@ -96,7 +96,7 @@ class DisplayallMethod extends MethodClass
         $modlist = [];
         $modname = [];
         $modview = [];
-        $modlist['all'] = $this->translate('All');
+        $modlist['all'] = $this->ml('All');
         // make sure we only retrieve comments from hooked modules
         $todolist = [];
         if (isset($hookedmodules) && is_array($hookedmodules)) {
@@ -129,7 +129,7 @@ class DisplayallMethod extends MethodClass
                         if (isset($mytypes[$itemtype])) {
                             $type = $mytypes[$itemtype]['label'];
                         } else {
-                            $type = $this->translate('type #(1)', $itemtype);
+                            $type = $this->ml('type #(1)', $itemtype);
                         }
                         $modlist["$module.$itemtype"] = ucwords($module) . ' - ' . $type;
                     }
@@ -221,11 +221,11 @@ class DisplayallMethod extends MethodClass
 
                 $hoursdiff = ($timenow - $msgunixtime) / 3600;
                 if ($hoursdiff < $hoursnow && $msgdate != $dateprev) {
-                    $daylabel = $this->translate('Today');
+                    $daylabel = $this->ml('Today');
                 } elseif ($hoursdiff >= $hoursnow && $hoursdiff < $hoursnow + 24 && ($msgdate != $dateprev)) {
-                    $daylabel = $this->translate('Yesterday');
+                    $daylabel = $this->ml('Yesterday');
                 } elseif ($hoursdiff >= $hoursnow + 24 && $hoursdiff < $hoursnow + 48 && $msgdate != $dateprev) {
-                    $daylabel = $this->translate('Two days ago');
+                    $daylabel = $this->ml('Two days ago');
                 } elseif ($hoursdiff >= $hoursnow + 48 && $hoursdiff < $hoursnow + 144 && $msgdate != $dateprev) {
                     $daylabel = $msgday;
                 } elseif ($hoursdiff >= $hoursnow + 144 && $msgdate != $dateprev) {
@@ -293,8 +293,8 @@ class DisplayallMethod extends MethodClass
         $templateargs['modid']          = $modarray;
         $templateargs['itemtype']       = $itemtype ?? 0;
         $templateargs['modlist']        = $modlist;
-        /*$templateargs['decoded_returnurl'] = rawurldecode($this->getUrl('user', 'displayall'));*/
-        $templateargs['decoded_nexturl'] = $this->getUrl(
+        /*$templateargs['decoded_returnurl'] = rawurldecode($this->mod()->getURL('user', 'displayall'));*/
+        $templateargs['decoded_nexturl'] = $this->mod()->getURL(
             'user',
             'displayall',
             [
@@ -306,9 +306,9 @@ class DisplayallMethod extends MethodClass
         $templateargs['order']          = $settings['order'];
 
         if ($args['block_is_calling'] == 0) {
-            $data = xarTpl::module('comments', 'user', 'displayall', $templateargs);
+            $data = $this->mod()->template('displayall', $templateargs);
         } else {
-            $templateargs['olderurl'] = $this->getUrl(
+            $templateargs['olderurl'] = $this->mod()->getURL(
                 'user',
                 'displayall',
                 [

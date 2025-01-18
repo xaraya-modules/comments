@@ -41,7 +41,7 @@ class RssMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         extract($args);
-        if (!$this->checkAccess('ReadComments', 0)) {
+        if (!$this->sec()->checkAccess('ReadComments', 0)) {
             return;
         }
 
@@ -58,7 +58,7 @@ class RssMethod extends MethodClass
         $modlist = [];
         $modname = [];
         $modview = [];
-        $modlist['all'] = $this->translate('All');
+        $modlist['all'] = $this->ml('All');
         // make sure we only retrieve comments from hooked modules
         $todolist = [];
         if (isset($hookedmodules) && is_array($hookedmodules)) {
@@ -91,7 +91,7 @@ class RssMethod extends MethodClass
                         if (isset($mytypes[$itemtype])) {
                             $type = $mytypes[$itemtype]['label'];
                         } else {
-                            $type = $this->translate('type #(1)', $itemtype);
+                            $type = $this->ml('type #(1)', $itemtype);
                         }
                         $modlist["$module.$itemtype"] = ucwords($module) . ' - ' . $type;
                     }
@@ -111,7 +111,7 @@ class RssMethod extends MethodClass
             }
         }
         $args['modarray']   = $todolist;
-        $args['howmany']    = $this->getModVar('rssnumitems');
+        $args['howmany']    = $this->mod()->getVar('rssnumitems');
         $items = xarMod::apiFunc('comments', 'user', 'get_multipleall', $args);
 
         for ($i = 0; $i < count($items); $i++) {
@@ -134,7 +134,7 @@ class RssMethod extends MethodClass
                 }
             } else {
                 // We'll use the comment link instead
-                $items[$i]['link'] = $this->getUrl( 'user', 'display', ['id' => $item['id']]);
+                $items[$i]['link'] = $this->mod()->getURL( 'user', 'display', ['id' => $item['id']]);
             }
 
             $items[$i]['rsssummary'] = preg_replace('<br />', "\n", $item['text']);

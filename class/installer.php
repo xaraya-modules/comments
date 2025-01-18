@@ -214,25 +214,25 @@ class Installer extends InstallerClass
         #
         # Set up modvars
         #
-        $this->setModVar('render', Defines::VIEW_THREADED);
-        $this->setModVar('sortby', Defines::SORTBY_THREAD);
-        $this->setModVar('order', Defines::SORT_ASC);
-        $this->setModVar('depth', Defines::MAX_DEPTH);
-        $this->setModVar('AllowPostAsAnon', 1);
-        $this->setModVar('AuthorizeComments', 0);
-        $this->setModVar('AllowCollapsableThreads', 1);
-        $this->setModVar('CollapsedBranches', serialize([]));
-        $this->setModVar('editstamp', 1);
-        $this->setModVar('usersetrendering', false);
-        $this->setModVar('allowhookoverride', false);
-        $this->setModVar('edittimelimit', 0);
-        $this->setModVar('numstats', 100);
-        $this->setModVar('rssnumitems', 25);
-        $this->setModVar('wrap', false);
-        $this->setModVar('showtitle', false);
-        $this->setModVar('useblacklist', false);
-        $this->setModVar('enable_filters', 1);
-        $this->setModVar('filters_min_item_count', 3);
+        $this->mod()->setVar('render', Defines::VIEW_THREADED);
+        $this->mod()->setVar('sortby', Defines::SORTBY_THREAD);
+        $this->mod()->setVar('order', Defines::SORT_ASC);
+        $this->mod()->setVar('depth', Defines::MAX_DEPTH);
+        $this->mod()->setVar('AllowPostAsAnon', 1);
+        $this->mod()->setVar('AuthorizeComments', 0);
+        $this->mod()->setVar('AllowCollapsableThreads', 1);
+        $this->mod()->setVar('CollapsedBranches', serialize([]));
+        $this->mod()->setVar('editstamp', 1);
+        $this->mod()->setVar('usersetrendering', false);
+        $this->mod()->setVar('allowhookoverride', false);
+        $this->mod()->setVar('edittimelimit', 0);
+        $this->mod()->setVar('numstats', 100);
+        $this->mod()->setVar('rssnumitems', 25);
+        $this->mod()->setVar('wrap', false);
+        $this->mod()->setVar('showtitle', false);
+        $this->mod()->setVar('useblacklist', false);
+        $this->mod()->setVar('enable_filters', 1);
+        $this->mod()->setVar('filters_min_item_count', 3);
 
         # --------------------------------------------------------
         #

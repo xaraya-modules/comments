@@ -23,11 +23,11 @@ use Xaraya\Modules\Comments\Defines;
 function comments_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security Check
-    if (!$this->checkAccess('AdminComments')) {
+    if (!$this->sec()->checkAccess('AdminComments')) {
         return;
     }
-    //$numstats       = $this->getModVar('numstats');
-    //  $rssnumitems    = $this->getModVar('rssnumitems');
+    //$numstats       = $this->mod()->getVar('numstats');
+    //  $rssnumitems    = $this->mod()->getVar('rssnumitems');
 
     if (empty($rssnumitems)) {
         //xarModVars::set('comments', 'rssnumitems', 25);
@@ -36,13 +36,13 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         //xarModVars::set('comments', 'numstats', 100);
     }
 
-    if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+    if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
         return;
     }
-    if (!$this->fetch('tab', 'str:1:100', $data['tab'], 'comments_general', xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('tab', $data['tab'], 'str:1:100', 'comments_general')) {
         return;
     }
-    if (!$this->fetch('tabmodule', 'str:1:100', $tabmodule, 'comments', xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('tabmodule', $tabmodule, 'str:1:100', 'comments')) {
         return;
     }
     $hooks = xarModHooks::call('module', 'getconfig', 'comments');
@@ -76,64 +76,64 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         case 'update':
             // Confirm authorisation code
             // if (!xarSec::confirmAuthKey()) return;
-            //if (!$this->fetch('itemsperpage', 'int', $itemsperpage, $this->getModVar('itemsperpage'), xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) return;
-            //if (!$this->fetch('shorturls', 'checkbox', $shorturls, false, xarVar::NOT_REQUIRED)) return;
-            //if (!$this->fetch('modulealias', 'checkbox', $useModuleAlias,  $this->getModVar('useModuleAlias'), xarVar::NOT_REQUIRED)) return;
-            //if (!$this->fetch('aliasname', 'str', $aliasname,  $this->getModVar('aliasname'), xarVar::NOT_REQUIRED)) return;
-            if (!$this->fetch('editstamp', 'int', $editstamp, $this->getModVar('editstamp'), xarVar::NOT_REQUIRED)) {
+            //if (!$this->var()->find('itemsperpage', $itemsperpage, 'int', $this->mod()->getVar('itemsperpage'))) return;
+            //if (!$this->var()->find('shorturls', $shorturls, 'checkbox', false)) return;
+            //if (!$this->var()->find('modulealias', $useModuleAlias, 'checkbox', $this->mod()->getVar('useModuleAlias'))) return;
+            //if (!$this->var()->find('aliasname', $aliasname, 'str', $this->mod()->getVar('aliasname'))) return;
+            if (!$this->var()->find('editstamp', $editstamp, 'int', $this->mod()->getVar('editstamp'))) {
                 return;
             }
 
-            if (!$this->fetch('wrap', 'checkbox', $wrap, $this->getModVar('wrap'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('wrap', $wrap, 'checkbox', $this->mod()->getVar('wrap'))) {
                 return;
             }
-            if (!$this->fetch('numstats', 'str', $numstats, 20, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-
-            if (!$this->fetch('rssnumitems', 'int', $rssnumitems, $this->getModVar('rssnumitems'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!$this->fetch('showtitle', 'checkbox', $showtitle, $this->getModVar('showtitle'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!$this->fetch('enable_comments', 'checkbox', $showtitle, $this->getModVar('enable_comments'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('numstats', $numstats, 'str', 20)) {
                 return;
             }
 
-            if (!$this->fetch('filters_min_item_count', 'int', $filters_min_item_count, $this->getModVar('filters_min_item_count'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('rssnumitems', $rssnumitems, 'int', $this->mod()->getVar('rssnumitems'))) {
                 return;
             }
-            if (!$this->fetch('filters_min_item_count', 'int', $filters_min_item_count, $this->getModVar('filters_min_item_count'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('showtitle', $showtitle, 'checkbox', $this->mod()->getVar('showtitle'))) {
+                return;
+            }
+            if (!$this->var()->find('enable_comments', $showtitle, 'checkbox', $this->mod()->getVar('enable_comments'))) {
                 return;
             }
 
-            if (!$this->fetch('postanon', 'checkbox', $postanon, $this->getModVar('postanon'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('filters_min_item_count', $filters_min_item_count, 'int', $this->mod()->getVar('filters_min_item_count'))) {
                 return;
             }
-            if (!$this->fetch('useblacklist', 'checkbox', $useblacklist, $this->getModVar('useblacklist'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('filters_min_item_count', $filters_min_item_count, 'int', $this->mod()->getVar('filters_min_item_count'))) {
                 return;
             }
-            if (!$this->fetch('useblacklist', 'checkbox', $useblacklist, 1, xarVar::NOT_REQUIRED)) {
+
+            if (!$this->var()->find('postanon', $postanon, 'checkbox', $this->mod()->getVar('postanon'))) {
                 return;
             }
-            if (!$this->fetch('depth', 'str:1:', $depth, Defines::MAX_DEPTH, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('useblacklist', $useblacklist, 'checkbox', $this->mod()->getVar('useblacklist'))) {
                 return;
             }
-            if (!$this->fetch('render', 'str:1:', $render, Defines::VIEW_THREADED, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('useblacklist', $useblacklist, 'checkbox', 1)) {
                 return;
             }
-            if (!$this->fetch('sortby', 'str:1:', $sortby, Defines::SORTBY_THREAD, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('depth', $depth, 'str:1:', Defines::MAX_DEPTH)) {
                 return;
             }
-            if (!$this->fetch('order', 'str:1:', $order, Defines::SORT_ASC, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('render', $render, 'str:1:', Defines::VIEW_THREADED)) {
                 return;
             }
-            // if (!$this->fetch('authorize', 'checkbox', $authorize, $this->getModVar('authorize'), xarVar::NOT_REQUIRED)) return;
-            if (!$this->fetch('authorize', 'checkbox', $authorize, 1, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('sortby', $sortby, 'str:1:', Defines::SORTBY_THREAD)) {
                 return;
             }
-            if (!$this->fetch('usersetrendering', 'checkbox', $usersetrendering, $this->getModVar('usersetrendering'), xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('order', $order, 'str:1:', Defines::SORT_ASC)) {
+                return;
+            }
+            // if (!$this->var()->find('authorize', $authorize, 'checkbox', $this->mod()->getVar('authorize'))) return;
+            if (!$this->var()->find('authorize', $authorize, 'checkbox', 1)) {
+                return;
+            }
+            if (!$this->var()->find('usersetrendering', $usersetrendering, 'checkbox', $this->mod()->getVar('usersetrendering'))) {
                 return;
             }
 
@@ -202,7 +202,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                 }
             }
 
-            $this->redirect($this->getUrl(
+            $this->ctl()->redirect($this->mod()->getURL(
                 'admin',
                 'modifyconfig',
                 ['tabmodule' => $tabmodule, 'tab' => $data['tab']]

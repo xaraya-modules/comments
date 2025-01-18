@@ -20,23 +20,23 @@
  */
 function comments_admin_delete(array $args = [], $context = null)
 {
-    if (!$this->checkAccess('ManageComments')) {
+    if (!$this->sec()->checkAccess('ManageComments')) {
         return;
     }
 
-    if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
         return;
     }
-    if (!$this->fetch('deletebranch', 'bool', $deletebranch, false, xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('deletebranch', $deletebranch, 'bool', false)) {
         return;
     }
-    if (!$this->fetch('redirect', 'str', $data['redirect'], '', xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('redirect', $data['redirect'], 'str', '')) {
         return;
     }
-    if (!$this->fetch('itemtype', 'str', $data['itemtype'], null, xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('itemtype', $data['itemtype'], 'str')) {
         return;
     }
-    if (!$this->fetch('dtype', 'str', $data['dtype'], "", xarVar::NOT_REQUIRED)) {
+    if (!$this->var()->find('dtype', $data['dtype'], 'str', "")) {
         return;
     }
 
@@ -48,7 +48,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
     switch (strtolower($data['dtype'])) {
         case 'item': // delete just one comment
-            if (!$this->fetch('itemid', 'int', $itemid)) {
+            if (!$this->var()->get('itemid', $itemid), 'int') {
                 return;
             }
 
@@ -63,13 +63,13 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'object': // delete all comments for a content item
-            if (!$this->fetch('itemtype', 'int', $itemtype, 0, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('itemtype', $itemtype, 'int', 0)) {
                 return;
             }
-            if (!$this->fetch('modid', 'int:1', $modid)) {
+            if (!$this->var()->get('modid', $modid), 'int:1') {
                 return;
             }
-            if (!$this->fetch('objectid', 'int:1', $objectid)) {
+            if (!$this->var()->get('objectid', $objectid), 'int:1') {
                 return;
             }
 
@@ -81,10 +81,10 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'itemtype': // delete all comments for an itemtype
-            if (!$this->fetch('itemtype', 'int', $itemtype)) {
+            if (!$this->var()->get('itemtype', $itemtype), 'int') {
                 return;
             }
-            if (!$this->fetch('modid', 'int:1', $modid)) {
+            if (!$this->var()->get('modid', $modid), 'int:1') {
                 return;
             }
 
@@ -95,7 +95,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'module':  // delete all comments for a module
-            if (!$this->fetch('modid', 'int:1', $modid)) {
+            if (!$this->var()->get('modid', $modid), 'int:1') {
                 return;
             }
 
@@ -130,7 +130,7 @@ function comments_admin_delete(array $args = [], $context = null)
         $data['count'] = count($countitems);
 
         if ($data['confirm'] && is_array($data['items'])) {
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return;
             }
 
@@ -148,7 +148,7 @@ function comments_admin_delete(array $args = [], $context = null)
         }
     } else { // $data['dtype'] == 'item'
         if ($data['confirm']) {
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return;
             }
             if ($deletebranch) {
@@ -173,11 +173,11 @@ function comments_admin_delete(array $args = [], $context = null)
 
     if ($data['confirm'] && !empty($data['redirect'])) {
         if ($data['redirect'] == 'view') {
-            $this->redirect($this->getUrl('admin', 'view'));
+            $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
         } elseif ($data['redirect'] == 'stats') {
-            $this->redirect($this->getUrl('admin', 'stats'));
+            $this->ctl()->redirect($this->mod()->getURL('admin', 'stats'));
         } elseif (is_numeric($data['redirect'])) {
-            $this->redirect($this->getUrl(
+            $this->ctl()->redirect($this->mod()->getURL(
                 'admin',
                 'module_stats',
                 ['modid' => $data['redirect']]

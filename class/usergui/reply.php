@@ -48,7 +48,7 @@ class ReplyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('PostComments')) {
+        if (!$this->sec()->checkAccess('PostComments')) {
             return;
         }
 
@@ -61,7 +61,7 @@ class ReplyMethod extends MethodClass
         # --------------------------------------------------------
         # Take appropriate action
         #
-        if (!$this->fetch('comment_action', 'str', $data['comment_action'], 'reply', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('comment_action', $data['comment_action'], 'str', 'reply')) {
             return;
         }
         switch (strtolower($data['comment_action'])) {
@@ -85,7 +85,7 @@ class ReplyMethod extends MethodClass
                     0
                 );
 
-                if ($this->getModVar('AuthorizeComments') || $this->checkAccess('AddComments')) {
+                if ($this->mod()->getVar('AuthorizeComments') || $this->sec()->checkAccess('AddComments')) {
                     $status = Defines::STATUS_ON;
                 } else {
                     $status = Defines::STATUS_OFF;
@@ -95,7 +95,7 @@ class ReplyMethod extends MethodClass
                 # If something is wrong, represent the form
                 #
                 if (!$valid) {
-                    return xarTpl::module('comments', 'user', 'reply', $data);
+                    return $this->mod()->template('reply', $data);
                 }
 
                 # --------------------------------------------------------
@@ -106,14 +106,14 @@ class ReplyMethod extends MethodClass
                 } else {
                     $data['comment_id'] = 0;
                 }
-                $this->redirect($data['reply']->properties['parent_url']->value . '#' . $data['comment_id']);
+                $this->ctl()->redirect($data['reply']->properties['parent_url']->value . '#' . $data['comment_id']);
                 return true;
 
             case 'reply':
                 # --------------------------------------------------------
                 # Bail if the proper args were not passed
                 #
-                if (!$this->fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED)) {
+                if (!$this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0)) {
                     return;
                 }
                 if (empty($data['comment_id'])) {

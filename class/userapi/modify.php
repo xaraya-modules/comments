@@ -47,7 +47,7 @@ class ModifyMethod extends MethodClass
     {
         extract($args);
 
-        $msg = $this->translate('Missing or Invalid Parameters: ');
+        $msg = $this->ml('Missing or Invalid Parameters: ');
         $error = false;
 
         if (!isset($title)) {
@@ -70,27 +70,27 @@ class ModifyMethod extends MethodClass
             $error = true;
         }
 
-        if (isset($itemtype) && !xarVar::validate('int:0:', $itemtype)) {
+        if (isset($itemtype) && !$this->var()->validate('int:0:', $itemtype)) {
             $msg .= xarMLS::translateByKey('itemtype');
             $error = true;
         }
 
-        if (isset($objectid) && !xarVar::validate('int:1:', $objectid)) {
+        if (isset($objectid) && !$this->var()->validate('int:1:', $objectid)) {
             $msg .= xarMLS::translateByKey('objectid');
             $error = true;
         }
 
-        if (isset($date) && !xarVar::validate('int:1:', $date)) {
+        if (isset($date) && !$this->var()->validate('int:1:', $date)) {
             $msg .= xarMLS::translateByKey('date');
             $error = true;
         }
 
-        if (isset($status) && !xarVar::validate('enum:1:2:3', $status)) {
+        if (isset($status) && !$this->var()->validate('enum:1:2:3', $status)) {
             $msg .= xarMLS::translateByKey('status');
             $error = true;
         }
 
-        if (isset($useeditstamp) && !xarVar::validate('enum:0:1:2', $useeditstamp)) {
+        if (isset($useeditstamp) && !$this->var()->validate('enum:0:1:2', $useeditstamp)) {
             $msg .= xarMLS::translateByKey('useeditstamp');
             $error = true;
         }
@@ -105,7 +105,7 @@ class ModifyMethod extends MethodClass
         } else {
             $hostname = xarServer::getVar('REMOTE_ADDR');
         }
-        $useeditstamp = $this->getModVar('editstamp');
+        $useeditstamp = $this->mod()->getVar('editstamp');
         $adminid = xarModVars::get('roles', 'admin');
 
         /*$dbconn = xarDB::getConn();
@@ -117,7 +117,7 @@ class ModifyMethod extends MethodClass
         if (xarModHooks::isHooked('changelog', 'comments', 0)){
             $url = xarController::URL('changelog', 'admin', 'showlog', array('modid' => '14', 'itemid' => $id));
             $text .= "\n<p>\n";
-            $text .= '<a href="' . $url . '" title="' . $this->translate('See Changes') .'">';
+            $text .= '<a href="' . $url . '" title="' . $this->ml('See Changes') .'">';
             $text .= '</a>';
             $text .= "\n</p>\n"; //let's keep the begin and end tags together around the wrapped content
         }
@@ -126,7 +126,7 @@ class ModifyMethod extends MethodClass
         if (($useeditstamp == 1) ||
                          (($useeditstamp == 2) && (xarUser::getVar('id') <> $adminid))) {
             $text .= "\n";
-            $text .= xarTpl::module('comments', 'user', 'modifiedby', [
+            $text .= $this->mod()->template('modifiedby', [
                 'isauthor' => (xarUser::getVar('id') == $authorid),
                 'postanon' => $postanon, ]);
             $text .= "\n"; //let's keep the begin and end tags together around the wrapped content

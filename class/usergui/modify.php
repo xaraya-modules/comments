@@ -50,17 +50,17 @@ class ModifyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->fetch('parent_url', 'str', $parent_url, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('parent_url', $parent_url, 'str', 0)) {
             return;
         }
-        if (!$this->fetch('adminreturn', 'str', $data['adminreturn'], null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('adminreturn', $data['adminreturn'], 'str')) {
             return;
         }
 
         # --------------------------------------------------------
         # Bail if the proper args were not passed
         #
-        if (!$this->fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0)) {
             return;
         }
         if (empty($data['comment_id'])) {
@@ -78,7 +78,7 @@ class ModifyMethod extends MethodClass
         # Check that this user can modify this comment
         #
         if ($data['object']->properties['author']->value != xarUser::getVar('id')) {
-            if (!$this->checkAccess('EditComments')) {
+            if (!$this->sec()->checkAccess('EditComments')) {
                 return;
             }
         }
@@ -116,7 +116,7 @@ class ModifyMethod extends MethodClass
         # --------------------------------------------------------
         # Take appropriate action
         #
-        if (!$this->fetch('comment_action', 'str', $data['comment_action'], 'modify', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('comment_action', $data['comment_action'], 'str', 'modify')) {
             return;
         }
         switch ($data['comment_action']) {
@@ -132,7 +132,7 @@ class ModifyMethod extends MethodClass
 
                 if (empty($package['settings']['edittimelimit'])
                    or (time() <= ($package['comments'][0]['xar_date'] + ($package['settings']['edittimelimit'] * 60)))
-                   or $this->checkAccess('AdminComments')) {
+                   or $this->sec()->checkAccess('AdminComments')) {
                     $package = xarModHooks::call(
                         'item',
                         'transform-input',
@@ -145,7 +145,7 @@ class ModifyMethod extends MethodClass
                     # If something is wrong, redisplay the form
                     #
                     if (!$valid) {
-                        return xarTpl::module('comments', 'user', 'modify', $data);
+                        return $this->mod()->template('modify', $data);
                     }
 
                     # --------------------------------------------------------
@@ -155,9 +155,9 @@ class ModifyMethod extends MethodClass
                 }
 
                 if (isset($data['adminreturn']) && $data['adminreturn'] == 'yes') { // if we got here via the admin side
-                    $this->redirect($this->getUrl('admin', 'view'));
+                    $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
                 } else {
-                    $this->redirect($data['object']->properties['parent_url']->value . '#' . $data['comment_id']);
+                    $this->ctl()->redirect($data['object']->properties['parent_url']->value . '#' . $data['comment_id']);
                 }
                 return true;
             case 'modify':

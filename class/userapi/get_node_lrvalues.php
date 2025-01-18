@@ -42,7 +42,7 @@ class GetNodeLrvaluesMethod extends MethodClass
         extract($args);
 
         if (empty($id)) {
-            $msg = $this->translate('Missing or Invalid parameter \'id\'!!');
+            $msg = $this->ml('Missing or Invalid parameter \'id\'!!');
             throw new BadParameterException($msg);
         }
 

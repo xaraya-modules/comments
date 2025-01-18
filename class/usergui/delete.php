@@ -40,20 +40,20 @@ class DeleteMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ManageComments')) {
+        if (!$this->sec()->checkAccess('ManageComments')) {
             return;
         }
 
-        if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
             return;
         }
-        if (!$this->fetch('deletebranch', 'bool', $deletebranch, false, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('deletebranch', $deletebranch, 'bool', false)) {
             return;
         }
-        if (!$this->fetch('id', 'int', $data['id'], null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('id', $data['id'], 'int')) {
             return;
         }
-        if (!$this->fetch('parent_url', 'str', $data['parent_url'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('parent_url', $data['parent_url'], 'str', '')) {
             return;
         }
 
@@ -77,16 +77,16 @@ class DeleteMethod extends MethodClass
                     'delete_branch',
                     ['node' => $header['id']]
                 );
-                $this->redirect($data['parent_url']);
+                $this->ctl()->redirect($data['parent_url']);
                 return true;
             } else {
                 $data['object']->deleteItem(['itemid' => $data['id']]);
-                $this->redirect($data['parent_url']);
+                $this->ctl()->redirect($data['parent_url']);
                 return true;
             }
         }
 
-        $data['package']['delete_url'] = $this->getUrl('user', 'delete');
+        $data['package']['delete_url'] = $this->mod()->getURL('user', 'delete');
 
         $comments = xarMod::apiFunc('comments', 'user', 'get_one', ['id' => $data['id']]);
         if ($comments[0]['position_atomic']['right'] == $comments[0]['position_atomic']['left'] + 1) {

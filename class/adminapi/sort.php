@@ -41,10 +41,10 @@ class SortMethod extends MethodClass
 
         extract($args);
 
-        if (!$this->fetch($url_sortfield, 'isset', $sortfield, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check($url_sortfield, $sortfield)) {
             return;
         }
-        if (!$this->fetch($url_ascdesc, 'isset', $ascdesc, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find($url_ascdesc, $ascdesc)) {
             return;
         }
 

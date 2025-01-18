@@ -48,12 +48,12 @@ class GetNodeRootMethod extends MethodClass
         $exception = false;
 
         if (!isset($modid) || empty($modid)) {
-            $msg = $this->translate('Missing or Invalid parameter \'modid\'!!');
+            $msg = $this->ml('Missing or Invalid parameter \'modid\'!!');
             throw new BadParameterException($msg);
         }
 
         if (!isset($objectid) || empty($objectid)) {
-            $msg = $this->translate('Missing or Invalid parameter \'objectid\'!!');
+            $msg = $this->ml('Missing or Invalid parameter \'objectid\'!!');
             throw new BadParameterException($msg);
         }
 

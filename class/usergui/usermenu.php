@@ -41,28 +41,26 @@ class UsermenuMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         extract($args);
-        $usergui = $this->getParent();
 
         // Security Check
-        if ($this->checkAccess('ReadComments', 0)) {
-            if (!$this->fetch('phase', 'str', $phase, 'menu', xarVar::NOT_REQUIRED)) {
+        if ($this->sec()->checkAccess('ReadComments', 0)) {
+            if (!$this->var()->find('phase', $phase, 'str', 'menu')) {
                 return;
             }
 
-            $usergui->setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
-                               xarVar::prepForDisplay($this->translate('Comments'))
-                               . ' :: ' . xarVar::prepForDisplay($this->translate('Your Account Preferences')));
+            $this->tpl()->setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
+                               xarVar::prepForDisplay($this->ml('Comments'))
+                               . ' :: ' . xarVar::prepForDisplay($this->ml('Your Account Preferences')));
 
             switch (strtolower($phase)) {
                 case 'menu':
 
                     $icon = xarTpl::getImage('comments.gif', 'comments');
-                    $data = xarTpl::module(
-                        'comments',
-                        'user',
+                    $data = $this->mod()->template(
                         'usermenu_icon',
-                        ['icon' => $icon,
-                            'usermenu_form_url' => $this->getUrl( 'user', 'usermenu', ['phase' => 'form']),
+                        [
+                            'icon' => $icon,
+                            'usermenu_form_url' => $this->mod()->getURL( 'user', 'usermenu', ['phase' => 'form']),
                         ]
                     );
                     break;
@@ -71,31 +69,31 @@ class UsermenuMethod extends MethodClass
 
                     $settings = xarMod::apiFunc('comments', 'user', 'getoptions');
                     $settings['max_depth'] = Defines::MAX_DEPTH - 1;
-                    $authid = xarSec::genAuthKey('comments');
-                    $data = xarTpl::module('comments', 'user', 'usermenu_form', ['authid'   => $authid,
+                    $authid = $this->sec()->genAuthKey();
+                    $data = $this->mod()->template('usermenu_form', ['authid'   => $authid,
                         'settings' => $settings, ]);
                     break;
 
                 case 'update':
 
-                    if (!$this->fetch('settings', 'array', $settings, [], xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('settings', $settings, 'array', [])) {
                         return;
                     }
 
                     if (count($settings) <= 0) {
-                        $msg = $this->translate('Settings passed from form are empty!');
+                        $msg = $this->ml('Settings passed from form are empty!');
                         throw new BadParameterException($msg);
                     }
 
                     // Confirm authorisation code.
-                    if (!$this->confirmAuthKey()) {
+                    if (!$this->sec()->confirmAuthKey()) {
                         return;
                     }
 
                     xarMod::apiFunc('comments', 'user', 'setoptions', $settings);
 
                     // Redirect
-                    $this->redirect(xarController::URL('roles', 'user', 'account'));
+                    $this->ctl()->redirect(xarController::URL('roles', 'user', 'account'));
 
                     break;
             }

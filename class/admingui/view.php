@@ -41,7 +41,7 @@ class ViewMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ManageComments')) {
+        if (!$this->sec()->checkAccess('ManageComments')) {
             return;
         }
 
@@ -58,7 +58,7 @@ class ViewMethod extends MethodClass
         $data['conditions'] = $q;
         return $data;
 
-        if (!$this->fetch('startnum', 'int', $startnum, 1, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('startnum', $startnum, 'int', 1)) {
             return;
         }
 
@@ -72,7 +72,7 @@ class ViewMethod extends MethodClass
         $object = DataObjectFactory::getObject(['name' => 'comments_comments']);
         $config = $object->configuration;
         $adminfields = reset($config['adminfields']);
-        $numitems = $this->getModVar('items_per_page');
+        $numitems = $this->mod()->getVar('items_per_page');
 
         $filters = [];
 
@@ -84,12 +84,12 @@ class ViewMethod extends MethodClass
         ]);
         $data['total'] = $total->countItems();
 
-        $filters_min_items = $this->getModVar('filters_min_item_count');
+        $filters_min_items = $this->mod()->getVar('filters_min_item_count');
 
         $data['makefilters'] = [];
         $data['showfilters'] = false;
 
-        if (xarMod::isAvailable('filters') && $this->getModVar('enable_filters') && $data['total'] >= $filters_min_items) {
+        if (xarMod::isAvailable('filters') && $this->mod()->getVar('enable_filters') && $data['total'] >= $filters_min_items) {
             $data['showfilters'] = true;
             $filterfields = $config['filterfields'];
             $get_results = xarMod::apiFunc('filters', 'user', 'dd_get_results', [

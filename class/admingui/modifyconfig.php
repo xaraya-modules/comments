@@ -42,12 +42,12 @@ class ModifyconfigMethod extends MethodClass
     {
         // Security check - important to do this as early as possible to avoid
         // potential security holes or just too much wasted processing
-        if (!$this->checkAccess('Admincomments')) {
+        if (!$this->sec()->checkAccess('Admincomments')) {
             return;
         }
 
         // Check if this template has been submitted, or if we just got here
-        if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+        if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
             return;
         }
 
@@ -83,7 +83,7 @@ class ModifyconfigMethod extends MethodClass
                 # the dynamicdata module, where the same check is done. Since both checks cannot simultaneously
                 # be passed, (the act of checking resets the check) the one below is disabled in this example.
                 #
-                //if (!$this->confirmAuthKey()) return;
+                //if (!$this->sec()->confirmAuthKey()) return;
 
                 # --------------------------------------------------------
                 #
@@ -98,7 +98,7 @@ class ModifyconfigMethod extends MethodClass
 
                 $isvalid = $data['module_settings']->checkInput();
                 if (!$isvalid) {
-                    return xarTpl::module('comments', 'admin', 'modifyconfig', $data);
+                    return $this->mod()->template('modifyconfig', $data);
                 } else {
                     $itemid = $data['module_settings']->updateItem();
                 }
@@ -116,18 +116,18 @@ class ModifyconfigMethod extends MethodClass
                 #
                 /*
                     // Get parameters from whatever input we need.  All arguments to this
-                    // function should be obtained from $this->fetch(), getting them
+                    // function should be obtained from $this->var()->fetch(), getting them
                     // from other places such as the environment is not allowed, as that makes
                     // assumptions that will not hold in future versions of Xaraya
-                    if (!$this->fetch('bold', 'checkbox', $bold, false, xarVar::NOT_REQUIRED)) return;
+                    if (!$this->var()->find('bold', $bold, 'checkbox', false)) return;
 
                     // Confirm authorisation code.  This checks that the form had a valid
                     // authorisation code attached to it.  If it did not then the function will
                     // proceed no further as it is possible that this is an attempt at sending
                     // in false data to the system
-                    if (!$this->confirmAuthKey()) return;
+                    if (!$this->sec()->confirmAuthKey()) return;
 
-                    xarModVars::set('comments', 'bold', $bold);
+                    $this->mod()->setVar('bold', $bold);
                 */
 
                 # --------------------------------------------------------
@@ -150,7 +150,7 @@ class ModifyconfigMethod extends MethodClass
 
                 $item = $object->updateItem(['itemid' => 0]);
 
-                $this->redirect($this->getUrl('admin', 'modifyconfig'));
+                $this->ctl()->redirect($this->mod()->getURL('admin', 'modifyconfig'));
 
                 # --------------------------------------------------------
                 #

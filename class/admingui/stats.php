@@ -39,7 +39,7 @@ class StatsMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security Check
-        if (!$this->checkAccess('AdminComments')) {
+        if (!$this->sec()->checkAccess('AdminComments')) {
             return;
         }
 
@@ -87,14 +87,14 @@ class StatsMethod extends MethodClass
                         //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
                     }
                 }
-                $moditem['module_url'] = $this->getUrl(
+                $moditem['module_url'] = $this->mod()->getURL(
                     'admin',
                     'module_stats',
                     ['modid' => $modid,
                         'itemtype' => $itemtype, ]
                 );
 
-                $moditem['delete_url'] = $this->getUrl(
+                $moditem['delete_url'] = $this->mod()->getURL(
                     'admin',
                     'delete',
                     ['dtype' => 'itemtype',
@@ -109,7 +109,7 @@ class StatsMethod extends MethodClass
             }
         }
         $data['moditems']             = $moditems;
-        $data['delete_all_url']   = $this->getUrl(
+        $data['delete_all_url']   = $this->mod()->getURL(
             'admin',
             'delete',
             ['dtype' => 'all', 'redirect' => 'stats']

@@ -42,7 +42,7 @@ class GetitemlinksMethod extends MethodClass
     {
         extract($args);
         $itemlinks = [];
-        if (!$this->checkAccess('ReadComments', 0)) {
+        if (!$this->sec()->checkAccess('ReadComments', 0)) {
             return $itemlinks;
         }
 
@@ -59,14 +59,14 @@ class GetitemlinksMethod extends MethodClass
             if (!empty($item) && !empty($item[0]['title'])) {
                 $title = $item[0]['title'];
             } else {
-                $title = $this->translate('Comment #(1)', $itemid);
+                $title = $this->ml('Comment #(1)', $itemid);
             }
-            $itemlinks[$itemid] = ['url'   => $this->getUrl(
+            $itemlinks[$itemid] = ['url'   => $this->mod()->getURL(
                 'user',
                 'display',
                 ['id' => $itemid]
             ),
-                'title' => $this->translate('Display Comment'),
+                'title' => $this->ml('Display Comment'),
                 'label' => xarVar::prepForDisplay($title), ];
         }
         return $itemlinks;

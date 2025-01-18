@@ -12,6 +12,7 @@
 
 namespace Xaraya\Modules\Comments;
 
+use xarMLS;
 use xarMod;
 use xarModVars;
 use xarTpl;
@@ -138,7 +139,7 @@ class Renderer
     public static function array_markdepths_bypid(&$comments_list)
     {
         if (empty($comments_list) || !count($comments_list)) {
-            $msg = xarML('Empty comments list');
+            $msg = xarMLS::translate('Empty comments list');
             throw new BadParameterException($msg);
         }
 
@@ -297,11 +298,11 @@ class Renderer
 
                     // TODO: change thread_text / nested_text --> children_short_text / children_long_text
                     if ($childcount > 1) {
-                        $node['thread_text'] = xarML('(#(1) children.)', $childcount);
-                        $node['nested_text'] = xarML('#(1) children beneath this comment.', $childcount);
+                        $node['thread_text'] = xarMLS::translate('(#(1) children.)', $childcount);
+                        $node['nested_text'] = xarMLS::translate('#(1) children beneath this comment.', $childcount);
                     } else {
-                        $node['thread_text'] = xarML('(#(1) child.)', $childcount);
-                        $node['nested_text'] = xarML('#(1) child beneath this comment.', $childcount);
+                        $node['thread_text'] = xarMLS::translate('(#(1) child.)', $childcount);
+                        $node['nested_text'] = xarMLS::translate('#(1) child beneath this comment.', $childcount);
                     }
 
                     $new_list[] = $node;
@@ -658,7 +659,7 @@ class Renderer
     public static function array_sort(&$comment_list, $sortby, $direction)
     {
         if (!isset($comment_list) || !is_array($comment_list)) {
-            $msg = xarML(
+            $msg = xarMLS::translate(
                 'Missing or invalid argument [#(1)] for #(2) function #(3) in module #(4)',
                 'comment_list',
                 'renderer',

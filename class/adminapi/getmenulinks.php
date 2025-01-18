@@ -35,20 +35,20 @@ class GetmenulinksMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        $menulinks[] = ['url'   => $this->getUrl('admin', 'stats'),
-            'title' => $this->translate('View comments per module statistics'),
-            'label' => $this->translate('View Statistics'), ];
+        $menulinks[] = ['url'   => $this->mod()->getURL('admin', 'stats'),
+            'title' => $this->ml('View comments per module statistics'),
+            'label' => $this->ml('View Statistics'), ];
         /* Comment blacklist unavailable at 2005-10-12
-        if ($this->getModVar('useblacklist') == true){
-            $menulinks[] = Array('url'   => $this->getUrl('admin', 'importblacklist'),
-                                 'title' => $this->translate('Import the latest blacklist'),
-                                 'label' => $this->translate('Import Blacklist'));
+        if ($this->mod()->getVar('useblacklist') == true){
+            $menulinks[] = Array('url'   => $this->mod()->getURL('admin', 'importblacklist'),
+                                 'title' => $this->ml('Import the latest blacklist'),
+                                 'label' => $this->ml('Import Blacklist'));
         }
         */
 
-        $menulinks[] = ['url'   => $this->getUrl('admin', 'modifyconfig'),
-            'title' => $this->translate('Modify the comments module configuration'),
-            'label' => $this->translate('Modify Config'), ];
+        $menulinks[] = ['url'   => $this->mod()->getURL('admin', 'modifyconfig'),
+            'title' => $this->ml('Modify the comments module configuration'),
+            'label' => $this->ml('Modify Config'), ];
 
         if (empty($menulinks)) {
             $menulinks = '';

@@ -52,13 +52,13 @@ class CountCommentsMethod extends MethodClass
         $where_status   = '';
 
         if (empty($type) || !preg_match('/^(all|module|object)$/', $type)) {
-            $msg = $this->translate('Invalid Parameter \'type\' to function count_comments(). \'type\' must be: all, module, or object.');
+            $msg = $this->ml('Invalid Parameter \'type\' to function count_comments(). \'type\' must be: all, module, or object.');
             throw new BadParameterException($msg);
         } else {
             switch ($type) {
                 case 'object':
                     if (empty($objectid)) {
-                        $msg = $this->translate('Missing or Invalid Parameter \'objectid\'');
+                        $msg = $this->ml('Missing or Invalid Parameter \'objectid\'');
                         throw new BadParameterException($msg);
                     }
 
@@ -71,7 +71,7 @@ class CountCommentsMethod extends MethodClass
                     // no break
                 case 'module':
                     if (empty($modid)) {
-                        $msg = $this->translate('Missing or Invalid Parameter \'modid\'');
+                        $msg = $this->ml('Missing or Invalid Parameter \'modid\'');
                         throw new BadParameterException($msg);
                     }
 
@@ -88,7 +88,7 @@ class CountCommentsMethod extends MethodClass
             }
         }
         if (empty($status) || !preg_match('/^(all|inactive|active)$/', $status)) {
-            $msg = $this->translate('Invalid Parameter \'status\' to function count_module_comments(). \'status\' must be: all, active, or inactive.');
+            $msg = $this->ml('Invalid Parameter \'status\' to function count_module_comments(). \'status\' must be: all, active, or inactive.');
             throw new BadParameterException($msg);
         } else {
             switch ($status) {

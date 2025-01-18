@@ -39,22 +39,22 @@ class SearchMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->fetch('startnum', 'isset', $startnum, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('startnum', $startnum)) {
             return;
         }
-        if (!$this->fetch('header', 'isset', $header, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('header', $header)) {
             return;
         }
-        if (!$this->fetch('q', 'isset', $q, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('q', $q)) {
             return;
         }
-        if (!$this->fetch('bool', 'isset', $bool, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('bool', $bool)) {
             return;
         }
-        if (!$this->fetch('sort', 'isset', $sort, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('sort', $sort)) {
             return;
         }
-        if (!$this->fetch('author', 'isset', $author, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('author', $author)) {
             return;
         }
 
@@ -144,7 +144,7 @@ class SearchMethod extends MethodClass
         }
 
         if (!isset($data['package'])) {
-            $data['receipt']['status'] = $this->translate('No Comments Found Matching Search');
+            $data['receipt']['status'] = $this->ml('No Comments Found Matching Search');
         }
 
         $data['header'] = $header;

@@ -49,19 +49,19 @@ class SetoptionsMethod extends MethodClass
                 $depth = (Defines::MAX_DEPTH - 1);
             }
         } else {
-            $depth = $this->getModVar('depth');
+            $depth = $this->mod()->getVar('depth');
         }
 
         if (empty($render)) {
-            $render = $this->getModVar('render');
+            $render = $this->mod()->getVar('render');
         }
 
         if (empty($order)) {
-            $order = $this->getModVar('order');
+            $order = $this->mod()->getVar('order');
         }
 
         if (empty($sortby)) {
-            $sortby = $this->getModVar('sortby');
+            $sortby = $this->mod()->getVar('sortby');
         }
 
         if (xarUser::isLoggedIn()) {

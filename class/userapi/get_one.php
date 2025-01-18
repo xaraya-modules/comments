@@ -48,7 +48,7 @@ class GetOneMethod extends MethodClass
         extract($args);
 
         if (!isset($id) || empty($id)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Missing or Invalid argument [#(1)] for #(2) function #(3) in module #(4)',
                 'id',
                 'userapi',
@@ -114,7 +114,7 @@ class GetOneMethod extends MethodClass
          }*/
 
         if (!xarMod::load('comments', 'renderer')) {
-            $msg = $this->translate('Unable to load #(1) #(2) - unable to trim excess depth', 'comments', 'renderer');
+            $msg = $this->ml('Unable to load #(1) #(2) - unable to trim excess depth', 'comments', 'renderer');
             throw new Exception($msg);
         }
 
@@ -135,7 +135,7 @@ class GetOneMethod extends MethodClass
         */
 
         if (!Renderer::array_markdepths_bypid($values)) {
-            $msg = $this->translate('Unable to add depth field to comments!');
+            $msg = $this->ml('Unable to add depth field to comments!');
             throw new Exception($msg);
             // FIXME: <rabbitt> this stuff should really be moved out of the comments
             //        module into a "rendering" module of some sort anyway -- or (god forbid) a widget.

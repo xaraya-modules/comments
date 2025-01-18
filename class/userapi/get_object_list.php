@@ -42,7 +42,7 @@ class GetObjectListMethod extends MethodClass
         extract($args);
 
         if (!isset($modid) || empty($modid)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Missing #(1) for #(2) function #(3)() in module #(4)',
                 'modid',
                 'userapi',

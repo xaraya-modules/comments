@@ -80,7 +80,7 @@ class GetitemsMethod extends MethodClass
         if (!isset($mask)) {
             $mask = 'ReadComments';
         }
-        if (!$this->checkAccess($mask)) {
+        if (!$this->sec()->checkAccess($mask)) {
             return;
         }
 

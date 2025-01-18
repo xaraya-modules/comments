@@ -123,7 +123,7 @@ class CommentsProperty extends DataProperty
         }
 
         if (!xarMod::load('comments', 'renderer')) {
-            $msg = xarML('Unable to load #(1) #(2)', 'comments', 'renderer');
+            $msg = xarMLS::translate('Unable to load #(1) #(2)', 'comments', 'renderer');
             throw new BadParameterException($msg);
         }
 
@@ -175,7 +175,7 @@ class CommentsProperty extends DataProperty
             }
         }
 
-        $header['input-title']            = xarML('Post a new comment');
+        $header['input-title']            = xarMLS::translate('Post a new comment');
 
         $package['settings']['max_depth'] = Defines::MAX_DEPTH;
         $package['role_id']               = xarUser::getVar('id');

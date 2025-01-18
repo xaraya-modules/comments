@@ -53,7 +53,7 @@ class DisplayMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadComments', 0)) {
+        if (!$this->sec()->checkAccess('ReadComments', 0)) {
             return;
         }
 
@@ -70,7 +70,7 @@ class DisplayMethod extends MethodClass
             if (!empty($args['id'])) {
                 $comment_id = $args['id'];
             } else {
-                $this->fetch('comment_id', 'int:1:', $data['comment_id'], 0, xarVar::NOT_REQUIRED);
+                $this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0);
             }
             // and set the selected id to this one
             if (!empty($data['comment_id']) && !isset($data['selected_id'])) {
@@ -82,14 +82,14 @@ class DisplayMethod extends MethodClass
         # Bail if the proper args were not passed
         #
         if (empty($fields)) {
-            return xarTpl::module('comments', 'user', 'errors', ['layout' => 'no_direct_access']);
+            return $this->mod()->template('errors', ['layout' => 'no_direct_access']);
         }
 
         # --------------------------------------------------------
         # Try and get a selectee ID if we don't have one yet
         #
         if (empty($data['selected_id'])) {
-            $this->fetch('selected_id', 'int', $data['selected_id'], 0, xarVar::NOT_REQUIRED);
+            $this->var()->find('selected_id', $data['selected_id'], 'int', 0);
         }
 
         # --------------------------------------------------------
@@ -129,11 +129,11 @@ class DisplayMethod extends MethodClass
         $package['settings'] = xarMod::apiFunc('comments', 'user', 'getoptions');
 
         if (!isset($args['thread'])) {
-            $this->fetch('thread', 'isset', $thread, null, xarVar::NOT_REQUIRED);
+            $this->var()->find('thread', $thread);
         }
 
         if (!xarMod::load('comments', 'renderer')) {
-            $msg = $this->translate('Unable to load #(1) #(2)', 'comments', 'renderer');
+            $msg = $this->ml('Unable to load #(1) #(2)', 'comments', 'renderer');
             throw new BadParameterException($msg);
         }
 
@@ -181,9 +181,9 @@ class DisplayMethod extends MethodClass
         $package['settings']['max_depth'] = Defines::MAX_DEPTH;
         // Bug 6175: removed xarVar::prepForDisplay() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
-        $package['new_title']             = xarVar::getCached('Comments.title', 'title');
+        $package['new_title']             = $this->var()->getCached('Comments.title', 'title');
 
-        if (!$this->fetch('comment_action', 'str', $data['comment_action'], 'submit', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('comment_action', $data['comment_action'], 'str', 'submit')) {
             return;
         }
 

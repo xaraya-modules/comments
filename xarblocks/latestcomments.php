@@ -66,7 +66,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
         );
 
         $modlist = [];
-        $modlist['all'] = xarML('All');
+        $modlist['all'] = xarMLS::translate('All');
         if (isset($hookedmodules) && is_array($hookedmodules)) {
             foreach ($hookedmodules as $modname => $value) {
                 // Get the list of all item types for this module (if any)
@@ -81,7 +81,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
                         if (isset($mytypes[$itemtype])) {
                             $type = $mytypes[$itemtype]['label'];
                         } else {
-                            $type = xarML('type #(1)', $itemtype);
+                            $type = xarMLS::translate('type #(1)', $itemtype);
                         }
                         $modlist["$modname.$itemtype"] = ucwords($modname) . ' - ' . $type;
                     }

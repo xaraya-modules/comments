@@ -44,7 +44,7 @@ class GetChildcountlistMethod extends MethodClass
         extract($args);
 
         if (!isset($left) || !is_numeric($left) || !isset($right) || !is_numeric($right)) {
-            $msg = $this->translate('Invalid #(1)', 'left/right');
+            $msg = $this->ml('Invalid #(1)', 'left/right');
             throw new BadParameterException($msg);
         }
 

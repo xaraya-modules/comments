@@ -43,12 +43,12 @@ class DeleteNodeMethod extends MethodClass
         extract($args);
 
         if (empty($node)) {
-            $msg = $this->translate('Missing or Invalid comment id!');
+            $msg = $this->ml('Missing or Invalid comment id!');
             throw new BadParameterException($msg);
         }
 
         if (empty($parent_id)) {
-            $msg = $this->translate('Missing or Invalid parent id!');
+            $msg = $this->ml('Missing or Invalid parent id!');
             throw new BadParameterException($msg);
         }
 

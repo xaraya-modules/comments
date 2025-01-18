@@ -47,7 +47,7 @@ class GetCountMethod extends MethodClass
         $exception = false;
 
         if (!isset($modid) || empty($modid)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'modid',
                 'userapi',
@@ -62,7 +62,7 @@ class GetCountMethod extends MethodClass
         }
 
         if (!isset($objectid) || empty($objectid)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'objectid',
                 'userapi',

@@ -40,22 +40,22 @@ class ModifyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->fetch('id', 'id', $id, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('id', $id, 'id')) {
             return;
         }
-        if (!$this->fetch('parent_url', 'str', $parent_url, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('parent_url', $parent_url, 'str')) {
             return;
         }
-        if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
             return;
         }
-        if (!$this->fetch('view', 'str', $data['view'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('view', $data['view'], 'str', '')) {
             return;
         }
 
         // Check if we still have no id of the item to modify.
         if (empty($id)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'item id',
                 'admin',
@@ -78,7 +78,7 @@ class ModifyMethod extends MethodClass
             return xarTpl::module('base', 'message', 'notfound', ['msg' => $msg]);
         }
 
-        if (!$this->checkAccess('EditComments', 0)) {
+        if (!$this->sec()->checkAccess('EditComments', 0)) {
             return;
         }
 
@@ -90,13 +90,13 @@ class ModifyMethod extends MethodClass
 
         $data['label'] = $object->label;
 
-        if (!$this->fetch('confirm', 'bool', $data['confirm'], false, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
             return;
         }
 
         if ($data['confirm']) {
             // Check for a valid confirmation key
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
 
@@ -104,10 +104,10 @@ class ModifyMethod extends MethodClass
             $isvalid = $data['object']->checkInput();
 
             if (!$isvalid) {
-                return xarTpl::module('comments', 'admin', 'modify', $data);
+                return $this->mod()->template('modify', $data);
             } elseif (isset($data['preview'])) {
                 // Show a preview, same thing as the above essentially
-                return xarTpl::module('comments', 'admin', 'modify', $data);
+                return $this->mod()->template('modify', $data);
             } else {
                 // Good data: update the item
 
@@ -116,9 +116,9 @@ class ModifyMethod extends MethodClass
                 $values = $data['object']->getFieldValues();
 
                 if (!empty($data['view'])) {
-                    $this->redirect($values['parent_url']);
+                    $this->ctl()->redirect($values['parent_url']);
                 } else {
-                    $this->redirect($this->getUrl('admin', 'modify', ['id' => $id]));
+                    $this->ctl()->redirect($this->mod()->getURL('admin', 'modify', ['id' => $id]));
                 }
                 return true;
             }
