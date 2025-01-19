@@ -106,7 +106,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
         if ($choice == 'yes' || $choice == 'true') {
             if (!xarMod::apiLoad('comments', 'user')) {
-                die("COULDN'T LOAD API!!!");
+                $this->exit("COULDN'T LOAD API!!!");
             }
             $retval = true;
 
