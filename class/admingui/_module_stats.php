@@ -18,7 +18,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (!$this->sec()->checkAccess('AdminComments')) {
         return;
     }
-    if (!$this->var()->get('modid', $modid), 'int:1') {
+    if (!$this->var()->get('modid', $modid, 'int:1')) {
         return;
     }
     if (!$this->var()->find('itemtype', $itemtype, 'int:0', 0)) {

@@ -65,8 +65,8 @@ class AddRootnodeMethod extends MethodClass
             $itemtype = 0;
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $commenttable = $xartable['comments'];
 

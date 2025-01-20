@@ -45,8 +45,8 @@ class DeactivateMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         // First grab the objectid and the modid so we can
         // then find the root node.

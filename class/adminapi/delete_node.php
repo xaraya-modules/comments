@@ -72,8 +72,8 @@ class DeleteNodeMethod extends MethodClass
         xarModHooks::call('item', 'delete', $node, $args);
 
         //Now delete the item ....
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         // delete the node
         $sql = "DELETE

@@ -50,7 +50,7 @@ class ModuleStatsMethod extends MethodClass
         if (!$this->sec()->checkAccess('AdminComments')) {
             return;
         }
-        if (!$this->var()->get('modid', $modid), 'int:1') {
+        if (!$this->var()->get('modid', $modid, 'int:1')) {
             return;
         }
         if (!$this->var()->find('itemtype', $urlitemtype, 'int:0', 0)) {

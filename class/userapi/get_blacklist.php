@@ -77,8 +77,8 @@ class GetBlacklistMethod extends MethodClass
 
 
         /* // Get database setup
-         $dbconn = xarDB::getConn();
-         $xartable =& xarDB::getTables();
+         $dbconn = $this->db()->getConn();
+         $xartable =& $this->db()->getTables();
          $btable = $xartable['blacklist'];
          $query = "SELECT id,
                           domain

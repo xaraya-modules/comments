@@ -58,7 +58,7 @@ class DeleteMethod extends MethodClass
         }
 
         if (empty($data['id'])) {
-            return xarController::notFound(null, $this->getContext());
+            return $this->ctl()->notFound(null, $this->getContext());
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');

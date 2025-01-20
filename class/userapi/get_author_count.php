@@ -74,7 +74,7 @@ class GetAuthorCountMethod extends MethodClass
             $status = Defines::STATUS_ON;
         }
 
-        $tables = & xarDB::getTables();
+        $tables = & $this->db()->getTables();
         $q = new Query('SELECT', $tables['comments']);
         $q->addfield('COUNT(id) AS numitems');
         $q->eq('module_id', $moduleid);

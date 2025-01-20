@@ -53,8 +53,8 @@ class ModcountsMethod extends MethodClass
         $status = strtolower($status);
 
         // Database information
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $commentstable = $xartable['comments'];
 
         switch ($status) {

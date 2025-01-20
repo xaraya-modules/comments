@@ -58,8 +58,8 @@ class DeleteBranchMethod extends MethodClass
         $itemtype = $comments[0]['itemtype'];
         $objectid = $comments[0]['objectid'];
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $sql = "DELETE
                   FROM  $xartable[comments]

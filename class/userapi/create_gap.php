@@ -57,8 +57,8 @@ class CreateGapMethod extends MethodClass
             $gapsize = 2;
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $sql_left  = "UPDATE $xartable[comments]
                          SET left_id = (left_id + $gapsize)

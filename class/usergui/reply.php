@@ -117,7 +117,7 @@ class ReplyMethod extends MethodClass
                     return;
                 }
                 if (empty($data['comment_id'])) {
-                    return xarController::notFound(null, $this->getContext());
+                    return $this->ctl()->notFound(null, $this->getContext());
                 }
 
                 # --------------------------------------------------------
@@ -161,10 +161,10 @@ class ReplyMethod extends MethodClass
                                                          array($text,
                                                                $title));
                 */
-                $text         = xarVar::prepHTMLDisplay($text);
-                $title        = xarVar::prepForDisplay($title);
+                $text         = $this->var()->prepHTML($text);
+                $title        = $this->var()->prep($title);
 
-                $package['new_title']            = xarVar::prepForDisplay($new_title);
+                $package['new_title']            = $this->var()->prep($new_title);
                 $data['package']               = $package;
 
                 // Create an object item for the reply
@@ -188,10 +188,10 @@ class ReplyMethod extends MethodClass
                             $package['title'], ]
                     );
 
-                $package['transformed-text']  = xarVar::prepHTMLDisplay($package['transformed-text']);
-                $package['transformed-title'] = xarVar::prepForDisplay($package['transformed-title']);
-                $package['text']              = xarVar::prepHTMLDisplay($package['text']);
-                $package['title']             = xarVar::prepForDisplay($package['title']);
+                $package['transformed-text']  = $this->var()->prepHTML($package['transformed-text']);
+                $package['transformed-title'] = $this->var()->prep($package['transformed-title']);
+                $package['text']              = $this->var()->prepHTML($package['text']);
+                $package['title']             = $this->var()->prep($package['title']);
 
                 $comments[0]['text']      = $package['text'];
                 $comments[0]['title']     = $package['title'];

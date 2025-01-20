@@ -48,8 +48,8 @@ class GetChildcountlistMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $bind = [(int) $left, (int) $right, Defines::STATUS_ON, (int) $moduleid, (int) $itemid, (int) $itemtype];
 

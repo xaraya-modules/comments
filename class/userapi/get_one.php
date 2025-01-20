@@ -58,8 +58,8 @@ class GetOneMethod extends MethodClass
             throw new Exception($msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         // initialize the commentlist array
         $commentlist = [];

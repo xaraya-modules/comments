@@ -49,8 +49,8 @@ class GetModuleLrvaluesMethod extends MethodClass
             $itemtype = 0;
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $sql = "SELECT  objectid AS objectid,
                         MIN(left_id) AS left_id,

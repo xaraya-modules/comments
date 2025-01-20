@@ -85,8 +85,8 @@ class GetitemsMethod extends MethodClass
         }
 
         // Database information
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $commentstable = $xartable['comments'];
 
         $where = '';
@@ -138,7 +138,7 @@ class GetitemsMethod extends MethodClass
         //    return $items;
 
         sys::import('xaraya.structures.query');
-        $tables = & xarDB::getTables();
+        $tables = & $this->db()->getTables();
         $q = new Query('SELECT', $tables['comments']);
         $q->eq('module_id', $moduleid);
         $q->eq('itemtype', $itemtype);

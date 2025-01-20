@@ -23,7 +23,7 @@ function comments_admin_delete(array $args = [], $context = null)
     if (!$this->sec()->checkAccess('AdminComments')) {
         return;
     }
-    if (!$this->var()->get('dtype', $dtype), 'str:1:') {
+    if (!$this->var()->get('dtype', $dtype, 'str:1:')) {
         return;
     }
     $delete_args = [];
@@ -37,7 +37,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
         switch (strtolower($dtype)) {
             case 'object':
-                if (!$this->var()->get('objectid', $objectid), 'int:1') {
+                if (!$this->var()->get('objectid', $objectid, 'int:1')) {
                     return;
                 }
 
@@ -53,7 +53,7 @@ function comments_admin_delete(array $args = [], $context = null)
                 // the module id and the object id
                 // no break
             case 'module':
-                if (!$this->var()->get('modid', $modid), 'int:1') {
+                if (!$this->var()->get('modid', $modid, 'int:1')) {
                     return;
                 }
 
@@ -61,7 +61,7 @@ function comments_admin_delete(array $args = [], $context = null)
                     $msg = xarML('Invalid or Missing Parameter \'modid\'');
                     throw new BadParameterException($msg);
                 }
-                if (!$this->var()->get('itemtype', $itemtype), 'int:1') {
+                if (!$this->var()->get('itemtype', $itemtype, 'int:1')) {
                     return;
                 }
                 if (empty($itemtype)) {
@@ -94,7 +94,7 @@ function comments_admin_delete(array $args = [], $context = null)
             return;
         }
 
-        if (!$this->var()->get('choice', $choice), 'str:1:') {
+        if (!$this->var()->get('choice', $choice, 'str:1:')) {
             return;
         }
 

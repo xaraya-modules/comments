@@ -43,8 +43,8 @@ class CountCommentsMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         extract($args);
-        $dbconn         = xarDB::getConn();
-        $xartable       = & xarDB::getTables();
+        $dbconn         = $this->db()->getConn();
+        $xartable       = & $this->db()->getTables();
         $total          = 0;
         $status         = strtolower($status);
         $type           = strtolower($type);

@@ -46,8 +46,8 @@ class GetNodeLrvaluesMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $sql = "SELECT  left_id, right_id
                   FROM  $xartable[comments]

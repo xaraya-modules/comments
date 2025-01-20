@@ -140,8 +140,8 @@ class AddMethod extends MethodClass
             }
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         // parentid == zero then we need to find the root nodes
         // left and right values cuz we're adding the new comment

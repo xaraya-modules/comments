@@ -75,7 +75,7 @@ class ModifyMethod extends MethodClass
         $check = $commentsobject->getItem(['itemid' => $id]);
         if (empty($check)) {
             $msg = 'There is no comment with an itemid of ' . $id;
-            return xarTpl::module('base', 'message', 'notfound', ['msg' => $msg]);
+            return $this->tpl()->module('base', 'message', 'notfound', ['msg' => $msg]);
         }
 
         if (!$this->sec()->checkAccess('EditComments', 0)) {
@@ -97,7 +97,7 @@ class ModifyMethod extends MethodClass
         if ($data['confirm']) {
             // Check for a valid confirmation key
             if (!$this->sec()->confirmAuthKey()) {
-                return xarController::badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author', $this->getContext());
             }
 
             // Get the data from the form

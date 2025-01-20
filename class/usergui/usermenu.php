@@ -49,8 +49,8 @@ class UsermenuMethod extends MethodClass
             }
 
             $this->tpl()->setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
-                               xarVar::prepForDisplay($this->ml('Comments'))
-                               . ' :: ' . xarVar::prepForDisplay($this->ml('Your Account Preferences')));
+                               $this->var()->prep($this->ml('Comments'))
+                               . ' :: ' . $this->var()->prep($this->ml('Your Account Preferences')));
 
             switch (strtolower($phase)) {
                 case 'menu':

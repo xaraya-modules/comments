@@ -48,7 +48,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
     switch (strtolower($data['dtype'])) {
         case 'item': // delete just one comment
-            if (!$this->var()->get('itemid', $itemid), 'int') {
+            if (!$this->var()->get('itemid', $itemid, 'int')) {
                 return;
             }
 
@@ -66,10 +66,10 @@ function comments_admin_delete(array $args = [], $context = null)
             if (!$this->var()->find('itemtype', $itemtype, 'int', 0)) {
                 return;
             }
-            if (!$this->var()->get('modid', $modid), 'int:1') {
+            if (!$this->var()->get('modid', $modid, 'int:1')) {
                 return;
             }
-            if (!$this->var()->get('objectid', $objectid), 'int:1') {
+            if (!$this->var()->get('objectid', $objectid, 'int:1')) {
                 return;
             }
 
@@ -81,10 +81,10 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'itemtype': // delete all comments for an itemtype
-            if (!$this->var()->get('itemtype', $itemtype), 'int') {
+            if (!$this->var()->get('itemtype', $itemtype, 'int')) {
                 return;
             }
-            if (!$this->var()->get('modid', $modid), 'int:1') {
+            if (!$this->var()->get('modid', $modid, 'int:1')) {
                 return;
             }
 
@@ -95,7 +95,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
             break;
         case 'module':  // delete all comments for a module
-            if (!$this->var()->get('modid', $modid), 'int:1') {
+            if (!$this->var()->get('modid', $modid, 'int:1')) {
                 return;
             }
 

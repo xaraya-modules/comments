@@ -108,8 +108,8 @@ class GetMultipleMethod extends MethodClass
             $status = Defines::STATUS_ON;
         }
 
-        //$dbconn = xarDB::getConn();
-        //$xartable =& xarDB::getTables();
+        //$dbconn = $this->db()->getConn();
+        //$xartable =& $this->db()->getTables();
 
         // initialize the commentlist array
         $commentlist = [];

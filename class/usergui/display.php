@@ -168,8 +168,8 @@ class DisplayMethod extends MethodClass
         // run text and title through transform hooks
         if (!empty($data['comments'])) {
             foreach ($data['comments'] as $key => $comment) {
-                $comment['text'] = xarVar::prepHTMLDisplay($comment['text']);
-                $comment['title'] = xarVar::prepForDisplay($comment['title']);
+                $comment['text'] = $this->var()->prepHTML($comment['text']);
+                $comment['title'] = $this->var()->prep($comment['title']);
                 // say which pieces of text (array keys) you want to be transformed
                 $comment['transform'] = ['text'];
                 // call the item transform hooks
@@ -179,7 +179,7 @@ class DisplayMethod extends MethodClass
         }
 
         $package['settings']['max_depth'] = Defines::MAX_DEPTH;
-        // Bug 6175: removed xarVar::prepForDisplay() from the title, as articles already
+        // Bug 6175: removed $this->var()->prep() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
         $package['new_title']             = $this->var()->getCached('Comments.title', 'title');
 

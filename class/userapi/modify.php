@@ -108,8 +108,8 @@ class ModifyMethod extends MethodClass
         $useeditstamp = $this->mod()->getVar('editstamp');
         $adminid = xarModVars::get('roles', 'admin');
 
-        /*$dbconn = xarDB::getConn();
-        $xartable =& xarDB::getTables();*/
+        /*$dbconn = $this->db()->getConn();
+        $xartable =& $this->db()->getTables();*/
 
         // Let's leave a link for the changelog module if it is hooked to track comments
         /* jojodee: good idea. I'll move it direct to comments template and then can add it to

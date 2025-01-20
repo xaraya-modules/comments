@@ -65,8 +65,8 @@ class GetNodeRootMethod extends MethodClass
             $itemtype = 0;
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         // grab the root node's id, left and right values
         // based on the objectid/modid pair

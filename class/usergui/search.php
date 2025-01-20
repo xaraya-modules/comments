@@ -126,10 +126,10 @@ class SearchMethod extends MethodClass
                     // Note : we need to tell Xaraya explicitly that we want to invoke the hooks for 'comments' here (last argument)
                     $comment = xarModHooks::call('item', 'transform', $comment['id'], $comment, 'comments');
                     // Index appears to be empty on the transform.  Is this line needed?
-                    //$package['comments'][$key]['text'] = xarVar::prepHTMLDisplay($comment['text']);
+                    //$package['comments'][$key]['text'] = $this->var()->prepHTML($comment['text']);
                 }
                 if ($header['title']) {
-                    $package['comments'][$key]['title'] = xarVar::prepForDisplay($comment['title']);
+                    $package['comments'][$key]['title'] = $this->var()->prep($comment['title']);
                 }
             }
 

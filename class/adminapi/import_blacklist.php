@@ -41,8 +41,8 @@ class ImportBlacklistMethod extends MethodClass
     {
         extract($args);
         sys::import('xaraya.tableddl');
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $btable = $xartable['blacklist'];
         $bbtable = &$xartable['blacklist_column'];
         $feedfile = 'http://www.jayallen.org/comment_spam/blacklist.txt';

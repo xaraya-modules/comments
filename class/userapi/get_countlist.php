@@ -77,8 +77,8 @@ class GetCountlistMethod extends MethodClass
             return false;
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $sql = "SELECT  objectid, COUNT(id) as numitems
                   FROM  $xartable[comments]
