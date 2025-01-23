@@ -16,14 +16,15 @@
  * Pass table names back to the framework
  * @return array
  */
-function comments_xartables()
+function comments_xartables(?string $prefix = null)
 {
     // Initialise table array
     $xartable = [];
+    $prefix ??= xarDB::getPrefix();
 
     // Name for template database entities
-    $comments_table     = xarDB::getPrefix() . '_comments_comments';
-    $blacklist_table    = xarDB::getPrefix() . '_comments_blacklist';
+    $comments_table     = $prefix . '_comments_comments';
+    $blacklist_table    = $prefix . '_comments_blacklist';
 
     // Table name
     $xartable['comments']   = $comments_table;

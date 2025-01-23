@@ -58,13 +58,13 @@
               <xar:else />
                 <textarea class="xar-ib-fieldtext" name="package[text]" id="package-text" tabindex="2">&#160;</textarea>
               </xar:if>
-              <!-- TODO: show item new/modify hook here somehow
+              <xar:comment><!-- TODO: show item new/modify hook here somehow
                 <xar:if condition="!empty($hooks['iteminput'])">
                   <xar:foreach in="$hooks['iteminput']" key="$hookmodule">
                     #$hooks.iteminput.$hookmodule#
                   </xar:foreach>
                 </xar:if>
-              -->
+              --></xar:comment>
               <input type="hidden" name="header[moduleid]" id="header-moduleid" value="#$header['moduleid']#"/>
               <input type="hidden" name="header[itemid]" id="header-itemid" value="#$header['itemid']#"/>
               <input type="hidden" name="header[itemtype]" id="header-itemtype" value="#$header['itemtype']#"/>

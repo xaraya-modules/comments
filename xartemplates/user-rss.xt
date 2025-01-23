@@ -12,7 +12,7 @@
             <pubDate>
                 #xarLocale::formatUTCDate("%a, %d %b %Y %H:%M:%S GMT", $loop:item['datetime'])#
             </pubDate>
-            <!--
+            <xar:comment><!--
             <content:format rdf:resource="http://www.w3.org/1999/xhtml"/>
             <content:encoded>
                 <![CDATA[ #$loop:item['text']# ]]>
@@ -23,7 +23,7 @@
             <guid isobjecturl="true">
                 #$loop:item['link']#
             </guid>
-            -->
+            --></xar:comment>
         </item>
     </xar:loop>
 </xar:template>

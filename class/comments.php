@@ -13,13 +13,17 @@
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 sys::import('xaraya.structures.tree');
+sys::import('xaraya.services.hasdatabasetrait');
+use Xaraya\Services\HasDatabaseStaticTrait;
 
 class Comments extends xarObject
 {
+    use HasDatabaseStaticTrait;
+
     public static function get(int $id)
     {
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = self::xarDB()->getConn();
+        $xartable = & self::xarDB()->getTables();
 
         $SQLquery = "SELECT id,
                                 parent_id,
@@ -51,6 +55,8 @@ class Comments extends xarObject
 
 class CommentTreeNode extends TreeNode
 {
+    use HasDatabaseStaticTrait;
+
     public $parent_id = 0;
     public $modid;
     public $itemtype;
@@ -72,8 +78,8 @@ class CommentTreeNode extends TreeNode
 
     public function getChildren()
     {
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = self::xarDB()->getConn();
+        $xartable = & self::xarDB()->getTables();
 
         $SQLquery = "SELECT id,
                                 parent_id,
@@ -116,8 +122,8 @@ class CommentTreeNode extends TreeNode
 
     public function getChildCount()
     {
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = self::xarDB()->getConn();
+        $xartable = & self::xarDB()->getTables();
 
         $SQLquery = "SELECT COUNT(*) FROM " . $xartable['comments'] . " WHERE parent_id = ? ORDER BY left_id";
         $bindvars = [$this->id];
@@ -133,8 +139,8 @@ class CommentTreeNode extends TreeNode
 
     public function isDescendant(CommentTreeNode $n)
     {
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = self::xarDB()->getConn();
+        $xartable = & self::xarDB()->getTables();
 
         $query = '
                 SELECT  P1.id

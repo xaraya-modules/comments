@@ -19,9 +19,9 @@
         <h2>
             Modify Configuration
         </h2>
-        <!--<div>
+        <xar:comment><!--<div>
             <xar:template file="headerconfig" type="module"/>
-        </div> -->
+        </div> --></xar:comment>
         <form method="post" action="#xarController::URL('comments', 'admin', 'modifyconfig')#" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>

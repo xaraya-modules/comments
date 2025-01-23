@@ -66,8 +66,8 @@ class Installer extends InstallerClass
         //Load Table Maintenance API
         sys::import('xaraya.tableddl');
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         //Psspl:Added the code for anonpost_to field.
         $fields = [
             'id' => ['type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true],
@@ -94,7 +94,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_left',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_left',
             'fields'    => ['left_id'],
             'unique'    => false, ];
 
@@ -105,7 +105,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_right',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_right',
             'fields'    => ['right_id'],
             'unique'    => false, ];
 
@@ -116,7 +116,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_parent_id',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_parent_id',
             'fields'    => ['parent_id'],
             'unique'    => false, ];
 
@@ -127,7 +127,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_moduleid',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_moduleid',
             'fields'    => ['module_id'],
             'unique'    => false, ];
 
@@ -138,7 +138,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_itemtype',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_itemtype',
             'fields'    => ['itemtype'],
             'unique'    => false, ];
 
@@ -149,7 +149,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_itemid',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_itemid',
             'fields'    => ['itemid'],
             'unique'    => false, ];
 
@@ -160,7 +160,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_status',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_status',
             'fields'    => ['status'],
             'unique'    => false, ];
 
@@ -171,7 +171,7 @@ class Installer extends InstallerClass
             return;
         }
 
-        $index = ['name'      => 'i_' . xarDB::getPrefix() . '_comments_author',
+        $index = ['name'      => 'i_' . $this->db()->getPrefix() . '_comments_author',
             'fields'    => ['author'],
             'unique'    => false, ];
 

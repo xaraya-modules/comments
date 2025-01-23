@@ -131,8 +131,8 @@ function comments_admin_delete(array $args = [], $context = null)
                     );
                     break;
                 case 'all':
-                    $dbconn = xarDB::getConn();
-                    $xartable = & xarDB::getTables();
+                    $dbconn = $this->db()->getConn();
+                    $xartable = & $this->db()->getTables();
 
                     $sql = "DELETE
                               FROM  $xartable[comments]";

@@ -67,7 +67,7 @@
                     <xar:set name="item">#$comment#</xar:set>
                     <xar:template file="action_buttons"/>
 
-    <!-- FIXME: $package['transformed-text'] vs. $comment['text'] can't be right here -->
+    <xar:comment><!-- FIXME: $package['transformed-text'] vs. $comment['text'] can't be right here --></xar:comment>
                     <xar:if condition="isset($package['transformed-text'])">
                         #$package['transformed-text']#
                         <p>
@@ -161,7 +161,7 @@
                     <xar:set name="item">#$comment#</xar:set>
                     <xar:template file="action_buttons"/>
 
-                    <!-- FIXME: $package['transformed-text'] vs. $comment['xar_text'] can't be right here -->
+                    <xar:comment><!-- FIXME: $package['transformed-text'] vs. $comment['xar_text'] can't be right here --></xar:comment>
                     <xar:if condition="isset($package['transformed-text'])">
                         #$package['transformed-text']#
                         <p>

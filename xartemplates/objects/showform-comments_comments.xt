@@ -10,7 +10,7 @@
                 <a href="#xarController::URL('roles', 'user', 'display', array('role_id' => xarUser::getVar('id')))#">
                     <xar:data-output property="$properties['author']"/>
                 </a>
-    <!--
+    <xar:comment><!--
                 <xar:set name="newpost">!$properties['id']->value</xar:set>
                 <xar:if condition="$newpost">
                     &#160;
@@ -18,7 +18,7 @@
                         Logout
                     </a> ]
                 </xar:if>
-    -->
+    --></xar:comment>
                 <xar:if condition="xarModVars::get('comments','AllowPostAsAnon') eq 1">
                     &#160;
                     <xar:data-input property="$properties['anonpost']"/>
