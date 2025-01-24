@@ -65,7 +65,7 @@ class GetOneMethod extends MethodClass
         $commentlist = [];
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $object = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $object = $this->data()->getObject(['name' => 'comments_comments']);
         $object->getItem(['itemid' => $id]);
         $values = $object->getFieldValues();
         $values['position_atomic'] = $object->properties['position']->atomic_value;

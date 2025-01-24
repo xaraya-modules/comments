@@ -96,7 +96,7 @@ class DisplayMethod extends MethodClass
         # Get the current comment
         #
         sys::import('modules.dynamicdata.class.objects.factory');
-        $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
         if (!empty($data['selected_id'])) {
             $data['object']->getItem(['itemid' => $data['selected_id']]);
         }
@@ -118,7 +118,7 @@ class DisplayMethod extends MethodClass
         # --------------------------------------------------------
         # Create an empty object for display and add any attributes passed
         #
-        $data['emptyobject'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $data['emptyobject'] = $this->data()->getObject(['name' => 'comments_comments']);
         if (isset($args['tplmodule'])) {
             $data['object']->tplmodule = $args['tplmodule'];
         }

@@ -69,7 +69,7 @@ class ViewMethod extends MethodClass
         ]);
         $data['sort'] = $sort;
 
-        $object = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $object = $this->data()->getObject(['name' => 'comments_comments']);
         $config = $object->configuration;
         $adminfields = reset($config['adminfields']);
         $numitems = $this->mod()->getVar('items_per_page');
@@ -77,7 +77,7 @@ class ViewMethod extends MethodClass
         $filters = [];
 
         // Total number of comments for use in the pager
-        $total = DataObjectFactory::getObjectList([
+        $total = $this->data()->getObjectList([
             'name' => 'comments_comments',
             'numitems' => null,
             'where' => 'status ne ' . Defines::STATUS_ROOT_NODE,
@@ -110,7 +110,7 @@ class ViewMethod extends MethodClass
 
         $filters['where'] .= 'status ne ' . Defines::STATUS_ROOT_NODE;
 
-        $list = DataObjectFactory::getObjectList([
+        $list = $this->data()->getObjectList([
             'name' => 'comments_comments',
             'sort' => $sort,
             'startnum' => $startnum,

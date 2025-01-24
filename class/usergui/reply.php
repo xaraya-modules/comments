@@ -69,7 +69,7 @@ class ReplyMethod extends MethodClass
                 # --------------------------------------------------------
                 # Get the values from the form
                 #
-                $data['reply'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+                $data['reply'] = $this->data()->getObject(['name' => 'comments_comments']);
                 $valid = $data['reply']->checkInput();
 
                 // call transform input hooks
@@ -124,7 +124,7 @@ class ReplyMethod extends MethodClass
                 # Create the comment object
                 #
                 sys::import('modules.dynamicdata.class.objects.factory');
-                $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+                $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
                 $data['object']->getItem(['itemid' => $data['comment_id']]);
 
                 // replace the deprecated eregi stuff below
@@ -150,7 +150,7 @@ class ReplyMethod extends MethodClass
                     $header['objectlink'] = $itemlinks[$data['object']->properties['itemid']->value]['url'];
                     $header['objecttitle'] = $itemlinks[$data['object']->properties['itemid']->value]['label'];
                 } else {
-                    $url = xarController::URL($modinfo['name'], 'user', 'main');
+                    $url = $this->ctl()->getModuleURL($modinfo['name'], 'user', 'main');
                 }
                 /*
                             list($text,
@@ -168,7 +168,7 @@ class ReplyMethod extends MethodClass
                 $data['package']               = $package;
 
                 // Create an object item for the reply
-                $data['reply'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+                $data['reply'] = $this->data()->getObject(['name' => 'comments_comments']);
                 $data['reply']->properties['title']->value = $new_title;
                 $data['reply']->properties['position']->reference_id = $data['comment_id'];
                 $data['reply']->properties['position']->position = 3;

@@ -71,7 +71,7 @@ class RssMethod extends MethodClass
                     $modview[$modid] = [];
                 }
                 $modname[$modid][0] = ucwords($module);
-                $modview[$modid][0] = xarController::URL($module, 'user', 'view');
+                $modview[$modid][0] = $this->ctl()->getModuleURL($module, 'user', 'view');
                 // Get the list of all item types for this module (if any)
                 try {
                     $mytypes = xarMod::apiFunc($module, 'user', 'getitemtypes');

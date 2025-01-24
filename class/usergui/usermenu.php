@@ -93,7 +93,7 @@ class UsermenuMethod extends MethodClass
                     xarMod::apiFunc('comments', 'user', 'setoptions', $settings);
 
                     // Redirect
-                    $this->ctl()->redirect(xarController::URL('roles', 'user', 'account'));
+                    $this->ctl()->redirect($this->ctl()->getModuleURL('roles', 'user', 'account'));
 
                     break;
             }

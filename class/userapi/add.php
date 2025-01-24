@@ -219,7 +219,7 @@ class AddMethod extends MethodClass
 
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $object = DataObjectFactory::getObject([
+        $object = $this->data()->getObject([
             'name' => 'comments_comments',
         ]);
 

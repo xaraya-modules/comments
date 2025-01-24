@@ -54,7 +54,7 @@ class ModifyconfigMethod extends MethodClass
         // Load the DD master object class. This line will likely disappear in future versions
         sys::import('modules.dynamicdata.class.objects.factory');
         // Get the object we'll be working with for comments-specific configuration
-        $object = DataObjectFactory::getObject(['name' => 'comments_module_settings']);
+        $object = $this->data()->getObject(['name' => 'comments_module_settings']);
         // Get the appropriate item of the dataobject. Using itemid 0 (not passing an itemid parameter) is standard convention
         $object->getItem(['itemid' => 0]);
         $data['object'] = $object;
@@ -142,7 +142,7 @@ class ModifyconfigMethod extends MethodClass
                 // Load the DD master object class. This line will likely disappear in future versions
                 sys::import('modules.dynamicdata.class.objects.factory');
                 // Get the object we'll be working with
-                $object = DataObjectFactory::getObject(['name' => 'comments_module_settings']);
+                $object = $this->data()->getObject(['name' => 'comments_module_settings']);
                 // Get the data from the form
                 $isvalid = $object->checkInput();
                 // Update the item with itemid = 0

@@ -115,7 +115,7 @@ class ModifyMethod extends MethodClass
         /* jojodee: good idea. I'll move it direct to comments template and then can add it to
                     any others we like as well, like xarbb.
         if (xarModHooks::isHooked('changelog', 'comments', 0)){
-            $url = xarController::URL('changelog', 'admin', 'showlog', array('modid' => '14', 'itemid' => $id));
+            $url = $this->ctl()->getModuleURL('changelog', 'admin', 'showlog', array('modid' => '14', 'itemid' => $id));
             $text .= "\n<p>\n";
             $text .= '<a href="' . $url . '" title="' . $this->ml('See Changes') .'">';
             $text .= '</a>';
@@ -133,7 +133,7 @@ class ModifyMethod extends MethodClass
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $object = DataObjectFactory::getObject([
+        $object = $this->data()->getObject([
             'name' => 'comments_comments',
         ]);
 

@@ -62,7 +62,7 @@ class DeleteMethod extends MethodClass
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
         $data['object']->getItem(['itemid' => $data['id']]);
         $values = $data['object']->getFieldValues();
         foreach ($values as $key => $val) {

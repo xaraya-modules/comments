@@ -78,7 +78,7 @@ class ModuleStatsMethod extends MethodClass
                 $data['itemtypelabel'] = $mytypes[$urlitemtype]['label'];
                 //$data['modlink'] = $mytypes[$urlitemtype]['url'];
             } else {
-                //$data['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $urlitemtype));
+                //$data['modlink'] = $this->ctl()->getModuleURL($modinfo['name'],'user','view',array('itemtype' => $urlitemtype));
             }
         }
 

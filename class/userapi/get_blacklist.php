@@ -53,7 +53,7 @@ class GetBlacklistMethod extends MethodClass
         $items = [];
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        $list = DataObjectFactory::getObjectList([
+        $list = $this->data()->getObjectList([
             'name' => 'comments_blacklist',
             'numitems' => $numitems,
             'startnum' => $startnum,

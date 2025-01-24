@@ -127,7 +127,7 @@ class GetitemsMethod extends MethodClass
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');
-        //    $list = DataObjectFactory::getObjectList(array(
+        //    $list = $this->data()->getObjectList(array(
         //                            'name' => 'comments_comments'
         //        ));
 

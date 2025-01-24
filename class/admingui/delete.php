@@ -18,7 +18,7 @@
  *
  * This form allows one to delete comments for all hooked modules
  */
-function comments_admin_delete(array $args = [], $context = null)
+function comments_admin_delete(array $data = [], $context = null)
 {
     if (!$this->sec()->checkAccess('ManageComments')) {
         return;

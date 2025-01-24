@@ -71,7 +71,7 @@ class ModifyMethod extends MethodClass
         # Create the comment object and get the item to modify
         #
         sys::import('modules.dynamicdata.class.objects.factory');
-        $data['object'] = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
         $data['object']->getItem(['itemid' => $data['comment_id']]);
 
         # --------------------------------------------------------
@@ -104,7 +104,7 @@ class ModifyMethod extends MethodClass
             $header['objectlink'] = $itemlinks[$header['itemid']]['url'];
             $header['objecttitle'] = $itemlinks[$header['itemid']]['label'];
         } else {
-            $url = xarController::URL($modinfo['name'], 'user', 'main');
+            $url = $this->ctl()->getModuleURL($modinfo['name'], 'user', 'main');
         }
         /*if (empty($receipt['returnurl'])) {
             $receipt['returnurl'] = array('encoded' => rawurlencode($url),

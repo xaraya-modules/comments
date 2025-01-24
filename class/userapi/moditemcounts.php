@@ -55,7 +55,7 @@ class ModitemcountsMethod extends MethodClass
                 } else {
                     $filters['where'] .= ' and status ne ' . Defines::STATUS_ROOT_NODE;
                 }
-                $list = DataObjectFactory::getObjectList([
+                $list = $this->data()->getObjectList([
                     'name' => 'comments_comments',
                 ]);
                 $items = $list->getItems($filters);

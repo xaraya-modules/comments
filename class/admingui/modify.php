@@ -71,7 +71,7 @@ class ModifyMethod extends MethodClass
         sys::import('modules.dynamicdata.class.objects.factory');
 
         // Get the object name
-        $commentsobject = DataObjectFactory::getObject(['name' => 'comments']);
+        $commentsobject = $this->data()->getObject(['name' => 'comments']);
         $check = $commentsobject->getItem(['itemid' => $id]);
         if (empty($check)) {
             $msg = 'There is no comment with an itemid of ' . $id;
@@ -85,7 +85,7 @@ class ModifyMethod extends MethodClass
         $data['pathval'] = '';
 
         // Get the object we'll be working with
-        $object = DataObjectFactory::getObject(['name' => 'comments_comments']);
+        $object = $this->data()->getObject(['name' => 'comments_comments']);
         $data['object'] = $object; // save for later
 
         $data['label'] = $object->label;
