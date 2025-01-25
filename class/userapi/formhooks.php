@@ -30,6 +30,7 @@ class FormhooksMethod extends MethodClass
 
     /**
      * Sets up any formaction / formdisplay hooks
+     * @see UserApi::formhooks()
      */
     public function __invoke(array $args = [])
     {

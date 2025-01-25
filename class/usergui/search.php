@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarRoles;
@@ -36,9 +37,12 @@ class SearchMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @return mixed description of return
+     * @see UserGui::search()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->var()->check('startnum', $startnum)) {
             return;
         }
@@ -115,7 +119,7 @@ class SearchMethod extends MethodClass
             $header['author'] = 0;
         }
 
-        $package['comments'] = xarMod::apiFunc('comments', 'user', 'search', $search);
+        $package['comments'] = $userapi->search($search);
 
         if (!empty($package['comments'])) {
             foreach ($package['comments'] as $key => $comment) {

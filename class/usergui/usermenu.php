@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
@@ -37,10 +38,13 @@ class UsermenuMethod extends MethodClass
 
     /**
      * The user menu that is used in roles/account
+     * @see UserGui::usermenu()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         // Security Check
         if ($this->sec()->checkAccess('ReadComments', 0)) {
@@ -55,7 +59,7 @@ class UsermenuMethod extends MethodClass
             switch (strtolower($phase)) {
                 case 'menu':
 
-                    $icon = xarTpl::getImage('comments.gif', 'comments');
+                    $icon = $this->tpl()->getImage('comments.gif', 'comments');
                     $data = $this->mod()->template(
                         'usermenu_icon',
                         [
@@ -67,7 +71,7 @@ class UsermenuMethod extends MethodClass
 
                 case 'form':
 
-                    $settings = xarMod::apiFunc('comments', 'user', 'getoptions');
+                    $settings = $userapi->getoptions();
                     $settings['max_depth'] = Defines::MAX_DEPTH - 1;
                     $authid = $this->sec()->genAuthKey();
                     $data = $this->mod()->template('usermenu_form', ['authid'   => $authid,
@@ -90,7 +94,7 @@ class UsermenuMethod extends MethodClass
                         return;
                     }
 
-                    xarMod::apiFunc('comments', 'user', 'setoptions', $settings);
+                    $userapi->setoptions($settings);
 
                     // Redirect
                     $this->ctl()->redirect($this->ctl()->getModuleURL('roles', 'user', 'account'));

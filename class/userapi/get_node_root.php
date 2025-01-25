@@ -40,6 +40,7 @@ class GetNodeRootMethod extends MethodClass
      *     int itemtype   The itemtype of that object
      * @return array|void an array containing the left and right values or an
      * empty array if the comment_id specified doesn't exist
+     * @see UserApi::getNodeRoot()
      */
     public function __invoke(array $args = [])
     {

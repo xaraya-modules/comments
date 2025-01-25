@@ -76,7 +76,7 @@ class CommentTreeProperty extends DataProperty
             ['objectid' => $itemid,
                                        'module' => $module,
                                        'itemtype' => $itemtype,
-                                       'returnurl' => xarServer::getCurrentURL(), ]
+                                       'returnurl' => $this->ctl()->getCurrentURL(), ]
         );
         /*if (isset($data['options'])) {
             $this->options = $data['options'];
@@ -96,8 +96,8 @@ class CommentTreeProperty extends DataProperty
         $data['trees'] = $trees;
 
         // Pager stuff, perhaps not good to have here
-        if(!xarVar::fetch('pagerstart',   'isset', $pagerstart,   NULL, xarVar::DONT_SET)) {return;}
-        if(!xarVar::fetch('catsperpage',  'isset', $catsperpage,  NULL, xarVar::DONT_SET)) {return;}
+        if(!$this->var()->fetch('pagerstart',   'isset', $pagerstart,   NULL, xarVar::DONT_SET)) {return;}
+        if(!$this->var()->fetch('catsperpage',  'isset', $catsperpage,  NULL, xarVar::DONT_SET)) {return;}
         if (empty($pagerstart)) {
             $data['pagerstart'] = 1;
         } else {

@@ -34,8 +34,9 @@ class GetNodeLrvaluesMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
      * @param int $id id of the comment to lookup
-     * @return array an array containing the left and right values or an
+     * @return array|void an array containing the left and right values or an
      * empty array if the comment_id specified doesn't exist
+     * @see UserApi::getNodeLrvalues()
      */
     public function __invoke(array $args = [])
     {

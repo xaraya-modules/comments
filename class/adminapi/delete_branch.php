@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\AdminApi;
 
 
 use Xaraya\Modules\Comments\AdminApi;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarDB;
@@ -35,10 +36,13 @@ class DeleteBranchMethod extends MethodClass
      * @access private
      * @param int $node the id of the node to delete
      * @return bool|void true on success, false otherwise
+     * @see AdminApi::deleteBranch()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         if (empty($node)) {
             $msg = $this->ml('Invalid or Missing Parameter \'node\'!!');
@@ -46,11 +50,7 @@ class DeleteBranchMethod extends MethodClass
         }
 
         // Grab the deletion node's left and right values
-        $comments = xarMod::apiFunc(
-            'comments',
-            'user',
-            'get_one',
-            ['id' => $node]
+        $comments = $userapi->get_one(['id' => $node]
         );
         $left = $comments[0]['left_id'];
         $right = $comments[0]['right_id'];
@@ -81,7 +81,7 @@ class DeleteBranchMethod extends MethodClass
 
 
         // Go through and fix all the l/r values for the comments
-        if (xarMod::apiFunc('comments', 'user', 'remove_gap', ['startpoint' => $left,
+        if ($userapi->remove_gap(['startpoint' => $left,
             'modid'      => $modid,
             'objectid'   => $objectid,
             'itemtype'   => $itemtype,

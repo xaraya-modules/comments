@@ -33,6 +33,7 @@ class EncodeShorturlMethod extends MethodClass
      * @author the Comments module development team
      * @param mixed $args the function and arguments passed to xarController::URL
      * @return string|void path to be added to index.php for a short URL, or empty if failed
+     * @see UserApi::encodeShorturl()
      */
     public function __invoke(array $args = [])
     {

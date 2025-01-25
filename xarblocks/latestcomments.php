@@ -66,7 +66,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
         );
 
         $modlist = [];
-        $modlist['all'] = xarMLS::translate('All');
+        $modlist['all'] = $this->ml('All');
         if (isset($hookedmodules) && is_array($hookedmodules)) {
             foreach ($hookedmodules as $modname => $value) {
                 // Get the list of all item types for this module (if any)
@@ -81,7 +81,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
                         if (isset($mytypes[$itemtype])) {
                             $type = $mytypes[$itemtype]['label'];
                         } else {
-                            $type = xarMLS::translate('type #(1)', $itemtype);
+                            $type = $this->ml('type #(1)', $itemtype);
                         }
                         $modlist["$modname.$itemtype"] = ucwords($modname) . ' - ' . $type;
                     }
@@ -107,37 +107,37 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
     public function update($data = [])
     {
         $vars = [];
-        if (!xarVar::fetch('howmany', 'int:1:', $vars['howmany'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('howmany', 'int:1:', $vars['howmany'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('modid', 'isset', $vars['modid'], [], xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('modid', 'isset', $vars['modid'], [], xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('pubtypeid', 'isset', $vars['pubtypeid'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('pubtypeid', 'isset', $vars['pubtypeid'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('addauthor', 'isset', $vars['addauthor'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('addauthor', 'isset', $vars['addauthor'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('addmodule', 'isset', $vars['addmodule'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('addmodule', 'isset', $vars['addmodule'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('addcomment', 'isset', $vars['addcomment'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('addcomment', 'isset', $vars['addcomment'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('addobject', 'isset', $vars['addobject'], '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('addobject', 'isset', $vars['addobject'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('adddate', 'checkbox', $vars['adddate'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('adddate', 'checkbox', $vars['adddate'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('adddaysep', 'checkbox', $vars['adddaysep'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('adddaysep', 'checkbox', $vars['adddaysep'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('truncate', 'int:1:', $vars['truncate'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('truncate', 'int:1:', $vars['truncate'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('addprevious', 'checkbox', $vars['addprevious'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('addprevious', 'checkbox', $vars['addprevious'], 0, xarVar::NOT_REQUIRED)) {
             return;
         }
 

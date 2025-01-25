@@ -30,6 +30,7 @@ class GetHostnameMethod extends MethodClass
 
     /**
      * Retrieves the host name of the commentor
+     * @see UserApi::getHostname()
      */
     public function __invoke(array $args = [])
     {

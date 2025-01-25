@@ -40,6 +40,7 @@ class GetAuthorCountMethod extends MethodClass
      * @param int $status (optional) the status of the comments to tally up
      * @return int the number of comments for the particular modid/objectid pair,
      * or raise an exception and return false.
+     * @see UserApi::getAuthorCount()
      */
     public function __invoke(array $args = [])
     {

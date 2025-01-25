@@ -31,6 +31,7 @@ class MainMethod extends MethodClass
 
     /**
      * Overview Menu
+     * @see AdminGui::main()
      */
     public function __invoke(array $args = [])
     {

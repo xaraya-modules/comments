@@ -37,6 +37,7 @@ class SearchMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @return mixed description of return
+     * @see UserApi::search()
      */
     public function __invoke(array $args = [])
     {

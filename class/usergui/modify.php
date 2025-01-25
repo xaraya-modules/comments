@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarController;
@@ -47,9 +48,12 @@ class ModifyMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @return mixed description of return
+     * @see UserGui::modify()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->var()->find('parent_url', $parent_url, 'str', 0)) {
             return;
         }
@@ -64,7 +68,7 @@ class ModifyMethod extends MethodClass
             return;
         }
         if (empty($data['comment_id'])) {
-            return $this->ctl()->notFound(null, $this->getContext());
+            return $this->ctl()->notFound();
         }
 
         # --------------------------------------------------------
@@ -111,7 +115,7 @@ class ModifyMethod extends MethodClass
                                           'decoded' => $url);
         }*/
 
-        $package['settings'] = xarMod::apiFunc('comments', 'user', 'getoptions', $header);
+        $package['settings'] = $userapi->getoptions($header);
 
         # --------------------------------------------------------
         # Take appropriate action
@@ -223,7 +227,7 @@ class ModifyMethod extends MethodClass
                 break;
         }
 
-        $hooks = xarMod::apiFunc('comments', 'user', 'formhooks');
+        $hooks = $userapi->formhooks();
         /*
             // Call modify hooks for categories, dynamicdata etc.
             $args['module'] = 'comments';

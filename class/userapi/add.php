@@ -53,10 +53,13 @@ class AddMethod extends MethodClass
      * @var \datetime $date       date of the comment (for API access)
      * @var int $id        comment id (for API access - import only)
      * @return int|void the id of the new comment
+     * @see UserApi::add()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         if (!isset($moduleid) || empty($moduleid)) {
             $msg = $this->ml(
@@ -131,7 +134,7 @@ class AddMethod extends MethodClass
         // Perhaps in the future we can store the comment for later
         // review, but screw it for now...
         if ($this->mod()->getVar('useblacklist') == true) {
-            $items = xarMod::apiFunc('comments', 'user', 'get_blacklist');
+            $items = $userapi->get_blacklist();
             foreach ($items as $item) {
                 if (preg_match("/$item[domain]/i", $comment)) {
                     $msg = $this->ml('Your entry has triggered comments moderation due to suspicious URL entry');
@@ -147,11 +150,7 @@ class AddMethod extends MethodClass
         // left and right values cuz we're adding the new comment
         // as a top level comment
         if ($parent_id == 0) {
-            $root_lnr = xarMod::apiFunc(
-                'comments',
-                'user',
-                'get_node_root',
-                ['moduleid' => $moduleid,
+            $root_lnr = $userapi->get_node_root(['moduleid' => $moduleid,
                     'itemid'   => $itemid,
                     'itemtype' => $itemtype, ]
             );
@@ -161,11 +160,7 @@ class AddMethod extends MethodClass
             // moduleid/itemid combo -- so we need to create a dummy (root)
             // comment from which every other comment will branch from
             if (!count($root_lnr)) {
-                $parent_id = xarMod::apiFunc(
-                    'comments',
-                    'user',
-                    'add_rootnode',
-                    ['moduleid' => $moduleid,
+                $parent_id = $userapi->add_rootnode(['moduleid' => $moduleid,
                         'itemid'   => $itemid,
                         'itemtype' => $itemtype, ]
                 );
@@ -178,21 +173,13 @@ class AddMethod extends MethodClass
         assert($parent_id != 0 && !empty($parent_id));
 
         // grab the left and right values from the parent
-        $parent_lnr = xarMod::apiFunc(
-            'comments',
-            'user',
-            'get_node_lrvalues',
-            ['id' => $parent_id]
+        $parent_lnr = $userapi->get_node_lrvalues(['id' => $parent_id]
         );
 
         // there should be -at-least- one affected row -- if not
         // then raise an exception. btw, at the very least,
         // the 'right' value of the parent node would have been affected.
-        if (!xarMod::apiFunc(
-            'comments',
-            'user',
-            'create_gap',
-            ['startpoint' => $parent_lnr['right_id'],
+        if (!$userapi->create_gap(['startpoint' => $parent_lnr['right_id'],
                 'moduleid'   => $moduleid,
                 'itemid'     => $itemid,
                 'itemtype'   => $itemtype, ]

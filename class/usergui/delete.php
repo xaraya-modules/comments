@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\AdminApi;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -37,9 +39,14 @@ class DeleteMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @return mixed description of return
+     * @see UserGui::delete()
      */
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('ManageComments')) {
             return;
         }
@@ -58,7 +65,7 @@ class DeleteMethod extends MethodClass
         }
 
         if (empty($data['id'])) {
-            return $this->ctl()->notFound(null, $this->getContext());
+            return $this->ctl()->notFound();
         }
 
         sys::import('modules.dynamicdata.class.objects.factory');
@@ -71,11 +78,7 @@ class DeleteMethod extends MethodClass
 
         if ($data['confirm']) {
             if ($deletebranch) {
-                xarMod::apiFunc(
-                    'comments',
-                    'admin',
-                    'delete_branch',
-                    ['node' => $header['id']]
+                $adminapi->delete_branch(['node' => $header['id']]
                 );
                 $this->ctl()->redirect($data['parent_url']);
                 return true;
@@ -88,7 +91,7 @@ class DeleteMethod extends MethodClass
 
         $data['package']['delete_url'] = $this->mod()->getURL('user', 'delete');
 
-        $comments = xarMod::apiFunc('comments', 'user', 'get_one', ['id' => $data['id']]);
+        $comments = $userapi->get_one(['id' => $data['id']]);
         if ($comments[0]['position_atomic']['right'] == $comments[0]['position_atomic']['left'] + 1) {
             $data['package']['haschildren'] = false;
         } else {

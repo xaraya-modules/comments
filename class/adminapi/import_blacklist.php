@@ -36,6 +36,7 @@ class ImportBlacklistMethod extends MethodClass
      *  @author John Cox
      * @access public
      * @return bool|null true on success
+     * @see AdminApi::importBlacklist()
      */
     public function __invoke(array $args = [])
     {

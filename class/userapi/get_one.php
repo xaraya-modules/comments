@@ -42,6 +42,7 @@ class GetOneMethod extends MethodClass
      * @var int $id       the id of a comment
      * @return array an array containing the sole comment that was requested
      * or an empty array if no comment found
+     * @see UserApi::getOne()
      */
     public function __invoke(array $args = [])
     {

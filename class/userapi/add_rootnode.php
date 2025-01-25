@@ -36,8 +36,9 @@ class AddRootnodeMethod extends MethodClass
      * @param int modid      The module that comment is attached to
      * @param int objectid   The particular object within that module
      * @param int itemtype   The itemtype of that object
-     * @return int the id of the node that was created so it can be used as a parent id
+     * @return int|void the id of the node that was created so it can be used as a parent id
      * @todo get rid of this notion of root node ?
+     * @see UserApi::addRootnode()
      */
     public function __invoke(array $args = [])
     {

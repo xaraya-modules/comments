@@ -36,6 +36,7 @@ class SetoptionsMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @return mixed description of return
+     * @see UserApi::setoptions()
      */
     public function __invoke(array $args = [])
     {

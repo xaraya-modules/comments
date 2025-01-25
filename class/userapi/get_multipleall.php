@@ -41,9 +41,10 @@ class GetMultipleallMethod extends MethodClass
      * @param string $order sort order (ASC or DESC date)
      * @param int $howmany number of comments to retrieve
      * @param int $first start number
-     * @return array an array of comments or an empty array if no comments
+     * @return array|void an array of comments or an empty array if no comments
      * found for the particular modules, or raise an
      * exception and return false.
+     * @see UserApi::getMultipleall()
      */
     public function __invoke(array $args = [])
     {

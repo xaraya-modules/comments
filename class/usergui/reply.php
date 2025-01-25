@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
@@ -45,9 +46,12 @@ class ReplyMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
      * @return array|string|null returns whatever needs to be parsed by the BlockLayout engine
+     * @see UserGui::reply()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('PostComments')) {
             return;
         }
@@ -117,7 +121,7 @@ class ReplyMethod extends MethodClass
                     return;
                 }
                 if (empty($data['comment_id'])) {
-                    return $this->ctl()->notFound(null, $this->getContext());
+                    return $this->ctl()->notFound();
                 }
 
                 # --------------------------------------------------------
@@ -214,7 +218,7 @@ class ReplyMethod extends MethodClass
                 break;
         }
 
-        $hooks = xarMod::apiFunc('comments', 'user', 'formhooks');
+        $hooks = $userapi->formhooks();
         /*
             // Call new hooks for categories, dynamicdata etc.
             $args['module'] = 'comments';

@@ -32,10 +32,13 @@ class RemoveModuleMethod extends MethodClass
     /**
      * Called from the core when a module is removed.
      * Delete the appertain comments when the module is hooked.
+     * @see AdminApi::removeModule()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
 
         // When called via hooks, we should get the real module name from objectid
         // here, because the current module is probably going to be 'modules' !!!
@@ -48,7 +51,6 @@ class RemoveModuleMethod extends MethodClass
         if (empty($modid)) {
             $msg = $this->ml('Invalid Parameter');
             throw new BadParameterException($msg);
-            return false;
         }
 
         // TODO: re-evaluate this for hook calls !!
@@ -58,7 +60,7 @@ class RemoveModuleMethod extends MethodClass
 
         // FIXME: we need to remove the comments for items of all types here, so a direct DB call
         //        would be better than this "delete recursively" trick
-        xarMod::apiFunc('comments', 'admin', 'delete_module_nodes', ['modid' => $modid]);
+        $adminapi->delete_module_nodes(['modid' => $modid]);
         return $extrainfo;
     }
 }

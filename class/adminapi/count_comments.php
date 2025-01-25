@@ -39,6 +39,7 @@ class CountCommentsMethod extends MethodClass
      * @param int itemtype Item type in that module to gather info on (only used with type == module|object)
      * @param int objectid ObjectId to gather info on (only used with type == object)
      * @return int|null total comments
+     * @see AdminApi::countComments()
      */
     public function __invoke(array $args = [])
     {

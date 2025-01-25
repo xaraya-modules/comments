@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
@@ -50,9 +51,12 @@ class DisplayMethod extends MethodClass
      * @var integer $args['preview']          optional: an array containing a single (preview) comment used with adding/editing comments
      * @var bool $args['noposting']        optional: a boolean to define whether posting is enabled
      * @return array|string|null returns whatever needs to be parsed by the BlockLayout engine
+     * @see UserGui::display()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('ReadComments', 0)) {
             return;
         }
@@ -62,7 +66,7 @@ class DisplayMethod extends MethodClass
             $fields['moduleid'] = $args['object']->moduleid;
             $fields['itemtype'] = $args['object']->itemtype;
             $fields['itemid'] = $args['object']->properties['id']->value;
-            $fields['parent_url'] = xarServer::getCurrentURL();
+            $fields['parent_url'] = $this->ctl()->getCurrentURL();
         } else {
             // Check for required args
             $ishooked = 0;
@@ -126,7 +130,7 @@ class DisplayMethod extends MethodClass
         # --------------------------------------------------------
         # Get the viewing options: depth, render style, order, and sortby
         #
-        $package['settings'] = xarMod::apiFunc('comments', 'user', 'getoptions');
+        $package['settings'] = $userapi->getoptions();
 
         if (!isset($args['thread'])) {
             $this->var()->find('thread', $thread);
@@ -138,7 +142,7 @@ class DisplayMethod extends MethodClass
         }
 
         if (empty($data['selected_id']) || isset($thread)) {
-            $data['comments'] = xarMod::apiFunc('comments', 'user', 'get_multiple', $fields);
+            $data['comments'] = $userapi->get_multiple($fields);
             if (count($data['comments']) > 1) {
                 $data['comments'] = Renderer::array_sort(
                     $data['comments'],
@@ -148,7 +152,7 @@ class DisplayMethod extends MethodClass
             }
         } else {
             $package['settings']['render'] = Defines::VIEW_FLAT;
-            $data['comments'] = xarMod::apiFunc('comments', 'user', 'get_one', $fields);
+            $data['comments'] = $userapi->get_one($fields);
         }
 
         $data['comments'] = Renderer::array_prune_excessdepth(
@@ -187,10 +191,10 @@ class DisplayMethod extends MethodClass
             return;
         }
 
-        $hooks = xarMod::apiFunc('comments', 'user', 'formhooks');
+        $hooks = $userapi->formhooks();
 
         if (!empty($data['comments'])) {
-            $baseurl = xarServer::getCurrentURL();
+            $baseurl = $this->ctl()->getCurrentURL();
             foreach ($data['comments'] as $key => $val) {
                 $data['comments'][$key]['parent_url'] = str_replace($baseurl, '', $data['comments'][$key]['parent_url']);
             }

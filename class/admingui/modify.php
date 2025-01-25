@@ -37,6 +37,7 @@ class ModifyMethod extends MethodClass
      * This function shows a form in which the user can modify the item
      * @param array<mixed> $args
      *     id itemid The id of the dynamic data item to modify
+     * @see AdminGui::modify()
      */
     public function __invoke(array $args = [])
     {
@@ -97,7 +98,7 @@ class ModifyMethod extends MethodClass
         if ($data['confirm']) {
             // Check for a valid confirmation key
             if (!$this->sec()->confirmAuthKey()) {
-                return $this->ctl()->badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author');
             }
 
             // Get the data from the form

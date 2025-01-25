@@ -38,7 +38,8 @@ class RemoveGapMethod extends MethodClass
      * @param int $modid the module id
      * @param int $itemtype the item type
      * @param string $objectid the item id
-     * @return int number of affected rows or false [0] on error
+     * @return int|void number of affected rows or false [0] on error
+     * @see UserApi::removeGap()
      */
     public function __invoke(array $args = [])
     {

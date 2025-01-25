@@ -35,6 +35,7 @@ class ActivateMethod extends MethodClass
      * @access public
      * @param int $id id of the comment to lookup
      * @return bool|void returns true on success, throws an exception and returns false otherwise
+     * @see UserApi::activate()
      */
     public function __invoke(array $args = [])
     {

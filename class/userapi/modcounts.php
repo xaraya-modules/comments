@@ -35,7 +35,8 @@ class ModcountsMethod extends MethodClass
      * @param string status optional status to count: ALL (minus root nodes), ACTIVE, INACTIVE
      * @param int modid optional module id you want to count for
      * @param int itemtype optional item type you want to count for
-     * @return array $array[$modid][$itemtype] = array('items' => $numitems,'comments' => $numcomments);
+     * @return array|void $array[$modid][$itemtype] = array('items' => $numitems,'comments' => $numcomments);
+     * @see UserApi::modcounts()
      */
     public function __invoke(array $args = [])
     {

@@ -31,7 +31,8 @@ class SortMethod extends MethodClass
     /**
      * Sorting
      * @author potion <ryan@webcommunicate.net>
-     * @return \a string like 'itemid ASC';
+     * @return string|void a string like 'itemid ASC';
+     * @see AdminApi::sort()
      */
     public function __invoke(array $args = [])
     {

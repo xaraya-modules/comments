@@ -39,6 +39,7 @@ class GetBlacklistMethod extends MethodClass
      * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
      * @link http://xaraya.com/index.php/release/14.html
      * @author Carl P. Corliss <rabbitt@xaraya.com>
+     * @see UserApi::getBlacklist()
      */
     public function __invoke(array $args = [])
     {

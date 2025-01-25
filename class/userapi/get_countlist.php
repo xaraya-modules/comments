@@ -38,8 +38,9 @@ class GetCountlistMethod extends MethodClass
      * @param int $itemtype the item type that these nodes belong to
      * @param array $objectids (optional) the list of ids of the items that these nodes belong to
      * @param int $startdate (optional) comments posted at startdate or later
-     * @return array the number of comments for the particular modid/objectids pairs,
+     * @return array|bool|void the number of comments for the particular modid/objectids pairs,
      * or raise an exception and return false.
+     * @see UserApi::getCountlist()
      */
     public function __invoke(array $args = [])
     {

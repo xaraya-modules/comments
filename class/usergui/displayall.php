@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarMod;
@@ -35,9 +36,12 @@ class DisplayallMethod extends MethodClass
 
     /**
      * Display comments from one or more modules and item types
+     * @see UserGui::displayall()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->var()->find('modid', $args['modid'], 'array', ['all'])) {
             return;
         };
@@ -156,9 +160,9 @@ class DisplayallMethod extends MethodClass
             $args['modarray'] = $modarray;
         }
 
-        $comments = xarMod::apiFunc('comments', 'user', 'get_multipleall', $args);
+        $comments = $userapi->get_multipleall($args);
         // Bug 6188: why is this needed? getoptions needs one hooked module to get the options for
-        //$settings = xarMod::apiFunc('comments','user','getoptions');
+        //$settings = $userapi->getoptions();
 
         if (!empty($args['order'])) {
             $settings['order'] = $args['order'];
@@ -317,7 +321,7 @@ class DisplayallMethod extends MethodClass
                     'modid' => $modarray,
                 ]
             );
-            $data = xarTpl::block('comments', 'latestcommentsblock', $templateargs);
+            $data = $this->tpl()->block('comments', 'latestcommentsblock', $templateargs);
         }
 
         return $data;

@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\AdminApi;
 
 
 use Xaraya\Modules\Comments\AdminApi;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarModHooks;
@@ -37,10 +38,13 @@ class DeleteNodeMethod extends MethodClass
      * @param int $node the id of the node to delete
      * @param int $parent_id the deletion node's parent id (used to reassign the children)
      * @return bool|null true on success, false otherwise
+     * @see AdminApi::deleteNode()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         if (empty($node)) {
             $msg = $this->ml('Missing or Invalid comment id!');
@@ -53,11 +57,7 @@ class DeleteNodeMethod extends MethodClass
         }
 
         // Grab the deletion node's left and right values
-        $comments = xarMod::apiFunc(
-            'comments',
-            'user',
-            'get_one',
-            ['id' => $node]
+        $comments = $userapi->get_one(['id' => $node]
         );
         $left = $comments[0]['left_id'];
         $right = $comments[0]['right_id'];
@@ -99,14 +99,14 @@ class DeleteNodeMethod extends MethodClass
         // and then we subtract 2 from all the nodes > the deletion node's right value
         // and <= the max right value for the table
         if ($right > $left + 1) {
-            xarMod::apiFunc('comments', 'user', 'remove_gap', ['startpoint' => $left,
+            $userapi->remove_gap(['startpoint' => $left,
                 'endpoint'   => $right,
                 'modid'      => $modid,
                 'objectid'   => $objectid,
                 'itemtype'   => $itemtype,
                 'gapsize'    => 1, ]);
         }
-        xarMod::apiFunc('comments', 'user', 'remove_gap', ['startpoint' => $right,
+        $userapi->remove_gap(['startpoint' => $right,
             'modid'      => $modid,
             'objectid'   => $objectid,
             'itemtype'   => $itemtype,

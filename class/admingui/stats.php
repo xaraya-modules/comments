@@ -16,6 +16,7 @@
 namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use sys;
@@ -35,9 +36,12 @@ class StatsMethod extends MethodClass
     /**
      * View Statistics about comments per module
      *
+     * @see AdminGui::stats()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         // Security Check
         if (!$this->sec()->checkAccess('AdminComments')) {
             return;
@@ -47,13 +51,9 @@ class StatsMethod extends MethodClass
         $data['gt_total']     = 0;
         $data['gt_inactive']  = 0;
 
-        $modlist = xarMod::apiFunc('comments', 'user', 'modcounts');
+        $modlist = $userapi->modcounts();
 
-        $inactive = xarMod::apiFunc(
-            'comments',
-            'user',
-            'modcounts',
-            ['status' => 'inactive']
+        $inactive = $userapi->modcounts(['status' => 'inactive']
         );
 
         $moditems = [];

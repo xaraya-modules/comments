@@ -42,6 +42,7 @@ class ModifyMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access private
      * @return mixed description of return
+     * @see UserApi::modify()
      */
     public function __invoke(array $args = [])
     {

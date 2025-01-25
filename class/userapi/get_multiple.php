@@ -52,10 +52,13 @@ class GetMultipleMethod extends MethodClass
      * @return array an array of comments or an empty array if no comments
      * found for the particular modid/objectid pair, or raise an
      * exception and return false.
+     * @see UserApi::getMultiple()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         if (!isset($moduleid) || empty($moduleid)) {
             $msg = $this->ml(
@@ -87,11 +90,7 @@ class GetMultipleMethod extends MethodClass
         if (!isset($id) || !is_numeric($id)) {
             $id = 0;
         } else {
-            $nodelr = xarMod::apiFunc(
-                'comments',
-                'user',
-                'get_node_lrvalues',
-                ['id' => $id]
+            $nodelr = $userapi->get_node_lrvalues(['id' => $id]
             );
         }
 
@@ -124,7 +123,7 @@ class GetMultipleMethod extends MethodClass
             $args['right_id'] = (int) $nodelr['right_id'];
         }
 
-        $commentlist = xarMod::apiFunc('comments', 'user', 'getitems', $args);
+        $commentlist = $userapi->getitems($args);
 
         $arr = [];
 

@@ -33,8 +33,9 @@ class GetModuleLrvaluesMethod extends MethodClass
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
      * @param int $modid id of the module to gather info on
-     * @return array an array containing the left and right values or an
+     * @return array|void an array containing the left and right values or an
      * empty array if the modid specified doesn't exist
+     * @see UserApi::getModuleLrvalues()
      */
     public function __invoke(array $args = [])
     {

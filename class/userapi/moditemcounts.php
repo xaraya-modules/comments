@@ -32,12 +32,15 @@ class ModitemcountsMethod extends MethodClass
 
     /**
      *
+     * @see UserApi::moditemcounts()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         $moditemcounts = [];
 
-        $items = xarMod::apiFunc('comments', 'user', 'getitems', $args);
+        $items = $userapi->getitems($args);
 
         extract($args);
 

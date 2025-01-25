@@ -32,6 +32,7 @@ class OverviewMethod extends MethodClass
      * Overview displays standard Overview page
      * @return string|null containing the menulinks for the overview item on the main manu
      * @since 14 Oct 2005
+     * @see AdminGui::overview()
      */
     public function __invoke(array $args = [])
     {

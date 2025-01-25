@@ -40,7 +40,8 @@ class GetoptionsMethod extends MethodClass
      * 4. internal defaults
      * @author Carl P. Corliss (aka rabbitt)
      * @access public
-     * @return array list of viewing options (depth, render style, order, and sortby)
+     * @return array|void list of viewing options (depth, render style, order, and sortby)
+     * @see UserApi::getoptions()
      */
     public function __invoke(array $args = [])
     {

@@ -12,6 +12,7 @@
 namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -43,9 +44,12 @@ class ModuleStatsMethod extends MethodClass
      * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
      * @link http://xaraya.com/index.php/release/14.html
      * @author Carl P. Corliss <rabbitt@xaraya.com>
+     * @see AdminGui::moduleStats()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         // Security Check
         if (!$this->sec()->checkAccess('AdminComments')) {
             return;
@@ -101,20 +105,12 @@ class ModuleStatsMethod extends MethodClass
             $args['itemtype'] = $itemtypearg;
         }
         // all the items and their number of comments (excluding root nodes) for this module
-        $moditems = xarMod::apiFunc(
-            'comments',
-            'user',
-            'moditemcounts',
-            $args
+        $moditems = $userapi->moditemcounts($args
         );
 
         // inactive
         $args['status'] = 'inactive';
-        $inactive = xarMod::apiFunc(
-            'comments',
-            'user',
-            'moditemcounts',
-            $args
+        $inactive = $userapi->moditemcounts($args
         );
 
         // get the title and url for the items
@@ -185,11 +181,7 @@ class ModuleStatsMethod extends MethodClass
         );
 
         // get statistics for all comments (excluding root nodes)
-        $modlist = xarMod::apiFunc(
-            'comments',
-            'user',
-            'modcounts',
-            ['modid' => $modid,
+        $modlist = $userapi->modcounts(['modid' => $modid,
                 'itemtype' => $urlitemtype, ]
         );
         if (isset($modlist[$modid]) && isset($modlist[$modid][$urlitemtype])) {
@@ -198,7 +190,7 @@ class ModuleStatsMethod extends MethodClass
             $numitems = 0;
         }
         if ($numstats < $numitems) {
-            $data['pager'] = xarTplPager::getPager(
+            $data['pager'] = $this->tpl()->getPager(
                 $startnum,
                 $numitems,
                 $this->mod()->getURL(

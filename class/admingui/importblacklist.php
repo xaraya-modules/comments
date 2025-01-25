@@ -12,6 +12,7 @@
 namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -31,13 +32,16 @@ class ImportblacklistMethod extends MethodClass
     /**
      * This is a standard function to update the configuration parameters of the
      * module given the information passed back by the modification form
+     * @see AdminGui::importblacklist()
      */
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
         if (!$this->sec()->checkAccess('AdminComments')) {
             return;
         }
-        if (!xarMod::apiFunc('comments', 'admin', 'import_blacklist')) {
+        if (!$adminapi->import_blacklist()) {
             return;
         }
         return [];

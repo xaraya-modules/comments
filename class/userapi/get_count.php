@@ -37,8 +37,9 @@ class GetCountMethod extends MethodClass
      * @param int $itemtype the item type that these nodes belong to
      * @param int $objectid the id of the item that these nodes belong to
      * @param int $status the status of the comment: 2 - active, 1 - inactive, 3 - root node
-     * @return int the number of comments for the particular modid/objectid pair,
+     * @return int|void the number of comments for the particular modid/objectid pair,
      * or raise an exception and return false.
+     * @see UserApi::getCount()
      */
     public function __invoke(array $args = [])
     {

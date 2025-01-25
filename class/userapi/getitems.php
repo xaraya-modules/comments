@@ -43,6 +43,7 @@ class GetitemsMethod extends MethodClass
      * @var mixed $numitems optional number of items to return
      * @var mixed $startnum optional start at this number (1-based)
      * @return array|void $array[$itemid] = $numcomments;
+     * @see UserApi::getitems()
      */
     public function __invoke(array $args = [])
     {

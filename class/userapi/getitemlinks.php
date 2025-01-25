@@ -36,11 +36,14 @@ class GetitemlinksMethod extends MethodClass
      * @param array<mixed> $args
      * @var mixed $itemtype item type (optional)
      * @var mixed $itemids array of item ids to get
-     * @return array containing the itemlink(s) for the item(s).
+     * @return array|void containing the itemlink(s) for the item(s).
+     * @see UserApi::getitemlinks()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         $itemlinks = [];
         if (!$this->sec()->checkAccess('ReadComments', 0)) {
             return $itemlinks;
@@ -52,7 +55,7 @@ class GetitemlinksMethod extends MethodClass
 
         // FIXME: support retrieving several comments at once
         foreach ($itemids as $itemid) {
-            $item = xarMod::apiFunc('comments', 'user', 'get_one', ['id' => $itemid]);
+            $item = $userapi->get_one(['id' => $itemid]);
             if (!isset($item)) {
                 return;
             }

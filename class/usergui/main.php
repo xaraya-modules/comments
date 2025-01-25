@@ -30,6 +30,7 @@ class MainMethod extends MethodClass
 
     /**
      * Main function for comments module
+     * @see UserGui::main()
      */
     public function __invoke(array $args = [])
     {

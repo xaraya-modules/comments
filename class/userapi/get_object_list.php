@@ -35,7 +35,8 @@ class GetObjectListMethod extends MethodClass
      * @access private
      * @param int $modid the id of the module that the objectids are associated with
      * @param int $itemtype the item type that these nodes belong to
-     * @return array A list of objectid's
+     * @return array|void A list of objectid's
+     * @see UserApi::getObjectList()
      */
     public function __invoke(array $args = [])
     {

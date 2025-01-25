@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 
 use Xaraya\Modules\Comments\UserGui;
+use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -37,10 +38,13 @@ class RssMethod extends MethodClass
      * @author John Cox
      * @access public
      * @return array|void
+     * @see UserGui::rss()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('ReadComments', 0)) {
             return;
         }
@@ -112,7 +116,7 @@ class RssMethod extends MethodClass
         }
         $args['modarray']   = $todolist;
         $args['howmany']    = $this->mod()->getVar('rssnumitems');
-        $items = xarMod::apiFunc('comments', 'user', 'get_multipleall', $args);
+        $items = $userapi->get_multipleall($args);
 
         for ($i = 0; $i < count($items); $i++) {
             $item = $items[$i];

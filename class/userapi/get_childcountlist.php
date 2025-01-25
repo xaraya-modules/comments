@@ -36,8 +36,9 @@ class GetChildcountlistMethod extends MethodClass
      * @param int $left the left limit for the list of comment ids
      * @param int $right the right limit for the list of comment ids
      * @param int $moduleid /$itemtype/$itemid of the module selected
-     * @return array the number of child comments for each comment id,
+     * @return array|void the number of child comments for each comment id,
      * or raise an exception and return false.
+     * @see UserApi::getChildcountlist()
      */
     public function __invoke(array $args = [])
     {

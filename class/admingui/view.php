@@ -12,6 +12,7 @@
 namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
+use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
@@ -38,9 +39,12 @@ class ViewMethod extends MethodClass
      * This is a standard function to modify the configuration parameters of the
      * module
      * @return array|void
+     * @see AdminGui::view()
      */
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
         if (!$this->sec()->checkAccess('ManageComments')) {
             return;
         }
@@ -63,7 +67,7 @@ class ViewMethod extends MethodClass
         }
 
         //how to sort if the URL or config say otherwise...
-        $sort = xarMod::apiFunc('comments', 'admin', 'sort', [
+        $sort = $adminapi->sort([
             'sortfield_fallback' => 'date',
             'ascdesc_fallback' => 'DESC',
         ]);
