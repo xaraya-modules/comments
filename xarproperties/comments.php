@@ -45,7 +45,7 @@ class CommentsProperty extends DataProperty
         if (!empty($data['id'])) {
             $id = $data['id'];
         } else {
-            $this->var()->fetch('id', 'int:1:', $id, 0, xarVar::NOT_REQUIRED);
+            $this->var()->find('id', $id, 'int:1:', 0);
         }
 
         // and set the selected id to this one
@@ -65,7 +65,7 @@ class CommentsProperty extends DataProperty
         } elseif (isset($header['modid'])) {
             $data['modid'] = $header['modid'];
         } else {
-            $this->var()->fetch('modid', 'isset', $modid, null, xarVar::NOT_REQUIRED);
+            $this->var()->find('modid', $modid);
             if (empty($modid)) {
                 $modid = xarMod::getRegID(xarMod::getName());
             }
@@ -80,7 +80,7 @@ class CommentsProperty extends DataProperty
         } elseif (isset($header['itemtype'])) {
             $data['itemtype'] = $header['itemtype'];
         } else {
-            $this->var()->fetch('itemtype', 'isset', $itemtype, null, xarVar::NOT_REQUIRED);
+            $this->var()->find('itemtype', $itemtype);
             $data['itemtype'] = $itemtype;
             $header['itemtype'] = $itemtype;
         }
@@ -101,7 +101,7 @@ class CommentsProperty extends DataProperty
         } elseif (isset($header['objectid'])) {
             $data['objectid'] = $header['objectid'];
         } else {
-            $this->var()->fetch('objectid', 'isset', $objectid, null, xarVar::NOT_REQUIRED);
+            $this->var()->find('objectid', $objectid);
             $data['objectid'] = $objectid;
             $header['objectid'] = $objectid;
         }
@@ -111,12 +111,12 @@ class CommentsProperty extends DataProperty
         } elseif (isset($header['selected_id'])) {
             $data['selected_id'] = $header['selected_id'];
         } else {
-            $this->var()->fetch('selected_id', 'isset', $selected_id, null, xarVar::NOT_REQUIRED);
+            $this->var()->find('selected_id', $selected_id);
             $data['selected_id'] = $selected_id;
             $header['selected_id'] = $selected_id;
         }
         if (!isset($data['thread'])) {
-            $this->var()->fetch('thread', 'isset', $thread, null, xarVar::NOT_REQUIRED);
+            $this->var()->find('thread', $thread);
         }
         if (isset($thread) && $thread == 1) {
             $header['cid'] = $cid;

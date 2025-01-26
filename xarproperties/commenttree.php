@@ -84,7 +84,7 @@ class CommentTreeProperty extends DataProperty
             $this->options = xarMod::apiFunc('categories','user','getchildren',array('id' => 0));
         }
 
-        $trees = array();
+        $trees = [];
         $totalcount = 0;
         foreach ($this->options as $entry) {
             $node = new CategoryTreeNode($entry['id']);
@@ -96,8 +96,8 @@ class CommentTreeProperty extends DataProperty
         $data['trees'] = $trees;
 
         // Pager stuff, perhaps not good to have here
-        if(!$this->var()->fetch('pagerstart',   'isset', $pagerstart,   NULL, xarVar::DONT_SET)) {return;}
-        if(!$this->var()->fetch('catsperpage',  'isset', $catsperpage,  NULL, xarVar::DONT_SET)) {return;}
+        if(!$this->var()->check('pagerstart', $pagerstart)) {return;}
+        if(!$this->var()->check('catsperpage', $catsperpage)) {return;}
         if (empty($pagerstart)) {
             $data['pagerstart'] = 1;
         } else {
@@ -111,7 +111,7 @@ class CommentTreeProperty extends DataProperty
         }
 
         $data['pagertotal'] = $totalcount;
-        */
         return parent::showInput($data);
+        */
     }
 }
