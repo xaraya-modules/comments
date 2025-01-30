@@ -89,7 +89,7 @@ class DisplayallMethod extends MethodClass
         /*$args['returnurl'] = '';*/
         $modarray = $args['modid'];
         // get the list of modules+itemtypes that comments is hooked to
-        $hookedmodules = xarMod::apiFunc(
+        $hookedmodules = $this->mod()->apiFunc(
             'modules',
             'admin',
             'gethookedmodules',
@@ -105,7 +105,7 @@ class DisplayallMethod extends MethodClass
         $todolist = [];
         if (isset($hookedmodules) && is_array($hookedmodules)) {
             foreach ($hookedmodules as $module => $value) {
-                $modid = xarMod::getRegID($module);
+                $modid = $this->mod()->getRegID($module);
                 if (!isset($modname[$modid])) {
                     $modname[$modid] = [];
                 }
@@ -116,7 +116,7 @@ class DisplayallMethod extends MethodClass
                 $modview[$modid][0] = $this->ctl()->getModuleURL($module, 'user', 'view');
                 // Get the list of all item types for this module (if any)
                 try {
-                    $mytypes = xarMod::apiFunc($module, 'user', 'getitemtypes');
+                    $mytypes = $this->mod()->apiFunc($module, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $mytypes = [];
                 }
@@ -186,11 +186,11 @@ class DisplayallMethod extends MethodClass
             }
             // for each module and itemtype, retrieve the item links (if available)
             foreach ($items as $modid => $itemtypes) {
-                $modinfo = xarMod::getInfo($modid);
+                $modinfo = $this->mod()->getInfo($modid);
                 foreach ($itemtypes as $itemtype => $itemlist) {
                     $itemids = array_keys($itemlist);
                     try {
-                        $itemlinks = xarMod::apiFunc(
+                        $itemlinks = $this->mod()->apiFunc(
                             $modinfo['name'],
                             'user',
                             'getitemlinks',

@@ -66,7 +66,7 @@ class ModuleStatsMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $modinfo = xarMod::getInfo($modid);
+        $modinfo = $this->mod()->getInfo($modid);
         $data['modname'] = ucwords($modinfo['displayname']);
         if (empty($urlitemtype)) {
             $urlitemtype = -1;
@@ -74,7 +74,7 @@ class ModuleStatsMethod extends MethodClass
             $data['itemtype'] = $urlitemtype;
             // Get the list of all item types for this module (if any)
             try {
-                $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+                $mytypes = $this->mod()->apiFunc($modinfo['name'], 'user', 'getitemtypes');
             } catch (Exception $e) {
                 $mytypes = [];
             }
@@ -118,7 +118,7 @@ class ModuleStatsMethod extends MethodClass
         if (!empty($showtitle)) {
             $itemids = array_keys($moditems);
             try {
-                $itemlinks = xarMod::apiFunc(
+                $itemlinks = $this->mod()->apiFunc(
                     $modinfo['name'],
                     'user',
                     'getitemlinks',

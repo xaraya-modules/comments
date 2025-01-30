@@ -92,9 +92,9 @@ class ModifyMethod extends MethodClass
         $header['itemid']   = $data['object']->properties['itemid']->value;
 
         // get the title and link of the original object
-        $modinfo = xarMod::getInfo($data['object']->properties['moduleid']->value);
+        $modinfo = $this->mod()->getInfo($data['object']->properties['moduleid']->value);
         try {
-            $itemlinks = xarMod::apiFunc(
+            $itemlinks = $this->mod()->apiFunc(
                 $modinfo['name'],
                 'user',
                 'getitemlinks',
@@ -236,7 +236,7 @@ class ModifyMethod extends MethodClass
             // pass along the current module & itemtype for pubsub (urgh)
         // FIXME: handle 2nd-level hook calls in a cleaner way - cfr. categories navigation, comments add etc.
             $args['id'] = 0; // dummy category
-            $modinfo = xarMod::getInfo($header['moduleid']);
+            $modinfo = $this->mod()->getInfo($header['moduleid']);
             $args['current_module'] = $modinfo['name'];
             $args['current_itemtype'] = $header['itemtype'];
             $args['current_itemid'] = $header['itemid'];

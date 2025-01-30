@@ -138,9 +138,9 @@ class ReplyMethod extends MethodClass
                 $new_title = 'Re: ' . $title;
 
                 // get the title and link of the original object
-                $modinfo = xarMod::getInfo($data['object']->properties['moduleid']->value);
+                $modinfo = $this->mod()->getInfo($data['object']->properties['moduleid']->value);
                 try {
-                    $itemlinks = xarMod::apiFunc(
+                    $itemlinks = $this->mod()->apiFunc(
                         $modinfo['name'],
                         'user',
                         'getitemlinks',
@@ -227,7 +227,7 @@ class ReplyMethod extends MethodClass
             // pass along the current module & itemtype for pubsub (urgh)
         // FIXME: handle 2nd-level hook calls in a cleaner way - cfr. categories navigation, comments add etc.
             $args['id'] = 0; // dummy category
-            $modinfo = xarMod::getInfo($header['moduleid']);
+            $modinfo = $this->mod()->getInfo($header['moduleid']);
             $args['current_module'] = $modinfo['name'];
             $args['current_itemtype'] = $header['itemtype'];
             $args['current_itemid'] = $header['itemid'];
@@ -237,7 +237,7 @@ class ReplyMethod extends MethodClass
         # --------------------------------------------------------
         # Pass args to the form template
         #
-        $anonuid = xarConfigVars::get(null, 'Site.User.AnonymousUID');
+        $anonuid = $this->config()->getVar('Site.User.AnonymousUID');
         $data['hooks']              = $hooks;
         $data['package']            = $package;
         $data['package']['date']    = time();

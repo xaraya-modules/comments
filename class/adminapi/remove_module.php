@@ -47,7 +47,7 @@ class RemoveModuleMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $modid = xarMod::getRegID($objectid);
+        $modid = $this->mod()->getRegID($objectid);
         if (empty($modid)) {
             $msg = $this->ml('Invalid Parameter');
             throw new BadParameterException($msg);

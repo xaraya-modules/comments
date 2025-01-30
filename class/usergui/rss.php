@@ -50,7 +50,7 @@ class RssMethod extends MethodClass
         }
 
         // get the list of modules+itemtypes that comments is hooked to
-        $hookedmodules = xarMod::apiFunc(
+        $hookedmodules = $this->mod()->apiFunc(
             'modules',
             'admin',
             'gethookedmodules',
@@ -67,7 +67,7 @@ class RssMethod extends MethodClass
         $todolist = [];
         if (isset($hookedmodules) && is_array($hookedmodules)) {
             foreach ($hookedmodules as $module => $value) {
-                $modid = xarMod::getRegID($module);
+                $modid = $this->mod()->getRegID($module);
                 if (!isset($modname[$modid])) {
                     $modname[$modid] = [];
                 }
@@ -78,7 +78,7 @@ class RssMethod extends MethodClass
                 $modview[$modid][0] = $this->ctl()->getModuleURL($module, 'user', 'view');
                 // Get the list of all item types for this module (if any)
                 try {
-                    $mytypes = xarMod::apiFunc($module, 'user', 'getitemtypes');
+                    $mytypes = $this->mod()->apiFunc($module, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $mytypes = [];
                 }
@@ -120,10 +120,10 @@ class RssMethod extends MethodClass
 
         for ($i = 0; $i < count($items); $i++) {
             $item = $items[$i];
-            $modinfo = xarMod::getInfo($item['modid']);
+            $modinfo = $this->mod()->getInfo($item['modid']);
             $items[$i]['rsstitle']      = htmlspecialchars($item['subject']);
             try {
-                $linkarray                  = xarMod::apiFunc(
+                $linkarray                  = $this->mod()->apiFunc(
                     $modinfo['name'],
                     'user',
                     'getitemlinks',

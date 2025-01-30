@@ -82,13 +82,13 @@ class GetMultipleallMethod extends MethodClass
             foreach ($modarray as $modname) {
                 if (strstr($modname, '.')) {
                     [$module, $itemtype] = explode('.', $modname);
-                    $modid = xarMod::getRegID($module);
+                    $modid = $this->mod()->getRegID($module);
                     if (empty($itemtype)) {
                         $itemtype = 0;
                     }
                     $where[] = "(modid = $modid AND itemtype = $itemtype)";
                 } else {
-                    $modid = xarMod::getRegID($modname);
+                    $modid = $this->mod()->getRegID($modname);
                     $where[] = "(modid = $modid)";
                 }
             }

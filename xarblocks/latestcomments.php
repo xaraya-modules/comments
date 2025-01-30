@@ -50,7 +50,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
         $vars['block_is_calling'] = 1;
         $vars['first'] = 1;
         $vars['order'] = 'DESC';
-        return xarMod::guiFunc('comments', 'user', 'displayall', $vars) ;
+        return $this->mod()->guiMethod('comments', 'user', 'displayall', $vars) ;
     }
 
     public function modify()
@@ -58,7 +58,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
         $vars = $this->getContent();
 
         // get the list of modules+itemtypes that comments is hooked to
-        $hookedmodules = xarMod::apiFunc(
+        $hookedmodules = $this->mod()->apiFunc(
             'modules',
             'admin',
             'gethookedmodules',
@@ -71,7 +71,7 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
             foreach ($hookedmodules as $modname => $value) {
                 // Get the list of all item types for this module (if any)
                 try {
-                    $mytypes = xarMod::apiFunc($modname, 'user', 'getitemtypes');
+                    $mytypes = $this->mod()->apiFunc($modname, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $mytypes = [];
                 }

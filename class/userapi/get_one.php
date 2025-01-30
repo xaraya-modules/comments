@@ -114,7 +114,7 @@ class GetOneMethod extends MethodClass
              return array();
          }*/
 
-        if (!xarMod::load('comments', 'renderer')) {
+        if (!$this->mod()->load('comments', 'renderer')) {
             $msg = $this->ml('Unable to load #(1) #(2) - unable to trim excess depth', 'comments', 'renderer');
             throw new Exception($msg);
         }

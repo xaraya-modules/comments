@@ -58,10 +58,10 @@ class StatsMethod extends MethodClass
 
         $moditems = [];
         foreach ($modlist as $modid => $itemtypes) {
-            $modinfo = xarMod::getInfo($modid);
+            $modinfo = $this->mod()->getInfo($modid);
             // Get the list of all item types for this module (if any)
             try {
-                $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+                $mytypes = $this->mod()->apiFunc($modinfo['name'], 'user', 'getitemtypes');
             } catch (Exception $e) {
                 $mytypes = [];
             }

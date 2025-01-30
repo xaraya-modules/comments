@@ -51,7 +51,7 @@ class GetitemsMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) && isset($modname)) {
-            $moduleid = xarMod::getRegID($modname);
+            $moduleid = $this->mod()->getRegID($modname);
         }
 
         /*if (!isset($itemtype)) {

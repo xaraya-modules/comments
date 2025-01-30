@@ -37,7 +37,7 @@ class CommentTreeProperty extends DataProperty
         }
         extract($data);
         if (!isset($module)) {
-            $module = xarMod::getName();
+            $module = $this->mod()->getName();
         }
         if (!isset($itemtype)) {
             throw new BadParameterException('itemtype');
@@ -46,22 +46,22 @@ class CommentTreeProperty extends DataProperty
             throw new BadParameterException('itemid');
         }
 
-        $root = xarMod::apiFunc(
+        $root = $this->mod()->apiMethod(
             'comments',
             'user',
             'get_node_root',
-            ['modid' => xarMod::getID($module),
+            ['modid' => $this->mod()->getID($module),
                               'objectid' => $itemid,
                               'itemtype' => $itemtype, ]
         );
 
         // If we don't have one, make one
         if (!count($root)) {
-            $cid = xarMod::apiFunc(
+            $cid = $this->mod()->apiMethod(
                 'comments',
                 'user',
                 'add_rootnode',
-                ['modid'    => xarMod::getID($module),
+                ['modid'    => $this->mod()->getID($module),
                                         'objectid' => $itemid,
                                         'itemtype' => $itemtype, ]
             );
@@ -69,7 +69,7 @@ class CommentTreeProperty extends DataProperty
                 throw new Exception('Unable to create root node');
             }
         }
-        return xarMod::guiFunc(
+        return $this->mod()->guiMethod(
             'comments',
             'user',
             'display',
@@ -81,7 +81,7 @@ class CommentTreeProperty extends DataProperty
         /*if (isset($data['options'])) {
             $this->options = $data['options'];
         } else {
-            $this->options = xarMod::apiFunc('categories','user','getchildren',array('id' => 0));
+            $this->options = $this->mod()->apiFunc('categories','user','getchildren',array('id' => 0));
         }
 
         $trees = [];

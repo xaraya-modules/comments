@@ -192,7 +192,7 @@ class AddMethod extends MethodClass
         $cdate    = time();
         $left     = $parent_lnr['right_id'];
         $right    = $left + 1;
-        if ($moduleid == xarMod::getID('comments')) {
+        if ($moduleid == $this->mod()->getID('comments')) {
             $status   = $this->mod()->getVar('AuthorizeComments') ? Defines::STATUS_OFF : Defines::STATUS_ON;
         } elseif (!isset($status) || !is_numeric($status)) {
             // no reasonable default for this, so we'll throw an error
@@ -271,7 +271,7 @@ class AddMethod extends MethodClass
             // CHECKME: find some cleaner way to update the page cache if necessary
             if (function_exists('xarOutputFlushCached') &&
                 xarModVars::get('cachemanager', 'FlushOnNewComment')) {
-                $modinfo = xarMod::getInfo($moduleid);
+                $modinfo = $this->mod()->getInfo($moduleid);
                 xarOutputFlushCached("$modinfo[name]-");
                 xarOutputFlushCached("comments-block");
             }
@@ -282,7 +282,7 @@ class AddMethod extends MethodClass
             // pass along the current module & itemtype for pubsub (urgh)
             // FIXME: handle 2nd-level hook calls in a cleaner way - cfr. categories navigation, comments add etc.
             $args['id'] = 0; // dummy category
-            $modinfo = xarMod::getInfo($moduleid);
+            $modinfo = $this->mod()->getInfo($moduleid);
             $args['current_module'] = $modinfo['name'];
             $args['current_itemtype'] = $itemtype;
             $args['current_itemid'] = $itemid;

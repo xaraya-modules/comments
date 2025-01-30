@@ -107,7 +107,6 @@ class ModifyMethod extends MethodClass
             $hostname = xarServer::getVar('REMOTE_ADDR');
         }
         $useeditstamp = $this->mod()->getVar('editstamp');
-        $adminid = xarModVars::get('roles', 'admin');
 
         /*$dbconn = $this->db()->getConn();
         $xartable =& $this->db()->getTables();*/
@@ -115,7 +114,7 @@ class ModifyMethod extends MethodClass
         // Let's leave a link for the changelog module if it is hooked to track comments
         /* jojodee: good idea. I'll move it direct to comments template and then can add it to
                     any others we like as well, like xarbb.
-        if (xarModHooks::isHooked('changelog', 'comments', 0)){
+        if ($this->mod()->isHooked('changelog', 'comments', 0)){
             $url = $this->ctl()->getModuleURL('changelog', 'admin', 'showlog', array('modid' => '14', 'itemid' => $id));
             $text .= "\n<p>\n";
             $text .= '<a href="' . $url . '" title="' . $this->ml('See Changes') .'">';
@@ -125,7 +124,7 @@ class ModifyMethod extends MethodClass
         */
 
         if (($useeditstamp == 1) ||
-                         (($useeditstamp == 2) && (xarUser::getVar('id') <> $adminid))) {
+                         (($useeditstamp == 2) && (!xarUser::isSiteAdmin()))) {
             $text .= "\n";
             $text .= $this->mod()->template('modifiedby', [
                 'isauthor' => (xarUser::getVar('id') == $authorid),

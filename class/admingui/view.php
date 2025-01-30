@@ -93,10 +93,10 @@ class ViewMethod extends MethodClass
         $data['makefilters'] = [];
         $data['showfilters'] = false;
 
-        if (xarMod::isAvailable('filters') && $this->mod()->getVar('enable_filters') && $data['total'] >= $filters_min_items) {
+        if ($this->mod()->isAvailable('filters') && $this->mod()->getVar('enable_filters') && $data['total'] >= $filters_min_items) {
             $data['showfilters'] = true;
             $filterfields = $config['filterfields'];
-            $get_results = xarMod::apiFunc('filters', 'user', 'dd_get_results', [
+            $get_results = $this->mod()->apiFunc('filters', 'user', 'dd_get_results', [
                 'filterfields' => $filterfields,
                 'object' => 'comments',
             ]);

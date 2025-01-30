@@ -49,7 +49,7 @@ class ImportBlacklistMethod extends MethodClass
         $feedfile = 'http://www.jayallen.org/comment_spam/blacklist.txt';
 
         // Get the feed file (from cache or from the remote site)
-        $filegrab = xarMod::apiFunc(
+        $filegrab = $this->mod()->apiFunc(
             'base',
             'user',
             'getfile',

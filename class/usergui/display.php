@@ -136,7 +136,7 @@ class DisplayMethod extends MethodClass
             $this->var()->find('thread', $thread);
         }
 
-        if (!xarMod::load('comments', 'renderer')) {
+        if (!$this->mod()->load('comments', 'renderer')) {
             $msg = $this->ml('Unable to load #(1) #(2)', 'comments', 'renderer');
             throw new BadParameterException($msg);
         }

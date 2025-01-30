@@ -64,11 +64,11 @@ class DecodeShorturlMethod extends MethodClass
                     // something that starts with a name might be for the display function
                     // Note : make sure your encoding/decoding is consistent ! :-)
                     $modname = $matches[1];
-                    $alias = xarModAlias::resolve($modname);
+                    $alias = $this->mod()->resolveAlias($modname);
                     if ($modname != $alias) {
                         $itemtype = 0;
                         // try to figure out which itemtype we're dealing with
-                        $itemtypes = xarMod::apiFunc($alias,'user','getitemtypes',
+                        $itemtypes = $this->mod()->apiFunc($alias,'user','getitemtypes',
                                                    array(),0);
                         if (!empty($itemtypes) && count($itemtypes) > 0) {
                             foreach ($itemtypes as $id => $info) {
@@ -82,8 +82,8 @@ class DecodeShorturlMethod extends MethodClass
                     } else {
                         $itemtype = 0;
                     }
-                    if (xarMod::isAvailable($modname)) {
-                        $modid = xarMod::getRegID($modname);
+                    if ($this->mod()->isAvailable($modname)) {
+                        $modid = $this->mod()->getRegID($modname);
                         if (!empty($modid)) {
                             $args['modid'] = $modid;
                             if (preg_match('/^(\d+)/',$params[2],$matches)) {

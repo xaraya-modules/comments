@@ -67,12 +67,12 @@ class CommentsProperty extends DataProperty
         } else {
             $this->var()->find('modid', $modid);
             if (empty($modid)) {
-                $modid = xarMod::getRegID(xarMod::getName());
+                $modid = $this->mod()->getRegID($this->mod()->getName());
             }
             $data['modid'] = $modid;
             $header['modid'] = $modid;
         }
-        $header['modname'] = xarMod::getName($header['modid']);
+        $header['modname'] = $this->mod()->getName($header['modid']);
 
         // Fetch the itemtype
         if (isset($data['itemtype'])) {
@@ -86,7 +86,7 @@ class CommentsProperty extends DataProperty
         }
 
 
-        $package['settings'] = xarMod::apiFunc('comments', 'user', 'getoptions', $header);
+        $package['settings'] = $this->mod()->apiMethod('comments', 'user', 'getoptions', $header);
 
         // FIXME: clean up return url handling
 
@@ -97,7 +97,7 @@ class CommentsProperty extends DataProperty
 
         // Fetch the object ID
         if (isset($data['object'])) {
-            $header['objectid'] = xarMod::getID($data['object']);
+            $header['objectid'] = $this->mod()->getID($data['object']);
         } elseif (isset($header['objectid'])) {
             $data['objectid'] = $header['objectid'];
         } else {
@@ -122,14 +122,14 @@ class CommentsProperty extends DataProperty
             $header['cid'] = $cid;
         }
 
-        if (!xarMod::load('comments', 'renderer')) {
+        if (!$this->mod()->load('comments', 'renderer')) {
             $msg = $this->ml('Unable to load #(1) #(2)', 'comments', 'renderer');
             throw new BadParameterException($msg);
         }
 
 
         if (!isset($header['selected_id']) || isset($thread)) {
-            $package['comments'] = xarMod::apiFunc('comments', 'user', 'get_multiple', $header);
+            $package['comments'] = $this->mod()->apiMethod('comments', 'user', 'get_multiple', $header);
             if (count($package['comments']) > 1) {
                 $package['comments'] = Renderer::array_sort(
                     $package['comments'],
@@ -140,7 +140,7 @@ class CommentsProperty extends DataProperty
         } else {
             $header['id'] = $header['selected_id'];
             $package['settings']['render'] = Defines::VIEW_FLAT;
-            $package['comments'] = xarMod::apiFunc('comments', 'user', 'get_one', $header);
+            $package['comments'] = $this->mod()->apiMethod('comments', 'user', 'get_one', $header);
             if (!empty($package['comments'][0])) {
                 $header['modid'] = $package['comments'][0]['modid'];
                 $header['itemtype'] = $package['comments'][0]['itemtype'];
@@ -191,9 +191,9 @@ class CommentsProperty extends DataProperty
         }*/
 
         // get the title and link of the original object
-        $modinfo = xarMod::getInfo($header['modid']);
+        $modinfo = $this->mod()->getInfo($header['modid']);
         try {
-            $itemlinks = xarMod::apiFunc(
+            $itemlinks = $this->mod()->apiFunc(
                 $modinfo['name'],
                 'user',
                 'getitemlinks',
@@ -220,7 +220,7 @@ class CommentsProperty extends DataProperty
         $receipt['post_url']              = $this->mod()->getURL('user', 'reply');
         $receipt['action']                = 'display';
 
-        $hooks = xarMod::apiFunc('comments', 'user', 'formhooks');
+        $hooks = $this->mod()->apiMethod('comments', 'user', 'formhooks');
 
         //if (time() - ($package['comments']['xar_date'] - ($package['settings']['edittimelimit'] * 60))) {
         //}

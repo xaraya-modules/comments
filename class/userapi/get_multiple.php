@@ -212,7 +212,7 @@ class GetMultipleMethod extends MethodClass
          // if we have nothing return empty
          if ($result->EOF) return array();
 
-         if (!xarMod::load('comments','renderer')) {
+         if (!$this->mod()->load('comments','renderer')) {
              $msg = $this->ml('Unable to load #(1) #(2)','comments','renderer');
              throw new Exception($msg);
          }*/
