@@ -61,7 +61,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                 case 'comments_general':
                 default:
                     //check for comments hook in case it's set independently elsewhere
-                    if (xarModHooks::isHooked('comments', 'roles')) {
+                    if (xarHooks::isAttached('comments', 'roles')) {
                         xarModVars::set('comments', 'usersetrendering', true);
                     } else {
                         xarModVars::set('comments', 'usersetrendering', false);
@@ -178,7 +178,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             */
             if ($usersetrendering == true) {
                 //check and hook Comments to roles if not already hooked
-                if (!xarModHooks::isHooked('comments', 'roles')) {
+                if (!xarHooks::isAttached('comments', 'roles')) {
                     xarMod::apiFunc(
                         'modules',
                         'admin',
@@ -188,7 +188,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                     );
                 }
             } else {
-                if (xarModHooks::isHooked('comments', 'roles')) {
+                if (xarHooks::isAttached('comments', 'roles')) {
                     //unhook Comments from roles
                     xarMod::apiFunc(
                         'modules',
