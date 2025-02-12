@@ -15,7 +15,7 @@ use Xaraya\Modules\AdminGuiClass;
 use sys;
 
 sys::import('xaraya.modules.admingui');
-sys::import('modules.comments.class.adminapi');
+sys::import('modules.comments.adminapi');
 
 /**
  * Handle the comments admin GUI

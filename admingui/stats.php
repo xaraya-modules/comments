@@ -23,7 +23,7 @@ use sys;
 use Exception;
 
 sys::import('xaraya.modules.method');
-sys::import('modules.comments.class.defines');
+sys::import('modules.comments.defines');
 
 /**
  * comments admin stats function

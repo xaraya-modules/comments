@@ -15,7 +15,7 @@ use Xaraya\Modules\UserGuiClass;
 use sys;
 
 sys::import('xaraya.modules.usergui');
-sys::import('modules.comments.class.userapi');
+sys::import('modules.comments.userapi');
 
 /**
  * Handle the comments user GUI

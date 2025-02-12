@@ -24,7 +24,7 @@ use DataObjectFactory;
 use sys;
 
 sys::import('xaraya.modules.method');
-sys::import('modules.comments.class.defines');
+sys::import('modules.comments.defines');
 
 /**
  * comments admin modifyconfig function
