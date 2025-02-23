@@ -34,15 +34,9 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         //xarModVars::set('comments', 'numstats', 100);
     }
 
-    if (!xarVar::fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
-        return;
-    }
-    if (!xarVar::fetch('tab', 'str:1:100', $data['tab'], 'comments_general', xarVar::NOT_REQUIRED)) {
-        return;
-    }
-    if (!xarVar::fetch('tabmodule', 'str:1:100', $tabmodule, 'comments', xarVar::NOT_REQUIRED)) {
-        return;
-    }
+    xarVar::fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY);
+    xarVar::fetch('tab', 'str:1:100', $data['tab'], 'comments_general', xarVar::NOT_REQUIRED);
+    xarVar::fetch('tabmodule', 'str:1:100', $tabmodule, 'comments', xarVar::NOT_REQUIRED);
     $hooks = xarModHooks::call('module', 'getconfig', 'comments');
     if (!empty($hooks) && isset($hooks['tabs'])) {
         foreach ($hooks['tabs'] as $key => $row) {
@@ -74,66 +68,32 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         case 'update':
             // Confirm authorisation code
             // if (!xarSec::confirmAuthKey()) return;
-            //if (!xarVar::fetch('itemsperpage', 'int', $itemsperpage, xarModVars::get('comments', 'itemsperpage'), xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) return;
-            //if (!xarVar::fetch('shorturls', 'checkbox', $shorturls, false, xarVar::NOT_REQUIRED)) return;
-            //if (!xarVar::fetch('modulealias', 'checkbox', $useModuleAlias,  xarModVars::get('comments', 'useModuleAlias'), xarVar::NOT_REQUIRED)) return;
-            //if (!xarVar::fetch('aliasname', 'str', $aliasname,  xarModVars::get('comments', 'aliasname'), xarVar::NOT_REQUIRED)) return;
-            if (!xarVar::fetch('editstamp', 'int', $editstamp, xarModVars::get('comments', 'editstamp'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
+            //xarVar::fetch('itemsperpage', 'int', $itemsperpage, xarModVars::get('comments', 'itemsperpage'), xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY);
+            //xarVar::fetch('shorturls', 'checkbox', $shorturls, false, xarVar::NOT_REQUIRED);
+            //xarVar::fetch('modulealias', 'checkbox', $useModuleAlias,  xarModVars::get('comments', 'useModuleAlias'), xarVar::NOT_REQUIRED);
+            //xarVar::fetch('aliasname', 'str', $aliasname,  xarModVars::get('comments', 'aliasname'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('editstamp', 'int', $editstamp, xarModVars::get('comments', 'editstamp'), xarVar::NOT_REQUIRED);
 
-            if (!xarVar::fetch('wrap', 'checkbox', $wrap, xarModVars::get('comments', 'wrap'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('numstats', 'str', $numstats, 20, xarVar::NOT_REQUIRED)) {
-                return;
-            }
+            xarVar::fetch('wrap', 'checkbox', $wrap, xarModVars::get('comments', 'wrap'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('numstats', 'str', $numstats, 20, xarVar::NOT_REQUIRED);
 
-            if (!xarVar::fetch('rssnumitems', 'int', $rssnumitems, xarModVars::get('comments', 'rssnumitems'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('showtitle', 'checkbox', $showtitle, xarModVars::get('comments', 'showtitle'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('enable_comments', 'checkbox', $showtitle, xarModVars::get('comments', 'enable_comments'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
+            xarVar::fetch('rssnumitems', 'int', $rssnumitems, xarModVars::get('comments', 'rssnumitems'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('showtitle', 'checkbox', $showtitle, xarModVars::get('comments', 'showtitle'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('enable_comments', 'checkbox', $showtitle, xarModVars::get('comments', 'enable_comments'), xarVar::NOT_REQUIRED);
 
-            if (!xarVar::fetch('filters_min_item_count', 'int', $filters_min_item_count, xarModVars::get('comments', 'filters_min_item_count'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('filters_min_item_count', 'int', $filters_min_item_count, xarModVars::get('comments', 'filters_min_item_count'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
+            xarVar::fetch('filters_min_item_count', 'int', $filters_min_item_count, xarModVars::get('comments', 'filters_min_item_count'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('filters_min_item_count', 'int', $filters_min_item_count, xarModVars::get('comments', 'filters_min_item_count'), xarVar::NOT_REQUIRED);
 
-            if (!xarVar::fetch('postanon', 'checkbox', $postanon, xarModVars::get('comments', 'postanon'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('useblacklist', 'checkbox', $useblacklist, xarModVars::get('comments', 'useblacklist'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('useblacklist', 'checkbox', $useblacklist, 1, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('depth', 'str:1:', $depth, Defines::MAX_DEPTH, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('render', 'str:1:', $render, Defines::VIEW_THREADED, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('sortby', 'str:1:', $sortby, Defines::SORTBY_THREAD, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('order', 'str:1:', $order, Defines::SORT_ASC, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            // if (!xarVar::fetch('authorize', 'checkbox', $authorize, xarModVars::get('comments', 'authorize'), xarVar::NOT_REQUIRED)) return;
-            if (!xarVar::fetch('authorize', 'checkbox', $authorize, 1, xarVar::NOT_REQUIRED)) {
-                return;
-            }
-            if (!xarVar::fetch('usersetrendering', 'checkbox', $usersetrendering, xarModVars::get('comments', 'usersetrendering'), xarVar::NOT_REQUIRED)) {
-                return;
-            }
+            xarVar::fetch('postanon', 'checkbox', $postanon, xarModVars::get('comments', 'postanon'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('useblacklist', 'checkbox', $useblacklist, xarModVars::get('comments', 'useblacklist'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('useblacklist', 'checkbox', $useblacklist, 1, xarVar::NOT_REQUIRED);
+            xarVar::fetch('depth', 'str:1:', $depth, Defines::MAX_DEPTH, xarVar::NOT_REQUIRED);
+            xarVar::fetch('render', 'str:1:', $render, Defines::VIEW_THREADED, xarVar::NOT_REQUIRED);
+            xarVar::fetch('sortby', 'str:1:', $sortby, Defines::SORTBY_THREAD, xarVar::NOT_REQUIRED);
+            xarVar::fetch('order', 'str:1:', $order, Defines::SORT_ASC, xarVar::NOT_REQUIRED);
+            // xarVar::fetch('authorize', 'checkbox', $authorize, xarModVars::get('comments', 'authorize'), xarVar::NOT_REQUIRED);
+            xarVar::fetch('authorize', 'checkbox', $authorize, 1, xarVar::NOT_REQUIRED);
+            xarVar::fetch('usersetrendering', 'checkbox', $usersetrendering, xarModVars::get('comments', 'usersetrendering'), xarVar::NOT_REQUIRED);
 
 
             if ($data['tab'] == 'comments_general') {

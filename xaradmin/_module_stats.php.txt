@@ -18,12 +18,8 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (!xarSecurity::check('AdminComments')) {
         return;
     }
-    if (!xarVar::fetch('modid', 'int:1', $modid)) {
-        return;
-    }
-    if (!xarVar::fetch('itemtype', 'int:0', $itemtype, 0, xarVar::NOT_REQUIRED)) {
-        return;
-    }
+    xarVar::fetch('modid', 'int:1', $modid);
+    xarVar::fetch('itemtype', 'int:0', $itemtype, 0, xarVar::NOT_REQUIRED);
 
     if (!isset($modid) || empty($modid)) {
         $msg = xarML('Invalid or Missing Parameter \'modid\'');
@@ -54,9 +50,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (empty($numstats)) {
         $numstats = 100;
     }
-    if (!xarVar::fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET)) {
-        return;
-    }
+    xarVar::fetch('startnum', 'id', $startnum, null, xarVar::DONT_SET);
     if (empty($startnum)) {
         $startnum = 1;
     }

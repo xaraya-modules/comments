@@ -22,9 +22,7 @@ function comments_admin_delete(array $args = [], $context = null)
     if (!xarSecurity::check('AdminComments')) {
         return;
     }
-    if (!xarVar::fetch('dtype', 'str:1:', $dtype)) {
-        return;
-    }
+    xarVar::fetch('dtype', 'str:1:', $dtype);
     $delete_args = [];
 
     if (!isset($dtype) || !eregi('^(all|module|object)$', $dtype)) {
@@ -36,9 +34,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
         switch (strtolower($dtype)) {
             case 'object':
-                if (!xarVar::fetch('objectid', 'int:1', $objectid)) {
-                    return;
-                }
+                xarVar::fetch('objectid', 'int:1', $objectid);
 
                 if (!isset($objectid) || empty($objectid)) {
                     $msg = xarML('Invalid or Missing Parameter \'objectid\'');
@@ -52,17 +48,13 @@ function comments_admin_delete(array $args = [], $context = null)
                 // the module id and the object id
                 // no break
             case 'module':
-                if (!xarVar::fetch('modid', 'int:1', $modid)) {
-                    return;
-                }
+                xarVar::fetch('modid', 'int:1', $modid);
 
                 if (!isset($modid) || empty($modid)) {
                     $msg = xarML('Invalid or Missing Parameter \'modid\'');
                     throw new BadParameterException($msg);
                 }
-                if (!xarVar::fetch('itemtype', 'int:1', $itemtype)) {
-                    return;
-                }
+                xarVar::fetch('itemtype', 'int:1', $itemtype);
                 if (empty($itemtype)) {
                     $itemtype = 0;
                 }
@@ -80,9 +72,7 @@ function comments_admin_delete(array $args = [], $context = null)
         }
     }
 
-    if (!xarVar::fetch('submitted', 'str:1:', $submitted, '', xarVar::NOT_REQUIRED)) {
-        return;
-    }
+    xarVar::fetch('submitted', 'str:1:', $submitted, '', xarVar::NOT_REQUIRED);
     // if we're gathering submitted info form the delete
     // confirmation then we are ok to check delete choice,
     // then delete in the manner specified (or not) and
@@ -93,9 +83,7 @@ function comments_admin_delete(array $args = [], $context = null)
             return;
         }
 
-        if (!xarVar::fetch('choice', 'str:1:', $choice)) {
-            return;
-        }
+        xarVar::fetch('choice', 'str:1:', $choice);
 
         // if choice isn't set or it has an incorrect value,
         // redirect back to the choice page
