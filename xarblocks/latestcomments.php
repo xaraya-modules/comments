@@ -107,17 +107,17 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
     public function update($data = [])
     {
         $vars = [];
-        $this->var()->fetch('howmany', 'int:1:', $vars['howmany'], 0, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('modid', 'isset', $vars['modid'], [], xarVar::NOT_REQUIRED);
-        $this->var()->fetch('pubtypeid', 'isset', $vars['pubtypeid'], 0, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('addauthor', 'isset', $vars['addauthor'], '', xarVar::NOT_REQUIRED);
-        $this->var()->fetch('addmodule', 'isset', $vars['addmodule'], '', xarVar::NOT_REQUIRED);
-        $this->var()->fetch('addcomment', 'isset', $vars['addcomment'], '', xarVar::NOT_REQUIRED);
-        $this->var()->fetch('addobject', 'isset', $vars['addobject'], '', xarVar::NOT_REQUIRED);
-        $this->var()->fetch('adddate', 'checkbox', $vars['adddate'], 0, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('adddaysep', 'checkbox', $vars['adddaysep'], 0, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('truncate', 'int:1:', $vars['truncate'], 0, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('addprevious', 'checkbox', $vars['addprevious'], 0, xarVar::NOT_REQUIRED);
+        $this->var()->find('howmany', $vars['howmany'], 'int:1:', 0);
+        $this->var()->find('modid', $vars['modid'], 'isset', []);
+        $this->var()->find('pubtypeid', $vars['pubtypeid'], 'isset', 0);
+        $this->var()->find('addauthor', $vars['addauthor'], 'isset', '');
+        $this->var()->find('addmodule', $vars['addmodule'], 'isset', '');
+        $this->var()->find('addcomment', $vars['addcomment'], 'isset', '');
+        $this->var()->find('addobject', $vars['addobject'], 'isset', '');
+        $this->var()->find('adddate', $vars['adddate'], 'checkbox', 0);
+        $this->var()->find('adddaysep', $vars['adddaysep'], 'checkbox', 0);
+        $this->var()->find('truncate', $vars['truncate'], 'int:1:', 0);
+        $this->var()->find('addprevious', $vars['addprevious'], 'checkbox', 0);
 
         $this->setContent($vars);
         return true;
