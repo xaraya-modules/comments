@@ -28,10 +28,10 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
     //  $rssnumitems    = xarModVars::get('comments','rssnumitems');
 
     if (empty($rssnumitems)) {
-        //xarModVars::set('comments', 'rssnumitems', 25);
+        //$this->mod('comments')->setVar('rssnumitems', 25);
     }
     if (empty($numstats)) {
-        //xarModVars::set('comments', 'numstats', 100);
+        //$this->mod('comments')->setVar('numstats', 100);
     }
 
     xarVar::fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY);
@@ -56,9 +56,9 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                 default:
                     //check for comments hook in case it's set independently elsewhere
                     if (xarHooks::isAttached('comments', 'roles')) {
-                        xarModVars::set('comments', 'usersetrendering', true);
+                        $this->mod('comments')->setVar('usersetrendering', true);
                     } else {
-                        xarModVars::set('comments', 'usersetrendering', false);
+                        $this->mod('comments')->setVar('usersetrendering', false);
                     }
                     break;
             }
@@ -97,23 +97,23 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
 
 
             if ($data['tab'] == 'comments_general') {
-                // xarModVars::set('comments', 'itemsperpage', $itemsperpage);
-                // xarModVars::set('comments', 'supportshorturls', $shorturls);
-                // xarModVars::set('comments', 'useModuleAlias', $useModuleAlias);
-                // xarModVars::set('comments', 'aliasname', $aliasname);
-                xarModVars::set('comments', 'AllowPostAsAnon', $postanon);
-                xarModVars::set('comments', 'AuthorizeComments', $authorize);
-                xarModVars::set('comments', 'depth', $depth);
-                xarModVars::set('comments', 'render', $render);
-                xarModVars::set('comments', 'sortby', $sortby);
-                xarModVars::set('comments', 'order', $order);
-                xarModVars::set('comments', 'editstamp', $editstamp);
-                xarModVars::set('comments', 'wrap', $wrap);
-                xarModVars::set('comments', 'numstats', $numstats);
-                xarModVars::set('comments', 'rssnumitems', $rssnumitems);
-                xarModVars::set('comments', 'showtitle', $showtitle);
-                xarModVars::set('comments', 'useblacklist', $useblacklist);
-                xarModVars::set('comments', 'usersetrendering', $usersetrendering);
+                // $this->mod('comments')->setVar('itemsperpage', $itemsperpage);
+                // $this->mod('comments')->setVar('supportshorturls', $shorturls);
+                // $this->mod('comments')->setVar('useModuleAlias', $useModuleAlias);
+                // $this->mod('comments')->setVar('aliasname', $aliasname);
+                $this->mod('comments')->setVar('AllowPostAsAnon', $postanon);
+                $this->mod('comments')->setVar('AuthorizeComments', $authorize);
+                $this->mod('comments')->setVar('depth', $depth);
+                $this->mod('comments')->setVar('render', $render);
+                $this->mod('comments')->setVar('sortby', $sortby);
+                $this->mod('comments')->setVar('order', $order);
+                $this->mod('comments')->setVar('editstamp', $editstamp);
+                $this->mod('comments')->setVar('wrap', $wrap);
+                $this->mod('comments')->setVar('numstats', $numstats);
+                $this->mod('comments')->setVar('rssnumitems', $rssnumitems);
+                $this->mod('comments')->setVar('showtitle', $showtitle);
+                $this->mod('comments')->setVar('useblacklist', $useblacklist);
+                $this->mod('comments')->setVar('usersetrendering', $usersetrendering);
             }
             $regid = xarMod::getRegID($tabmodule);
             xarModItemVars::set('comments', 'AllowPostAsAnon', $postanon, $regid);
@@ -131,7 +131,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             xarModItemVars::set('comments', 'usersetrendering', $usersetrendering, $regid);
 
             /* Blacklist feed unavailable
-            xarModVars::set('comments', 'useblacklist', $useblacklist);
+            $this->mod('comments')->setVar('useblacklist', $useblacklist);
             if ($useblacklist == true){
                 if (!xarMod::apiFunc('comments', 'admin', 'import_blacklist')) return;
             }

@@ -62,9 +62,7 @@ class ViewMethod extends MethodClass
         $data['conditions'] = $q;
         return $data;
 
-        if (!$this->var()->find('startnum', $startnum, 'int', 1)) {
-            return;
-        }
+        $this->var()->find('startnum', $startnum, 'int', 1);
 
         //how to sort if the URL or config say otherwise...
         $sort = $adminapi->sort([

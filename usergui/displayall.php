@@ -42,21 +42,11 @@ class DisplayallMethod extends MethodClass
     {
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
-        if (!$this->var()->find('modid', $args['modid'], 'array', ['all'])) {
-            return;
-        };
-        if (!$this->var()->find('itemtype', $args['itemtype'], 'int')) {
-            return;
-        };
-        if (!$this->var()->get('order', $args['order'], 'str', 'DESC')) {
-            return;
-        };
-        if (!$this->var()->get('howmany', $args['howmany'], 'id', 20)) {
-            return;
-        };
-        if (!$this->var()->get('first', $args['first'], 'id', 1)) {
-            return;
-        };
+        $this->var()->find('modid', $args['modid'], 'array', ['all']);;
+        $this->var()->find('itemtype', $args['itemtype'], 'int');;
+        $this->var()->get('order', $args['order'], 'str', 'DESC');;
+        $this->var()->get('howmany', $args['howmany'], 'id', 20);;
+        $this->var()->get('first', $args['first'], 'id', 1);;
 
         if (empty($args['block_is_calling'])) {
             $args['block_is_calling'] = 0;

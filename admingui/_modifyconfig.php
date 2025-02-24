@@ -30,21 +30,15 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
     //  $rssnumitems    = $this->mod()->getVar('rssnumitems');
 
     if (empty($rssnumitems)) {
-        //xarModVars::set('comments', 'rssnumitems', 25);
+        //$this->mod('comments')->setVar('rssnumitems', 25);
     }
     if (empty($numstats)) {
-        //xarModVars::set('comments', 'numstats', 100);
+        //$this->mod('comments')->setVar('numstats', 100);
     }
 
-    if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
-        return;
-    }
-    if (!$this->var()->find('tab', $data['tab'], 'str:1:100', 'comments_general')) {
-        return;
-    }
-    if (!$this->var()->find('tabmodule', $tabmodule, 'str:1:100', 'comments')) {
-        return;
-    }
+    $this->var()->find('phase', $phase, 'str:1:100', 'modify');
+    $this->var()->find('tab', $data['tab'], 'str:1:100', 'comments_general');
+    $this->var()->find('tabmodule', $tabmodule, 'str:1:100', 'comments');
     $hooks = xarModHooks::call('module', 'getconfig', 'comments');
     if (!empty($hooks) && isset($hooks['tabs'])) {
         foreach ($hooks['tabs'] as $key => $row) {
@@ -64,9 +58,9 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                 default:
                     //check for comments hook in case it's set independently elsewhere
                     if (xarHooks::isAttached('comments', 'roles')) {
-                        xarModVars::set('comments', 'usersetrendering', true);
+                        $this->mod('comments')->setVar('usersetrendering', true);
                     } else {
-                        xarModVars::set('comments', 'usersetrendering', false);
+                        $this->mod('comments')->setVar('usersetrendering', false);
                     }
                     break;
             }
@@ -76,86 +70,52 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
         case 'update':
             // Confirm authorisation code
             // if (!xarSec::confirmAuthKey()) return;
-            //if (!$this->var()->find('itemsperpage', $itemsperpage, 'int', $this->mod()->getVar('itemsperpage'))) return;
-            //if (!$this->var()->find('shorturls', $shorturls, 'checkbox', false)) return;
-            //if (!$this->var()->find('modulealias', $useModuleAlias, 'checkbox', $this->mod()->getVar('useModuleAlias'))) return;
-            //if (!$this->var()->find('aliasname', $aliasname, 'str', $this->mod()->getVar('aliasname'))) return;
-            if (!$this->var()->find('editstamp', $editstamp, 'int', $this->mod()->getVar('editstamp'))) {
-                return;
-            }
+            //$this->var()->find('itemsperpage', $itemsperpage, 'int', $this->mod()->getVar('itemsperpage'));
+            //$this->var()->find('shorturls', $shorturls, 'checkbox', false);
+            //$this->var()->find('modulealias', $useModuleAlias, 'checkbox', $this->mod()->getVar('useModuleAlias'));
+            //$this->var()->find('aliasname', $aliasname, 'str', $this->mod()->getVar('aliasname'));
+            $this->var()->find('editstamp', $editstamp, 'int', $this->mod()->getVar('editstamp'));
 
-            if (!$this->var()->find('wrap', $wrap, 'checkbox', $this->mod()->getVar('wrap'))) {
-                return;
-            }
-            if (!$this->var()->find('numstats', $numstats, 'str', 20)) {
-                return;
-            }
+            $this->var()->find('wrap', $wrap, 'checkbox', $this->mod()->getVar('wrap'));
+            $this->var()->find('numstats', $numstats, 'str', 20);
 
-            if (!$this->var()->find('rssnumitems', $rssnumitems, 'int', $this->mod()->getVar('rssnumitems'))) {
-                return;
-            }
-            if (!$this->var()->find('showtitle', $showtitle, 'checkbox', $this->mod()->getVar('showtitle'))) {
-                return;
-            }
-            if (!$this->var()->find('enable_comments', $showtitle, 'checkbox', $this->mod()->getVar('enable_comments'))) {
-                return;
-            }
+            $this->var()->find('rssnumitems', $rssnumitems, 'int', $this->mod()->getVar('rssnumitems'));
+            $this->var()->find('showtitle', $showtitle, 'checkbox', $this->mod()->getVar('showtitle'));
+            $this->var()->find('enable_comments', $showtitle, 'checkbox', $this->mod()->getVar('enable_comments'));
 
-            if (!$this->var()->find('filters_min_item_count', $filters_min_item_count, 'int', $this->mod()->getVar('filters_min_item_count'))) {
-                return;
-            }
-            if (!$this->var()->find('filters_min_item_count', $filters_min_item_count, 'int', $this->mod()->getVar('filters_min_item_count'))) {
-                return;
-            }
+            $this->var()->find('filters_min_item_count', $filters_min_item_count, 'int', $this->mod()->getVar('filters_min_item_count'));
+            $this->var()->find('filters_min_item_count', $filters_min_item_count, 'int', $this->mod()->getVar('filters_min_item_count'));
 
-            if (!$this->var()->find('postanon', $postanon, 'checkbox', $this->mod()->getVar('postanon'))) {
-                return;
-            }
-            if (!$this->var()->find('useblacklist', $useblacklist, 'checkbox', $this->mod()->getVar('useblacklist'))) {
-                return;
-            }
-            if (!$this->var()->find('useblacklist', $useblacklist, 'checkbox', 1)) {
-                return;
-            }
-            if (!$this->var()->find('depth', $depth, 'str:1:', Defines::MAX_DEPTH)) {
-                return;
-            }
-            if (!$this->var()->find('render', $render, 'str:1:', Defines::VIEW_THREADED)) {
-                return;
-            }
-            if (!$this->var()->find('sortby', $sortby, 'str:1:', Defines::SORTBY_THREAD)) {
-                return;
-            }
-            if (!$this->var()->find('order', $order, 'str:1:', Defines::SORT_ASC)) {
-                return;
-            }
-            // if (!$this->var()->find('authorize', $authorize, 'checkbox', $this->mod()->getVar('authorize'))) return;
-            if (!$this->var()->find('authorize', $authorize, 'checkbox', 1)) {
-                return;
-            }
-            if (!$this->var()->find('usersetrendering', $usersetrendering, 'checkbox', $this->mod()->getVar('usersetrendering'))) {
-                return;
-            }
+            $this->var()->find('postanon', $postanon, 'checkbox', $this->mod()->getVar('postanon'));
+            $this->var()->find('useblacklist', $useblacklist, 'checkbox', $this->mod()->getVar('useblacklist'));
+            $this->var()->find('useblacklist', $useblacklist, 'checkbox', 1);
+            $this->var()->find('depth', $depth, 'str:1:', Defines::MAX_DEPTH);
+            $this->var()->find('render', $render, 'str:1:', Defines::VIEW_THREADED);
+            $this->var()->find('sortby', $sortby, 'str:1:', Defines::SORTBY_THREAD);
+            $this->var()->find('order', $order, 'str:1:', Defines::SORT_ASC);
+            // $this->var()->find('authorize', $authorize, 'checkbox', $this->mod()->getVar('authorize'));
+            $this->var()->find('authorize', $authorize, 'checkbox', 1);
+            $this->var()->find('usersetrendering', $usersetrendering, 'checkbox', $this->mod()->getVar('usersetrendering'));
 
 
             if ($data['tab'] == 'comments_general') {
-                // xarModVars::set('comments', 'itemsperpage', $itemsperpage);
-                // xarModVars::set('comments', 'supportshorturls', $shorturls);
-                // xarModVars::set('comments', 'useModuleAlias', $useModuleAlias);
-                // xarModVars::set('comments', 'aliasname', $aliasname);
-                xarModVars::set('comments', 'AllowPostAsAnon', $postanon);
-                xarModVars::set('comments', 'AuthorizeComments', $authorize);
-                xarModVars::set('comments', 'depth', $depth);
-                xarModVars::set('comments', 'render', $render);
-                xarModVars::set('comments', 'sortby', $sortby);
-                xarModVars::set('comments', 'order', $order);
-                xarModVars::set('comments', 'editstamp', $editstamp);
-                xarModVars::set('comments', 'wrap', $wrap);
-                xarModVars::set('comments', 'numstats', $numstats);
-                xarModVars::set('comments', 'rssnumitems', $rssnumitems);
-                xarModVars::set('comments', 'showtitle', $showtitle);
-                xarModVars::set('comments', 'useblacklist', $useblacklist);
-                xarModVars::set('comments', 'usersetrendering', $usersetrendering);
+                // $this->mod('comments')->setVar('itemsperpage', $itemsperpage);
+                // $this->mod('comments')->setVar('supportshorturls', $shorturls);
+                // $this->mod('comments')->setVar('useModuleAlias', $useModuleAlias);
+                // $this->mod('comments')->setVar('aliasname', $aliasname);
+                $this->mod('comments')->setVar('AllowPostAsAnon', $postanon);
+                $this->mod('comments')->setVar('AuthorizeComments', $authorize);
+                $this->mod('comments')->setVar('depth', $depth);
+                $this->mod('comments')->setVar('render', $render);
+                $this->mod('comments')->setVar('sortby', $sortby);
+                $this->mod('comments')->setVar('order', $order);
+                $this->mod('comments')->setVar('editstamp', $editstamp);
+                $this->mod('comments')->setVar('wrap', $wrap);
+                $this->mod('comments')->setVar('numstats', $numstats);
+                $this->mod('comments')->setVar('rssnumitems', $rssnumitems);
+                $this->mod('comments')->setVar('showtitle', $showtitle);
+                $this->mod('comments')->setVar('useblacklist', $useblacklist);
+                $this->mod('comments')->setVar('usersetrendering', $usersetrendering);
             }
             $regid = xarMod::getRegID($tabmodule);
             xarModItemVars::set('comments', 'AllowPostAsAnon', $postanon, $regid);
@@ -173,7 +133,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             xarModItemVars::set('comments', 'usersetrendering', $usersetrendering, $regid);
 
             /* Blacklist feed unavailable
-            xarModVars::set('comments', 'useblacklist', $useblacklist);
+            $this->mod('comments')->setVar('useblacklist', $useblacklist);
             if ($useblacklist == true){
                 if (!xarMod::apiFunc('comments', 'admin', 'import_blacklist')) return;
             }

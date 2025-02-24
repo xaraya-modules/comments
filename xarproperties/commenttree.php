@@ -96,8 +96,8 @@ class CommentTreeProperty extends DataProperty
         $data['trees'] = $trees;
 
         // Pager stuff, perhaps not good to have here
-        if(!$this->var()->check('pagerstart', $pagerstart)) {return;}
-        if(!$this->var()->check('catsperpage', $catsperpage)) {return;}
+        $this->var()->check('pagerstart', $pagerstart);
+        $this->var()->check('catsperpage', $catsperpage);
         if (empty($pagerstart)) {
             $data['pagerstart'] = 1;
         } else {
@@ -105,7 +105,7 @@ class CommentTreeProperty extends DataProperty
         }
 
         if (empty($catsperpage)) {
-            $data['catsperpage'] = xarModVars::get('categories','catsperpage');
+            $data['catsperpage'] = $this->mod('categories')->getVar('catsperpage');
         } else {
             $data['catsperpage'] = intval($catsperpage);
         }

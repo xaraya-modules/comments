@@ -48,11 +48,9 @@ class UsermenuMethod extends MethodClass
 
         // Security Check
         if ($this->sec()->checkAccess('ReadComments', 0)) {
-            if (!$this->var()->find('phase', $phase, 'str', 'menu')) {
-                return;
-            }
+            $this->var()->find('phase', $phase, 'str', 'menu');
 
-            $this->tpl()->setPageTitle(xarModVars::get('themes', 'SiteName') . ' :: ' .
+            $this->tpl()->setPageTitle($this->mod('themes')->getVar('SiteName') . ' :: ' .
                                $this->var()->prep($this->ml('Comments'))
                                . ' :: ' . $this->var()->prep($this->ml('Your Account Preferences')));
 
@@ -80,9 +78,7 @@ class UsermenuMethod extends MethodClass
 
                 case 'update':
 
-                    if (!$this->var()->find('settings', $settings, 'array', [])) {
-                        return;
-                    }
+                    $this->var()->find('settings', $settings, 'array', []);
 
                     if (count($settings) <= 0) {
                         $msg = $this->ml('Settings passed from form are empty!');

@@ -54,19 +54,13 @@ class ModifyMethod extends MethodClass
     {
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
-        if (!$this->var()->find('parent_url', $parent_url, 'str', 0)) {
-            return;
-        }
-        if (!$this->var()->find('adminreturn', $data['adminreturn'], 'str')) {
-            return;
-        }
+        $this->var()->find('parent_url', $parent_url, 'str', 0);
+        $this->var()->find('adminreturn', $data['adminreturn'], 'str');
 
         # --------------------------------------------------------
         # Bail if the proper args were not passed
         #
-        if (!$this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0)) {
-            return;
-        }
+        $this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0);
         if (empty($data['comment_id'])) {
             return $this->ctl()->notFound();
         }
@@ -120,9 +114,7 @@ class ModifyMethod extends MethodClass
         # --------------------------------------------------------
         # Take appropriate action
         #
-        if (!$this->var()->find('comment_action', $data['comment_action'], 'str', 'modify')) {
-            return;
-        }
+        $this->var()->find('comment_action', $data['comment_action'], 'str', 'modify');
         switch ($data['comment_action']) {
             case 'submit':
                 # --------------------------------------------------------

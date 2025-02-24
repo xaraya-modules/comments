@@ -45,18 +45,10 @@ class GetoptionsMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->var()->find('depth', $depth, 'int')) {
-            return;
-        }
-        if (!$this->var()->find('render', $render, 'str')) {
-            return;
-        }
-        if (!$this->var()->find('order', $order, 'int')) {
-            return;
-        }
-        if (!$this->var()->find('sortby', $sortby, 'int')) {
-            return;
-        }
+        $this->var()->find('depth', $depth, 'int');
+        $this->var()->find('render', $render, 'str');
+        $this->var()->find('order', $order, 'int');
+        $this->var()->find('sortby', $sortby, 'int');
 
         // if one of the settings configured, the all should be.
         // Order of precedence for determining which

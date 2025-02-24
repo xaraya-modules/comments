@@ -107,39 +107,17 @@ class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
     public function update($data = [])
     {
         $vars = [];
-        if (!$this->var()->fetch('howmany', 'int:1:', $vars['howmany'], 0, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('modid', 'isset', $vars['modid'], [], xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('pubtypeid', 'isset', $vars['pubtypeid'], 0, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('addauthor', 'isset', $vars['addauthor'], '', xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('addmodule', 'isset', $vars['addmodule'], '', xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('addcomment', 'isset', $vars['addcomment'], '', xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('addobject', 'isset', $vars['addobject'], '', xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('adddate', 'checkbox', $vars['adddate'], 0, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('adddaysep', 'checkbox', $vars['adddaysep'], 0, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('truncate', 'int:1:', $vars['truncate'], 0, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('addprevious', 'checkbox', $vars['addprevious'], 0, xarVar::NOT_REQUIRED)) {
-            return;
-        }
+        $this->var()->fetch('howmany', 'int:1:', $vars['howmany'], 0, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('modid', 'isset', $vars['modid'], [], xarVar::NOT_REQUIRED);
+        $this->var()->fetch('pubtypeid', 'isset', $vars['pubtypeid'], 0, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('addauthor', 'isset', $vars['addauthor'], '', xarVar::NOT_REQUIRED);
+        $this->var()->fetch('addmodule', 'isset', $vars['addmodule'], '', xarVar::NOT_REQUIRED);
+        $this->var()->fetch('addcomment', 'isset', $vars['addcomment'], '', xarVar::NOT_REQUIRED);
+        $this->var()->fetch('addobject', 'isset', $vars['addobject'], '', xarVar::NOT_REQUIRED);
+        $this->var()->fetch('adddate', 'checkbox', $vars['adddate'], 0, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('adddaysep', 'checkbox', $vars['adddaysep'], 0, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('truncate', 'int:1:', $vars['truncate'], 0, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('addprevious', 'checkbox', $vars['addprevious'], 0, xarVar::NOT_REQUIRED);
 
         $this->setContent($vars);
         return true;

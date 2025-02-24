@@ -23,9 +23,7 @@ function comments_admin_delete(array $args = [], $context = null)
     if (!$this->sec()->checkAccess('AdminComments')) {
         return;
     }
-    if (!$this->var()->get('dtype', $dtype, 'str:1:')) {
-        return;
-    }
+    $this->var()->get('dtype', $dtype, 'str:1:');
     $delete_args = [];
 
     if (!isset($dtype) || !preg_match('/^(all|module|object)$/', $dtype)) {
@@ -37,9 +35,7 @@ function comments_admin_delete(array $args = [], $context = null)
 
         switch (strtolower($dtype)) {
             case 'object':
-                if (!$this->var()->get('objectid', $objectid, 'int:1')) {
-                    return;
-                }
+                $this->var()->get('objectid', $objectid, 'int:1');
 
                 if (!isset($objectid) || empty($objectid)) {
                     $msg = xarML('Invalid or Missing Parameter \'objectid\'');
@@ -53,17 +49,13 @@ function comments_admin_delete(array $args = [], $context = null)
                 // the module id and the object id
                 // no break
             case 'module':
-                if (!$this->var()->get('modid', $modid, 'int:1')) {
-                    return;
-                }
+                $this->var()->get('modid', $modid, 'int:1');
 
                 if (!isset($modid) || empty($modid)) {
                     $msg = xarML('Invalid or Missing Parameter \'modid\'');
                     throw new BadParameterException($msg);
                 }
-                if (!$this->var()->get('itemtype', $itemtype, 'int:1')) {
-                    return;
-                }
+                $this->var()->get('itemtype', $itemtype, 'int:1');
                 if (empty($itemtype)) {
                     $itemtype = 0;
                 }
@@ -81,9 +73,7 @@ function comments_admin_delete(array $args = [], $context = null)
         }
     }
 
-    if (!$this->var()->find('submitted', $submitted, 'str:1:', '')) {
-        return;
-    }
+    $this->var()->find('submitted', $submitted, 'str:1:', '');
     // if we're gathering submitted info form the delete
     // confirmation then we are ok to check delete choice,
     // then delete in the manner specified (or not) and
@@ -94,9 +84,7 @@ function comments_admin_delete(array $args = [], $context = null)
             return;
         }
 
-        if (!$this->var()->get('choice', $choice, 'str:1:')) {
-            return;
-        }
+        $this->var()->get('choice', $choice, 'str:1:');
 
         // if choice isn't set or it has an incorrect value,
         // redirect back to the choice page

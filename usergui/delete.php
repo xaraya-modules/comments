@@ -51,18 +51,10 @@ class DeleteMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
-            return;
-        }
-        if (!$this->var()->find('deletebranch', $deletebranch, 'bool', false)) {
-            return;
-        }
-        if (!$this->var()->find('id', $data['id'], 'int')) {
-            return;
-        }
-        if (!$this->var()->find('parent_url', $data['parent_url'], 'str', '')) {
-            return;
-        }
+        $this->var()->find('confirm', $data['confirm'], 'bool', false);
+        $this->var()->find('deletebranch', $deletebranch, 'bool', false);
+        $this->var()->find('id', $data['id'], 'int');
+        $this->var()->find('parent_url', $data['parent_url'], 'str', '');
 
         if (empty($data['id'])) {
             return $this->ctl()->notFound();

@@ -42,12 +42,8 @@ class SortMethod extends MethodClass
 
         extract($args);
 
-        if (!$this->var()->check($url_sortfield, $sortfield)) {
-            return;
-        }
-        if (!$this->var()->find($url_ascdesc, $ascdesc)) {
-            return;
-        }
+        $this->var()->check($url_sortfield, $sortfield);
+        $this->var()->find($url_ascdesc, $ascdesc);
 
         if (!isset($sort)) {
             if (!isset($sortfield)) {

@@ -24,21 +24,11 @@ function comments_admin_delete(array $data = [], $context = null)
         return;
     }
 
-    if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
-        return;
-    }
-    if (!$this->var()->find('deletebranch', $deletebranch, 'bool', false)) {
-        return;
-    }
-    if (!$this->var()->find('redirect', $data['redirect'], 'str', '')) {
-        return;
-    }
-    if (!$this->var()->find('itemtype', $data['itemtype'], 'str')) {
-        return;
-    }
-    if (!$this->var()->find('dtype', $data['dtype'], 'str', "")) {
-        return;
-    }
+    $this->var()->find('confirm', $data['confirm'], 'bool', false);
+    $this->var()->find('deletebranch', $deletebranch, 'bool', false);
+    $this->var()->find('redirect', $data['redirect'], 'str', '');
+    $this->var()->find('itemtype', $data['itemtype'], 'str');
+    $this->var()->find('dtype', $data['dtype'], 'str', "");
 
     if (empty($data['dtype'])) {
         return xarController::notFound(null, $context);
@@ -48,9 +38,7 @@ function comments_admin_delete(array $data = [], $context = null)
 
     switch (strtolower($data['dtype'])) {
         case 'item': // delete just one comment
-            if (!$this->var()->get('itemid', $itemid, 'int')) {
-                return;
-            }
+            $this->var()->get('itemid', $itemid, 'int');
 
             $object = DataObjectFactory::getObject(['name' => 'comments_comments']);
             $object->getItem(['itemid' => $itemid]);
@@ -63,15 +51,9 @@ function comments_admin_delete(array $data = [], $context = null)
 
             break;
         case 'object': // delete all comments for a content item
-            if (!$this->var()->find('itemtype', $itemtype, 'int', 0)) {
-                return;
-            }
-            if (!$this->var()->get('modid', $modid, 'int:1')) {
-                return;
-            }
-            if (!$this->var()->get('objectid', $objectid, 'int:1')) {
-                return;
-            }
+            $this->var()->find('itemtype', $itemtype, 'int', 0);
+            $this->var()->get('modid', $modid, 'int:1');
+            $this->var()->get('objectid', $objectid, 'int:1');
 
             $filters['where'] = 'itemtype eq ' . $itemtype . ' and modid eq ' . $modid . ' and objectid eq ' . $objectid;
 
@@ -81,12 +63,8 @@ function comments_admin_delete(array $data = [], $context = null)
 
             break;
         case 'itemtype': // delete all comments for an itemtype
-            if (!$this->var()->get('itemtype', $itemtype, 'int')) {
-                return;
-            }
-            if (!$this->var()->get('modid', $modid, 'int:1')) {
-                return;
-            }
+            $this->var()->get('itemtype', $itemtype, 'int');
+            $this->var()->get('modid', $modid, 'int:1');
 
             $filters['where'] = 'itemtype eq ' . $itemtype . ' and modid eq ' . $modid;
 
@@ -95,9 +73,7 @@ function comments_admin_delete(array $data = [], $context = null)
 
             break;
         case 'module':  // delete all comments for a module
-            if (!$this->var()->get('modid', $modid, 'int:1')) {
-                return;
-            }
+            $this->var()->get('modid', $modid, 'int:1');
 
             $filters['where'] = 'modid eq ' . $modid;
 

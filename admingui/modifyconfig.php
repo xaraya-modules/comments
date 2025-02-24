@@ -48,9 +48,7 @@ class ModifyconfigMethod extends MethodClass
         }
 
         // Check if this template has been submitted, or if we just got here
-        if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
-            return;
-        }
+        $this->var()->find('phase', $phase, 'str:1:100', 'modify');
 
         // Load the DD master object class. This line will likely disappear in future versions
         sys::import('modules.dynamicdata.class.objects.factory');
@@ -120,7 +118,7 @@ class ModifyconfigMethod extends MethodClass
                     // function should be obtained from $this->var()->fetch(), getting them
                     // from other places such as the environment is not allowed, as that makes
                     // assumptions that will not hold in future versions of Xaraya
-                    if (!$this->var()->find('bold', $bold, 'checkbox', false)) return;
+                    $this->var()->find('bold', $bold, 'checkbox', false);
 
                     // Confirm authorisation code.  This checks that the form had a valid
                     // authorisation code attached to it.  If it did not then the function will

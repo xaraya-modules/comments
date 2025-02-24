@@ -65,9 +65,7 @@ class ReplyMethod extends MethodClass
         # --------------------------------------------------------
         # Take appropriate action
         #
-        if (!$this->var()->find('comment_action', $data['comment_action'], 'str', 'reply')) {
-            return;
-        }
+        $this->var()->find('comment_action', $data['comment_action'], 'str', 'reply');
         switch (strtolower($data['comment_action'])) {
             case 'submit':
                 # --------------------------------------------------------
@@ -117,9 +115,7 @@ class ReplyMethod extends MethodClass
                 # --------------------------------------------------------
                 # Bail if the proper args were not passed
                 #
-                if (!$this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0)) {
-                    return;
-                }
+                $this->var()->find('comment_id', $data['comment_id'], 'int:1:', 0);
                 if (empty($data['comment_id'])) {
                     return $this->ctl()->notFound();
                 }

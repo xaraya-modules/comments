@@ -18,12 +18,8 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (!$this->sec()->checkAccess('AdminComments')) {
         return;
     }
-    if (!$this->var()->get('modid', $modid, 'int:1')) {
-        return;
-    }
-    if (!$this->var()->find('itemtype', $itemtype, 'int:0', 0)) {
-        return;
-    }
+    $this->var()->get('modid', $modid, 'int:1');
+    $this->var()->find('itemtype', $itemtype, 'int:0', 0);
 
     if (!isset($modid) || empty($modid)) {
         $msg = xarML('Invalid or Missing Parameter \'modid\'');
@@ -50,13 +46,11 @@ function comments_admin_module_stats(array $args = [], $context = null)
         }
     }
 
-    $numstats = xarModVars::get('comments', 'numstats');
+    $numstats = $this->mod('comments')->getVar('numstats');
     if (empty($numstats)) {
         $numstats = 100;
     }
-    if (!$this->var()->check('startnum', $startnum, 'id')) {
-        return;
-    }
+    $this->var()->check('startnum', $startnum, 'id');
     if (empty($startnum)) {
         $startnum = 1;
     }
@@ -85,7 +79,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     );
 
     // get the title and url for the items
-    $showtitle = xarModVars::get('comments', 'showtitle');
+    $showtitle = $this->mod('comments')->getVar('showtitle');
     if (!empty($showtitle)) {
         $itemids = array_keys($moditems);
         try {

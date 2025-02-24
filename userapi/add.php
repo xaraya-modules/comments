@@ -270,7 +270,7 @@ class AddMethod extends MethodClass
             //$id = $dbconn->PO_Insert_ID($xartable['comments'], 'id');
             // CHECKME: find some cleaner way to update the page cache if necessary
             if (function_exists('xarOutputFlushCached') &&
-                xarModVars::get('cachemanager', 'FlushOnNewComment')) {
+                $this->mod('cachemanager')->getVar('FlushOnNewComment')) {
                 $modinfo = $this->mod()->getInfo($moduleid);
                 xarOutputFlushCached("$modinfo[name]-");
                 xarOutputFlushCached("comments-block");

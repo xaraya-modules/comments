@@ -43,24 +43,12 @@ class SearchMethod extends MethodClass
     {
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
-        if (!$this->var()->check('startnum', $startnum)) {
-            return;
-        }
-        if (!$this->var()->check('header', $header)) {
-            return;
-        }
-        if (!$this->var()->check('q', $q)) {
-            return;
-        }
-        if (!$this->var()->check('bool', $bool)) {
-            return;
-        }
-        if (!$this->var()->check('sort', $sort)) {
-            return;
-        }
-        if (!$this->var()->check('author', $author)) {
-            return;
-        }
+        $this->var()->check('startnum', $startnum);
+        $this->var()->check('header', $header);
+        $this->var()->check('q', $q);
+        $this->var()->check('bool', $bool);
+        $this->var()->check('sort', $sort);
+        $this->var()->check('author', $author);
 
         $postinfo   = ['q' => $q, 'author' => $author];
         $data       = [];

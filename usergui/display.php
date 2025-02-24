@@ -187,9 +187,7 @@ class DisplayMethod extends MethodClass
         // does this *but* maybe needs fixing in articles instead?
         $package['new_title']             = $this->var()->getCached('Comments.title', 'title');
 
-        if (!$this->var()->find('comment_action', $data['comment_action'], 'str', 'submit')) {
-            return;
-        }
+        $this->var()->find('comment_action', $data['comment_action'], 'str', 'submit');
 
         $hooks = $userapi->formhooks();
 

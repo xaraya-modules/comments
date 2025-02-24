@@ -41,18 +41,10 @@ class ModifyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->var()->check('id', $id, 'id')) {
-            return;
-        }
-        if (!$this->var()->check('parent_url', $parent_url, 'str')) {
-            return;
-        }
-        if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
-            return;
-        }
-        if (!$this->var()->find('view', $data['view'], 'str', '')) {
-            return;
-        }
+        $this->var()->check('id', $id, 'id');
+        $this->var()->check('parent_url', $parent_url, 'str');
+        $this->var()->find('confirm', $data['confirm'], 'bool', false);
+        $this->var()->find('view', $data['view'], 'str', '');
 
         // Check if we still have no id of the item to modify.
         if (empty($id)) {
@@ -91,9 +83,7 @@ class ModifyMethod extends MethodClass
 
         $data['label'] = $object->label;
 
-        if (!$this->var()->find('confirm', $data['confirm'], 'bool', false)) {
-            return;
-        }
+        $this->var()->find('confirm', $data['confirm'], 'bool', false);
 
         if ($data['confirm']) {
             // Check for a valid confirmation key
