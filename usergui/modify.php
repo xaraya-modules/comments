@@ -75,7 +75,7 @@ class ModifyMethod extends MethodClass
         # --------------------------------------------------------
         # Check that this user can modify this comment
         #
-        if ($data['object']->properties['author']->value != xarUser::getVar('id')) {
+        if ($data['object']->properties['author']->value != $this->user()->getId()) {
             if (!$this->sec()->checkAccess('EditComments')) {
                 return;
             }
@@ -198,18 +198,18 @@ class ModifyMethod extends MethodClass
                 $comments[0]['itemtype'] = $header['itemtype'];
                 $comments[0]['itemid'] = $header['itemid'];
                 $comments[0]['parent_id']      = $header['parent_id'];
-                $comments[0]['author']   = ((xarUser::isLoggedIn() && !$package['postanon']) ? xarUser::getVar('name') : 'Anonymous');
+                $comments[0]['author']   = (($this->user()->isLoggedIn() && !$package['postanon']) ? $this->user()->getName() : 'Anonymous');
                 $comments[0]['id']      = 0;
                 $comments[0]['postanon'] = $package['postanon'];
                 // FIXME Delete after time putput testing
-                // $comments[0]['date']     = xarLocale::formatDate("%d %b %Y %H:%M:%S %Z",time());
+                // $comments[0]['date']     = $this->mls()->formatDate("%d %b %Y %H:%M:%S %Z",time());
                 $comments[0]['date']     = time();
 
-                $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
+                $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
                 if (!empty($forwarded)) {
                     $hostname = preg_replace('/,.*/', '', $forwarded);
                 } else {
-                    $hostname = xarServer::getVar('REMOTE_ADDR');
+                    $hostname = $this->ctl()->getServerVar('REMOTE_ADDR');
                 }
 
                 $comments[0]['hostname'] = $hostname;

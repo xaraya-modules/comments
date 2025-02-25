@@ -117,7 +117,7 @@ class SearchMethod extends MethodClass
         // add it to the array we will return
         while (!$result->EOF) {
             $row = $result->GetRowAssoc(false);
-            $row['author'] = xarUser::getVar('name', $row['author']);
+            $row['author'] = $this->user($row['author'])->getName();
             $commentlist[] = $row;
             $result->MoveNext();
         }

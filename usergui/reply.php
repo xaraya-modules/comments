@@ -199,11 +199,11 @@ class ReplyMethod extends MethodClass
                 $comments[0]['itemtype']  = $header['itemtype'];
                 $comments[0]['itemid']    = $header['itemid'];
                 $comments[0]['parent_id'] = $header['parent_id'];
-                $comments[0]['author']    = ((xarUser::isLoggedIn() && !$package['postanon']) ? xarUser::getVar('name') : 'Anonymous');
+                $comments[0]['author']    = (($this->user()->isLoggedIn() && !$package['postanon']) ? $this->user()->getName() : 'Anonymous');
                 $comments[0]['id']       = 0;
                 $comments[0]['postanon']  = $package['postanon'];
                 // FIXME delete after time output testing
-                // $comments[0]['date']      = xarLocale::formatDate("%d %b %Y %H:%M:%S %Z",time());
+                // $comments[0]['date']      = $this->mls()->formatDate("%d %b %Y %H:%M:%S %Z",time());
                 $comments[0]['date']      = time();
                 $comments[0]['hostname']  = 'somewhere';
 
@@ -237,9 +237,9 @@ class ReplyMethod extends MethodClass
         $data['hooks']              = $hooks;
         $data['package']            = $package;
         $data['package']['date']    = time();
-        $data['package']['role_id']     = ((xarUser::isLoggedIn() && !$data['object']->properties['anonpost']->value) ? xarUser::getVar('id') : $anonuid);
-        $data['package']['uname']   = ((xarUser::isLoggedIn() && !$data['object']->properties['anonpost']->value) ? xarUser::getVar('uname') : 'anonymous');
-        $data['package']['name']    = ((xarUser::isLoggedIn() && !$data['object']->properties['anonpost']->value) ? xarUser::getVar('name') : 'Anonymous');
+        $data['package']['role_id']     = (($this->user()->isLoggedIn() && !$data['object']->properties['anonpost']->value) ? $this->user()->getId() : $anonuid);
+        $data['package']['uname']   = (($this->user()->isLoggedIn() && !$data['object']->properties['anonpost']->value) ? $this->user()->getUser() : 'anonymous');
+        $data['package']['name']    = (($this->user()->isLoggedIn() && !$data['object']->properties['anonpost']->value) ? $this->user()->getName() : 'Anonymous');
 
         return $data;
     }

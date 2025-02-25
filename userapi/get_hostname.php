@@ -34,11 +34,11 @@ class GetHostnameMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
+        $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
         if (!empty($forwarded)) {
             $hostname = preg_replace('/,.*/', '', $forwarded);
         } else {
-            $hostname = xarServer::getVar('REMOTE_ADDR');
+            $hostname = $this->ctl()->getServerVar('REMOTE_ADDR');
         }
         return $hostname;
     }

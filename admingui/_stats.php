@@ -59,14 +59,14 @@ function comments_admin_stats(array $args = [], $context = null)
             }
             if ($itemtype == 0) {
                 $moditem['modname'] = ucwords($modinfo['displayname']);
-                //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','main');
+                //    $moditem['modlink'] = $this->ctl()->getModuleURL($modinfo['name'], 'user', 'main');
             } else {
                 if (isset($mytypes) && !empty($mytypes[$itemtype])) {
                     $moditem['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype . ' - ' . $mytypes[$itemtype]['label'];
                     //    $moditem['modlink'] = $mytypes[$itemtype]['url'];
                 } else {
                     $moditem['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype;
-                    //    $moditem['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
+                    //    $moditem['modlink'] = $this->ctl()->getModuleURL($modinfo['name'], 'user', 'view', array('itemtype' => $itemtype));
                 }
             }
             $moditem['module_url'] = $this->mod()->getURL(

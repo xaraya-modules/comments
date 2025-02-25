@@ -42,7 +42,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
             //    $data['modlink'] = $mytypes[$itemtype]['url'];
         } else {
             $data['modname'] = ucwords($modinfo['displayname']) . ' ' . $itemtype;
-            //    $data['modlink'] = xarController::URL($modinfo['name'],'user','view',array('itemtype' => $itemtype));
+            //    $data['modlink'] = $this->ctl()->getModuleURL($modinfo['name'], 'user', 'view', array('itemtype' => $itemtype));
         }
     }
 

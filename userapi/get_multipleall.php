@@ -114,9 +114,9 @@ class GetMultipleallMethod extends MethodClass
         while (!$result->EOF) {
             $row = $result->GetRowAssoc(false);
             // FIXME delete after date output testing
-            // $row['date'] = xarLocale::formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
+            // $row['date'] = $this->mls()->formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
             $row['date'] = $row['datetime'];
-            $row['author'] = xarUser::getVar('name', $row['author']);
+            $row['author'] = $this->user($row['author'])->getName();
             $commentlist[] = $row;
             $result->MoveNext();
         }

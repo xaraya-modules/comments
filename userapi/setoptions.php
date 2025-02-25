@@ -65,12 +65,12 @@ class SetoptionsMethod extends MethodClass
             $sortby = $this->mod()->getVar('sortby');
         }
 
-        if (xarUser::isLoggedIn()) {
+        if ($this->user()->isLoggedIn()) {
             // Grab user's depth setting.
-            xarModUserVars::set('comments', 'depth', $depth);
-            xarModUserVars::set('comments', 'render', $render);
-            xarModUserVars::set('comments', 'sortby', $sortby);
-            xarModUserVars::set('comments', 'order', $order);
+            $this->mod()->setUserVar('depth', $depth);
+            $this->mod()->setUserVar('render', $render);
+            $this->mod()->setUserVar('sortby', $sortby);
+            $this->mod()->setUserVar('order', $order);
         }
 
         return true;

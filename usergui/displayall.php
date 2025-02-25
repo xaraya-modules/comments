@@ -203,15 +203,15 @@ class DisplayallMethod extends MethodClass
         // posted on that date
         $commentsarray = [];
         $timenow = time();
-        $hoursnow = xarLocale::formatDate("%H", $timenow);
+        $hoursnow = $this->mls()->formatDate("%H", $timenow);
         $dateprev = '';
         $numcomments = count($comments);
         for ($i = 0;$i < $numcomments;$i++) {
             if ($args['adddaysep'] == 'on') {
                 // find out whether to change day separator
                 $msgunixtime = $comments[$i]['datetime'];
-                $msgdate = xarLocale::formatDate("%b %d, %Y", $msgunixtime);
-                $msgday = xarLocale::formatDate("%A", $msgunixtime);
+                $msgdate = $this->mls()->formatDate("%b %d, %Y", $msgunixtime);
+                $msgday = $this->mls()->formatDate("%A", $msgunixtime);
 
                 $hoursdiff = ($timenow - $msgunixtime) / 3600;
                 if ($hoursdiff < $hoursnow && $msgdate != $dateprev) {

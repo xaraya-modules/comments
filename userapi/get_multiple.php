@@ -131,7 +131,7 @@ class GetMultipleMethod extends MethodClass
             $row['postanon'] = $row['anonpost'];
             $row['datetime'] = $row['date'];
             $row['role_id'] = $row['author'];
-            $row['author'] = xarUser::getVar('name', $row['author']);
+            $row['author'] = $this->user($row['author'])->getName();
             $arr[] = $row;
         }
 
@@ -222,9 +222,9 @@ class GetMultipleMethod extends MethodClass
         /*while (!$result->EOF) {
             $row = $result->GetRowAssoc(false);
             // FIXME Delete after date testing
-            // $row['date'] = xarLocale::formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
+            // $row['date'] = $this->mls()->formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
             $row['date'] = $row['datetime'];
-            $row['author'] = xarUser::getVar('name',$row['author']);
+            $row['author'] = $this->user($row['author'])->getName();
             Renderer::wrap_words($row['text'],80);
             $commentlist[] = $row;
             $result->MoveNext();

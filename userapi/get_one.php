@@ -79,7 +79,7 @@ class GetOneMethod extends MethodClass
         $values['datetime'] = $values['date'];
         $values['role_id'] = $values['author'];
         //Renderer::wrap_words($values['text'],80);
-        //    $values['author'] = xarUser::getVar('name',$values['author']);
+        //    $values['author'] = $this->user($values['author'])->getName();
 
         $arr[0] = $values;
         $values = $arr;
@@ -124,9 +124,9 @@ class GetOneMethod extends MethodClass
         /*while (!$result->EOF) {
             $row = $result->GetRowAssoc(false);
             // FIXME delete after date output testing
-            // $row['date'] = xarLocale::formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
+            // $row['date'] = $this->mls()->formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
             $row['date'] = $row['datetime'];
-            $row['author'] = xarUser::getVar('name',$row['author']);
+            $row['author'] = $this->user($row['author'])->getName();
             Renderer::wrap_words($row['text'],80);
             $commentlist[] = $row;
             $result->MoveNext();

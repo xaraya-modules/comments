@@ -31,7 +31,7 @@ function comments_admin_delete(array $data = [], $context = null)
     $this->var()->find('dtype', $data['dtype'], 'str', "");
 
     if (empty($data['dtype'])) {
-        return xarController::notFound(null, $context);
+        return $this->ctl()->notFound();
     }
 
     sys::import('modules.dynamicdata.class.objects.factory');

@@ -178,9 +178,9 @@ class CommentsProperty extends DataProperty
         $header['input-title']            = $this->ml('Post a new comment');
 
         $package['settings']['max_depth'] = Defines::MAX_DEPTH;
-        $package['role_id']               = xarUser::getVar('id');
-        $package['uname']                 = xarUser::getVar('uname');
-        $package['name']                  = xarUser::getVar('name');
+        $package['role_id']               = $this->user()->getId();
+        $package['uname']                 = $this->user()->getUser();
+        $package['name']                  = $this->user()->getName();
         // Bug 6175: removed $this->var()->prep() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
         $package['new_title']             = $this->var()->getCached('Comments.title', 'title');

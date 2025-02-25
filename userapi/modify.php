@@ -100,11 +100,11 @@ class ModifyMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
+        $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
         if (!empty($forwarded)) {
             $hostname = preg_replace('/,.*/', '', $forwarded);
         } else {
-            $hostname = xarServer::getVar('REMOTE_ADDR');
+            $hostname = $this->ctl()->getServerVar('REMOTE_ADDR');
         }
         $useeditstamp = $this->mod()->getVar('editstamp');
 
@@ -124,10 +124,10 @@ class ModifyMethod extends MethodClass
         */
 
         if (($useeditstamp == 1) ||
-                         (($useeditstamp == 2) && (!xarUser::isSiteAdmin()))) {
+                         (($useeditstamp == 2) && (!$this->user()->isSiteAdmin()))) {
             $text .= "\n";
             $text .= $this->mod()->template('modifiedby', [
-                'isauthor' => (xarUser::getVar('id') == $authorid),
+                'isauthor' => ($this->user()->getId() == $authorid),
                 'postanon' => $postanon, ]);
             $text .= "\n"; //let's keep the begin and end tags together around the wrapped content
         }

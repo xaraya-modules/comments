@@ -64,9 +64,9 @@ class GetoptionsMethod extends MethodClass
             }
         } else {
             // Not doing user settings for now
-            /*if (xarUser::isLoggedIn()) {
+            /*if ($this->user()->isLoggedIn()) {
                 // Grab user's depth setting.
-                $settings['depth'] = xarModUserVars::get('comments','depth');
+                $settings['depth'] = $this->mod()->getUserVar('depth');
             } else {*/
             $settings['depth'] = $this->mod()->getVar('depth');
             /*}*/
@@ -75,9 +75,9 @@ class GetoptionsMethod extends MethodClass
         if (isset($render) && !empty($render)) {
             $settings['render'] = $render;
         } else {
-            /*if (xarUser::isLoggedIn()) {
+            /*if ($this->user()->isLoggedIn()) {
                 // Grab user's depth setting.
-                $settings['render'] = xarModUserVars::get('comments','render');
+                $settings['render'] = $this->mod()->getUserVar('render');
             } else {*/
             $settings['render'] = $this->mod()->getVar('render');
             /*}*/
@@ -86,9 +86,9 @@ class GetoptionsMethod extends MethodClass
         if (isset($order) && !empty($order)) {
             $settings['order'] = $order;
         } else {
-            /*if (xarUser::isLoggedIn()) {
+            /*if ($this->user()->isLoggedIn()) {
                 // Grab user's depth setting.
-                $settings['order'] = xarModUserVars::get('comments','order');
+                $settings['order'] = $this->mod()->getUserVar('order');
             } else {*/
             $settings['order'] = $this->mod()->getVar('order');
             /*}*/
@@ -97,9 +97,9 @@ class GetoptionsMethod extends MethodClass
         if (isset($sortby) && !empty($sortby)) {
             $settings['sortby'] = $sortby;
         } else {
-            /*if (xarUser::isLoggedIn()) {
+            /*if ($this->user()->isLoggedIn()) {
                 // Grab user's depth setting.
-                $settings['sortby'] = xarModUserVars::get('comments','sortby');
+                $settings['sortby'] = $this->mod()->getUserVar('sortby');
             } else {*/
             $settings['sortby'] = $this->mod()->getVar('sortby');
             /*}*/
