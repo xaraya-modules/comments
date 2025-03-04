@@ -65,7 +65,7 @@ function comments_userapi_get_object_maxright(array $args = [], $context = null)
         return;
     }
 
-    if (!$result->EOF) {
+    if ($result->first()) {
         $node = $result->GetRowAssoc(false);
     } else {
         $node['max_right'] = 0;

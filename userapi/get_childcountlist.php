@@ -68,16 +68,11 @@ class GetChildcountlistMethod extends MethodClass
             return;
         }
 
-        if ($result->EOF) {
-            return [];
-        }
-
         $count = [];
-        while (!$result->EOF) {
+        while ($result->next()) {
             [$id, $numitems] = $result->fields;
             // return total count - 1 ... the -1 is so we don't count the comment root.
             $count[$id] = $numitems - 1;
-            $result->MoveNext();
         }
         $result->Close();
 

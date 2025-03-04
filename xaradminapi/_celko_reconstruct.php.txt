@@ -48,10 +48,9 @@ function comments_adminapi_celko_reconstruct(array $args = [], $context = null)
     }
 
     // add it to the array we will return
-    while (!$result->EOF) {
+    while ($result->next()) {
         $row = $result->GetRowAssoc(false);
         $tree[$row['id']] = $row;
-        $result->MoveNext();
     }
     $result->Close();
 

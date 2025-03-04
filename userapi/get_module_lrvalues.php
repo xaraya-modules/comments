@@ -67,14 +67,10 @@ class GetModuleLrvaluesMethod extends MethodClass
             return;
         }
 
-        if (!$result->EOF) {
-            while (!$result->EOF) {
-                $row = $result->GetRowAssoc(false);
-                $lrvalues[] = $row;
-                $result->MoveNext();
-            }
-        } else {
-            $lrvalues = [];
+        $lrvalues = [];
+        while ($result->next()) {
+            $row = $result->GetRowAssoc(false);
+            $lrvalues[] = $row;
         }
 
         $result->Close();

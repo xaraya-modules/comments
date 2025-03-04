@@ -60,7 +60,7 @@ class GetNodeLrvaluesMethod extends MethodClass
             return;
         }
 
-        if (!$result->EOF) {
+        if ($result->first()) {
             $lrvalues = $result->GetRowAssoc(false);
         } else {
             $lrvalues = [];

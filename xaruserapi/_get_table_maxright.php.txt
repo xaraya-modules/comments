@@ -38,7 +38,7 @@ function comments_userapi_get_table_maxright(/* VOID */)
         return;
     }
 
-    if (!$result->EOF) {
+    if ($result->first()) {
         $node = $result->GetRowAssoc(false);
     } else {
         $node['max_right'] = 0;

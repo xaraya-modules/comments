@@ -121,7 +121,7 @@ class GetOneMethod extends MethodClass
 
         // zip through the list of results and
         // add it to the array we will return
-        /*while (!$result->EOF) {
+        /*while ($result->next()) {
             $row = $result->GetRowAssoc(false);
             // FIXME delete after date output testing
             // $row['date'] = $this->mls()->formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
@@ -129,7 +129,6 @@ class GetOneMethod extends MethodClass
             $row['author'] = $this->user($row['author'])->getName();
             Renderer::wrap_words($row['text'],80);
             $commentlist[] = $row;
-            $result->MoveNext();
         }
 
         $result->Close();

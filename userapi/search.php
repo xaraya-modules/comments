@@ -115,11 +115,10 @@ class SearchMethod extends MethodClass
 
         // zip through the list of results and
         // add it to the array we will return
-        while (!$result->EOF) {
+        while ($result->next()) {
             $row = $result->GetRowAssoc(false);
             $row['author'] = $this->user($row['author'])->getName();
             $commentlist[] = $row;
-            $result->MoveNext();
         }
         $result->Close();
 

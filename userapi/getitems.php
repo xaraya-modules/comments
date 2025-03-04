@@ -196,7 +196,7 @@ class GetitemsMethod extends MethodClass
         }
 
         /*    $items = array();
-            while (!$result->EOF) {
+            while ($result->next()) {
                 list($id,$parent_id,$parent_url,$title,$text,$left_id,$right_id,$moduleid,$itemtype,$itemid,$date,$author,$anonpost,$numcomments) = $result->fields;
                 $items[$id] = array(
                                     'id' => $id,
@@ -214,7 +214,6 @@ class GetitemsMethod extends MethodClass
                                     'anonpost' => $anonpost,
                                     'number_comments' => $numcomments,
                 );
-                $result->MoveNext();
             }*/
         $result->close();
         return $items;

@@ -90,13 +90,12 @@ class ModcountsMethod extends MethodClass
         }
 
         $modlist = [];
-        while (!$result->EOF) {
+        while ($result->next()) {
             [$modid, $itemtype, $numcomments, $numitems] = $result->fields;
             if (!isset($modlist[$modid])) {
                 $modlist[$modid] = [];
             }
             $modlist[$modid][$itemtype] = ['items' => $numitems, 'comments' => $numcomments];
-            $result->MoveNext();
         }
         $result->close();
 

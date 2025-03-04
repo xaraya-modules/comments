@@ -93,7 +93,7 @@ class GetCountMethod extends MethodClass
             return;
         }
 
-        if ($result->EOF) {
+        if (!$result->first()) {
             return 0;
         }
 

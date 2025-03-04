@@ -90,7 +90,7 @@ class GetNodeRootMethod extends MethodClass
 
         assert($count == 1 | $count == 0);
 
-        if (!$result->EOF) {
+        if ($result->first()) {
             $node = $result->GetRowAssoc(false);
         } else {
             $node = [];

@@ -111,14 +111,13 @@ class GetMultipleallMethod extends MethodClass
             return;
         }
 
-        while (!$result->EOF) {
+        while ($result->next()) {
             $row = $result->GetRowAssoc(false);
             // FIXME delete after date output testing
             // $row['date'] = $this->mls()->formatDate("%B %d, %Y %I:%M %p",$row['datetime']);
             $row['date'] = $row['datetime'];
             $row['author'] = $this->user($row['author'])->getName();
             $commentlist[] = $row;
-            $result->MoveNext();
         }
         $result->Close();
 

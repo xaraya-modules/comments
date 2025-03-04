@@ -106,10 +106,9 @@ class GetCountlistMethod extends MethodClass
         }
 
         $count = [];
-        while (!$result->EOF) {
+        while ($result->next()) {
             [$id, $numitems] = $result->fields;
             $count[$id] = $numitems;
-            $result->MoveNext();
         }
         $result->Close();
 

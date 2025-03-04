@@ -87,7 +87,7 @@ class GetBlacklistMethod extends MethodClass
          $result =& $dbconn->SelectLimit($query, $numitems, $startnum-1);
          if (!$result) return;
          // Put items into result array.
-         for (; !$result->EOF; $result->MoveNext()) {
+         while ($result->next()) {
              list($id, $domain) = $result->fields;
                  $items[] = array('id'       => $id,
                                   'domain'   => $domain);

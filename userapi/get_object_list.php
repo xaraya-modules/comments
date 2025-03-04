@@ -75,10 +75,9 @@ class GetObjectListMethod extends MethodClass
 
         // zip through the list of results and
         // create the return array
-        while (!$result->EOF) {
+        while ($result->next()) {
             $row = $result->GetRowAssoc(false);
             $ret[$row['pageid']]['pageid'] = $row['pageid'];
-            $result->MoveNext();
         }
         $result->Close();
 

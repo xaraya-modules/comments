@@ -100,7 +100,7 @@ class CommentTreeNode extends TreeNode
 
         sys::import('xaraya.structures.sets.collection');
         $set = new BasicSet();
-        while (!$result->EOF) {
+        while ($result->next()) {
             $c = new CommentTreeNode();
             [$c->id, $c->parent_id, $c->modid, $c->itemtype, $c->objectid, $c->date, $c->author,  $c->title,
                 $c->hostname, $c->text, $c->left, $c->right, $c->status, $c->anonpost] = $result->fields;
@@ -153,7 +153,7 @@ class CommentTreeNode extends TreeNode
             return;
         }
 
-        if (!$result->EOF) {
+        if ($result->first()) {
             return true;
         } else {
             return false;
