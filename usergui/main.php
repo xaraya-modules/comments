@@ -14,9 +14,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\MethodClass;
-use xarTpl;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

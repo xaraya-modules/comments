@@ -18,7 +18,6 @@ namespace Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarMod;
 use sys;
 use Exception;
 

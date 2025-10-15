@@ -14,10 +14,7 @@ namespace Xaraya\Modules\Comments\AdminApi;
 
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
-use xarController;
-use xarModVars;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

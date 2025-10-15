@@ -16,17 +16,7 @@ use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarVar;
 use xarModHooks;
-use xarModVars;
-use xarTpl;
-use xarController;
-use xarMod;
-use xarUser;
-use xarLocale;
-use xarConfigVars;
-use DataObjectFactory;
 use sys;
 use Exception;
 

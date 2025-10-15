@@ -16,13 +16,6 @@ use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarTpl;
-use xarModVars;
-use xarController;
-use xarMod;
-use xarSec;
 use sys;
 use BadParameterException;
 

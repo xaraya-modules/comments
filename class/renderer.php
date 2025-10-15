@@ -16,7 +16,6 @@ use xarMLS;
 use xarMod;
 use xarModVars;
 use xarTpl;
-use sys;
 use BadParameterException;
 use Exception;
 

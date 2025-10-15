@@ -13,17 +13,13 @@
 
 namespace Xaraya\Modules\Comments;
 
-use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\InstallerClass;
-use xarDB;
 use xarTableDDL;
 use xarMod;
-use xarModVars;
 use xarModHooks;
 use xarPrivileges;
 use xarMasks;
 use sys;
-use Exception;
 
 sys::import('xaraya.modules.installer');
 

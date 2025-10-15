@@ -13,12 +13,6 @@ namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
-use xarVar;
-use xarTpl;
-use xarSecurity;
-use xarSec;
-use xarController;
-use DataObjectFactory;
 use sys;
 use Exception;
 

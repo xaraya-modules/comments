@@ -14,10 +14,7 @@ namespace Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarMod;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

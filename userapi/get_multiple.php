@@ -16,11 +16,6 @@ use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
-use xarMod;
-use xarDB;
-use xarUser;
-use xarModVars;
-use xarLocale;
 use sys;
 use Exception;
 

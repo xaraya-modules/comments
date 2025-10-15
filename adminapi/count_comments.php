@@ -15,7 +15,6 @@ namespace Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarDB;
 use sys;
 use BadParameterException;
 

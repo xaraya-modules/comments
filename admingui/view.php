@@ -15,15 +15,9 @@ use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
 use xarRoles;
-use xarUser;
-use xarVar;
-use xarMod;
-use xarModVars;
 use Query;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

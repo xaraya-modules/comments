@@ -16,13 +16,7 @@ use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarController;
-use xarMod;
-use DataObjectFactory;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

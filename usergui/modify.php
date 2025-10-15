@@ -15,16 +15,7 @@ namespace Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarVar;
-use xarController;
-use xarUser;
-use xarSecurity;
-use xarMod;
 use xarModHooks;
-use xarTpl;
-use xarLocale;
-use xarServer;
-use DataObjectFactory;
 use sys;
 use Exception;
 

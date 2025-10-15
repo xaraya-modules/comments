@@ -15,12 +15,7 @@ namespace Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarDB;
-use xarMod;
-use xarLocale;
-use xarUser;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

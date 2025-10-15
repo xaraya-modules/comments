@@ -15,15 +15,7 @@ namespace Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMLS;
-use xarVar;
-use xarServer;
-use xarModVars;
-use xarDB;
 use xarModHooks;
-use xarController;
-use xarUser;
-use xarTpl;
-use DataObjectFactory;
 use sys;
 use BadParameterException;
 

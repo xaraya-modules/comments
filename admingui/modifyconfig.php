@@ -17,10 +17,6 @@ namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
-use xarMod;
-use xarVar;
-use xarTpl;
-use DataObjectFactory;
 use sys;
 
 sys::import('xaraya.modules.method');
