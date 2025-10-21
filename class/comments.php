@@ -13,15 +13,15 @@
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 sys::import('xaraya.structures.tree');
-sys::import('xaraya.facades.database');
-use Xaraya\Facades\xarDB3;
+sys::import('xaraya.services.xar');
+use Xaraya\Services\xar;
 
 class Comments extends xarObject
 {
     public static function get(int $id)
     {
-        $dbconn = xarDB3::getConn();
-        $xartable = xarDB3::getTables();
+        $dbconn = xar::db()->getConn();
+        $xartable = xar::db()->getTables();
 
         $SQLquery = "SELECT id,
                                 parent_id,
@@ -74,8 +74,8 @@ class CommentTreeNode extends TreeNode
 
     public function getChildren()
     {
-        $dbconn = xarDB3::getConn();
-        $xartable = xarDB3::getTables();
+        $dbconn = xar::db()->getConn();
+        $xartable = xar::db()->getTables();
 
         $SQLquery = "SELECT id,
                                 parent_id,
@@ -118,8 +118,8 @@ class CommentTreeNode extends TreeNode
 
     public function getChildCount()
     {
-        $dbconn = xarDB3::getConn();
-        $xartable = xarDB3::getTables();
+        $dbconn = xar::db()->getConn();
+        $xartable = xar::db()->getTables();
 
         $SQLquery = "SELECT COUNT(*) FROM " . $xartable['comments'] . " WHERE parent_id = ? ORDER BY left_id";
         $bindvars = [$this->id];
@@ -135,8 +135,8 @@ class CommentTreeNode extends TreeNode
 
     public function isDescendant(CommentTreeNode $n)
     {
-        $dbconn = xarDB3::getConn();
-        $xartable = xarDB3::getTables();
+        $dbconn = xar::db()->getConn();
+        $xartable = xar::db()->getTables();
 
         $query = '
                 SELECT  P1.id
