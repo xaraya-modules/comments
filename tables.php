@@ -15,19 +15,16 @@
 
 namespace Xaraya\Modules\Comments;
 
-use xarDB;
-
 class Tables
 {
     /**
      * Pass table names back to the framework
      * @return array
      */
-    public function __invoke(?string $prefix = null)
+    public function __invoke(string $prefix = 'xar')
     {
         // Initialise table array
         $xartable = [];
-        $prefix ??= xarDB::getPrefix();
 
         // Name for template database entities
         $comments_table     = $prefix . '_comments_comments';
