@@ -179,7 +179,7 @@ class DisplayMethod extends MethodClass
         $package['settings']['max_depth'] = Defines::MAX_DEPTH;
         // Bug 6175: removed $this->var()->prep() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
-        $package['new_title']             = $this->var()->getCached('Comments.title', 'title');
+        $package['new_title']             = $this->mem()->get('Comments.title', 'title');
 
         $this->var()->find('comment_action', $data['comment_action'], 'str', 'submit');
 

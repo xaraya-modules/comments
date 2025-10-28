@@ -183,7 +183,7 @@ class CommentsProperty extends DataProperty
         $package['name']                  = $this->user()->getName();
         // Bug 6175: removed $this->var()->prep() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
-        $package['new_title']             = $this->var()->getCached('Comments.title', 'title');
+        $package['new_title']             = $this->mem()->get('Comments.title', 'title');
 
         // Let's honour the phpdoc entry at the top :-)
         /*if(isset($data['returnurl'])) {
