@@ -44,8 +44,8 @@ class UsermenuMethod extends MethodClass
             $this->var()->find('phase', $phase, 'str', 'menu');
 
             $this->tpl()->setPageTitle($this->mod('themes')->getVar('SiteName') . ' :: ' .
-                               $this->var()->prep($this->ml('Comments'))
-                               . ' :: ' . $this->var()->prep($this->ml('Your Account Preferences')));
+                               \xarVarPrep::forDisplay($this->ml('Comments'))
+                               . ' :: ' . \xarVarPrep::forDisplay($this->ml('Your Account Preferences')));
 
             switch (strtolower($phase)) {
                 case 'menu':

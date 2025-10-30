@@ -151,10 +151,10 @@ class ReplyMethod extends MethodClass
                                                          array($text,
                                                                $title));
                 */
-                $text         = $this->var()->prepHTML($text);
-                $title        = $this->var()->prep($title);
+                $text         = \xarVarPrep::htmlDisplay($text);
+                $title        = \xarVarPrep::forDisplay($title);
 
-                $package['new_title']            = $this->var()->prep($new_title);
+                $package['new_title']            = \xarVarPrep::forDisplay($new_title);
                 $data['package']               = $package;
 
                 // Create an object item for the reply
@@ -178,10 +178,10 @@ class ReplyMethod extends MethodClass
                             $package['title'], ]
                     );
 
-                $package['transformed-text']  = $this->var()->prepHTML($package['transformed-text']);
-                $package['transformed-title'] = $this->var()->prep($package['transformed-title']);
-                $package['text']              = $this->var()->prepHTML($package['text']);
-                $package['title']             = $this->var()->prep($package['title']);
+                $package['transformed-text']  = \xarVarPrep::htmlDisplay($package['transformed-text']);
+                $package['transformed-title'] = \xarVarPrep::forDisplay($package['transformed-title']);
+                $package['text']              = \xarVarPrep::htmlDisplay($package['text']);
+                $package['title']             = \xarVarPrep::forDisplay($package['title']);
 
                 $comments[0]['text']      = $package['text'];
                 $comments[0]['title']     = $package['title'];

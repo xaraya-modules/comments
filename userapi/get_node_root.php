@@ -85,7 +85,7 @@ class GetNodeRootMethod extends MethodClass
             return;
         }
 
-        $count = $result->RecordCount();
+        $count = $result->getRecordCount();
 
         assert($count == 1 | $count == 0);
 
