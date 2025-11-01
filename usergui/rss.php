@@ -137,7 +137,7 @@ class RssMethod extends MethodClass
             }
 
             $items[$i]['rsssummary'] = preg_replace('<br />', "\n", $item['text']);
-            $items[$i]['rsssummary'] = \xarVarPrep::forDisplay(strip_tags($item['text']));
+            $items[$i]['rsssummary'] = $this->prep()->text(strip_tags($item['text']));
         }
 
         //$output = var_export($items, 1); return "<pre>$output</pre>";

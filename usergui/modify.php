@@ -160,10 +160,10 @@ class ModifyMethod extends MethodClass
                                    $title, ]
                            );
 
-                $data['transformed_text']    = \xarVarPrep::htmlDisplay($transformed_text);
-                $data['transformed_title']   = \xarVarPrep::forDisplay($transformed_title);
-                $data['text']                = \xarVarPrep::htmlDisplay($text);
-                $data['title']               = \xarVarPrep::forDisplay($title);
+                $data['transformed_text']    = $this->prep()->html($transformed_text);
+                $data['transformed_title']   = $this->prep()->text($transformed_title);
+                $data['text']                = $this->prep()->html($text);
+                $data['title']               = $this->prep()->text($title);
                 $data['comment_action']      = 'submit';
 
                 break;
@@ -178,10 +178,10 @@ class ModifyMethod extends MethodClass
                             $package['title'], ]
                     );
 
-                $package['transformed-text']  = \xarVarPrep::htmlDisplay($package['transformed-text']);
-                $package['transformed-title'] = \xarVarPrep::htmlDisplay($package['transformed-title']);
-                $package['text']              = \xarVarPrep::forDisplay($package['text']);
-                $package['title']             = \xarVarPrep::forDisplay($package['title']);
+                $package['transformed-text']  = $this->prep()->html($package['transformed-text']);
+                $package['transformed-title'] = $this->prep()->html($package['transformed-title']);
+                $package['text']              = $this->prep()->text($package['text']);
+                $package['title']             = $this->prep()->text($package['title']);
 
                 $comments[0]['text']     = $package['text'];
                 $comments[0]['title']    = $package['title'];

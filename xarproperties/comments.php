@@ -165,8 +165,8 @@ class CommentsProperty extends DataProperty
         // run text and title through transform hooks
         if (!empty($package['comments'])) {
             foreach ($package['comments'] as $key => $comment) {
-                $comment['text'] = \xarVarPrep::htmlDisplay($comment['text']);
-                $comment['title'] = xarVarPrep::forDisplay($comment['title']);
+                $comment['text'] = $this->prep()->html($comment['text']);
+                $comment['title'] = $this->prep()->text($comment['title']);
                 // say which pieces of text (array keys) you want to be transformed
                 $comment['transform'] = ['text'];
                 // call the item transform hooks
@@ -181,7 +181,7 @@ class CommentsProperty extends DataProperty
         $package['role_id']               = $this->user()->getId();
         $package['uname']                 = $this->user()->getUser();
         $package['name']                  = $this->user()->getName();
-        // Bug 6175: removed xarVarPrep::forDisplay() from the title, as articles already
+        // Bug 6175: removed $this->prep()->text() from the title, as articles already
         // does this *but* maybe needs fixing in articles instead?
         $package['new_title']             = $this->mem()->get('Comments.title', 'title');
 

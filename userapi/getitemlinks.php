@@ -65,7 +65,7 @@ class GetitemlinksMethod extends MethodClass
                 ['id' => $itemid]
             ),
                 'title' => $this->ml('Display Comment'),
-                'label' => \xarVarPrep::forDisplay($title), ];
+                'label' => $this->prep()->text($title), ];
         }
         return $itemlinks;
     }

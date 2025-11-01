@@ -251,9 +251,9 @@ class DisplayallMethod extends MethodClass
                     $comments[$i]['title'] = substr($comments[$i]['title'], 0, $args['truncate']) . '...';
                 }
             }
-            $comments[$i]['subject'] = \xarVarPrep::forDisplay($comments[$i]['subject']);
+            $comments[$i]['subject'] = $this->prep()->text($comments[$i]['subject']);
             if (!empty($comments[$i]['text'])) {
-                $comments[$i]['text'] = \xarVarPrep::htmlDisplay($comments[$i]['text']);
+                $comments[$i]['text'] = $this->prep()->html($comments[$i]['text']);
             }
             [$comments[$i]['text'],
                 $comments[$i]['subject']] = xarModHooks::call(
