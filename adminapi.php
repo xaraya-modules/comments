@@ -12,9 +12,6 @@
 namespace Xaraya\Modules\Comments;
 
 use Xaraya\Modules\AdminApiClass;
-use sys;
-
-sys::import('xaraya.modules.adminapi');
 
 /**
  * Handle the comments admin API

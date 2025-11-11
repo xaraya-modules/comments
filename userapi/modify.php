@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMLS;
 use xarModHooks;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi modify function
@@ -115,8 +111,8 @@ class ModifyMethod extends MethodClass
         }
         */
 
-        if (($useeditstamp == 1) ||
-                         (($useeditstamp == 2) && (!$this->user()->isSiteAdmin()))) {
+        if (($useeditstamp == 1)
+                         || (($useeditstamp == 2) && (!$this->user()->isSiteAdmin()))) {
             $text .= "\n";
             $text .= $this->mod()->template('modifiedby', [
                 'isauthor' => ($this->user()->getId() == $authorid),
@@ -124,7 +120,6 @@ class ModifyMethod extends MethodClass
             $text .= "\n"; //let's keep the begin and end tags together around the wrapped content
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $object = $this->data()->getObject([
             'name' => 'comments_comments',
         ]);

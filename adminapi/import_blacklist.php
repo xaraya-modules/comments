@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
-
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarTableDDL;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi import_blacklist function
@@ -39,7 +35,6 @@ class ImportBlacklistMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         extract($args);
-        sys::import('xaraya.tableddl');
         $dbconn = $this->db()->getConn();
         $xartable = & $this->db()->getTables();
         $btable = $xartable['blacklist'];

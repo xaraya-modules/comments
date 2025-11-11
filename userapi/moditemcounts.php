@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi moditemcounts function
@@ -41,7 +37,6 @@ class ModitemcountsMethod extends MethodClass
 
         extract($args);
 
-        sys::import('modules.dynamicdata.class.objects.factory');
 
         foreach ($items as $item) {
             if (!isset($itemid) || $itemid != $item['itemid']) {

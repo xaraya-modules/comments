@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comments module - Allows users to post comments on items
  *
@@ -17,7 +18,6 @@
  * @package dynamicdata
  *
  */
-sys::import('modules.dynamicdata.class.properties.base');
 
 class CommentsNumberOfProperty extends DataProperty
 {
@@ -30,18 +30,18 @@ class CommentsNumberOfProperty extends DataProperty
     {
         $args = [];
         $baseInfo = [
-                            'id'         => 104,
-                            'name'       => 'numcomments',
-                            'label'      => '# of Comments',
-                            'format'     => '104',
-                            'validation' => 'comments_userapi_get_count',
-                            'source'     => 'user function',
-                            'dependancies' => '',
-                            'requiresmodule' => 'comments',
-                            'aliases' => '',
-                            'args'           => serialize($args),
-                            // ...
-                           ];
+            'id'         => 104,
+            'name'       => 'numcomments',
+            'label'      => '# of Comments',
+            'format'     => '104',
+            'validation' => 'comments_userapi_get_count',
+            'source'     => 'user function',
+            'dependancies' => '',
+            'requiresmodule' => 'comments',
+            'aliases' => '',
+            'args'           => serialize($args),
+            // ...
+        ];
         return $baseInfo;
     }
 }

@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_blacklist function
@@ -50,7 +46,6 @@ class GetBlacklistMethod extends MethodClass
         }
         $items = [];
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $list = $this->data()->getObjectList([
             'name' => 'comments_blacklist',
             'numitems' => $numitems,

@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi search function

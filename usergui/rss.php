@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user rss function
@@ -133,7 +129,7 @@ class RssMethod extends MethodClass
                 }
             } else {
                 // We'll use the comment link instead
-                $items[$i]['link'] = $this->mod()->getURL( 'user', 'display', ['id' => $item['id']]);
+                $items[$i]['link'] = $this->mod()->getURL('user', 'display', ['id' => $item['id']]);
             }
 
             $items[$i]['rsssummary'] = preg_replace('<br />', "\n", $item['text']);

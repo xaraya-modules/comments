@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments admin importblacklist function

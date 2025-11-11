@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
-
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi sort function

@@ -11,17 +11,13 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
 use xarModHooks;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user display function
@@ -93,7 +89,6 @@ class DisplayMethod extends MethodClass
         # --------------------------------------------------------
         # Get the current comment
         #
-        sys::import('modules.dynamicdata.class.objects.factory');
         $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
         if (!empty($data['selected_id'])) {
             $data['object']->getItem(['itemid' => $data['selected_id']]);

@@ -13,10 +13,7 @@ namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments admin modify function
@@ -55,7 +52,6 @@ class ModifyMethod extends MethodClass
         $data['id'] = $id;
 
         // Load the DD master object class. This line will likely disappear in future versions
-        sys::import('modules.dynamicdata.class.objects.factory');
 
         // Get the object name
         $commentsobject = $this->data()->getObject(['name' => 'comments']);

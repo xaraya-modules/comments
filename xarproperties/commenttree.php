@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * CommentTree Property
@@ -12,7 +13,6 @@
  *
  */
 
-sys::import('modules.comments.class.comments');
 
 class CommentTreeProperty extends DataProperty
 {
@@ -51,8 +51,8 @@ class CommentTreeProperty extends DataProperty
             'user',
             'get_node_root',
             ['modid' => $this->mod()->getID($module),
-                              'objectid' => $itemid,
-                              'itemtype' => $itemtype, ]
+                'objectid' => $itemid,
+                'itemtype' => $itemtype, ]
         );
 
         // If we don't have one, make one
@@ -62,8 +62,8 @@ class CommentTreeProperty extends DataProperty
                 'user',
                 'add_rootnode',
                 ['modid'    => $this->mod()->getID($module),
-                                        'objectid' => $itemid,
-                                        'itemtype' => $itemtype, ]
+                    'objectid' => $itemid,
+                    'itemtype' => $itemtype, ]
             );
             if (empty($cid)) {
                 throw new Exception('Unable to create root node');
@@ -74,9 +74,9 @@ class CommentTreeProperty extends DataProperty
             'user',
             'display',
             ['objectid' => $itemid,
-                                       'module' => $module,
-                                       'itemtype' => $itemtype,
-                                       'returnurl' => $this->ctl()->getCurrentURL(), ]
+                'module' => $module,
+                'itemtype' => $itemtype,
+                'returnurl' => $this->ctl()->getCurrentURL(), ]
         );
         /*if (isset($data['options'])) {
             $this->options = $data['options'];

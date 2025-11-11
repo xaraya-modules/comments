@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarRoles;
 use xarModHooks;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user search function

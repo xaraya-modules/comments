@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user main function

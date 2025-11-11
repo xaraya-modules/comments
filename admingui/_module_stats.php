@@ -150,7 +150,6 @@ function comments_admin_module_stats(array $args = [], $context = null)
         $numitems = 0;
     }
     if ($numstats < $numitems) {
-        sys::import('modules.base.class.pager');
         $data['pager'] = xarTplPager::getPager(
             $startnum,
             $numitems,

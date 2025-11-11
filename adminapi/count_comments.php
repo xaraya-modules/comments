@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
-
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi count_comments function
@@ -99,7 +95,7 @@ class CountCommentsMethod extends MethodClass
                     $where_status = "status = " . Defines::STATUS_OFF;
                     break;
                 default:
-                //case 'active':
+                    //case 'active':
                     $where_status = "status != " . Defines::STATUS_ROOT_NODE;
             }
         }

@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use Query;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi getitems function
@@ -123,7 +119,6 @@ class GetitemsMethod extends MethodClass
             $filters = [];
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         //    $list = $this->data()->getObjectList(array(
         //                            'name' => 'comments_comments'
         //        ));
@@ -134,7 +129,6 @@ class GetitemsMethod extends MethodClass
 
         //    return $items;
 
-        sys::import('xaraya.structures.query');
         $tables = & $this->db()->getTables();
         $q = new Query('SELECT', $tables['comments']);
         $q->eq('module_id', $moduleid);

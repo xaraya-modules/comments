@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comments Module
  *
@@ -11,7 +12,6 @@
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
-sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class Comments_LatestcommentsBlock extends BasicBlock implements iBlock
 {

@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
-
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi remove_module function

@@ -14,11 +14,8 @@ namespace Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments admin module_stats function
@@ -91,12 +88,14 @@ class ModuleStatsMethod extends MethodClass
             $args['itemtype'] = $itemtypearg;
         }
         // all the items and their number of comments (excluding root nodes) for this module
-        $moditems = $userapi->moditemcounts($args
+        $moditems = $userapi->moditemcounts(
+            $args
         );
 
         // inactive
         $args['status'] = 'inactive';
-        $inactive = $userapi->moditemcounts($args
+        $inactive = $userapi->moditemcounts(
+            $args
         );
 
         // get the title and url for the items
@@ -167,7 +166,8 @@ class ModuleStatsMethod extends MethodClass
         );
 
         // get statistics for all comments (excluding root nodes)
-        $modlist = $userapi->modcounts(['modid' => $modid,
+        $modlist = $userapi->modcounts(
+            ['modid' => $modid,
                 'itemtype' => $urlitemtype, ]
         );
         if (isset($modlist[$modid]) && isset($modlist[$modid][$urlitemtype])) {

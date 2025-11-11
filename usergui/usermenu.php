@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user usermenu function
@@ -43,8 +39,8 @@ class UsermenuMethod extends MethodClass
         if ($this->sec()->checkAccess('ReadComments', 0)) {
             $this->var()->find('phase', $phase, 'str', 'menu');
 
-            $this->tpl()->setPageTitle($this->mod('themes')->getVar('SiteName') . ' :: ' .
-                               $this->prep()->text($this->ml('Comments'))
+            $this->tpl()->setPageTitle($this->mod('themes')->getVar('SiteName') . ' :: '
+                               . $this->prep()->text($this->ml('Comments'))
                                . ' :: ' . $this->prep()->text($this->ml('Your Account Preferences')));
 
             switch (strtolower($phase)) {
@@ -55,7 +51,7 @@ class UsermenuMethod extends MethodClass
                         'usermenu_icon',
                         [
                             'icon' => $icon,
-                            'usermenu_form_url' => $this->mod()->getURL( 'user', 'usermenu', ['phase' => 'form']),
+                            'usermenu_form_url' => $this->mod()->getURL('user', 'usermenu', ['phase' => 'form']),
                         ]
                     );
                     break;

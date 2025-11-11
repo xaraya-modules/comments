@@ -11,16 +11,12 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarModHooks;
-use sys;
 use BadParameterException;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi add function
@@ -144,7 +140,8 @@ class AddMethod extends MethodClass
         // left and right values cuz we're adding the new comment
         // as a top level comment
         if ($parent_id == 0) {
-            $root_lnr = $userapi->get_node_root(['moduleid' => $moduleid,
+            $root_lnr = $userapi->get_node_root(
+                ['moduleid' => $moduleid,
                     'itemid'   => $itemid,
                     'itemtype' => $itemtype, ]
             );
@@ -154,7 +151,8 @@ class AddMethod extends MethodClass
             // moduleid/itemid combo -- so we need to create a dummy (root)
             // comment from which every other comment will branch from
             if (!count($root_lnr)) {
-                $parent_id = $userapi->add_rootnode(['moduleid' => $moduleid,
+                $parent_id = $userapi->add_rootnode(
+                    ['moduleid' => $moduleid,
                         'itemid'   => $itemid,
                         'itemtype' => $itemtype, ]
                 );
@@ -167,13 +165,15 @@ class AddMethod extends MethodClass
         assert($parent_id != 0 && !empty($parent_id));
 
         // grab the left and right values from the parent
-        $parent_lnr = $userapi->get_node_lrvalues(['id' => $parent_id]
+        $parent_lnr = $userapi->get_node_lrvalues(
+            ['id' => $parent_id]
         );
 
         // there should be -at-least- one affected row -- if not
         // then raise an exception. btw, at the very least,
         // the 'right' value of the parent node would have been affected.
-        if (!$userapi->create_gap(['startpoint' => $parent_lnr['right_id'],
+        if (!$userapi->create_gap(
+            ['startpoint' => $parent_lnr['right_id'],
                 'moduleid'   => $moduleid,
                 'itemid'     => $itemid,
                 'itemtype'   => $itemtype, ]
@@ -199,7 +199,6 @@ class AddMethod extends MethodClass
         }*/
 
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $object = $this->data()->getObject([
             'name' => 'comments_comments',
         ]);
@@ -263,8 +262,8 @@ class AddMethod extends MethodClass
         } else {
             //$id = $dbconn->PO_Insert_ID($xartable['comments'], 'id');
             // CHECKME: find some cleaner way to update the page cache if necessary
-            if (function_exists('xarOutputFlushCached') &&
-                $this->mod('cachemanager')->getVar('FlushOnNewComment')) {
+            if (function_exists('xarOutputFlushCached')
+                && $this->mod('cachemanager')->getVar('FlushOnNewComment')) {
                 $modinfo = $this->mod()->getInfo($moduleid);
                 xarOutputFlushCached("$modinfo[name]-");
                 xarOutputFlushCached("comments-block");

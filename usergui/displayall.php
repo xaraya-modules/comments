@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarModHooks;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user displayall function
@@ -37,11 +33,16 @@ class DisplayallMethod extends MethodClass
     {
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
-        $this->var()->find('modid', $args['modid'], 'array', ['all']);;
-        $this->var()->find('itemtype', $args['itemtype'], 'int');;
-        $this->var()->get('order', $args['order'], 'str', 'DESC');;
-        $this->var()->get('howmany', $args['howmany'], 'id', 20);;
-        $this->var()->get('first', $args['first'], 'id', 1);;
+        $this->var()->find('modid', $args['modid'], 'array', ['all']);
+        ;
+        $this->var()->find('itemtype', $args['itemtype'], 'int');
+        ;
+        $this->var()->get('order', $args['order'], 'str', 'DESC');
+        ;
+        $this->var()->get('howmany', $args['howmany'], 'id', 20);
+        ;
+        $this->var()->get('first', $args['first'], 'id', 1);
+        ;
 
         if (empty($args['block_is_calling'])) {
             $args['block_is_calling'] = 0;

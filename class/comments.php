@@ -12,8 +12,6 @@
  * @link http://xaraya.com/index.php/release/14.html
  * @author Marc Lutolf <mfl@netspan.ch>
  */
-sys::import('xaraya.structures.tree');
-sys::import('xaraya.services.xar');
 use Xaraya\Services\xar;
 
 class Comments extends xarObject
@@ -98,7 +96,6 @@ class CommentTreeNode extends TreeNode
             return;
         }
 
-        sys::import('xaraya.structures.sets.collection');
         $set = new BasicSet();
         while ($result->next()) {
             $c = new CommentTreeNode();

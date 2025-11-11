@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Comments\AdminApi;
 
-
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments adminapi delete_branch function
@@ -48,7 +44,8 @@ class DeleteBranchMethod extends MethodClass
         }
 
         // Grab the deletion node's left and right values
-        $comments = $userapi->get_one(['id' => $node]
+        $comments = $userapi->get_one(
+            ['id' => $node]
         );
         $left = $comments[0]['left_id'];
         $right = $comments[0]['right_id'];

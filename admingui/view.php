@@ -17,9 +17,6 @@ use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarRoles;
 use Query;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments admin view function
@@ -44,7 +41,6 @@ class ViewMethod extends MethodClass
         }
 
         // Only show top level documents, not translations
-        sys::import('xaraya.structures.query');
         $q = new Query();
         $q->ne('status', Defines::STATUS_ROOT_NODE);
 

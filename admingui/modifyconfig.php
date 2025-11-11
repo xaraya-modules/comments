@@ -17,10 +17,6 @@ namespace Xaraya\Modules\Comments\AdminGui;
 
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
-sys::import('modules.comments.defines');
 
 /**
  * comments admin modifyconfig function
@@ -47,7 +43,6 @@ class ModifyconfigMethod extends MethodClass
         $this->var()->find('phase', $phase, 'str:1:100', 'modify');
 
         // Load the DD master object class. This line will likely disappear in future versions
-        sys::import('modules.dynamicdata.class.objects.factory');
         // Get the object we'll be working with for comments-specific configuration
         $object = $this->data()->getObject(['name' => 'comments_module_settings']);
         // Get the appropriate item of the dataobject. Using itemid 0 (not passing an itemid parameter) is standard convention
@@ -135,7 +130,6 @@ class ModifyconfigMethod extends MethodClass
                 #
 
                 // Load the DD master object class. This line will likely disappear in future versions
-                sys::import('modules.dynamicdata.class.objects.factory');
                 // Get the object we'll be working with
                 $object = $this->data()->getObject(['name' => 'comments_module_settings']);
                 // Get the data from the form

@@ -11,16 +11,12 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
 use xarModHooks;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user reply function
@@ -113,7 +109,6 @@ class ReplyMethod extends MethodClass
                 # --------------------------------------------------------
                 # Create the comment object
                 #
-                sys::import('modules.dynamicdata.class.objects.factory');
                 $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
                 $data['object']->getItem(['itemid' => $data['comment_id']]);
 

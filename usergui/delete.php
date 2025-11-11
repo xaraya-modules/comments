@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Comments\UserGui;
 
-
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments user delete function
@@ -54,7 +50,6 @@ class DeleteMethod extends MethodClass
             return $this->ctl()->notFound();
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $data['object'] = $this->data()->getObject(['name' => 'comments_comments']);
         $data['object']->getItem(['itemid' => $data['id']]);
         $values = $data['object']->getFieldValues();
@@ -64,7 +59,8 @@ class DeleteMethod extends MethodClass
 
         if ($data['confirm']) {
             if ($deletebranch) {
-                $adminapi->delete_branch(['node' => $header['id']]
+                $adminapi->delete_branch(
+                    ['node' => $header['id']]
                 );
                 $this->ctl()->redirect($data['parent_url']);
                 return true;

@@ -34,7 +34,6 @@ function comments_admin_delete(array $data = [], $context = null)
         return $this->ctl()->notFound();
     }
 
-    sys::import('modules.dynamicdata.class.objects.factory');
 
     switch (strtolower($data['dtype'])) {
         case 'item': // delete just one comment

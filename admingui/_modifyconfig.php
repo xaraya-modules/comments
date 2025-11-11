@@ -12,7 +12,6 @@
  * @link http://xaraya.com/index.php/release/14.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
-sys::import('modules.comments.xarincludes.defines');
 use Xaraya\Modules\Comments\Defines;
 
 /**

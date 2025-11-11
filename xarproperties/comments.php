@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comments module - Allows users to post comments on items
  *
@@ -16,7 +17,6 @@
  * @package comments
  *
  */
-sys::import('modules.dynamicdata.class.properties.base');
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 
@@ -198,7 +198,7 @@ class CommentsProperty extends DataProperty
                 'user',
                 'getitemlinks',
                 ['itemtype' => $header['itemtype'],
-                'itemids' => [$header['objectid']]]
+                    'itemids' => [$header['objectid']]]
             );
         } catch (Exception $e) {
             $itemlinks = [];

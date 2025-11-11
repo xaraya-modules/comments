@@ -18,11 +18,7 @@ namespace Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\AdminGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
-sys::import('modules.comments.defines');
 
 /**
  * comments admin stats function
@@ -52,7 +48,8 @@ class StatsMethod extends MethodClass
 
         $modlist = $userapi->modcounts();
 
-        $inactive = $userapi->modcounts(['status' => 'inactive']
+        $inactive = $userapi->modcounts(
+            ['status' => 'inactive']
         );
 
         $moditems = [];

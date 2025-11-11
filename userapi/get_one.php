@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_one function
@@ -60,7 +56,6 @@ class GetOneMethod extends MethodClass
         // initialize the commentlist array
         $commentlist = [];
 
-        sys::import('modules.dynamicdata.class.objects.factory');
         $object = $this->data()->getObject(['name' => 'comments_comments']);
         $object->getItem(['itemid' => $id]);
         $values = $object->getFieldValues();

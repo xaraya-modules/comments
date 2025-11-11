@@ -11,15 +11,11 @@
 
 namespace Xaraya\Modules\Comments\UserApi;
 
-
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * comments userapi get_multiple function
@@ -85,7 +81,8 @@ class GetMultipleMethod extends MethodClass
         if (!isset($id) || !is_numeric($id)) {
             $id = 0;
         } else {
-            $nodelr = $userapi->get_node_lrvalues(['id' => $id]
+            $nodelr = $userapi->get_node_lrvalues(
+                ['id' => $id]
             );
         }
 
