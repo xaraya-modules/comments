@@ -86,7 +86,7 @@ class CommentsProperty extends DataProperty
         }
 
 
-        $package['settings'] = $this->mod()->apiMethod('comments', 'user', 'getoptions', $header);
+        $package['settings'] = $this->mod()->apiMethod('comments', 'userapi', 'getoptions', $header);
 
         // FIXME: clean up return url handling
 
@@ -129,7 +129,7 @@ class CommentsProperty extends DataProperty
 
 
         if (!isset($header['selected_id']) || isset($thread)) {
-            $package['comments'] = $this->mod()->apiMethod('comments', 'user', 'get_multiple', $header);
+            $package['comments'] = $this->mod()->apiMethod('comments', 'userapi', 'get_multiple', $header);
             if (count($package['comments']) > 1) {
                 $package['comments'] = Renderer::array_sort(
                     $package['comments'],
@@ -140,7 +140,7 @@ class CommentsProperty extends DataProperty
         } else {
             $header['id'] = $header['selected_id'];
             $package['settings']['render'] = Defines::VIEW_FLAT;
-            $package['comments'] = $this->mod()->apiMethod('comments', 'user', 'get_one', $header);
+            $package['comments'] = $this->mod()->apiMethod('comments', 'userapi', 'get_one', $header);
             if (!empty($package['comments'][0])) {
                 $header['modid'] = $package['comments'][0]['modid'];
                 $header['itemtype'] = $package['comments'][0]['itemtype'];
@@ -220,7 +220,7 @@ class CommentsProperty extends DataProperty
         $receipt['post_url']              = $this->mod()->getURL('user', 'reply');
         $receipt['action']                = 'display';
 
-        $hooks = $this->mod()->apiMethod('comments', 'user', 'formhooks');
+        $hooks = $this->mod()->apiMethod('comments', 'userapi', 'formhooks');
 
         //if (time() - ($package['comments']['xar_date'] - ($package['settings']['edittimelimit'] * 60))) {
         //}

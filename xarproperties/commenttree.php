@@ -48,7 +48,7 @@ class CommentTreeProperty extends DataProperty
 
         $root = $this->mod()->apiMethod(
             'comments',
-            'user',
+            'userapi',
             'get_node_root',
             ['modid' => $this->mod()->getID($module),
                 'objectid' => $itemid,
@@ -59,7 +59,7 @@ class CommentTreeProperty extends DataProperty
         if (!count($root)) {
             $cid = $this->mod()->apiMethod(
                 'comments',
-                'user',
+                'userapi',
                 'add_rootnode',
                 ['modid'    => $this->mod()->getID($module),
                     'objectid' => $itemid,
