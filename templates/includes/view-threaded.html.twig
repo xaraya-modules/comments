@@ -31,7 +31,7 @@
                     {% else %}
 
             {% if _GET['header']['id'] is not null %}
-                {% set newurl = str_replace('header[id]='._GET['header']['id'], 'header[id]='.id, xar_currenturl()) %}
+                {% set newurl = str_replace('header[id]=' ~ _GET['header']['id'], 'header[id]=' ~ id, xar_currenturl()) %}
             {% else %}
                 {% if strstr(xar_currenturl(),'?') %}
                     {% set start = xar_currenturl() ~ '&#38;' %}
@@ -117,7 +117,7 @@
                     {% else %}
 
                {% if _GET['header']['id'] is not null %}
-                {% set newurl = str_replace('header[id]='._GET['header']['id'], 'header[id]='.id, xar_currenturl()) %}
+                {% set newurl = str_replace('header[id]=' ~ _GET['header']['id'], 'header[id]=' ~ id, xar_currenturl()) %}
             {% else %}
                 {% if strstr(xar_currenturl(),'?') %}
                     {% set start = xar_currenturl() ~ '&#38;' %}
