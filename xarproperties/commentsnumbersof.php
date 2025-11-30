@@ -36,7 +36,6 @@ class CommentsNumberOfProperty extends DataProperty
             'format'     => '104',
             'validation' => 'comments_userapi_get_count',
             'source'     => 'user function',
-            'dependancies' => '',
             'requiresmodule' => 'comments',
             'aliases' => '',
             'args'           => serialize($args),
