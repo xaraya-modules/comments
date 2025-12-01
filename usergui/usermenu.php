@@ -46,7 +46,7 @@ class UsermenuMethod extends MethodClass
             switch (strtolower($phase)) {
                 case 'menu':
 
-                    $icon = $this->tpl()->getImage('comments.gif', 'comments');
+                    $icon = $this->tpl()->getImage('comments.gif', 'module', 'comments');
                     $data = $this->mod()->template(
                         'usermenu_icon',
                         [
