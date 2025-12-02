@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 use Exception;
 
 /**
@@ -257,7 +256,7 @@ class DisplayallMethod extends MethodClass
                 $comments[$i]['text'] = $this->prep()->html($comments[$i]['text']);
             }
             [$comments[$i]['text'],
-                $comments[$i]['subject']] = xarModHooks::call(
+                $comments[$i]['subject']] = $this->mod()->callHooks(
                     'item',
                     'transform',
                     $comments[$i]['id'],

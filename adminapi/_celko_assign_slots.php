@@ -35,7 +35,7 @@ function comments_adminapi_celko_assign_slots($data)
         $node_data['depth'] = $depth++;
         $node_data['left_id']  = $total++;
         if (isset($node_data['children'])) {
-            $node_data['children'] = xarMod::apiFunc(
+            $node_data['children'] = $this->mod()->apiFunc(
                 'comments',
                 'admin',
                 'celko_assign_slots',

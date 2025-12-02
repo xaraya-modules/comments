@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\AdminApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 use BadParameterException;
 
 /**
@@ -64,7 +63,7 @@ class DeleteNodeMethod extends MethodClass
         $args['module'] = 'comments';
         $args['itemtype'] = $itemtype;
         $args['itemid'] = $node;
-        xarModHooks::call('item', 'delete', $node, $args);
+        $this->mod()->callHooks('item', 'delete', $node, $args);
 
         //Now delete the item ....
         $dbconn = $this->db()->getConn();

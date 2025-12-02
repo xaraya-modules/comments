@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 use BadParameterException;
 use Exception;
 
@@ -111,11 +110,11 @@ class AddMethod extends MethodClass
         }
 
         if (!isset($hostname)) {
-            $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
+            $forwarded = $this->req()->getServerVar('HTTP_X_FORWARDED_FOR');
             if (!empty($forwarded)) {
                 $hostname = preg_replace('/,.*/', '', $forwarded);
             } else {
-                $hostname = $this->ctl()->getServerVar('REMOTE_ADDR');
+                $hostname = $this->req()->getServerVar('REMOTE_ADDR');
             }
         }
 
@@ -279,7 +278,7 @@ class AddMethod extends MethodClass
             $args['current_module'] = $modinfo['name'];
             $args['current_itemtype'] = $itemtype;
             $args['current_itemid'] = $itemid;
-            xarModHooks::call('item', 'create', $id, $args);
+            $this->mod()->callHooks('item', 'create', $id, $args);
             return $id;
         }
     }

@@ -55,9 +55,9 @@ class CommentsProperty extends DataProperty
 
         // TODO: now clean up the rest :-)
 
-        $header   = xarController::getVar('header');
-        $package  = xarController::getVar('package');
-        $receipt  = xarController::getVar('receipt');
+        $header   = $this->req()->getVar('header');
+        $package  = $this->req()->getVar('package');
+        $receipt  = $this->req()->getVar('receipt');
 
         // Fetch the module ID
         if (isset($data['modid'])) {
@@ -171,7 +171,7 @@ class CommentsProperty extends DataProperty
                 $comment['transform'] = ['text'];
                 // call the item transform hooks
                 // Note : we need to tell Xaraya explicitly that we want to invoke the hooks for 'comments' here (last argument)
-                $package['comments'][$key] = xarModHooks::call('item', 'transform', $comment['id'], $comment, 'comments');
+                $package['comments'][$key] = $this->mod()->callHooks('item', 'transform', $comment['id'], $comment, 'comments');
             }
         }
 

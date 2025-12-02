@@ -15,7 +15,6 @@ namespace Xaraya\Modules\Comments;
 
 use Xaraya\Modules\InstallerClass;
 use xarTableDDL;
-use xarMod;
 use xarModHooks;
 use xarPrivileges;
 use xarMasks;
@@ -200,7 +199,7 @@ class Installer extends InstallerClass
             'comments_blacklist',
         ];
 
-        if (!xarMod::apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
+        if (!$this->mod()->apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
             return;
         }
 
@@ -232,7 +231,7 @@ class Installer extends InstallerClass
         #
         # Set up configuration modvars (general)
         #
-        $module_settings = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'comments']);
+        $module_settings = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'comments']);
         $module_settings->initialize();
 
         # --------------------------------------------------------
@@ -344,6 +343,6 @@ class Installer extends InstallerClass
      */
     public function delete()
     {
-        return xarMod::apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'comments']);
+        return $this->mod()->apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'comments']);
     }
 }

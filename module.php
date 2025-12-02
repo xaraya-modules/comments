@@ -14,7 +14,7 @@ namespace Xaraya\Modules\Comments;
 use Xaraya\Modules\ModuleClass;
 
 /**
- * Get comments module classes via xarMod::getModule()
+ * Get comments module classes via xar::mod()->getModule()
  */
 class Module extends ModuleClass
 {

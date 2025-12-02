@@ -116,7 +116,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
                 $this->mod()->setVar('useblacklist', $useblacklist);
                 $this->mod()->setVar('usersetrendering', $usersetrendering);
             }
-            $regid = xarMod::getRegID($tabmodule);
+            $regid = $this->mod()->getRegID($tabmodule);
             $this->mod()->setItemVar('AllowPostAsAnon', $postanon, $regid);
             $this->mod()->setItemVar('AuthorizeComments', $authorize, $regid);
             $this->mod()->setItemVar('depth', $depth, $regid);
@@ -134,13 +134,13 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             /* Blacklist feed unavailable
             $this->mod()->setVar('useblacklist', $useblacklist);
             if ($useblacklist == true){
-                if (!xarMod::apiFunc('comments', 'admin', 'import_blacklist')) return;
+                if (!$this->mod()->apiFunc('comments', 'admin', 'import_blacklist')) return;
             }
             */
             if ($usersetrendering == true) {
                 //check and hook Comments to roles if not already hooked
                 if (!xarHooks::isAttached('comments', 'roles')) {
-                    xarMod::apiFunc(
+                    $this->mod()->apiFunc(
                         'modules',
                         'admin',
                         'enablehooks',
@@ -151,7 +151,7 @@ function comments_admin_modifyconfig(array $args = [], $context = null)
             } else {
                 if (xarHooks::isAttached('comments', 'roles')) {
                     //unhook Comments from roles
-                    xarMod::apiFunc(
+                    $this->mod()->apiFunc(
                         'modules',
                         'admin',
                         'disablehooks',

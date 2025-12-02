@@ -13,8 +13,6 @@ namespace Xaraya\Modules\Comments\UserApi;
 
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarMLS;
-use xarModHooks;
 use BadParameterException;
 
 /**
@@ -40,47 +38,47 @@ class ModifyMethod extends MethodClass
         $error = false;
 
         if (!isset($title)) {
-            $msg .= xarMLS::translateByKey('title ');
+            $msg .= $this->mls()->translateByKey('title ');
             $error = true;
         }
 
         if (!isset($id)) {
-            $msg .= xarMLS::translateByKey('id ');
+            $msg .= $this->mls()->translateByKey('id ');
             $error = true;
         }
 
         if (!isset($text)) {
-            $msg .= xarMLS::translateByKey('text ');
+            $msg .= $this->mls()->translateByKey('text ');
             $error = true;
         }
 
         if (!isset($postanon)) {
-            $msg .= xarMLS::translateByKey('postanon ');
+            $msg .= $this->mls()->translateByKey('postanon ');
             $error = true;
         }
 
         if (isset($itemtype) && !$this->var()->validate('int:0:', $itemtype)) {
-            $msg .= xarMLS::translateByKey('itemtype');
+            $msg .= $this->mls()->translateByKey('itemtype');
             $error = true;
         }
 
         if (isset($objectid) && !$this->var()->validate('int:1:', $objectid)) {
-            $msg .= xarMLS::translateByKey('objectid');
+            $msg .= $this->mls()->translateByKey('objectid');
             $error = true;
         }
 
         if (isset($date) && !$this->var()->validate('int:1:', $date)) {
-            $msg .= xarMLS::translateByKey('date');
+            $msg .= $this->mls()->translateByKey('date');
             $error = true;
         }
 
         if (isset($status) && !$this->var()->validate('enum:1:2:3', $status)) {
-            $msg .= xarMLS::translateByKey('status');
+            $msg .= $this->mls()->translateByKey('status');
             $error = true;
         }
 
         if (isset($useeditstamp) && !$this->var()->validate('enum:0:1:2', $useeditstamp)) {
-            $msg .= xarMLS::translateByKey('useeditstamp');
+            $msg .= $this->mls()->translateByKey('useeditstamp');
             $error = true;
         }
 
@@ -88,11 +86,11 @@ class ModifyMethod extends MethodClass
             throw new BadParameterException($msg);
         }
 
-        $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
+        $forwarded = $this->req()->getServerVar('HTTP_X_FORWARDED_FOR');
         if (!empty($forwarded)) {
             $hostname = preg_replace('/,.*/', '', $forwarded);
         } else {
-            $hostname = $this->ctl()->getServerVar('REMOTE_ADDR');
+            $hostname = $this->req()->getServerVar('REMOTE_ADDR');
         }
         $useeditstamp = $this->mod()->getVar('editstamp');
 
@@ -187,7 +185,7 @@ class ModifyMethod extends MethodClass
         $args['module'] = 'comments';
         $args['itemtype'] = 0;
         $args['itemid'] = $id;
-        xarModHooks::call('item', 'update', $id, $args);
+        $this->mod()->callHooks('item', 'update', $id, $args);
 
         return true;
     }

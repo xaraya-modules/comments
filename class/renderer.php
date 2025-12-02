@@ -12,10 +12,7 @@
 
 namespace Xaraya\Modules\Comments;
 
-use xarMLS;
-use xarMod;
-use xarModVars;
-use xarTpl;
+use Xaraya\Services\xar;
 use BadParameterException;
 use Exception;
 
@@ -138,7 +135,7 @@ class Renderer
     public static function array_markdepths_bypid(&$comments_list)
     {
         if (empty($comments_list) || !count($comments_list)) {
-            $msg = xarMLS::translate('Empty comments list');
+            $msg = xar::mls()->translate('Empty comments list');
             throw new BadParameterException($msg);
         }
 
@@ -266,7 +263,7 @@ class Renderer
             }
         }
 
-        $countlist = xarMod::apiFunc(
+        $countlist = xar::mod()->apiFunc(
             'comments',
             'user',
             'get_childcountlist',
@@ -297,11 +294,11 @@ class Renderer
 
                     // TODO: change thread_text / nested_text --> children_short_text / children_long_text
                     if ($childcount > 1) {
-                        $node['thread_text'] = xarMLS::translate('(#(1) children.)', $childcount);
-                        $node['nested_text'] = xarMLS::translate('#(1) children beneath this comment.', $childcount);
+                        $node['thread_text'] = xar::mls()->translate('(#(1) children.)', $childcount);
+                        $node['nested_text'] = xar::mls()->translate('#(1) children beneath this comment.', $childcount);
                     } else {
-                        $node['thread_text'] = xarMLS::translate('(#(1) child.)', $childcount);
-                        $node['nested_text'] = xarMLS::translate('#(1) child beneath this comment.', $childcount);
+                        $node['thread_text'] = xar::mls()->translate('(#(1) child.)', $childcount);
+                        $node['nested_text'] = xar::mls()->translate('#(1) child beneath this comment.', $childcount);
                     }
 
                     $new_list[] = $node;
@@ -500,28 +497,28 @@ class Renderer
         foreach ($matrix as $value) {
             switch ($value) {
                 case self::O_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_nosub.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_nosub.gif', $modName);
                     break;
                 case self::P_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_sub.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_sub.gif', $modName);
                     break;
                 case self::T_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_sub_branch_t.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_sub_branch_t.gif', $modName);
                     break;
                 case self::L_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_sub_branch_l.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_sub_branch_l.gif', $modName);
                     break;
                 case self::I_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_sub_line.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_sub_line.gif', $modName);
                     break;
                 case self::BLANK_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_spacer.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_spacer.gif', $modName);
                     break;
                 case self::DASH_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_sub_end.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_sub_end.gif', $modName);
                     break;
                 case self::CUTOFF_CONNECTOR:
-                    $map[] = xarTpl::getImage('n_sub_cutoff.gif', $modName);
+                    $map[] = xar::tpl()->getImage('n_sub_cutoff.gif', $modName);
                     break;
                 default:
                 case self::NO_CONNECTOR:
@@ -658,7 +655,7 @@ class Renderer
     public static function array_sort(&$comment_list, $sortby, $direction)
     {
         if (!isset($comment_list) || !is_array($comment_list)) {
-            $msg = xarMLS::translate(
+            $msg = xar::mls()->translate(
                 'Missing or invalid argument [#(1)] for #(2) function #(3) in module #(4)',
                 'comment_list',
                 'renderer',
@@ -772,7 +769,7 @@ class Renderer
     */
     public static function wrap_words(&$str, $chars)
     {
-        if (xarModVars::get('comments', 'wrap')) {
+        if (xar::mod('comments')->getVar('wrap')) {
             // Added for bug 4210 wrapping on multibyte words
             $before_lt = "[\\x21-\\x3B]"; //"space" is x20 and "<" is x3C
             $equal = "[\\x3D]";           //"=" is x3D

@@ -15,7 +15,6 @@ use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarRoles;
-use xarModHooks;
 
 /**
  * comments user search function
@@ -109,7 +108,7 @@ class SearchMethod extends MethodClass
                     $comment['transform'] = ['text'];
                     // call the item transform hooks
                     // Note : we need to tell Xaraya explicitly that we want to invoke the hooks for 'comments' here (last argument)
-                    $comment = xarModHooks::call('item', 'transform', $comment['id'], $comment, 'comments');
+                    $comment = $this->mod()->callHooks('item', 'transform', $comment['id'], $comment, 'comments');
                     // Index appears to be empty on the transform.  Is this line needed?
                     //$package['comments'][$key]['text'] = $this->prep()->html($comment['text']);
                 }

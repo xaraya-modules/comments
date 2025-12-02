@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 use Exception;
 
 /**
@@ -115,7 +114,7 @@ class ModifyMethod extends MethodClass
                 if (empty($package['settings']['edittimelimit'])
                    or (time() <= ($package['comments'][0]['xar_date'] + ($package['settings']['edittimelimit'] * 60)))
                    or $this->sec()->checkAccess('AdminComments')) {
-                    $package = xarModHooks::call(
+                    $package = $this->mod()->callHooks(
                         'item',
                         'transform-input',
                         0,
@@ -147,7 +146,7 @@ class ModifyMethod extends MethodClass
                 $text  = & $data['object']->properties['text']->value;
                 [$transformed_text,
                     $transformed_title]
-                           = xarModHooks::call(
+                           = $this->mod()->callHooks(
                                'item',
                                'transform',
                                $data['comment_id'],
@@ -165,7 +164,7 @@ class ModifyMethod extends MethodClass
             case 'preview':
             default:
                 [$package['transformed-text'],
-                    $package['transformed-title']] = xarModHooks::call(
+                    $package['transformed-title']] = $this->mod()->callHooks(
                         'item',
                         'transform',
                         $header['parent_id'],
@@ -191,11 +190,11 @@ class ModifyMethod extends MethodClass
                 // $comments[0]['date']     = $this->mls()->formatDate("%d %b %Y %H:%M:%S %Z",time());
                 $comments[0]['date']     = time();
 
-                $forwarded = $this->ctl()->getServerVar('HTTP_X_FORWARDED_FOR');
+                $forwarded = $this->req()->getServerVar('HTTP_X_FORWARDED_FOR');
                 if (!empty($forwarded)) {
                     $hostname = preg_replace('/,.*/', '', $forwarded);
                 } else {
-                    $hostname = $this->ctl()->getServerVar('REMOTE_ADDR');
+                    $hostname = $this->req()->getServerVar('REMOTE_ADDR');
                 }
 
                 $comments[0]['hostname'] = $hostname;
@@ -218,7 +217,7 @@ class ModifyMethod extends MethodClass
             $args['current_module'] = $modinfo['name'];
             $args['current_itemtype'] = $header['itemtype'];
             $args['current_itemid'] = $header['itemid'];
-            $hooks['iteminput'] = xarModHooks::call('item', 'modify', $header['id'], $args);
+            $hooks['iteminput'] = $this->mod()->callHooks('item', 'modify', $header['id'], $args);
         */
 
         $data['hooks']              = $hooks;

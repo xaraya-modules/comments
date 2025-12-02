@@ -69,10 +69,10 @@ function comments_adminapi_celko_reconstruct(array $args = [], $context = null)
     krsort($tree);
 
     // reassign the each node a celko left/right value
-    $tree = xarMod::apiFunc('comments', 'admin', 'celko_assign_slots', $tree);
+    $tree = $this->mod()->apiFunc('comments', 'admin', 'celko_assign_slots', $tree);
 
     // run through each node and update it's entry in the db
-    if (!xarMod::apiFunc('comments', 'admin', 'celko_update', $newtree)) {
+    if (!$this->mod()->apiFunc('comments', 'admin', 'celko_update', $newtree)) {
         $msg = xarML('Unable to reconstruct the comments table!');
         throw new BadParameterException($msg);
     }

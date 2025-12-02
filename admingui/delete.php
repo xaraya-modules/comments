@@ -98,7 +98,7 @@ function comments_admin_delete(array $data = [], $context = null)
             $filters['where'] = 'status ne 3';
         } else {
             $filters['where'] .= ' and status ne 3';
-            $modinfo = xarMod::getInfo($modid);
+            $modinfo = $this->mod()->getInfo($modid);
             $data['modname'] = $modinfo['displayname'];
         }
         $countitems = $countlist->getItems($filters);
@@ -127,12 +127,12 @@ function comments_admin_delete(array $data = [], $context = null)
                 return;
             }
             if ($deletebranch) {
-                xarMod::apiFunc('comments', 'admin', 'delete_branch', ['node' => $id]);
+                $this->mod()->apiFunc('comments', 'admin', 'delete_branch', ['node' => $id]);
             } else {
-                xarMod::apiFunc('comments', 'admin', 'delete_node', ['node' => $id, 'parent_id' => $values['parent_id']]);
+                $this->mod()->apiFunc('comments', 'admin', 'delete_node', ['node' => $id, 'parent_id' => $values['parent_id']]);
             }
         } else {
-            $comments = xarMod::apiFunc('comments', 'user', 'get_one', ['id' => $itemid]);
+            $comments = $this->mod()->apiFunc('comments', 'user', 'get_one', ['id' => $itemid]);
 
             if ($comments[0]['position_atomic']['right'] == $comments[0]['position_atomic']['left'] + 1) {
                 $data['haschildren'] = false;
@@ -142,7 +142,7 @@ function comments_admin_delete(array $data = [], $context = null)
         }
     }
 
-    $data['authid'] = xarSec::genAuthKey();
+    $data['authid'] = $this->sec()->genAuthKey();
 
     $data['delete_args'] = $delete_args;
 

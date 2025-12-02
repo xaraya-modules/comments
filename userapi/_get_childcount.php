@@ -44,7 +44,7 @@ function comments_userapi_get_childcount($id)
     $dbconn = $this->db()->getConn();
     $xartable = & $this->db()->getTables();
 
-    $nodelr = xarMod::apiFunc(
+    $nodelr = $this->mod()->apiFunc(
         'comments',
         'user',
         'get_node_lrvalues',

@@ -59,7 +59,7 @@ function comments_admin_delete(array $args = [], $context = null)
                 if (empty($itemtype)) {
                     $itemtype = 0;
                 }
-                $modinfo = xarMod::getInfo($modid);
+                $modinfo = $this->mod()->getInfo($modid);
                 $output['modname']    = $modinfo['name'];
                 $delete_args['modid'] = $modid;
                 $delete_args['itemtype'] = $itemtype;
@@ -93,14 +93,14 @@ function comments_admin_delete(array $args = [], $context = null)
         }
 
         if ($choice == 'yes' || $choice == 'true') {
-            if (!xarMod::apiLoad('comments', 'user')) {
+            if (!$this->mod()->apiLoad('comments', 'user')) {
                 $this->exit("COULDN'T LOAD API!!!");
             }
             $retval = true;
 
             switch (strtolower($dtype)) {
                 case 'module':
-                    xarMod::apiFunc(
+                    $this->mod()->apiFunc(
                         'comments',
                         'admin',
                         'delete_module_nodes',
@@ -109,7 +109,7 @@ function comments_admin_delete(array $args = [], $context = null)
                     );
                     break;
                 case 'object':
-                    xarMod::apiFunc(
+                    $this->mod()->apiFunc(
                         'comments',
                         'admin',
                         'delete_object_nodes',

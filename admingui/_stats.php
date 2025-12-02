@@ -28,10 +28,10 @@ function comments_admin_stats(array $args = [], $context = null)
     $output['gt_inactive']  = 0;
 
     // get statistics for all comments (excluding root nodes)
-    $modlist = xarMod::apiFunc('comments', 'user', 'getmodules');
+    $modlist = $this->mod()->apiFunc('comments', 'user', 'getmodules');
 
     // get statistics for all inactive comments
-    $inactive = xarMod::apiFunc(
+    $inactive = $this->mod()->apiFunc(
         'comments',
         'user',
         'getmodules',
@@ -40,10 +40,10 @@ function comments_admin_stats(array $args = [], $context = null)
 
     $data = [];
     foreach ($modlist as $modid => $itemtypes) {
-        $modinfo = xarMod::getInfo($modid);
+        $modinfo = $this->mod()->getInfo($modid);
         // Get the list of all item types for this module (if any)
         try {
-            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+            $mytypes = $this->mod()->apiFunc($modinfo['name'], 'user', 'getitemtypes');
         } catch (Exception $e) {
             $mytypes = [];
         }

@@ -26,14 +26,14 @@ function comments_admin_module_stats(array $args = [], $context = null)
         throw new BadParameterException($msg);
     }
 
-    $modinfo = xarMod::getInfo($modid);
+    $modinfo = $this->mod()->getInfo($modid);
     if (empty($itemtype)) {
         $data['modname'] = ucwords($modinfo['displayname']);
         $itemtype = 0;
     } else {
         // Get the list of all item types for this module (if any)
         try {
-            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+            $mytypes = $this->mod()->apiFunc($modinfo['name'], 'user', 'getitemtypes');
         } catch (Exception $e) {
             $mytypes = [];
         }
@@ -56,7 +56,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     }
 
     // get all items and their number of comments (excluding root nodes) for this module
-    $moditems = xarMod::apiFunc(
+    $moditems = $this->mod()->apiFunc(
         'comments',
         'user',
         'getitems',
@@ -68,7 +68,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     );
 
     // get the number of inactive comments for these items
-    $inactive = xarMod::apiFunc(
+    $inactive = $this->mod()->apiFunc(
         'comments',
         'user',
         'getitems',
@@ -83,7 +83,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     if (!empty($showtitle)) {
         $itemids = array_keys($moditems);
         try {
-            $itemlinks = xarMod::apiFunc(
+            $itemlinks = $this->mod()->apiFunc(
                 $modinfo['name'],
                 'user',
                 'getitemlinks',
@@ -137,7 +137,7 @@ function comments_admin_module_stats(array $args = [], $context = null)
     );
 
     // get statistics for all comments (excluding root nodes)
-    $modlist = xarMod::apiFunc(
+    $modlist = $this->mod()->apiFunc(
         'comments',
         'user',
         'getmodules',

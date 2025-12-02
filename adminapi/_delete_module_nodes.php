@@ -35,7 +35,7 @@ function comments_adminapi_delete_module_nodes(array $args = [], $context = null
 
     $return_value = true;
 
-    $pages = xarMod::apiFunc(
+    $pages = $this->mod()->apiFunc(
         'comments',
         'user',
         'get_object_list',
@@ -47,7 +47,7 @@ function comments_adminapi_delete_module_nodes(array $args = [], $context = null
         return $return_value;
     } else {
         foreach ($pages as $object) {
-            xarMod::apiFunc(
+            $this->mod()->apiFunc(
                 'comments',
                 'admin',
                 'delete_object_nodes',

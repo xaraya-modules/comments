@@ -13,7 +13,6 @@ namespace Xaraya\Modules\Comments\UserApi;
 
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 
 /**
  * comments userapi formhooks function
@@ -30,8 +29,8 @@ class FormhooksMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $hooks = [];
-        $hooks['formaction']              = xarModHooks::call('item', 'formaction', '', [], 'comments');
-        $hooks['formdisplay']             = xarModHooks::call('item', 'formdisplay', '', [], 'comments');
+        $hooks['formaction']              = $this->mod()->callHooks('item', 'formaction', '', [], 'comments');
+        $hooks['formdisplay']             = $this->mod()->callHooks('item', 'formdisplay', '', [], 'comments');
 
         if (empty($hooks['formaction'])) {
             $hooks['formaction'] = '';

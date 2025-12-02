@@ -15,7 +15,6 @@ use Xaraya\Modules\Comments\UserGui;
 use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 use Exception;
 
 /**
@@ -64,7 +63,7 @@ class ReplyMethod extends MethodClass
                 // should we look at the title as well?
                 $package['transform'] = ['text'];
 
-                $package = xarModHooks::call(
+                $package = $this->mod()->callHooks(
                     'item',
                     'transform-input',
                     0,
@@ -140,7 +139,7 @@ class ReplyMethod extends MethodClass
                 /*
                             list($text,
                                  $title) =
-                                        xarModHooks::call('item',
+                                        $this->mod()->callHooks('item',
                                                         'transform',
                                                          $data['object']->properties['parent_id']->value,
                                                          array($text,
@@ -165,7 +164,7 @@ class ReplyMethod extends MethodClass
             case 'preview':
             default:
                 [$package['transformed-text'],
-                    $package['transformed-title']] = xarModHooks::call(
+                    $package['transformed-title']] = $this->mod()->callHooks(
                         'item',
                         'transform',
                         $header['parent_id'],
@@ -212,7 +211,7 @@ class ReplyMethod extends MethodClass
             $args['current_module'] = $modinfo['name'];
             $args['current_itemtype'] = $header['itemtype'];
             $args['current_itemid'] = $header['itemid'];
-            $hooks['iteminput'] = xarModHooks::call('item', 'new', 0, $args);
+            $hooks['iteminput'] = $this->mod()->callHooks('item', 'new', 0, $args);
         */
 
         # --------------------------------------------------------

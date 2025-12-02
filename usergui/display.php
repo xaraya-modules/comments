@@ -16,7 +16,6 @@ use Xaraya\Modules\Comments\UserApi;
 use Xaraya\Modules\Comments\Defines;
 use Xaraya\Modules\Comments\Renderer;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 use BadParameterException;
 
 /**
@@ -167,7 +166,7 @@ class DisplayMethod extends MethodClass
                 $comment['transform'] = ['text'];
                 // call the item transform hooks
                 // Note : we need to tell Xaraya explicitly that we want to invoke the hooks for 'comments' here (last argument)
-                $data['comments'][$key] = xarModHooks::call('item', 'transform', $comment['id'], $comment, 'comments');
+                $data['comments'][$key] = $this->mod()->callHooks('item', 'transform', $comment['id'], $comment, 'comments');
             }
         }
 

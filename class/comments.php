@@ -180,7 +180,7 @@ class CommentTree extends Tree
 {
     public function createnodes(TreeNode $node)
     {
-        $data = xarMod::apiFunc(
+        $data = xar::mod()->apiFunc(
             'categories',
             'user',
             'getcat',

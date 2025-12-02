@@ -4,7 +4,7 @@
 {#  Common Administration menu #}
     {{ xar_style({scope: "module", module: "base", file: "tabs"}) }}
 
-    {% set info = xarController..request.getInfo() %}
+    {% set info = xar_coremethod('xarController', 'getRequest').getInfo() %}
 
     {% set activetab = info[2] %}
     <div>
