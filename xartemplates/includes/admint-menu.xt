@@ -4,7 +4,7 @@
     <xar:comment>Common Administration menu</xar:comment>
     <xar:style scope="module" module="base" file="tabs" />
 
-    <xar:set name="info">xarController::getRequest()->getInfo()</xar:set>
+    <xar:set name="info">$xar->req()->getRequest()->getInfo()</xar:set>
 
     <xar:set name="activetab">$info[2]</xar:set>
     <div>
@@ -18,7 +18,7 @@
                 <xar:set name="linkclass">'xar-norm xar-norm-outline'</xar:set>
             </xar:if>
             <li class="#$tabclass#">
-              <a href="#xarController::URL('comments','admin','view')#" class="#$linkclass#">
+              <a href="#$xar->ctl()->URL('comments','admin','view')#" class="#$linkclass#">
                     View Comments
                   </a>
             </li>
@@ -32,7 +32,7 @@
                 <xar:set name="linkclass">'xar-norm xar-norm-outline'</xar:set>
             </xar:if>
             <li class="#$tabclass#">
-              <a href="#xarController::URL('comments','admin','stats')#" class="#$linkclass#">
+              <a href="#$xar->ctl()->URL('comments','admin','stats')#" class="#$linkclass#">
                     View Statistics
                   </a>
             </li>
@@ -46,7 +46,7 @@
                 <xar:set name="linkclass">'xar-norm xar-norm-outline'</xar:set>
             </xar:if>
             <li class="#$tabclass#">
-              <a href="#xarController::URL('comments','admin','modifyconfig')#" class="#$linkclass#">
+              <a href="#$xar->ctl()->URL('comments','admin','modifyconfig')#" class="#$linkclass#">
                     Modify Configuration
                   </a>
             </li>
@@ -60,7 +60,7 @@
                 <xar:set name="linkclass">'xar-norm xar-norm-outline'</xar:set>
             </xar:if>
             <li class="#$tabclass#">
-              <a href="#xarController::URL('comments','admin','overview')#" class="#$linkclass#">
+              <a href="#$xar->ctl()->URL('comments','admin','overview')#" class="#$linkclass#">
                         Overview
                     </a>
             </li>

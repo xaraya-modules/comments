@@ -2,13 +2,13 @@
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <xar:if condition="$postanon eq 1 and $isauthor eq 1">
-        <xar:set name="modifiedbyname">xarML('author')</xar:set>
+        <xar:set name="modifiedbyname">$xar->ml('author')</xar:set>
     <xar:else />
-        <xar:set name="modifiedbyname">xarUser::getVar('name')</xar:set>
+        <xar:set name="modifiedbyname">$xar->user()->getVar('name')</xar:set>
     </xar:if>
     <xar:ml>
         <xar:mlstring>[Modified by: #(1) on #(2)]</xar:mlstring>
         <xar:mlvar>#$modifiedbyname#</xar:mlvar>
-        <xar:mlvar>#xarLocale::formatDate("%B %d, %Y %I:%M %p",time())#</xar:mlvar>
+        <xar:mlvar>#$xar->mls()->formatDate("%B %d, %Y %I:%M %p",time())#</xar:mlvar>
     </xar:ml>
 </xar:template>

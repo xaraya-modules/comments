@@ -16,7 +16,7 @@
                 Comment Options
             </legend>
                 <div class="xar-form-input-wrapper">
-                    <label for="settings[depth]" class="xar-form-label" title="#xarML('Default rendering depth')#">
+                    <label for="settings[depth]" class="xar-form-label" title="#$xar->ml('Default rendering depth')#">
                         Default rendering depth
                     </label>
                     <select name="settings[depth]" id="settings-depth">
@@ -34,7 +34,7 @@
                     </select>
                 </div>
                 <div class="xar-form-input-wrapper">
-                    <label for="settings[render]" class="xar-form-label" title="#xarML('Default Rendering Style')#">
+                    <label for="settings[render]" class="xar-form-label" title="#$xar->ml('Default Rendering Style')#">
                         Default Rendering Style
                     </label>
                         <select name="settings[render]" id="settings-render">
@@ -77,7 +77,7 @@
                         </select>
                     </div>
                     <div class="xar-form-input-wrapper">
-                        <label for="settings[sortby]" class="xar-form-label" title="#xarML('Default Sorting Mode')#">
+                        <label for="settings[sortby]" class="xar-form-label" title="#$xar->ml('Default Sorting Mode')#">
                             Default Sorting Mode
                         </label>
                         <select name="settings[sortby]" id="settings-sortby">
@@ -133,7 +133,7 @@
                         </select>
                     </div>
                     <div class="xar-form-input-wrapper">
-                        <label for="settings[order]" class="xar-form-label" title="#xarML('Default Sorting Mode')#">
+                        <label for="settings[order]" class="xar-form-label" title="#$xar->ml('Default Sorting Mode')#">
                                 
                                     Default Sorting Order
                                 

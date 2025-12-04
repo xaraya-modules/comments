@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
-    <xar:set name="compare">xarServer::getCurrentURL()</xar:set>
-    <xar:set name="current">xarController::URL('roles', 'user', 'account', array('moduleload' => 'comments'))</xar:set>
+    <xar:set name="compare">$xar->ctl()->getCurrentURL()</xar:set>
+    <xar:set name="current">$xar->ctl()->URL('roles', 'user', 'account', array('moduleload' => 'comments'))</xar:set>
     <xar:if condition="$compare eq $current">
         <dd class="active">
-            <a href="#xarServer::getCurrentURL()#">
+            <a href="#$xar->ctl()->getCurrentURL()#">
                 Comments
             </a>
         </dd>
     <xar:else />
         <dd>
-            <a href="#xarController::URL('roles', 'user', 'account', array('moduleload' => 'comments'))#">
+            <a href="#$xar->ctl()->URL('roles', 'user', 'account', array('moduleload' => 'comments'))#">
                 Comments
             </a>
         </dd>

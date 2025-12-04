@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <xar:sec mask="ReplyComments" catch="false">
-      <form action="#xarController::URL('comments', 'user', 'reply')#" method="post" name="post" id="post" onSubmit="submitonce(this)">
+      <form action="#$xar->ctl()->URL('comments', 'user', 'reply')#" method="post" name="post" id="post" onSubmit="submitonce(this)">
         <div class="xar-ib-wrapper xar-accent-outline">
           <xar:if condition="$hooks['formdisplay'] ne ''">
           
@@ -20,14 +20,14 @@
               <p>
                   Name
                 :
-                <xar:if condition="strtolower(xarUser::getVar('uname')) ne 'anonymous'">
-                  <a href="#xarController::URL('roles', 'user', 'display', array('id' => $package['role_id']))#">#$package['name']#</a>
-                  <xar:if condition="$receipt['action'] ne 'modify' and xarUser::isLoggedIn()">
-                    [ <a class="xar-norm" href="#xarController::URL('authsystem', 'user', 'logout')#">
+                <xar:if condition="strtolower($xar->user()->getVar('uname')) ne 'anonymous'">
+                  <a href="#$xar->ctl()->URL('roles', 'user', 'display', array('id' => $package['role_id']))#">#$package['name']#</a>
+                  <xar:if condition="$receipt['action'] ne 'modify' and $xar->user()->isLoggedIn()">
+                    [ <a class="xar-norm" href="#$xar->ctl()->URL('authsystem', 'user', 'logout')#">
                         Logout
                     </a> ]
                   </xar:if>
-                  <xar:if condition="xarModVars::get('comments','AllowPostAsAnon') eq '1'">
+                  <xar:if condition="$xar->mod('comments')->getVar('AllowPostAsAnon') eq '1'">
                     <xar:if condition="isset($package['postanon']) and $package['postanon'] eq '1'">
                       <input type="checkbox" name="package[postanon]" id="package-postanon" checked="checked"/>
                     <xar:else />
@@ -80,7 +80,7 @@
               <xar:if condition="isset($parent_url)">
                 <input type="hidden" name="parent_url" value="#$parent_url#" />
               <xar:else />
-                <input type="hidden" name="parent_url" value="#xarServer::getCurrentURL()#" />
+                <input type="hidden" name="parent_url" value="#$xar->ctl()->getCurrentURL()#" />
               </xar:if>
               <xar:var name="label">Preview</xar:var>
               <xar:button type="submit" id="receipt-action-preview" onclick="document.getElementById('receipt-action').value='preview'" value="$label"/>

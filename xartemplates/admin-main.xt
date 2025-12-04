@@ -4,7 +4,7 @@
     <xar:template file="admin-mod-head"/>
     <div class="xar-mod-body">
         <xar:var name="label">Official Icon</xar:var>
-        <img src="#xarTpl::getImage('module-generic.png', 'base')#" alt="#$label#" width="96" height="96" class="xar-module-icon"/>
+        <img src="#$xar->tpl()->getImage('module-generic.png', 'base')#" alt="#$label#" width="96" height="96" class="xar-module-icon"/>
         <h2>
             Overview
         </h2>
@@ -44,10 +44,10 @@
             Further information on the Comments module can be found at
         </p>
            <ul>
-                  <li>Comments Module Extension page at <a title="#xarML('Comments Module - Xaraya Extension 14')#" href="http://www.xaraya.com/index.php/release/14.html">Xaraya Extension and Releases</a>.
+                  <li>Comments Module Extension page at <a title="#$xar->ml('Comments Module - Xaraya Extension 14')#" href="http://www.xaraya.com/index.php/release/14.html">Xaraya Extension and Releases</a>.
                    Click on Version History tab at the bottom to get the latest release information.
                   </li>
-                  <li>Related tutorials and documentation on Comments Module found at <a href="http://www.xaraya.com/index.php/keywords/comments/" title="#xarML('Related documentation on Comments')#">Xaraya Documentation.</a>
+                  <li>Related tutorials and documentation on Comments Module found at <a href="http://www.xaraya.com/index.php/keywords/comments/" title="#$xar->ml('Related documentation on Comments')#">Xaraya Documentation.</a>
                   </li>
              </ul>
              <p class="xar-sub">

@@ -6,20 +6,20 @@
     <div class="xar-row">
             <xar:var name="label">Name:</xar:var>
             <xar:data-label property="$properties['author']" label="$label"/>
-            <xar:if condition="xarUser::isLoggedIn()">
-                <a href="#xarController::URL('roles', 'user', 'display', array('role_id' => xarUser::getVar('id')))#">
+            <xar:if condition="$xar->user()->isLoggedIn()">
+                <a href="#$xar->ctl()->URL('roles', 'user', 'display', array('role_id' => $xar->user()->getVar('id')))#">
                     <xar:data-output property="$properties['author']"/>
                 </a>
     <xar:comment><!--
                 <xar:set name="newpost">!$properties['id']->value</xar:set>
                 <xar:if condition="$newpost">
                     &#160;
-                    [ <a class="xar-norm" href="#xarController::URL('authsystem', 'user', 'logout')#">
+                    [ <a class="xar-norm" href="#$xar->ctl()->URL('authsystem', 'user', 'logout')#">
                         Logout
                     </a> ]
                 </xar:if>
     --></xar:comment>
-                <xar:if condition="xarModVars::get('comments','AllowPostAsAnon') eq 1">
+                <xar:if condition="$xar->mod('comments')->getVar('AllowPostAsAnon') eq 1">
                     &#160;
                     <xar:data-input property="$properties['anonpost']"/>
                     <xar:var name="label">Post anonymously</xar:var>

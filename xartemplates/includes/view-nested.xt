@@ -9,9 +9,9 @@
 
                 <!-- show changelog -->
                 <xar:sec mask="ModerateComments" catch="false">
-                    <xar:if condition="xarHooks::isAttached('changelog','comments')">
+                    <xar:if condition="$xar->mod()->isHooked('changelog','comments')">
                         <span class="xar-sub" style="float:right;">
-                            <a href="#xarController::URL('changelog','admin','showlog',array('modid' => 14, 'itemid'=> $comment['id']))#" title="#xarML('View Changes')#">
+                            <a href="#$xar->ctl()->URL('changelog','admin','showlog',array('modid' => 14, 'itemid'=> $comment['id']))#" title="#$xar->ml('View Changes')#">
                                 View changes
                             </a>
                         </span>

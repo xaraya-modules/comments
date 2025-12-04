@@ -40,7 +40,7 @@
             <!-- CHECK PERMISSION -->
             <li>
               <span class="xar-title">
-                <a href="#xarController::URL('comments','user','display',array('id' => $comment['id']))#">
+                <a href="#$xar->ctl()->URL('comments','user','display',array('id' => $comment['id']))#">
                 #$comment['subject']#</a>,
               </span>
               <xar:if condition="!empty($comment['title'])">
@@ -67,9 +67,9 @@
                   <xar:if condition="$addauthor ge 1">
                     <!-- AUTHOR NAME -->
                     <br />by
-                    <xar:if condition="$comment['postanon'] eq 0 or xarModVars::get('comments','AllowPostAsAnon') eq 0">
+                    <xar:if condition="$comment['postanon'] eq 0 or $xar->mod('comments')->getVar('AllowPostAsAnon') eq 0">
                       <xar:if condition="$addauthor ge 2">
-                        <a href="#xarController::URL('users','user','view')#">
+                        <a href="#$xar->ctl()->URL('users','user','view')#">
                           #$comment['author']#
                         </a>
                       <xar:else/>
@@ -81,7 +81,7 @@
                   </xar:if>
                   <xar:if condition="$adddate=='on'">
                     <!-- DATE -->
-                    on #xarLocale::formatDate("%B %d, %Y %I:%M %p",$comment['date'])#
+                    on #$xar->mls()->formatDate("%B %d, %Y %I:%M %p",$comment['date'])#
                   </xar:if>
                 </span>
             </li>

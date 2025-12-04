@@ -4,12 +4,12 @@
     <p class="xar-comments-note xar-sub">
         Note: Comments are owned by the poster. We are not responsible for their content.
     </p>
-    <xar:set name="showoptions">xarModVars::get('comments','showoptions')</xar:set>
+    <xar:set name="showoptions">$xar->mod('comments')->getVar('showoptions')</xar:set>
     <xar:if condition="empty($showoptions)">
-        <xar:if condition="xarHooks::isAttached('comments','roles', 0) and xarUser::isLoggedIn()">
+        <xar:if condition="$xar->mod()->isHooked('comments','roles', 0) and $xar->user()->isLoggedIn()">
             <p class="xar-comments-note xar-sub">
                 Change Your Comments Rendering Settings
-                <a href="#xarController::URL('roles', 'user', 'account')#">
+                <a href="#$xar->ctl()->URL('roles', 'user', 'account')#">
                     here
                 </a>.
             </p>

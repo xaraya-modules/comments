@@ -10,9 +10,9 @@
 
             <!-- show changelog -->
             <xar:sec mask="ModerateComments" catch="false">
-                <xar:if condition="xarHooks::isAttached('changelog','comments')">
+                <xar:if condition="$xar->mod()->isHooked('changelog','comments')">
                     <span class="xar-sub" style="float:right;">
-                        <a href="#xarController::URL('changelog','admin','showlog',array('moduleid' => 14, 'itemid'=> $comment['id']))#" title="#xarML('View Changes')#">
+                        <a href="#$xar->ctl()->URL('changelog','admin','showlog',array('moduleid' => 14, 'itemid'=> $comment['id']))#" title="#$xar->ml('View Changes')#">
                             View changes
                         </a>
                     </span>
@@ -25,13 +25,13 @@
         <div class="xar-accent xar-comments-comment">
             <xar:if condition="isset($transformed_text)">
                 <p>
-                    <a href="#xarServer::getCurrentURL()###comment#$comment['id']#" title="#xarML('parent_url')#" rel="bookmark">
+                    <a href="#$xar->ctl()->getCurrentURL()###comment#$comment['id']#" title="#$xar->ml('parent_url')#" rel="bookmark">
                         #
                     </a>
                 </p>
             <xar:else />
                 <p>
-                    <a href="#xarServer::getCurrentURL()###comment#$comment['id']#" title="#xarML('parent_url')#" rel="bookmark">
+                    <a href="#$xar->ctl()->getCurrentURL()###comment#$comment['id']#" title="#$xar->ml('parent_url')#" rel="bookmark">
                         #
                     </a>
                 </p>

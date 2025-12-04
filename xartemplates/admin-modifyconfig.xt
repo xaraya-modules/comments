@@ -7,7 +7,7 @@
     <div class="xar-mod-body">
         <h2>Modify Default Configuration</h2>
 
-        <form method="post" action="#xarServer::getCurrentURL()#">
+        <form method="post" action="#$xar->ctl()->getCurrentURL()#">
             <fieldset>
                 <legend>Modify content Configuration</legend>
                 <div id="mod_settings">
@@ -19,7 +19,7 @@
 
             <input type="hidden" name="objectid" value="#$object->objectid#" />
             <input type="hidden" name="itemid" value="0" />
-            <input type="hidden" name="return_url" value="#xarServer::getCurrentURL()#" />
+            <input type="hidden" name="return_url" value="#$xar->ctl()->getCurrentURL()#" />
             <xar:template file="update-button" module="base" />
         </form>
     </div>
