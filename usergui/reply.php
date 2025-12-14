@@ -82,7 +82,7 @@ class ReplyMethod extends MethodClass
                 # If something is wrong, represent the form
                 #
                 if (!$valid) {
-                    return $this->mod()->template('reply', $data);
+                    return $data;
                 }
 
                 # --------------------------------------------------------

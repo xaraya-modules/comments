@@ -112,7 +112,7 @@ class ModifyMethod extends MethodClass
         if (($useeditstamp == 1)
                          || (($useeditstamp == 2) && (!$this->user()->isSiteAdmin()))) {
             $text .= "\n";
-            $text .= $this->mod()->template('modifiedby', [
+            $text .= $this->render('modifiedby', [
                 'isauthor' => ($this->user()->getId() == $authorid),
                 'postanon' => $postanon, ]);
             $text .= "\n"; //let's keep the begin and end tags together around the wrapped content

@@ -41,6 +41,6 @@ class OverviewMethod extends MethodClass
          * else just call the main function that usually displays the overview
          */
 
-        return $this->mod()->template('main', $data, 'main');
+        return $this->render('main', $data);
     }
 }

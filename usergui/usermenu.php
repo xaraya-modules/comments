@@ -47,7 +47,7 @@ class UsermenuMethod extends MethodClass
                 case 'menu':
 
                     $icon = $this->tpl()->getImage('comments.gif', 'module', 'comments');
-                    $data = $this->mod()->template(
+                    $data = $this->render(
                         'usermenu_icon',
                         [
                             'icon' => $icon,
@@ -61,7 +61,7 @@ class UsermenuMethod extends MethodClass
                     $settings = $userapi->getoptions();
                     $settings['max_depth'] = Defines::MAX_DEPTH - 1;
                     $authid = $this->sec()->genAuthKey();
-                    $data = $this->mod()->template('usermenu_form', ['authid'   => $authid,
+                    $data = $this->render('usermenu_form', ['authid'   => $authid,
                         'settings' => $settings, ]);
                     break;
 

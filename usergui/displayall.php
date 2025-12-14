@@ -295,7 +295,7 @@ class DisplayallMethod extends MethodClass
         $templateargs['order']          = $settings['order'];
 
         if ($args['block_is_calling'] == 0) {
-            $data = $this->mod()->template('displayall', $templateargs);
+            $data = $this->render('displayall', $templateargs);
         } else {
             $templateargs['olderurl'] = $this->mod()->getURL(
                 'user',

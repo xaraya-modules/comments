@@ -126,7 +126,7 @@ class ModifyMethod extends MethodClass
                     # If something is wrong, redisplay the form
                     #
                     if (!$valid) {
-                        return $this->mod()->template('modify', $data);
+                        return $data;
                     }
 
                     # --------------------------------------------------------

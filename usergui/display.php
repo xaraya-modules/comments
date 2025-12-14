@@ -75,7 +75,7 @@ class DisplayMethod extends MethodClass
         # Bail if the proper args were not passed
         #
         if (empty($fields)) {
-            return $this->mod()->template('errors', ['layout' => 'no_direct_access']);
+            return $this->render('errors', ['layout' => 'no_direct_access']);
         }
 
         # --------------------------------------------------------

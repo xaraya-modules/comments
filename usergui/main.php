@@ -28,6 +28,6 @@ class MainMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        return $this->mod()->template('errors', ['layout' => 'no_direct_access']);
+        return $this->render('errors', ['layout' => 'no_direct_access']);
     }
 }

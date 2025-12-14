@@ -85,10 +85,10 @@ class ModifyMethod extends MethodClass
             $isvalid = $data['object']->checkInput();
 
             if (!$isvalid) {
-                return $this->mod()->template('modify', $data);
+                return $data;
             } elseif (isset($data['preview'])) {
                 // Show a preview, same thing as the above essentially
-                return $this->mod()->template('modify', $data);
+                return $data;
             } else {
                 // Good data: update the item
 
