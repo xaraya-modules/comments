@@ -90,7 +90,7 @@ class SearchMethod extends MethodClass
         if (isset($header['author'])) {
             $postinfo['header[author]'] = 1;
             $header['author'] = 1;
-            $user = xarRoles::ufindRole($author);
+            $user = $this->user()->getRole('uname', $author);
 
             $search['role_id'] = $user;
             $search['author'] = $author;
