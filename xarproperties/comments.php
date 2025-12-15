@@ -67,7 +67,7 @@ class CommentsProperty extends DataProperty
         } else {
             $this->var()->find('modid', $modid);
             if (empty($modid)) {
-                $modid = $this->mod()->getRegID($this->mod()->getName());
+                $modid = $this->mod()->getRegID($this->req()->getModule());
             }
             $data['modid'] = $modid;
             $header['modid'] = $modid;

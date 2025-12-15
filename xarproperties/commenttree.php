@@ -37,7 +37,7 @@ class CommentTreeProperty extends DataProperty
         }
         extract($data);
         if (!isset($module)) {
-            $module = $this->mod()->getName();
+            $module = $this->req()->getModule();
         }
         if (!isset($itemtype)) {
             throw new BadParameterException('itemtype');
